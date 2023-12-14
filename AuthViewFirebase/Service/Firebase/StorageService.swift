@@ -79,7 +79,7 @@ class StorageService {
     
     func downloadURLUserImage(id: String, completion: @escaping (Result<URL?, Error>) -> ()) {
         userImageRef.child(id).downloadURL { url, error in
-            guard let data = url else {
+            guard url != nil else {
                 if let error = error {
                     completion(.failure(error))
                 }

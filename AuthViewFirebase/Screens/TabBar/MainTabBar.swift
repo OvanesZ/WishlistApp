@@ -51,6 +51,8 @@ struct MainTabBar: View {
                         Text("Профиль NEW")
                     }
                 }
+                .badge("NEW")
+            
             
         }
         

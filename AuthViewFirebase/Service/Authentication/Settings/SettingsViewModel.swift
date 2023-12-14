@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-
+import FirebaseFirestore
 
 @MainActor
 final class SettingsViewModel: ObservableObject {
@@ -17,35 +17,32 @@ final class SettingsViewModel: ObservableObject {
     @Published private(set) var dbUserPersonalData: PersonalDataDBUser? = nil
     @Published var image = UIImage(named: "person")!
     @Published var isLoadImage = false
-    @Published var url: URL?
     @Published var user: PersonalDataDBUser? = nil
     
     
     // MARK: - functions
     
     
-    func updateUrlImage(url: String) {
-        Task {
-            try await UserManager.shared.updateUrlImage(userId: dbUserPersonalData?.userId ?? "", url: url)
-            self.dbUserPersonalData = try await UserManager.shared.getUserPersonalData(userId: dbUserPersonalData?.userId ?? "")
-            print("url updated")
-        }
+    
+//    func updateUrlImage(url: String) {
+//        Task {
+//            try await UserManager.shared.updateUrlImage(userId: dbUserPersonalData?.userId ?? "", url: url)
+//            self.dbUserPersonalData = try await UserManager.shared.getUserPersonalData(userId: dbUserPersonalData?.userId ?? "")
+//        }
+//    }
+    
+    func getUrlImageAsync() async throws -> URL {
+        try await StorageService.shared.downloadURLUserImageAsync(id: dbUserPersonalData?.userId ?? "")
     }
     
-    func getUrlImageAsync() {
-        Task {
-            self.url = try await StorageService.shared.downloadURLUserImageAsync(id: dbUserPersonalData?.userId ?? "")
-            updateUrlImage(url: url?.absoluteString ?? "")
-        }
-    }
-    
-//    func getUrlImage() {
+//    func getUrlImage() -> URL {
 //        StorageService.shared.downloadURLUserImage(id: dbUserPersonalData?.userId ?? "") { result in
 //            switch result {
 //            case .success(let url):
 //                if let url = url {
 //                    self.url = url
 //                    self.updateUrlImage(url: url.absoluteString)
+//                   
 //                }
 //            case .failure(let error):
 //                print(error.localizedDescription)

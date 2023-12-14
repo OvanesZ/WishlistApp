@@ -96,9 +96,7 @@ struct SettingsPersonalDataView: View {
                                     
                                 }
                                 
-                                do {
-                                    viewModel.getUrlImageAsync()
-                                }
+                                
                             }
                             
                             dismiss()

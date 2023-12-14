@@ -14,7 +14,7 @@ struct SettingView: View {
     @State private var isQuitAlertPresented = false
     @State private var userName: String = ""
     @State private var showSettingsPersonalData = false
-    @State private var id = UUID()
+    @State private var url: URL? = nil
     
     var body: some View {
         
@@ -24,39 +24,32 @@ struct SettingView: View {
                 Circle()
                     .frame(width: 200, height: 200)
                     .overlay {
+                            AsyncImage(
+                                url: url,
+                                transaction: Transaction(animation: .linear)
+                            ) { phase in
+                                switch phase {
+                                case .empty:
+                                    ProgressView()
+                                case .success(let image):
+                                    image
+                                        .resizable()
+                                        .scaledToFill()
+                                        .transition(.scale(scale: 0.1, anchor: .center))
+                                case .failure:
+                                    Image(systemName: "wifi.slash")
+                                @unknown default:
+                                    EmptyView()
+                                }
+                            }
+                            .frame(width: 200, height: 200)
+                            .background(Color.gray)
+                            .clipShape(Circle())
                         
-                        if viewModel.dbUserPersonalData?.photoUrl != nil {
-                            
-                            if let url = viewModel.dbUserPersonalData?.photoUrl {
-                                
-                                AsyncImage(url: URL(string: url)) { image in
-                                    image
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .clipShape(Circle())
-                                        .frame(width: 200, height: 200)
-                                } placeholder: {
-                                    ProgressView()
-                                }
-                                .frame(width: 80, height: 80)
-                            }
-                            
-                        } else {
-                            
-                            if let url = viewModel.dbUser?.photoUrl {
-                                
-                                AsyncImage(url: URL(string: url)) { image in
-                                    image
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .clipShape(Circle())
-                                        .frame(width: 200, height: 200)
-                                } placeholder: {
-                                    ProgressView()
-                                }
-                                .frame(width: 80, height: 80)
-                            }
-                        }
+//                            .resizable()
+//                            .scaledToFill()
+//                            .frame(width: 200, height: 200)
+//                            .clipShape(Circle())
                     }
                   
                 
@@ -75,15 +68,22 @@ struct SettingView: View {
                         
                     }
                     
+                    
                 }
+                .refreshable(action: {
+                    self.url = try? await viewModel.getUrlImageAsync()
+//                    try? await viewModel.loadCurrentDBUserPersonalData()
+
+                })
                 
                 
                 .onAppear {
                     viewModel.loadAuthProviders()
                 }
                 .task {
-                    try? await self.viewModel.loadCurrentDBUser()
-                    try? await self.viewModel.loadCurrentDBUserPersonalData()
+                    try? await viewModel.loadCurrentDBUser()
+                    try? await viewModel.loadCurrentDBUserPersonalData()
+                    self.url = try? await viewModel.getUrlImageAsync()
                 }
                 
                 .toolbar {
@@ -133,8 +133,8 @@ struct SettingView: View {
             }
           
         }
+        
     }
-    
     
 }
 
