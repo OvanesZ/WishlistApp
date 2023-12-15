@@ -41,14 +41,12 @@ struct HeaderFriendCell: View {
                         .frame(height: 25)
                         .padding(.horizontal, 20)
                     
-//                    Text("\(viewModel.friend.dateOfBirth.formatted(.dateTime.day().month().year().locale(Locale(identifier: "ru_RU"))))")
-//                        .font(.headline)
-//                        .frame(maxWidth: .infinity)
-//                        .frame(height: 25, alignment: .leading)
-//                        .padding(.horizontal, 20)
-                    
-                    if let date = viewModelSettings.dbUserPersonalData?.dateBirth {
+                    if let date = viewModelSettings.friendDbUserPersonalData?.dateBirth {
                         Text("\(date.formatted(.dateTime.day().month().year().locale(Locale(identifier: "ru_RU"))))")
+                            .font(.headline)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 25, alignment: .leading)
+                            .padding(.horizontal, 20)
                     }
                     
                 }
@@ -71,7 +69,7 @@ struct HeaderFriendCell: View {
             }
             .padding(.leading)
             .task {
-                try? await viewModelSettings.loadCurrentDBUserPersonalData()
+                try? await viewModelSettings.loadFriendDBUserPersonalData(id: viewModel.friend.userId)
             }
     }
 }

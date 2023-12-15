@@ -15,6 +15,7 @@ final class SettingsViewModel: ObservableObject {
     @Published var authProviders: [AuthProviderOption] = []
     @Published private(set) var dbUser: DBUser? = nil
     @Published private(set) var dbUserPersonalData: PersonalDataDBUser? = nil
+    @Published private(set) var friendDbUserPersonalData: PersonalDataDBUser? = nil
     @Published var image = UIImage(named: "person")!
     @Published var isLoadImage = false
     @Published var user: PersonalDataDBUser? = nil
@@ -115,6 +116,10 @@ final class SettingsViewModel: ObservableObject {
     func loadCurrentDBUserPersonalData() async throws {
         let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
         self.dbUserPersonalData = try await UserManager.shared.getUserPersonalData(userId: authDataResult.uid)
+    }
+    
+    func loadFriendDBUserPersonalData(id: String) async throws {
+        self.friendDbUserPersonalData = try await UserManager.shared.getUserPersonalData(userId: id)
     }
     
     

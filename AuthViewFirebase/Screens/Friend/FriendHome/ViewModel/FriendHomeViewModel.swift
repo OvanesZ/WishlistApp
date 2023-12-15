@@ -25,6 +25,8 @@ class FriendHomeViewModel: ObservableObject {
     }
     
     
+    
+    
 //    // MARK: -- (Добавление в друзья) Добавляю id друга в массив friendsID ///// Подписаться
 //
 //    func loadNewFriendInCollection (_ friend: UserModel) {

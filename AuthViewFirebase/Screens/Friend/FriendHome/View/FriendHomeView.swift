@@ -64,7 +64,7 @@ struct FriendHomeView: View {
             
         }
         .task {
-            try? await viewModelSettings.loadCurrentDBUserPersonalData()
+            try? await viewModelSettings.loadFriendDBUserPersonalData(id: viewModel.friend.userId)
         }
             
             
@@ -82,9 +82,7 @@ struct FriendHomeView: View {
                     }
                 }
             }
-//            .navigationTitle(viewModel.friend.displayName ?? "")
-            .navigationTitle(viewModel.friend.displayName ?? viewModelSettings.dbUserPersonalData?.userName ?? "")
-//            .onAppear(perform: viewModel.isFriendOrNo)
+            .navigationTitle(viewModel.friend.displayName ?? viewModelSettings.friendDbUserPersonalData?.userName ?? "")
             .onAppear {
                 presentModelViewModel.getPresentImage()
             }

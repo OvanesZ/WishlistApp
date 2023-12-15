@@ -24,8 +24,6 @@ final class FriendsViewModel: ObservableObject {
     
     // MARK: -- Прослушиватель всех пользователей
     
- 
-    
     func fetchUsers() {
         Firestore.firestore().collection("users").addSnapshotListener { (snapshot, error) in
             if let error = error {
