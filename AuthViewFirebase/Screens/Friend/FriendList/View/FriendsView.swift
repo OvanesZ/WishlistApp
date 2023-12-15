@@ -11,18 +11,12 @@ import Combine
 
 struct FriendsView: View {
     
-//    @ObservedObject var friendViewModel: FriendsViewModel
     @StateObject var friendViewModel: FriendsViewModel = FriendsViewModel()
     @ObservedObject var userViewModel: HomeViewModel
     @State var segmentedChoice = 0
     @State var nameFriend = ""
     @State var shouldShowCanselButton: Bool = true
     @FocusState var isFocus: Bool
-    
-//    init(friendViewModel: FriendsViewModel, userViewModel: HomeViewModel) {
-//        self.friendViewModel = friendViewModel
-//        self.userViewModel = userViewModel
-//    }
     
   
     private let keyboardPublisher = Publishers.Merge(
@@ -64,7 +58,7 @@ struct FriendsView: View {
                         
                         List {
                             ForEach(self.nameFriend.isEmpty ? friendViewModel.myFriends : friendViewModel.allUsers.filter {
-                                self.nameFriend.isEmpty ? true : $0.email.contains(nameFriend)
+                                self.nameFriend.isEmpty ? true : $0.email!.contains(nameFriend)
                             }) { friend in
                                 
                                 NavigationLink {

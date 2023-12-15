@@ -12,13 +12,13 @@ import FirebaseFirestore
 
 class FriendHomeViewModel: ObservableObject {
     
-    let friend: UserModel
+    let friend: DBUser
     @Published var wishlist: [PresentModel] = []
     @Published var isFriendForRequestArr = false
     @Published var isFriendForFriendstArr = false
     @Published var uiImage = UIImage(named: "person")
     
-    init(friend: UserModel) {
+    init(friend: DBUser) {
         self.friend = friend
         fetchWishlistFriend()
         isFriendOrNo()
@@ -43,10 +43,10 @@ class FriendHomeViewModel: ObservableObject {
     
     // MARK: -- (Добавление в друзья) Добавляю id друга в массив friendsID ///// Подписаться
    
-    func loadNewFriendInCollection (_ friend: UserModel) {
+    func loadNewFriendInCollection (_ friend: DBUser) {
         if let user = AuthService.shared.currentUser {
-            let docRefFriend = Firestore.firestore().collection("Users").document(friend.id)
-            let docRefUser = Firestore.firestore().collection("Users").document(user.uid)
+            let docRefFriend = Firestore.firestore().collection("users").document(friend.userId)
+            let docRefUser = Firestore.firestore().collection("users").document(user.uid)
             
             docRefFriend.updateData([
                 "requestToFriend": FieldValue.arrayUnion([AuthService.shared.currentUser!.uid])
@@ -59,7 +59,7 @@ class FriendHomeViewModel: ObservableObject {
             }
             
             docRefUser.updateData([
-                "friendsID": FieldValue.arrayUnion([friend.id])
+                "friendsID": FieldValue.arrayUnion([friend.userId])
             ]) { err in
                 if let err = err {
                     print("Возникла ошибка при добавлении id пользователя в коллекцию Friends: \(err)")
@@ -75,7 +75,7 @@ class FriendHomeViewModel: ObservableObject {
     // MARK: -- Прослушиватель коллекции wishlist друга
     
     func fetchWishlistFriend() {
-        let docRef = Firestore.firestore().collection("users").document(friend.id).collection("wishlist")
+        let docRef = Firestore.firestore().collection("users").document(friend.userId).collection("wishlist")
         docRef.addSnapshotListener { (snapshot, error) in
             if let error = error {
                 print(error.localizedDescription)
@@ -92,7 +92,7 @@ class FriendHomeViewModel: ObservableObject {
     func isFriendOrNo() {
         
         if let user = AuthService.shared.currentUser {
-            let docRef = Firestore.firestore().collection("Users").document(user.uid)
+            let docRef = Firestore.firestore().collection("users").document(user.uid)
             
             docRef.addSnapshotListener { snapshot, error in
                 guard let document = snapshot else {
@@ -109,13 +109,13 @@ class FriendHomeViewModel: ObservableObject {
                 guard let idFriends = data["friendsID"] as? [String] else { return }
                 
                 for id in idRequest {
-                    if self.friend.id == id {
+                    if self.friend.userId == id {
                         self.isFriendForRequestArr.toggle()
                     }
                 }
                 
                 for id in idFriends {
-                    if self.friend.id == id {
+                    if self.friend.userId == id {
                         self.isFriendForFriendstArr.toggle()
                     }
                 }
@@ -128,11 +128,11 @@ class FriendHomeViewModel: ObservableObject {
     
     func answerToRequestAllow() {
         if let user = AuthService.shared.currentUser {
-            let docRefUser = Firestore.firestore().collection("Users").document(user.uid)
+            let docRefUser = Firestore.firestore().collection("users").document(user.uid)
             
             docRefUser.updateData([
-                "friendsID": FieldValue.arrayUnion([friend.id]),
-                "requestToFriend": FieldValue.arrayRemove([friend.id])
+                "friendsID": FieldValue.arrayUnion([friend.userId]),
+                "requestToFriend": FieldValue.arrayRemove([friend.userId])
             ]) { err in
                 if let err = err {
                     print("Возникла ошибка при добавлении id пользователя в коллекцию Friends: \(err)")
@@ -148,10 +148,10 @@ class FriendHomeViewModel: ObservableObject {
     
     func answerToRequestReject() {
         if let user = AuthService.shared.currentUser {
-            let docRefUser = Firestore.firestore().collection("Users").document(user.uid)
+            let docRefUser = Firestore.firestore().collection("users").document(user.uid)
             
             docRefUser.updateData([
-                "requestToFriend": FieldValue.arrayRemove([friend.id])
+                "requestToFriend": FieldValue.arrayRemove([friend.userId])
             ]) { err in
                 if let err = err {
                     print("Возникла ошибка при добавлении id пользователя в коллекцию Friends: \(err)")
@@ -160,7 +160,7 @@ class FriendHomeViewModel: ObservableObject {
                 }
             }
             
-            let docRefFriend = Firestore.firestore().collection("Users").document(friend.id)
+            let docRefFriend = Firestore.firestore().collection("users").document(friend.userId)
             
             docRefFriend.updateData([
                 "friendsID": FieldValue.arrayRemove([AuthService.shared.currentUser!.uid])
@@ -177,7 +177,7 @@ class FriendHomeViewModel: ObservableObject {
     }
     
     func getImage() {
-        StorageService.shared.downloadUserImage(id: friend.id) { result in
+        StorageService.shared.downloadUserImage(id: friend.userId) { result in
             switch result {
             case .success(let data):
                 if let img = UIImage(data: data) {

@@ -14,10 +14,10 @@ import FirebaseStorage
 
 final class FriendsViewModel: ObservableObject {
     
-    @Published var allUsers: [UserModel] = []
-    @Published var myFriends: [UserModel] = []
-    @Published var myRequest: [UserModel] = []
-    @Published var allFriendsUser: [UserModel] = []
+    @Published var allUsers: [DBUser] = []
+    @Published var myFriends: [DBUser] = []
+    @Published var myRequest: [DBUser] = []
+    @Published var allFriendsUser: [DBUser] = []
     
     var myFriendsID: [String] = [" "]
     var myRequestID: [String] = [" "]
@@ -25,14 +25,15 @@ final class FriendsViewModel: ObservableObject {
     // MARK: -- Прослушиватель всех пользователей
     
  
+    
     func fetchUsers() {
-        Firestore.firestore().collection("Users").addSnapshotListener { (snapshot, error) in
+        Firestore.firestore().collection("users").addSnapshotListener { (snapshot, error) in
             if let error = error {
                 print(error)
                 return
             }
             self.allUsers = snapshot?.documents.compactMap {
-                try? $0.data(as: UserModel.self)
+                try? $0.data(as: DBUser.self)
             } ?? []
         }
     }
@@ -58,7 +59,7 @@ final class FriendsViewModel: ObservableObject {
     func getFriends() {
         
         if let user = AuthService.shared.currentUser {
-            let docRef = Firestore.firestore().collection("Users").document(user.uid)
+            let docRef = Firestore.firestore().collection("users").document(user.uid)
             
             docRef.addSnapshotListener { snapshot, error in
                 guard let document = snapshot else {
@@ -75,13 +76,13 @@ final class FriendsViewModel: ObservableObject {
                 self.myFriendsID = id
             }
             
-            Firestore.firestore().collection("Users").whereField("id", in: myFriendsID).getDocuments() { (querySnapshot, err) in
+            Firestore.firestore().collection("users").whereField("id", in: myFriendsID).getDocuments() { (querySnapshot, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
                     
                     self.myFriends = querySnapshot?.documents.compactMap {
-                        try? $0.data(as: UserModel.self)
+                        try? $0.data(as: DBUser.self)
                     } ?? []
                 }
             }
@@ -95,7 +96,7 @@ final class FriendsViewModel: ObservableObject {
     func getRequest() {
         
         if let user = AuthService.shared.currentUser {
-            let docRef = Firestore.firestore().collection("Users").document(user.uid)
+            let docRef = Firestore.firestore().collection("users").document(user.uid)
             docRef.addSnapshotListener { snapshot, error in
                 guard let document = snapshot else {
                     print("Ошибка при получении id друзей \(error!)")
@@ -111,12 +112,12 @@ final class FriendsViewModel: ObservableObject {
                 self.myRequestID = id
             }
             
-            Firestore.firestore().collection("Users").whereField("id", in: myRequestID).getDocuments() { (querySnapshot, err) in
+            Firestore.firestore().collection("users").whereField("id", in: myRequestID).getDocuments() { (querySnapshot, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
                     self.myRequest = querySnapshot?.documents.compactMap {
-                        try? $0.data(as: UserModel.self)
+                        try? $0.data(as: DBUser.self)
                     } ?? []
                 }
             }

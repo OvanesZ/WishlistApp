@@ -41,11 +41,11 @@ struct HeaderFriendCell: View {
                         .frame(height: 25)
                         .padding(.horizontal, 20)
                     
-                    Text("\(viewModel.friend.dateOfBirth.formatted(.dateTime.day().month().year().locale(Locale(identifier: "ru_RU"))))")
-                        .font(.headline)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 25, alignment: .leading)
-                        .padding(.horizontal, 20)
+//                    Text("\(viewModel.friend.dateOfBirth.formatted(.dateTime.day().month().year().locale(Locale(identifier: "ru_RU"))))")
+//                        .font(.headline)
+//                        .frame(maxWidth: .infinity)
+//                        .frame(height: 25, alignment: .leading)
+//                        .padding(.horizontal, 20)
                     
                 }
             }
@@ -53,7 +53,7 @@ struct HeaderFriendCell: View {
 //                viewModel.getImage()
                 isLoadImage = true
                 
-                StorageService.shared.downloadUserImage(id: viewModel.friend.id) { result in
+                StorageService.shared.downloadUserImage(id: viewModel.friend.userId) { result in
                     switch result {
                     case .success(let data):
                         isLoadImage = false

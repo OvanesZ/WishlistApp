@@ -79,7 +79,7 @@ struct FriendHomeView: View {
                     }
                 }
             }
-            .navigationTitle(viewModel.friend.displayName)
+            .navigationTitle(viewModel.friend.displayName ?? "")
 //            .onAppear(perform: viewModel.isFriendOrNo)
             .onAppear {
                 presentModelViewModel.getPresentImage()

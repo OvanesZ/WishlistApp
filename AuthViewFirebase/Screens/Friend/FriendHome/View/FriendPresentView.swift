@@ -141,7 +141,7 @@ struct FriendPresentView: View {
                     .padding(.bottom, 45)
             } else {
                 Button(action: {
-                    presentModelViewModel.reservingPresentForUserID(currentPresent, friendViewModel.friend.id)
+                    presentModelViewModel.reservingPresentForUserID(currentPresent, friendViewModel.friend.userId)
                 }) {
                     Text("Выбрать подарок")
                         .padding(.init(top: 8, leading: 15, bottom: 8, trailing: 15))

@@ -72,7 +72,7 @@ struct SettingView: View {
                 }
                 .refreshable(action: {
                     self.url = try? await viewModel.getUrlImageAsync()
-//                    try? await viewModel.loadCurrentDBUserPersonalData()
+                    try? await viewModel.loadCurrentDBUserPersonalData()
 
                 })
                 
@@ -80,11 +80,7 @@ struct SettingView: View {
                 .onAppear {
                     viewModel.loadAuthProviders()
                 }
-                .task {
-                    try? await viewModel.loadCurrentDBUser()
-                    try? await viewModel.loadCurrentDBUserPersonalData()
-                    self.url = try? await viewModel.getUrlImageAsync()
-                }
+               
                 
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
@@ -130,6 +126,11 @@ struct SettingView: View {
                 .sheet(isPresented: $showSettingsPersonalData, onDismiss: nil) {
                     SettingsPersonalDataView(viewModel: viewModel)
                 }
+            }
+            .task {
+                try? await viewModel.loadCurrentDBUser()
+                try? await viewModel.loadCurrentDBUserPersonalData()
+                self.url = try? await viewModel.getUrlImageAsync()
             }
           
         }

@@ -9,7 +9,9 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-struct DBUser: Codable {
+struct DBUser: Codable, Identifiable {
+    
+    var id: String
     let userId: String
     let isAnonymous: Bool?
     let email: String?
@@ -25,6 +27,7 @@ struct DBUser: Codable {
     var userName: String?
     
     init(auth: AuthDataResultModel) {
+        self.id = auth.uid
         self.userId = auth.uid
         self.isAnonymous = auth.isAnonymous
         self.email = auth.email
@@ -41,6 +44,7 @@ struct DBUser: Codable {
     }
     
     enum CodingKeys: String, CodingKey {
+        case id = "id"
         case userId = "user_id"
         case isAnonymous = "is_anonymous"
         case email = "email"
@@ -57,6 +61,7 @@ struct DBUser: Codable {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decode(String.self, forKey: .id)
         self.userId = try container.decode(String.self, forKey: .userId)
         self.isAnonymous = try container.decodeIfPresent(Bool.self, forKey: .isAnonymous)
         self.email = try container.decodeIfPresent(String.self, forKey: .email)
@@ -73,6 +78,7 @@ struct DBUser: Codable {
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(self.id, forKey: .id)
         try container.encode(self.userId, forKey: .userId)
         try container.encodeIfPresent(self.isAnonymous, forKey: .isAnonymous)
         try container.encodeIfPresent(self.email, forKey: .email)

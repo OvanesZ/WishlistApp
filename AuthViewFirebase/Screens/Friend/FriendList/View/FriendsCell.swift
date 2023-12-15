@@ -9,12 +9,13 @@ import SwiftUI
 
 struct FriendsCell: View {
     
-    let friend: UserModel
+    let friend: DBUser
     @State var uiImage = UIImage(named: "person")
     @State private var isLoadImage = false
-//    @State private var url: URL?
+    @State private var url: URL? = nil
+    @StateObject private var viewModel: SettingsViewModel = SettingsViewModel()
     
-    init(friend: UserModel) {
+    init(friend: DBUser) {
         self.friend = friend
     }
     
@@ -48,9 +49,31 @@ struct FriendsCell: View {
 //            }
 //            .frame(width: 20, height: 20)
             
+            AsyncImage(
+                url: url,
+                transaction: Transaction(animation: .linear)
+            ) { phase in
+                switch phase {
+                case .empty:
+                    ProgressView()
+                case .success(let image):
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .transition(.scale(scale: 0.1, anchor: .center))
+                case .failure:
+                    Image(systemName: "wifi.slash")
+                @unknown default:
+                    EmptyView()
+                }
+            }
+            .frame(width: 60, height: 60)
+            .background(Color.gray)
+            .clipShape(Circle())
             
             
-            Text(friend.email)
+            
+            Text(friend.email ?? "")
                 .padding(.leading, 3)
                 .lineLimit(2)
                 .bold()
@@ -58,7 +81,7 @@ struct FriendsCell: View {
         .onFirstAppear {
             isLoadImage = true
             
-            StorageService.shared.downloadUserImage(id: friend.id) { result in
+            StorageService.shared.downloadUserImage(id: friend.userId) { result in
                 switch result {
                 case .success(let data):
                     isLoadImage = false
@@ -86,7 +109,9 @@ struct FriendsCell: View {
 //                }
 //            }
 //        }
-        
+        .task {
+            self.url = try? await viewModel.getUrlImageFriendAsync(id: friend.userId)
+        }
         
         
     }
