@@ -10,9 +10,9 @@ import Kingfisher
 
 struct HeaderFriendCell: View {
     
+    @StateObject private var viewModelSettings: SettingsViewModel = SettingsViewModel()
     @ObservedObject var viewModel: FriendHomeViewModel
     @State private var isLoadImage = false
-    
     
     
     var body: some View {
@@ -47,6 +47,10 @@ struct HeaderFriendCell: View {
 //                        .frame(height: 25, alignment: .leading)
 //                        .padding(.horizontal, 20)
                     
+                    if let date = viewModelSettings.dbUserPersonalData?.dateBirth {
+                        Text("\(date.formatted(.dateTime.day().month().year().locale(Locale(identifier: "ru_RU"))))")
+                    }
+                    
                 }
             }
             .onFirstAppear {
@@ -64,10 +68,10 @@ struct HeaderFriendCell: View {
                         print(error.localizedDescription)
                     }
                 }
-                
-                
-                
             }
             .padding(.leading)
+            .task {
+                try? await viewModelSettings.loadCurrentDBUserPersonalData()
+            }
     }
 }

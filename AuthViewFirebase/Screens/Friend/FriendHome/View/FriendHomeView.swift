@@ -9,10 +9,10 @@ import SwiftUI
 
 struct FriendHomeView: View {
     
+    @StateObject private var viewModelSettings: SettingsViewModel = SettingsViewModel()
     @ObservedObject var viewModel: FriendHomeViewModel
     @ObservedObject var presentModelViewModel: PresentModelViewModel
     @State private var isButtonPressed = false
-    
     
     var columns: [GridItem] = [
         GridItem(.fixed(150), spacing: 20),
@@ -63,6 +63,9 @@ struct FriendHomeView: View {
             
             
         }
+        .task {
+            try? await viewModelSettings.loadCurrentDBUserPersonalData()
+        }
             
             
             ScrollView {
@@ -79,12 +82,12 @@ struct FriendHomeView: View {
                     }
                 }
             }
-            .navigationTitle(viewModel.friend.displayName ?? "")
+//            .navigationTitle(viewModel.friend.displayName ?? "")
+            .navigationTitle(viewModel.friend.displayName ?? viewModelSettings.dbUserPersonalData?.userName ?? "")
 //            .onAppear(perform: viewModel.isFriendOrNo)
             .onAppear {
                 presentModelViewModel.getPresentImage()
             }
-        
         
     }
 }
