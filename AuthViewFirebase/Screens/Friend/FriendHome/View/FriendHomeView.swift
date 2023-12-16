@@ -39,6 +39,11 @@ struct FriendHomeView: View {
                         isButtonPressed.toggle()
                     } else {
                         viewModel.loadNewFriendInCollection(viewModel.friend)
+                        
+                        // 1.
+                        Task {
+                            try await viewModel.stepOneForAddFriend(friendId: viewModel.friend.userId)
+                        }
                     }
                 } label: {
                     Text(viewModel.isFriendForRequestArr ? "Ответить на запрос" : "Подписаться")

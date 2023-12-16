@@ -52,7 +52,7 @@ struct HeaderFriendCell: View {
                 }
             }
             .onFirstAppear {
-//                viewModel.getImage()
+                
                 isLoadImage = true
                 
                 StorageService.shared.downloadUserImage(id: viewModel.friend.userId) { result in

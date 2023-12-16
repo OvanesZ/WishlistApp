@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import FirebaseAuth
 
 class DatabaseService {
     
@@ -21,6 +22,11 @@ class DatabaseService {
     private var presentRef: CollectionReference {
         return db.collection("wishlist")
     }
+    
+    private var currentUserId: String {
+        return try! AuthenticationManager.shared.getAuthenticatedUser().uid
+    }
+    
     private init() { }
     
     
@@ -90,6 +96,37 @@ class DatabaseService {
             }
         }
     }
+    
+    
+    
+    
+    
+    // MARK: - Процедура подписки на пользователя
+    
+    
+    // 1. Пользователь нажал на кнопку подписаться у найденного друга
+    
+    func updateRequestAndFriendIdAsync(friendId: String) async throws {
+        try await usersRef.document(currentUserId).collection("personalData").document(currentUserId).updateData([
+            PersonalDataDBUser.CodingKeys.friendsId.rawValue: FieldValue.arrayUnion([friendId])
+        ])
+        
+        try await usersRef.document(friendId).collection("personalData").document(friendId).updateData([
+            PersonalDataDBUser.CodingKeys.requestFriend.rawValue: FieldValue.arrayUnion([currentUserId])
+        ])
+    }
+    
+    
+    // 2. Друг ответил на запрос (подписаться в ответ)
+    
+    func stepTwoForAddFriend(friendId: String) async throws {
+        
+        
+    }
+    
+    
+    
+    
     
     
     
