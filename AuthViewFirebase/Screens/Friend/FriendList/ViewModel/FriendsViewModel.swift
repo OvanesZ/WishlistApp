@@ -58,8 +58,8 @@ final class FriendsViewModel: ObservableObject {
 
     func getFriends() {
         
-        if let user = AuthService.shared.currentUser {
-            let docRef = Firestore.firestore().collection("users").document(user.uid)
+        if let userId = try? AuthenticationManager.shared.getAuthenticatedUser().uid {
+            let docRef = Firestore.firestore().collection("users").document(userId).collection("personalData").document(userId)
             
             docRef.addSnapshotListener { snapshot, error in
                 guard let document = snapshot else {
@@ -72,11 +72,11 @@ final class FriendsViewModel: ObservableObject {
                     return
                 }
 
-                guard let id = data["friendsID"] as? [String] else { return }
+                guard let id = data["friends_id"] as? [String] else { return }
                 self.myFriendsID = id
             }
             
-            Firestore.firestore().collection("users").whereField("id", in: myFriendsID).getDocuments() { (querySnapshot, err) in
+            Firestore.firestore().collection("users").whereField("user_id", in: myFriendsID).getDocuments() { (querySnapshot, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
@@ -95,8 +95,9 @@ final class FriendsViewModel: ObservableObject {
 
     func getRequest() {
         
-        if let user = AuthService.shared.currentUser {
-            let docRef = Firestore.firestore().collection("users").document(user.uid)
+        if let userId = try? AuthenticationManager.shared.getAuthenticatedUser().uid {
+            let docRef = Firestore.firestore().collection("users").document(userId).collection("personalData").document(userId)
+            
             docRef.addSnapshotListener { snapshot, error in
                 guard let document = snapshot else {
                     print("Ошибка при получении id друзей \(error!)")
@@ -108,11 +109,11 @@ final class FriendsViewModel: ObservableObject {
                     return
                 }
 
-                guard let id = data["requestToFriend"] as? [String] else { return }
+                guard let id = data["request_friend"] as? [String] else { return }
                 self.myRequestID = id
             }
             
-            Firestore.firestore().collection("users").whereField("id", in: myRequestID).getDocuments() { (querySnapshot, err) in
+            Firestore.firestore().collection("users").whereField("user_id", in: myRequestID).getDocuments() { (querySnapshot, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {

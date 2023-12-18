@@ -106,7 +106,7 @@ class DatabaseService {
     
     // 1. Пользователь нажал на кнопку подписаться у найденного друга
     
-    func updateRequestAndFriendIdAsync(friendId: String) async throws {
+    func stepOneUserPressedAddFriendButton(friendId: String) async throws {
         try await usersRef.document(currentUserId).collection("personalData").document(currentUserId).updateData([
             PersonalDataDBUser.CodingKeys.friendsId.rawValue: FieldValue.arrayUnion([friendId])
         ])
@@ -119,12 +119,32 @@ class DatabaseService {
     
     // 2. Друг ответил на запрос (подписаться в ответ)
     
-    func stepTwoForAddFriend(friendId: String) async throws {
+    func stepTwoForAddFriendPositive(friendId: String) async throws {
         
+        try await usersRef.document(friendId).collection("personalData").document(friendId).updateData([
+            PersonalDataDBUser.CodingKeys.requestFriend.rawValue: FieldValue.arrayRemove([currentUserId])
+        ])
+        
+        try await usersRef.document(friendId).collection("personalData").document(friendId).updateData([
+            PersonalDataDBUser.CodingKeys.friendsId.rawValue: FieldValue.arrayUnion([currentUserId])
+        ])
         
     }
     
+    // 3. Друг ответил на запрос (отказал)
     
+    func stepTwoForAddFriendNegative(friendId: String) async throws {
+        
+        try await usersRef.document(currentUserId).collection("personalData").document(currentUserId).updateData([
+            PersonalDataDBUser.CodingKeys.friendsId.rawValue: FieldValue.arrayRemove([friendId])
+        ])
+        
+        try await usersRef.document(friendId).collection("personalData").document(friendId).updateData([
+            PersonalDataDBUser.CodingKeys.requestFriend.rawValue: FieldValue.arrayRemove([currentUserId])
+        ])
+        
+    }
+
     
     
     

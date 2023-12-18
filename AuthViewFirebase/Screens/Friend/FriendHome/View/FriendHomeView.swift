@@ -38,7 +38,7 @@ struct FriendHomeView: View {
                     if viewModel.isFriendForRequestArr {
                         isButtonPressed.toggle()
                     } else {
-                        viewModel.loadNewFriendInCollection(viewModel.friend)
+//                        viewModel.loadNewFriendInCollection(viewModel.friend)
                         
                         // 1.
                         Task {
@@ -51,13 +51,24 @@ struct FriendHomeView: View {
                 .buttonStyle(.bordered)
                 .confirmationDialog("Ваши действия", isPresented: $isButtonPressed) {
                     Button {
-                        viewModel.answerToRequestAllow()
+//                        viewModel.answerToRequestAllow()
+                        
+                        // 2.
+                        Task {
+                            try await viewModel.stepTwoAnswerToRequestPositive(friendId: viewModel.friend.userId)
+                        }
+                        
                     } label: {
                         Text("Разрешить")
                     }
                     
                     Button {
-                        viewModel.answerToRequestReject()
+//                        viewModel.answerToRequestReject()
+                        
+                        // 3.
+                        Task {
+                            try await viewModel.stepTwoAnswerToRequestNegative(friendId: viewModel.friend.userId)
+                        }
                     } label: {
                         Text("Отклонить")
                     }

@@ -66,13 +66,20 @@ class FriendHomeViewModel: ObservableObject {
     // 1. Пользователь нажал на кнопку подписаться у найденного друга
     
     func stepOneForAddFriend(friendId: String) async throws {
-       try await DatabaseService.shared.updateRequestAndFriendIdAsync(friendId: friendId)
+        try await DatabaseService.shared.stepOneUserPressedAddFriendButton(friendId: friendId)
     }
     
-    // 2.
+    // 2. Друг ответил на запрос (подписаться в ответ)
     
+    func stepTwoAnswerToRequestPositive(friendId: String) async throws {
+       try await DatabaseService.shared.stepTwoForAddFriendPositive(friendId: friendId)
+    }
     
+    // 3. Друг ответил на запрос (отказал)
     
+    func stepTwoAnswerToRequestNegative(friendId: String) async throws {
+       try await DatabaseService.shared.stepTwoForAddFriendNegative(friendId: friendId)
+    }
     
     
     
@@ -98,8 +105,8 @@ class FriendHomeViewModel: ObservableObject {
     
     func isFriendOrNo() {
         
-        if let user = AuthService.shared.currentUser {
-            let docRef = Firestore.firestore().collection("users").document(user.uid)
+        if let userId = try? AuthenticationManager.shared.getAuthenticatedUser().uid {
+            let docRef = Firestore.firestore().collection("users").document(userId).collection("personalData").document(userId)
             
             docRef.addSnapshotListener { snapshot, error in
                 guard let document = snapshot else {
@@ -112,18 +119,18 @@ class FriendHomeViewModel: ObservableObject {
                     return
                 }
 
-                guard let idRequest = data["requestToFriend"] as? [String] else { return }
-                guard let idFriends = data["friendsID"] as? [String] else { return }
+                guard let idRequest = data["request_friend"] as? [String] else { return }
+                guard let idFriends = data["friends_id"] as? [String] else { return }
                 
                 for id in idRequest {
                     if self.friend.userId == id {
-                        self.isFriendForRequestArr.toggle()
+                        self.isFriendForRequestArr = true
                     }
                 }
                 
                 for id in idFriends {
                     if self.friend.userId == id {
-                        self.isFriendForFriendstArr.toggle()
+                        self.isFriendForFriendstArr = true
                     }
                 }
             }

@@ -146,7 +146,7 @@ final class UserManager {
 
 struct PersonalDataDBUser: Codable {
     let userId: String
-    let friendsId: [String]?
+    var friendsId: [String] = [""]
     let dateBirth: Date?
     var requestFriend: [String] = [""]
     var userName: String?
@@ -154,14 +154,14 @@ struct PersonalDataDBUser: Codable {
     
     init(auth: AuthDataResultModel) {
         self.userId = auth.uid
-        self.friendsId = []
+        self.friendsId = [""]
         self.dateBirth = Date()
         self.requestFriend = [""]
         self.userName = ""
         self.photoUrl = auth.photoUrl
     }
     
-    init(userId: String, friendsId: [String]?, dateBirth: Date?, requestFriend: [String], userName: String?, photoUrl: String?) {
+    init(userId: String, friendsId: [String], dateBirth: Date?, requestFriend: [String], userName: String?, photoUrl: String?) {
         self.userId = userId
         self.friendsId = friendsId
         self.dateBirth = dateBirth
@@ -182,7 +182,7 @@ struct PersonalDataDBUser: Codable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.userId = try container.decode(String.self, forKey: .userId)
-        self.friendsId = try container.decodeIfPresent([String].self, forKey: .friendsId)
+        self.friendsId = try container.decodeIfPresent([String].self, forKey: .friendsId) ?? [""]
         self.dateBirth = try container.decodeIfPresent(Date.self, forKey: .dateBirth)
         self.requestFriend = try container.decodeIfPresent([String].self, forKey: .requestFriend) ?? [""]
         self.userName = try container.decodeIfPresent(String.self, forKey: .userName)

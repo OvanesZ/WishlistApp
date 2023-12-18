@@ -87,7 +87,7 @@ struct SettingsPersonalDataView: View {
                         Spacer()
                         Button {
                             Task {
-                                let userPersonalData = PersonalDataDBUser(userId: viewModel.dbUser?.userId ?? "", friendsId: viewModel.dbUserPersonalData?.friendsId, dateBirth: dateBirth, requestFriend: viewModel.dbUserPersonalData?.requestFriend ?? [], userName: userName, photoUrl: viewModel.dbUserPersonalData?.photoUrl)
+                                let userPersonalData = PersonalDataDBUser(userId: viewModel.dbUser?.userId ?? "", friendsId: viewModel.dbUserPersonalData?.friendsId ?? [""], dateBirth: dateBirth, requestFriend: viewModel.dbUserPersonalData?.requestFriend ?? [""], userName: userName, photoUrl: viewModel.dbUserPersonalData?.photoUrl)
                                 
                                 try await UserManager.shared.createNewPersonalDataUser(user: userPersonalData)
                                 viewModel.uploadImageAsync()
