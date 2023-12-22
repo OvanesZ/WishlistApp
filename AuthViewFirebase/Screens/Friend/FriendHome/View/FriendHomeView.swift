@@ -26,36 +26,34 @@ struct FriendHomeView: View {
             
             HeaderFriendCell(viewModel: viewModel)
             
-            Divider()
-                .padding([.leading, .trailing], 25)
-            
+//            Divider()
+//                .padding([.leading, .trailing], 25)
+//            
             
             
             if viewModel.isFriendForFriendstArr {
                 Text("Вы подписаны")
+                    .font(.callout.italic())
             } else {
                 
-             
-
-                
-                
-                
-                Button {
-                    if viewModel.isFriendForRequestArr {
-                        isButtonPressed.toggle()
-                    } else {
-                        
-                        Task {
-                            try await viewModel.stepOneForAddFriend(friendId: viewModel.friend.userId)
+                    Button {
+                        if viewModel.isFriendForRequestArr {
+                            isButtonPressed.toggle()
+                        } else {
+                            
+                            Task {
+                                try await viewModel.stepOneForAddFriend(friendId: viewModel.friend.userId)
+                            }
                         }
+                    } label: {
+                        Text(viewModel.isFriendForRequestArr ? "Ответить на запрос" : "Подписаться")
+                            .font(.callout.bold())
+                            .foregroundStyle(.white)
+                            .padding(.leading, 25)
+                            .padding(.trailing, 25)
                     }
-                } label: {
-                    Text(viewModel.isFriendForRequestArr ? "Ответить на запрос" : "Подписаться")
-                        .foregroundStyle(.white)
-                }
-                
-                .buttonStyle(.bordered)
-//                .background(Color.blue)
+                    .buttonStyle(.borderedProminent)
+                    .tint(.blue)
                 
                 
                 
