@@ -67,26 +67,6 @@ struct FriendsView: View {
 
 extension FriendsView {
     
-    private var subscribers: some View {
-        List {
-            ForEach(friendViewModel.allUsers) { friend in
-                
-                NavigationLink {
-                    FriendHomeView(viewModel: FriendHomeViewModel(friend: friend), presentModelViewModel: PresentModelViewModel(present: PresentModel(name: "", urlText: "", presentFromUserID: "")))
-                } label: {
-                    FriendsCell(friend: friend)
-                }
-            }
-        }
-        .listStyle(.inset)
-        .onAppear(perform: friendViewModel.getFriends)
-        .onAppear(perform: friendViewModel.getRequest)
-    }
-}
-
-
-extension FriendsView {
-    
     private var subscriptions: some View {
      
         List {
@@ -110,6 +90,26 @@ extension FriendsView {
         .onAppear(perform: friendViewModel.getFriends)
         .onAppear(perform: friendViewModel.getRequest)
         .listStyle(.inset)
+    }
+}
+
+
+extension FriendsView {
+    
+    private var subscribers: some View {
+        List {
+            ForEach(friendViewModel.allUsers) { friend in
+                
+                NavigationLink {
+                    FriendHomeView(viewModel: FriendHomeViewModel(friend: friend), presentModelViewModel: PresentModelViewModel(present: PresentModel(name: "", urlText: "", presentFromUserID: "")))
+                } label: {
+                    FriendsCell(friend: friend)
+                }
+            }
+        }
+        .listStyle(.inset)
+        .onAppear(perform: friendViewModel.getFriends)
+        .onAppear(perform: friendViewModel.getRequest)
     }
 }
 

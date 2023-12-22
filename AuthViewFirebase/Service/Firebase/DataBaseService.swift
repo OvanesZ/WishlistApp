@@ -118,12 +118,10 @@ class DatabaseService {
     func stepOneUserPressedAddFriendButton(friendId: String) async throws {
         
         try await docRefUser(userID: currentUserId).updateData([
-//            PersonalDataDBUser.CodingKeys.friendsId.rawValue: FieldValue.arrayUnion([friendId])
             "friends_id": FieldValue.arrayUnion([friendId])
         ])
         
         try await docRefFriend(friendID: friendId).updateData([
-//            PersonalDataDBUser.CodingKeys.requestFriend.rawValue: FieldValue.arrayUnion([currentUserId])
             "request_friend": FieldValue.arrayUnion([currentUserId])
         ])
     }
@@ -134,13 +132,19 @@ class DatabaseService {
     func stepTwoForAddFriendPositive(friendId: String) async throws {
         
         try await docRefUser(userID: currentUserId).updateData([
-//            PersonalDataDBUser.CodingKeys.requestFriend.rawValue: FieldValue.arrayRemove([currentUserId])
             "request_friend": FieldValue.arrayRemove([friendId])
         ])
         
         try await docRefUser(userID: currentUserId).updateData([
-//            PersonalDataDBUser.CodingKeys.friendsId.rawValue: FieldValue.arrayUnion([currentUserId])
             "friends_id": FieldValue.arrayUnion([friendId])
+        ])
+        
+        try await docRefUser(userID: currentUserId).updateData([
+            "my_subscribers": FieldValue.arrayUnion([friendId])
+        ])
+        
+        try await docRefFriend(friendID: friendId).updateData([
+            "my_subscribers": FieldValue.arrayUnion([currentUserId])
         ])
         
     }
@@ -150,18 +154,28 @@ class DatabaseService {
     func stepTwoForAddFriendNegative(friendId: String) async throws {
         
         try await docRefUser(userID: currentUserId).updateData([
-//            PersonalDataDBUser.CodingKeys.friendsId.rawValue: FieldValue.arrayRemove([friendId])
             "request_friend": FieldValue.arrayRemove([friendId])
         ])
         
         try await docRefFriend(friendID: friendId).updateData([
-//            PersonalDataDBUser.CodingKeys.requestFriend.rawValue: FieldValue.arrayRemove([currentUserId])
             "friends_id": FieldValue.arrayRemove([currentUserId])
         ])
         
     }
 
+    // 4. Отписаться от пользователя
     
+    func deleteFriend(friendId: String) async throws {
+        
+        try await docRefUser(userID: currentUserId).updateData([
+            "friends_id": FieldValue.arrayRemove([friendId])
+        ])
+        
+        try await docRefFriend(friendID: friendId).updateData([
+            "my_subscribers": FieldValue.arrayRemove([currentUserId])
+        ])
+        
+    }
     
     
     

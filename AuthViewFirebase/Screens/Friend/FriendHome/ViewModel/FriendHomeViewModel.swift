@@ -81,6 +81,12 @@ class FriendHomeViewModel: ObservableObject {
         try await DatabaseService.shared.stepTwoForAddFriendNegative(friendId: friendId)
     }
     
+    // 4. Отписаться от пользователя
+    
+    func deleteFriend(friendId: String) async throws {
+        try await DatabaseService.shared.deleteFriend(friendId: friendId)
+    }
+    
     
     
     

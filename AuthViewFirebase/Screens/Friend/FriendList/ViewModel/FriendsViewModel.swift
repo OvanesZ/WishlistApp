@@ -16,6 +16,7 @@ final class FriendsViewModel: ObservableObject {
     
     @Published var allUsers: [DBUser] = []
     @Published var myFriends: [DBUser] = []
+    @Published var mySubscribers: [DBUser] = []
     @Published var myRequest: [DBUser] = []
     @Published var allFriendsUser: [DBUser] = []
     

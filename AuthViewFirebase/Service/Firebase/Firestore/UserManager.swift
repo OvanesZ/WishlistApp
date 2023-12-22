@@ -147,6 +147,7 @@ final class UserManager {
 struct PersonalDataDBUser: Codable {
     let userId: String
     var friendsId: [String] = [""]
+    var mySubscribers: [String] = [""]
     let dateBirth: Date?
     var requestFriend: [String] = [""]
     var userName: String?
@@ -155,15 +156,17 @@ struct PersonalDataDBUser: Codable {
     init(auth: AuthDataResultModel) {
         self.userId = auth.uid
         self.friendsId = [""]
+        self.mySubscribers = [""]
         self.dateBirth = Date()
         self.requestFriend = [""]
         self.userName = ""
         self.photoUrl = auth.photoUrl
     }
     
-    init(userId: String, friendsId: [String], dateBirth: Date?, requestFriend: [String], userName: String?, photoUrl: String?) {
+    init(userId: String, friendsId: [String], mySubscribers: [String], dateBirth: Date?, requestFriend: [String], userName: String?, photoUrl: String?) {
         self.userId = userId
         self.friendsId = friendsId
+        self.mySubscribers = mySubscribers
         self.dateBirth = dateBirth
         self.requestFriend = requestFriend
         self.userName = userName
@@ -173,6 +176,7 @@ struct PersonalDataDBUser: Codable {
     enum CodingKeys: String, CodingKey {
         case userId = "user_id"
         case friendsId = "friends_id"
+        case mySubscribers = "my_subscribers"
         case dateBirth = "date_birth"
         case requestFriend = "request_friend"
         case userName = "user_name"
@@ -183,6 +187,7 @@ struct PersonalDataDBUser: Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.userId = try container.decode(String.self, forKey: .userId)
         self.friendsId = try container.decodeIfPresent([String].self, forKey: .friendsId) ?? [""]
+        self.mySubscribers = try container.decodeIfPresent([String].self, forKey: .mySubscribers) ?? [""]
         self.dateBirth = try container.decodeIfPresent(Date.self, forKey: .dateBirth)
         self.requestFriend = try container.decodeIfPresent([String].self, forKey: .requestFriend) ?? [""]
         self.userName = try container.decodeIfPresent(String.self, forKey: .userName)
@@ -193,6 +198,7 @@ struct PersonalDataDBUser: Codable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(self.userId, forKey: .userId)
         try container.encodeIfPresent(self.friendsId, forKey: .friendsId)
+        try container.encodeIfPresent(self.mySubscribers, forKey: .mySubscribers)
         try container.encodeIfPresent(self.dateBirth, forKey: .dateBirth)
         try container.encodeIfPresent(self.requestFriend, forKey: .requestFriend)
         try container.encodeIfPresent(self.userName, forKey: .userName)

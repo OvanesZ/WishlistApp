@@ -39,8 +39,24 @@ struct FriendHomeView: View {
                     .font(.callout.italic())
             } else {
                 if viewModel.isFriendForFriendstArr {
-                    Text("Вы подписаны")
-                        .font(.callout.italic())
+                    HStack {
+                        Text("Вы подписаны")
+                            .font(.callout.italic())
+                        
+                        Button(action: {
+                            Task {
+                               try await viewModel.deleteFriend(friendId: viewModel.friend.userId)
+                            }
+                        }, label: {
+                            Text("Отписаться")
+                                .font(.callout.bold())
+                                .foregroundStyle(.white)
+                                .padding(.leading, 25)
+                                .padding(.trailing, 25)
+                        })
+                        .buttonStyle(.borderedProminent)
+                        .tint(.blue)
+                    }
                 } else {
                     
                     Button {
