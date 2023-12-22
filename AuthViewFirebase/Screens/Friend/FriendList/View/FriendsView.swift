@@ -98,7 +98,8 @@ extension FriendsView {
     
     private var subscribers: some View {
         List {
-            ForEach(friendViewModel.allUsers) { friend in
+            
+            ForEach(friendViewModel.mySubscribers) { friend in
                 
                 NavigationLink {
                     FriendHomeView(viewModel: FriendHomeViewModel(friend: friend), presentModelViewModel: PresentModelViewModel(present: PresentModel(name: "", urlText: "", presentFromUserID: "")))
@@ -110,6 +111,7 @@ extension FriendsView {
         .listStyle(.inset)
         .onAppear(perform: friendViewModel.getFriends)
         .onAppear(perform: friendViewModel.getRequest)
+        .onAppear(perform: friendViewModel.getMySubscribers)
     }
 }
 

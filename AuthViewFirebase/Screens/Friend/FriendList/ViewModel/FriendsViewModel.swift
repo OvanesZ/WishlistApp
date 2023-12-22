@@ -22,6 +22,7 @@ final class FriendsViewModel: ObservableObject {
     
     var myFriendsID: [String] = [" "]
     var myRequestID: [String] = [" "]
+    var mySubscribersID: [String] = [" "]
     
     // MARK: -- Прослушиватель всех пользователей
     
@@ -128,6 +129,38 @@ final class FriendsViewModel: ObservableObject {
         }
     }
     
+    func getMySubscribers() {
+        if let userId = try? AuthenticationManager.shared.getAuthenticatedUser().uid {
+            
+            Firestore.firestore().collection("users").document(userId).collection("personalData").document(userId).addSnapshotListener { snapshot, error in
+                
+                guard let document = snapshot else {
+                    print("Ошибка при получении id друзей \(error!)")
+                    return
+                }
+                
+                guard let data = document.data() else {
+                    print("Документ пустой")
+                    return
+                }
+                
+                guard let id = data["my_subscribers"] as? [String] else { return }
+                self.mySubscribersID = id
+            }
+            
+            Firestore.firestore().collection("users").whereField("user_id", in: mySubscribersID).getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    self.mySubscribers = querySnapshot?.documents.compactMap {
+                        try? $0.data(as: DBUser.self)
+                    } ?? []
+                }
+            }
+        } else {
+            return
+        }
+    }
     
     
 }
