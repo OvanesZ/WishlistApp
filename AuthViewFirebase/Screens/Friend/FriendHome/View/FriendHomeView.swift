@@ -14,6 +14,10 @@ struct FriendHomeView: View {
     @ObservedObject var presentModelViewModel: PresentModelViewModel
     @State private var isButtonPressed = false
     
+    private var currentUserId: String {
+        return try! AuthenticationManager.shared.getAuthenticatedUser().uid
+    }
+    
     var columns: [GridItem] = [
         GridItem(.fixed(150), spacing: 20),
         GridItem(.fixed(150), spacing: 20)
@@ -26,16 +30,19 @@ struct FriendHomeView: View {
             
             HeaderFriendCell(viewModel: viewModel)
             
-//            Divider()
-//                .padding([.leading, .trailing], 25)
-//            
+            //            Divider()
+            //                .padding([.leading, .trailing], 25)
+            //
             
-            
-            if viewModel.isFriendForFriendstArr {
-                Text("Вы подписаны")
+            if viewModel.friend.userId == currentUserId {
+                Text("Ваша страница")
                     .font(.callout.italic())
             } else {
-                
+                if viewModel.isFriendForFriendstArr {
+                    Text("Вы подписаны")
+                        .font(.callout.italic())
+                } else {
+                    
                     Button {
                         if viewModel.isFriendForRequestArr {
                             isButtonPressed.toggle()
@@ -54,57 +61,62 @@ struct FriendHomeView: View {
                     }
                     .buttonStyle(.borderedProminent)
                     .tint(.blue)
-                
-                
-                
-                
-                .confirmationDialog("Ваши действия", isPresented: $isButtonPressed) {
-                    Button {
-                        
-                        Task {
-                            try await viewModel.stepTwoAnswerToRequestPositive(friendId: viewModel.friend.userId)
-                        }
-                        
-                    } label: {
-                        Text("Разрешить")
-                    }
                     
-                    Button {
-                        
-                        Task {
-                            try await viewModel.stepTwoAnswerToRequestNegative(friendId: viewModel.friend.userId)
+                    
+                    
+                    
+                    .confirmationDialog("Ваши действия", isPresented: $isButtonPressed) {
+                        Button {
+                            
+                            Task {
+                                try await viewModel.stepTwoAnswerToRequestPositive(friendId: viewModel.friend.userId)
+                            }
+                            
+                        } label: {
+                            Text("Разрешить")
                         }
-                    } label: {
-                        Text("Отклонить")
+                        
+                        Button {
+                            
+                            Task {
+                                try await viewModel.stepTwoAnswerToRequestNegative(friendId: viewModel.friend.userId)
+                            }
+                        } label: {
+                            Text("Отклонить")
+                        }
                     }
                 }
             }
+            
+            
+            
+            
             
             
         }
         .task {
             try? await viewModelSettings.loadFriendDBUserPersonalData(id: viewModel.friend.userId)
         }
-            
-            
-            ScrollView {
-                LazyVGrid (
-                    columns: columns,
-                    alignment: .center,
-                    spacing: 15,
-                    pinnedViews: [.sectionFooters]
-                ) {
-                    Section() {
-                        ForEach(viewModel.wishlist) { present in
-                            FriendPresentsMainView(present: present, friendHomeViewModel: viewModel)
-                        }
+        
+        
+        ScrollView {
+            LazyVGrid (
+                columns: columns,
+                alignment: .center,
+                spacing: 15,
+                pinnedViews: [.sectionFooters]
+            ) {
+                Section() {
+                    ForEach(viewModel.wishlist) { present in
+                        FriendPresentsMainView(present: present, friendHomeViewModel: viewModel)
                     }
                 }
             }
-            .navigationTitle(viewModel.friend.displayName ?? viewModelSettings.friendDbUserPersonalData?.userName ?? "")
-            .onAppear {
-                presentModelViewModel.getPresentImage()
-            }
+        }
+        .navigationTitle(viewModel.friend.displayName ?? viewModelSettings.friendDbUserPersonalData?.userName ?? "")
+        .onAppear {
+            presentModelViewModel.getPresentImage()
+        }
         
     }
 }

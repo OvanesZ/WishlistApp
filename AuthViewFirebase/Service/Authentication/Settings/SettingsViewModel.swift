@@ -24,14 +24,6 @@ final class SettingsViewModel: ObservableObject {
     // MARK: - functions
     
     
-    
-//    func updateUrlImage(url: String) {
-//        Task {
-//            try await UserManager.shared.updateUrlImage(userId: dbUserPersonalData?.userId ?? "", url: url)
-//            self.dbUserPersonalData = try await UserManager.shared.getUserPersonalData(userId: dbUserPersonalData?.userId ?? "")
-//        }
-//    }
-    
     func getUrlImageAsync() async throws -> URL {
         try await StorageService.shared.downloadURLUserImageAsync(id: dbUserPersonalData?.userId ?? "")
     }
@@ -39,22 +31,6 @@ final class SettingsViewModel: ObservableObject {
     func getUrlImageFriendAsync(id: String) async throws -> URL {
         try await StorageService.shared.downloadURLUserImageAsync(id: id)
     }
-    
-    
-//    func getUrlImage() -> URL {
-//        StorageService.shared.downloadURLUserImage(id: dbUserPersonalData?.userId ?? "") { result in
-//            switch result {
-//            case .success(let url):
-//                if let url = url {
-//                    self.url = url
-//                    self.updateUrlImage(url: url.absoluteString)
-//                   
-//                }
-//            case .failure(let error):
-//                print(error.localizedDescription)
-//            }
-//        }
-//    }
     
     func getImageAsync() async throws {
         Task {
@@ -65,39 +41,12 @@ final class SettingsViewModel: ObservableObject {
         }
     }
     
-//    func getImage() {
-//        self.isLoadImage = true
-//        StorageService.shared.downloadUserImage(id: dbUserPersonalData?.userId ?? "") { result in
-//            switch result {
-//            case .success(let data):
-//                self.isLoadImage = false
-//                if let img = UIImage(data: data) {
-//                    self.image = img
-//                }
-//            case .failure(let error):
-//                print(error.localizedDescription)
-//            }
-//        }
-//    }
-    
     func uploadImageAsync() {
         guard let imageData = image.jpegData(compressionQuality: 0.15) else { return }
         Task {
             try await StorageService.shared.uploadAsync(id: dbUserPersonalData?.userId ?? "", data: imageData)
         }
     }
-    
-//    func uploadImage() {
-//        guard let imageData = image.jpegData(compressionQuality: 0.15) else { return }
-//        StorageService.shared.upload(id: dbUserPersonalData?.userId ?? "", image: imageData) { result in
-//            switch result {
-//            case .success(let sizeInfo):
-//                print(sizeInfo)
-//            case .failure(let error):
-//                print(error.localizedDescription)
-//            }
-//        }
-//    }
     
     func updateUserName(userName: String) {
         guard let dbUser else { return }

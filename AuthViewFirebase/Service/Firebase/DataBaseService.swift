@@ -27,6 +27,7 @@ class DatabaseService {
         return try! AuthenticationManager.shared.getAuthenticatedUser().uid
     }
     
+    
     private func docRefFriend(friendID: String) -> DocumentReference {
         Firestore.firestore().collection("users").document(friendID).collection("personalData").document(friendID)
     }
