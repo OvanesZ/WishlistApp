@@ -27,6 +27,14 @@ class DatabaseService {
         return try! AuthenticationManager.shared.getAuthenticatedUser().uid
     }
     
+    private func docRefFriend(friendID: String) -> DocumentReference {
+        Firestore.firestore().collection("users").document(friendID).collection("personalData").document(friendID)
+    }
+    
+    private func docRefUser(userID: String) -> DocumentReference {
+        Firestore.firestore().collection("users").document(userID).collection("personalData").document(userID)
+    }
+    
     private init() { }
     
     
@@ -107,12 +115,15 @@ class DatabaseService {
     // 1. Пользователь нажал на кнопку подписаться у найденного друга
     
     func stepOneUserPressedAddFriendButton(friendId: String) async throws {
-        try await usersRef.document(currentUserId).collection("personalData").document(currentUserId).updateData([
-            PersonalDataDBUser.CodingKeys.friendsId.rawValue: FieldValue.arrayUnion([friendId])
+        
+        try await docRefUser(userID: currentUserId).updateData([
+//            PersonalDataDBUser.CodingKeys.friendsId.rawValue: FieldValue.arrayUnion([friendId])
+            "friends_id": FieldValue.arrayUnion([friendId])
         ])
         
-        try await usersRef.document(friendId).collection("personalData").document(friendId).updateData([
-            PersonalDataDBUser.CodingKeys.requestFriend.rawValue: FieldValue.arrayUnion([currentUserId])
+        try await docRefFriend(friendID: friendId).updateData([
+//            PersonalDataDBUser.CodingKeys.requestFriend.rawValue: FieldValue.arrayUnion([currentUserId])
+            "request_friend": FieldValue.arrayUnion([currentUserId])
         ])
     }
     
@@ -121,12 +132,14 @@ class DatabaseService {
     
     func stepTwoForAddFriendPositive(friendId: String) async throws {
         
-        try await usersRef.document(friendId).collection("personalData").document(friendId).updateData([
-            PersonalDataDBUser.CodingKeys.requestFriend.rawValue: FieldValue.arrayRemove([currentUserId])
+        try await docRefUser(userID: currentUserId).updateData([
+//            PersonalDataDBUser.CodingKeys.requestFriend.rawValue: FieldValue.arrayRemove([currentUserId])
+            "request_friend": FieldValue.arrayRemove([friendId])
         ])
         
-        try await usersRef.document(friendId).collection("personalData").document(friendId).updateData([
-            PersonalDataDBUser.CodingKeys.friendsId.rawValue: FieldValue.arrayUnion([currentUserId])
+        try await docRefUser(userID: currentUserId).updateData([
+//            PersonalDataDBUser.CodingKeys.friendsId.rawValue: FieldValue.arrayUnion([currentUserId])
+            "friends_id": FieldValue.arrayUnion([friendId])
         ])
         
     }
@@ -135,12 +148,14 @@ class DatabaseService {
     
     func stepTwoForAddFriendNegative(friendId: String) async throws {
         
-        try await usersRef.document(currentUserId).collection("personalData").document(currentUserId).updateData([
-            PersonalDataDBUser.CodingKeys.friendsId.rawValue: FieldValue.arrayRemove([friendId])
+        try await docRefUser(userID: currentUserId).updateData([
+//            PersonalDataDBUser.CodingKeys.friendsId.rawValue: FieldValue.arrayRemove([friendId])
+            "request_friend": FieldValue.arrayRemove([friendId])
         ])
         
-        try await usersRef.document(friendId).collection("personalData").document(friendId).updateData([
-            PersonalDataDBUser.CodingKeys.requestFriend.rawValue: FieldValue.arrayRemove([currentUserId])
+        try await docRefFriend(friendID: friendId).updateData([
+//            PersonalDataDBUser.CodingKeys.requestFriend.rawValue: FieldValue.arrayRemove([currentUserId])
+            "friends_id": FieldValue.arrayRemove([currentUserId])
         ])
         
     }

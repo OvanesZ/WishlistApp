@@ -72,13 +72,13 @@ class FriendHomeViewModel: ObservableObject {
     // 2. Друг ответил на запрос (подписаться в ответ)
     
     func stepTwoAnswerToRequestPositive(friendId: String) async throws {
-       try await DatabaseService.shared.stepTwoForAddFriendPositive(friendId: friendId)
+        try await DatabaseService.shared.stepTwoForAddFriendPositive(friendId: friendId)
     }
     
     // 3. Друг ответил на запрос (отказал)
     
     func stepTwoAnswerToRequestNegative(friendId: String) async throws {
-       try await DatabaseService.shared.stepTwoForAddFriendNegative(friendId: friendId)
+        try await DatabaseService.shared.stepTwoForAddFriendNegative(friendId: friendId)
     }
     
     

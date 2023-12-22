@@ -75,7 +75,13 @@ struct FriendHomeView: View {
                 }
             }
             
-            
+            Button(action: {
+                Task {
+                    try await viewModel.stepTwoAnswerToRequestNegative(friendId: viewModel.friend.userId)
+                }
+            }, label: {
+                Text("Button Negative")
+            })
             
             
         }
