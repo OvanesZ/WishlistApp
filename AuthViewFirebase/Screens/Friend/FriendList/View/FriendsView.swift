@@ -18,7 +18,6 @@ struct FriendsView: View {
     @State var shouldShowCanselButton: Bool = true
     @FocusState var isFocus: Bool
     
-  
     private let keyboardPublisher = Publishers.Merge(
         NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
             .map { notification in true } ,
@@ -26,17 +25,9 @@ struct FriendsView: View {
             .map { notification in false }
     ).eraseToAnyPublisher()
     
-    
-   
-    
-    
     var body: some View {
         
-        
-        
         NavigationStack {
-            
-            
             ZStack {
                 VStack {
                     Picker("", selection: $segmentedChoice) {
@@ -50,82 +41,94 @@ struct FriendsView: View {
                     
                     
                     
-                    // MARK: -- SubscribersView or SubscriptionsView
+                    // MARK: -- SubscribersView or SubscriptionsView and requestList
                     
                     if(segmentedChoice == 0) {
-                        
-                        // MARK: - Show user friends in List
-                        
-                        List {
-                            ForEach(self.nameFriend.isEmpty ? friendViewModel.myFriends : friendViewModel.allUsers.filter {
-                                self.nameFriend.isEmpty ? true : $0.email!.contains(nameFriend)
-                            }) { friend in
-                                
-                                NavigationLink {
-                                    FriendHomeView(viewModel: FriendHomeViewModel(friend: friend), presentModelViewModel: PresentModelViewModel(present: PresentModel(id: "", name: "", urlText: "", presentFromUserID: "", isReserved: false, presentDescription: "")))
-                                } label: {
-                                    FriendsCell(friend: friend)
-                                }
-//                                .listRowSeparatorTint(Color(#colorLiteral(red: 0.04370719939, green: 0.1099352911, blue: 0.1132253781, alpha: 1)))
-//                                .listRowSeparator(.visible)
-                                
-                            }
-                            .onDelete { indexSet in
+                        subscriptions
+                    }
+                    
+                    if(segmentedChoice == 1) {
+                        subscribers
+                    }
+                    
+                    if(segmentedChoice == 2) {
+                        requestList
+                    }
+                    
+                }
+            }
+            .navigationTitle("Друзья")
+        }
+        .searchable(text: $nameFriend, placement: .navigationBarDrawer(displayMode: .always), prompt: "Поиск друга").textInputAutocapitalization(.never)
+        .onAppear(perform: friendViewModel.getRequest)
+    }
+}
+
+
+extension FriendsView {
+    
+    private var subscribers: some View {
+        List {
+            ForEach(friendViewModel.allUsers) { friend in
+                
+                NavigationLink {
+                    FriendHomeView(viewModel: FriendHomeViewModel(friend: friend), presentModelViewModel: PresentModelViewModel(present: PresentModel(name: "", urlText: "", presentFromUserID: "")))
+                } label: {
+                    FriendsCell(friend: friend)
+                }
+            }
+        }
+        .listStyle(.inset)
+        .onAppear(perform: friendViewModel.getFriends)
+        .onAppear(perform: friendViewModel.getRequest)
+    }
+}
+
+
+extension FriendsView {
+    
+    private var subscriptions: some View {
+     
+        List {
+            ForEach(self.nameFriend.isEmpty ? friendViewModel.myFriends : friendViewModel.allUsers.filter {
+                self.nameFriend.isEmpty ? true : $0.email!.contains(nameFriend)
+            }) { friend in
+                NavigationLink {
+                    FriendHomeView(viewModel: FriendHomeViewModel(friend: friend), presentModelViewModel: PresentModelViewModel(present: PresentModel(id: "", name: "", urlText: "", presentFromUserID: "", isReserved: false, presentDescription: "")))
+                } label: {
+                    FriendsCell(friend: friend)
+                }
+            }
+            .onDelete { indexSet in
 //                                let number = indexSet.first
 //                                let email = friendViewModel.allFriendsUser[number ?? 0].email
 //                                friendViewModel.allFriendsUser.remove(atOffsets: indexSet)
 //                                friendViewModel.removingFriendFromFriends(email)
-                            }
-                        }
-                        .onAppear(perform: friendViewModel.fetchUsers)
-                        .onAppear(perform: friendViewModel.getFriends)
-                        .onAppear(perform: friendViewModel.getRequest)
-                        .listStyle(.inset)
-                            
-                        
-                        // MARK: - end List
-                    }
-                    if(segmentedChoice == 1) {
-                        
-                        List {
-                            ForEach(friendViewModel.allUsers) { friend in
-                                
-                                NavigationLink {
-                                    FriendHomeView(viewModel: FriendHomeViewModel(friend: friend), presentModelViewModel: PresentModelViewModel(present: PresentModel(name: "", urlText: "", presentFromUserID: "")))
-                                } label: {
-                                    FriendsCell(friend: friend)
-                                }
-                            }
-                        }
-                        .listStyle(.inset)
-                        .onAppear(perform: friendViewModel.getFriends)
-                        .onAppear(perform: friendViewModel.getRequest)
-                    }
-                    if(segmentedChoice == 2) {
-                        List {
-                            ForEach(friendViewModel.myRequest) { friend in
-                                
-                                NavigationLink {
-                                    FriendHomeView(viewModel: FriendHomeViewModel(friend: friend), presentModelViewModel: PresentModelViewModel(present: PresentModel(name: "", urlText: "", presentFromUserID: "")))
-                                } label: {
-                                    FriendsCell(friend: friend)
-                                }
-                            }
-                        }
-                        .listStyle(.inset)
-                        .onAppear(perform: friendViewModel.getRequest)
-                    }
+            }
+        }
+        .onAppear(perform: friendViewModel.fetchUsers)
+        .onAppear(perform: friendViewModel.getFriends)
+        .onAppear(perform: friendViewModel.getRequest)
+        .listStyle(.inset)
+    }
+}
+
+
+extension FriendsView {
+    
+    private var requestList: some View {
+        
+        List {
+            ForEach(friendViewModel.myRequest) { friend in
+                
+                NavigationLink {
+                    FriendHomeView(viewModel: FriendHomeViewModel(friend: friend), presentModelViewModel: PresentModelViewModel(present: PresentModel(name: "", urlText: "", presentFromUserID: "")))
+                } label: {
+                    FriendsCell(friend: friend)
                 }
             }
-            .navigationTitle("Друзья")
-            
         }
-        .searchable(text: $nameFriend, placement: .navigationBarDrawer(displayMode: .always), prompt: "Поиск друга").textInputAutocapitalization(.never)
+        .listStyle(.inset)
         .onAppear(perform: friendViewModel.getRequest)
-        
-        
-        
-        
-        
     }
 }

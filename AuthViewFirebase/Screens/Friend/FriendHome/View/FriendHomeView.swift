@@ -88,15 +88,13 @@ struct FriendHomeView: View {
                 }
             }
             
-            
-            
-            
-            
-            
         }
         .task {
             try? await viewModelSettings.loadFriendDBUserPersonalData(id: viewModel.friend.userId)
         }
+        
+        
+        
         
         
         ScrollView {
