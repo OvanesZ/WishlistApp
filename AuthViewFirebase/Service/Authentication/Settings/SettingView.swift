@@ -94,7 +94,7 @@ struct SettingView: View {
                             .font(.body.bold())
                         }
                         .confirmationDialog("Выйти из аккаунта?", isPresented: $isQuitAlertPresented, titleVisibility: .visible) {
-                            Button {
+                            Button(role: .destructive) {
                                 Task {
                                     do {
                                         try viewModel.signOut()

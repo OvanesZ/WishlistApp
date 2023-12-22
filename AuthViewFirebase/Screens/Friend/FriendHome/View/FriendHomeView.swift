@@ -34,26 +34,35 @@ struct FriendHomeView: View {
             if viewModel.isFriendForFriendstArr {
                 Text("Вы подписаны")
             } else {
+                
+             
+
+                
+                
+                
                 Button {
                     if viewModel.isFriendForRequestArr {
                         isButtonPressed.toggle()
                     } else {
-//                        viewModel.loadNewFriendInCollection(viewModel.friend)
                         
-                        // 1.
                         Task {
                             try await viewModel.stepOneForAddFriend(friendId: viewModel.friend.userId)
                         }
                     }
                 } label: {
                     Text(viewModel.isFriendForRequestArr ? "Ответить на запрос" : "Подписаться")
+                        .foregroundStyle(.white)
                 }
+                
                 .buttonStyle(.bordered)
+//                .background(Color.blue)
+                
+                
+                
+                
                 .confirmationDialog("Ваши действия", isPresented: $isButtonPressed) {
                     Button {
-//                        viewModel.answerToRequestAllow()
                         
-                        // 2.
                         Task {
                             try await viewModel.stepTwoAnswerToRequestPositive(friendId: viewModel.friend.userId)
                         }
@@ -63,9 +72,7 @@ struct FriendHomeView: View {
                     }
                     
                     Button {
-//                        viewModel.answerToRequestReject()
                         
-                        // 3.
                         Task {
                             try await viewModel.stepTwoAnswerToRequestNegative(friendId: viewModel.friend.userId)
                         }
@@ -74,14 +81,6 @@ struct FriendHomeView: View {
                     }
                 }
             }
-            
-            Button(action: {
-                Task {
-                    try await viewModel.stepTwoAnswerToRequestNegative(friendId: viewModel.friend.userId)
-                }
-            }, label: {
-                Text("Button Negative")
-            })
             
             
         }

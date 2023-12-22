@@ -30,34 +30,34 @@ class FriendHomeViewModel: ObservableObject {
     
     // MARK: -- (Добавление в друзья) Добавляю id друга в массив friendsID ///// Подписаться
    
-    func loadNewFriendInCollection (_ friend: DBUser) {
-        if let user = AuthService.shared.currentUser {
-            let docRefFriend = Firestore.firestore().collection("users").document(friend.userId)
-            let docRefUser = Firestore.firestore().collection("users").document(user.uid)
-            
-            docRefFriend.updateData([
-                "requestToFriend": FieldValue.arrayUnion([AuthService.shared.currentUser!.uid])
-            ]) { err in
-                if let err = err {
-                    print("Возникла ошибка при добавлении id пользователя в коллекцию Friends: \(err)")
-                } else {
-                    print("мой id добавлен в массив requestToFriend друга")
-                }
-            }
-            
-            docRefUser.updateData([
-                "friendsID": FieldValue.arrayUnion([friend.userId])
-            ]) { err in
-                if let err = err {
-                    print("Возникла ошибка при добавлении id пользователя в коллекцию Friends: \(err)")
-                } else {
-                    print("мой id добавлен в массив requestToFriend друга")
-                }
-            }
-        } else {
-            return
-        }
-    }
+//    func loadNewFriendInCollection (_ friend: DBUser) {
+//        if let user = AuthService.shared.currentUser {
+//            let docRefFriend = Firestore.firestore().collection("users").document(friend.userId)
+//            let docRefUser = Firestore.firestore().collection("users").document(user.uid)
+//            
+//            docRefFriend.updateData([
+//                "requestToFriend": FieldValue.arrayUnion([AuthService.shared.currentUser!.uid])
+//            ]) { err in
+//                if let err = err {
+//                    print("Возникла ошибка при добавлении id пользователя в коллекцию Friends: \(err)")
+//                } else {
+//                    print("мой id добавлен в массив requestToFriend друга")
+//                }
+//            }
+//            
+//            docRefUser.updateData([
+//                "friendsID": FieldValue.arrayUnion([friend.userId])
+//            ]) { err in
+//                if let err = err {
+//                    print("Возникла ошибка при добавлении id пользователя в коллекцию Friends: \(err)")
+//                } else {
+//                    print("мой id добавлен в массив requestToFriend друга")
+//                }
+//            }
+//        } else {
+//            return
+//        }
+//    }
     
     // MARK: - Процедура подписки на пользователя
     
@@ -140,55 +140,55 @@ class FriendHomeViewModel: ObservableObject {
     }
     
     
-    func answerToRequestAllow() {
-        if let user = AuthService.shared.currentUser {
-            let docRefUser = Firestore.firestore().collection("users").document(user.uid)
-            
-            docRefUser.updateData([
-                "friendsID": FieldValue.arrayUnion([friend.userId]),
-                "requestToFriend": FieldValue.arrayRemove([friend.userId])
-            ]) { err in
-                if let err = err {
-                    print("Возникла ошибка при добавлении id пользователя в коллекцию Friends: \(err)")
-                } else {
-                    print("мой id добавлен в массив requestToFriend друга")
-                }
-            }
-        } else {
-            return
-        }
-    }
-    
-    
-    func answerToRequestReject() {
-        if let user = AuthService.shared.currentUser {
-            let docRefUser = Firestore.firestore().collection("users").document(user.uid)
-            
-            docRefUser.updateData([
-                "requestToFriend": FieldValue.arrayRemove([friend.userId])
-            ]) { err in
-                if let err = err {
-                    print("Возникла ошибка при добавлении id пользователя в коллекцию Friends: \(err)")
-                } else {
-                    print("мой id добавлен в массив requestToFriend друга")
-                }
-            }
-            
-            let docRefFriend = Firestore.firestore().collection("users").document(friend.userId)
-            
-            docRefFriend.updateData([
-                "friendsID": FieldValue.arrayRemove([AuthService.shared.currentUser!.uid])
-            ]) { err in
-                if let err = err {
-                    print("Возникла ошибка при добавлении id пользователя в коллекцию Friends: \(err)")
-                } else {
-                    print("мой id добавлен в массив requestToFriend друга")
-                }
-            }
-        } else {
-            return
-        }
-    }
+//    func answerToRequestAllow() {
+//        if let user = AuthService.shared.currentUser {
+//            let docRefUser = Firestore.firestore().collection("users").document(user.uid)
+//            
+//            docRefUser.updateData([
+//                "friendsID": FieldValue.arrayUnion([friend.userId]),
+//                "requestToFriend": FieldValue.arrayRemove([friend.userId])
+//            ]) { err in
+//                if let err = err {
+//                    print("Возникла ошибка при добавлении id пользователя в коллекцию Friends: \(err)")
+//                } else {
+//                    print("мой id добавлен в массив requestToFriend друга")
+//                }
+//            }
+//        } else {
+//            return
+//        }
+//    }
+//    
+//    
+//    func answerToRequestReject() {
+//        if let user = AuthService.shared.currentUser {
+//            let docRefUser = Firestore.firestore().collection("users").document(user.uid)
+//            
+//            docRefUser.updateData([
+//                "requestToFriend": FieldValue.arrayRemove([friend.userId])
+//            ]) { err in
+//                if let err = err {
+//                    print("Возникла ошибка при добавлении id пользователя в коллекцию Friends: \(err)")
+//                } else {
+//                    print("мой id добавлен в массив requestToFriend друга")
+//                }
+//            }
+//            
+//            let docRefFriend = Firestore.firestore().collection("users").document(friend.userId)
+//            
+//            docRefFriend.updateData([
+//                "friendsID": FieldValue.arrayRemove([AuthService.shared.currentUser!.uid])
+//            ]) { err in
+//                if let err = err {
+//                    print("Возникла ошибка при добавлении id пользователя в коллекцию Friends: \(err)")
+//                } else {
+//                    print("мой id добавлен в массив requestToFriend друга")
+//                }
+//            }
+//        } else {
+//            return
+//        }
+//    }
     
     func getImage() {
         StorageService.shared.downloadUserImage(id: friend.userId) { result in
