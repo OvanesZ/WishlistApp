@@ -70,21 +70,36 @@ extension FriendsView {
     private var subscriptions: some View {
      
         List {
-            ForEach(self.nameFriend.isEmpty ? friendViewModel.myFriends : friendViewModel.allUsers.filter {
-                self.nameFriend.isEmpty ? true : $0.email!.contains(nameFriend)
-            }) { friend in
+            
+            if !nameFriend.isEmpty {
+                Text("Ваши подписки")
+                    .font(.subheadline.italic())
+            }
+            
+            
+            ForEach(friendViewModel.myFriends) { friend in
                 NavigationLink {
                     FriendHomeView(viewModel: FriendHomeViewModel(friend: friend), presentModelViewModel: PresentModelViewModel(present: PresentModel(id: "", name: "", urlText: "", presentFromUserID: "", isReserved: false, presentDescription: "")))
                 } label: {
                     FriendsCell(friend: friend)
                 }
             }
-            .onDelete { indexSet in
-//                                let number = indexSet.first
-//                                let email = friendViewModel.allFriendsUser[number ?? 0].email
-//                                friendViewModel.allFriendsUser.remove(atOffsets: indexSet)
-//                                friendViewModel.removingFriendFromFriends(email)
+            
+            if !nameFriend.isEmpty {
+                Text("Глобальный поиск")
+                    .font(.subheadline.italic())
+                
+                ForEach(friendViewModel.allUsers.filter {
+                    self.nameFriend.isEmpty ? true : $0.email!.contains(nameFriend)
+                }) { friend in
+                    NavigationLink {
+                        FriendHomeView(viewModel: FriendHomeViewModel(friend: friend), presentModelViewModel: PresentModelViewModel(present: PresentModel(id: "", name: "", urlText: "", presentFromUserID: "", isReserved: false, presentDescription: "")))
+                    } label: {
+                        FriendsCell(friend: friend)
+                    }
+                }
             }
+            
         }
         .onAppear(perform: friendViewModel.fetchUsers)
         .onAppear(perform: friendViewModel.getFriends)
