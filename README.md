@@ -1,2 +1,0 @@
-# WishlistApp
-init App
