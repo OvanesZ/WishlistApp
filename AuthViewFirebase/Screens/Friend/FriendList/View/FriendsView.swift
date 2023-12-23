@@ -68,43 +68,63 @@ struct FriendsView: View {
 extension FriendsView {
     
     private var subscriptions: some View {
-     
-        List {
-            
-            if !nameFriend.isEmpty {
-                Text("Ваши подписки")
-                    .font(.subheadline.italic())
-            }
-            
-            
-            ForEach(friendViewModel.myFriends) { friend in
-                NavigationLink {
-                    FriendHomeView(viewModel: FriendHomeViewModel(friend: friend), presentModelViewModel: PresentModelViewModel(present: PresentModel(id: "", name: "", urlText: "", presentFromUserID: "", isReserved: false, presentDescription: "")))
-                } label: {
-                    FriendsCell(friend: friend)
+        
+        NavigationStack {
+            if friendViewModel.myFriends.isEmpty && nameFriend.isEmpty {
+                
+                VStack {
+                    Spacer()
+                    Text("Здесь будут Ваши подписки")
+                        .foregroundStyle(.blue)
+                        .font(.title2.bold().italic())
+                    
+                    Image("friends")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
                 }
             }
             
-            if !nameFriend.isEmpty {
-                Text("Глобальный поиск")
-                    .font(.subheadline.italic())
+            List {
                 
-                ForEach(friendViewModel.allUsers.filter {
-                    self.nameFriend.isEmpty ? true : $0.email!.contains(nameFriend)
-                }) { friend in
+                
+                
+                if !nameFriend.isEmpty {
+                    Text("Ваши подписки")
+                        .font(.subheadline.italic())
+                }
+                
+                
+                ForEach(friendViewModel.myFriends) { friend in
                     NavigationLink {
                         FriendHomeView(viewModel: FriendHomeViewModel(friend: friend), presentModelViewModel: PresentModelViewModel(present: PresentModel(id: "", name: "", urlText: "", presentFromUserID: "", isReserved: false, presentDescription: "")))
                     } label: {
                         FriendsCell(friend: friend)
                     }
                 }
+                
+                if !nameFriend.isEmpty {
+                    Text("Глобальный поиск")
+                        .font(.subheadline.italic())
+                    
+                    ForEach(friendViewModel.allUsers.filter {
+                        self.nameFriend.isEmpty ? true : $0.email!.contains(nameFriend)
+                    }) { friend in
+                        NavigationLink {
+                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend), presentModelViewModel: PresentModelViewModel(present: PresentModel(id: "", name: "", urlText: "", presentFromUserID: "", isReserved: false, presentDescription: "")))
+                        } label: {
+                            FriendsCell(friend: friend)
+                        }
+                    }
+                }
+                
             }
-            
+            .onAppear(perform: friendViewModel.fetchUsers)
+            .onAppear(perform: friendViewModel.getMyFriendsID)
+            //        .onAppear(perform: friendViewModel.getFriends)
+            .onAppear(perform: friendViewModel.getRequest)
+            .listStyle(.inset)
         }
-        .onAppear(perform: friendViewModel.fetchUsers)
-        .onAppear(perform: friendViewModel.getFriends)
-        .onAppear(perform: friendViewModel.getRequest)
-        .listStyle(.inset)
+        
     }
 }
 
@@ -112,45 +132,64 @@ extension FriendsView {
 extension FriendsView {
     
     private var subscribers: some View {
-        List {
+        
+        NavigationStack {
             
-            if !nameFriend.isEmpty {
-                Text("Ваши подписчики")
-                    .font(.subheadline.italic())
-            }
-            
-            ForEach(friendViewModel.mySubscribers) { friend in
+            if friendViewModel.mySubscribers.isEmpty && nameFriend.isEmpty {
                 
-                NavigationLink {
-                    FriendHomeView(viewModel: FriendHomeViewModel(friend: friend), presentModelViewModel: PresentModelViewModel(present: PresentModel(name: "", urlText: "", presentFromUserID: "")))
-                } label: {
-                    FriendsCell(friend: friend)
+                VStack {
+                    Spacer()
+                    Text("Здесь будут Ваши подписчики")
+                        .foregroundStyle(.blue)
+                        .font(.title2.bold().italic())
+                    
+                    Image("friends")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
                 }
             }
             
-            if !nameFriend.isEmpty {
-                Text("Глобальный поиск")
-                    .font(.subheadline.italic())
+            List {
                 
-                ForEach(friendViewModel.allUsers.filter {
-                    self.nameFriend.isEmpty ? true : $0.email!.contains(nameFriend)
-                }) { friend in
+                if !nameFriend.isEmpty {
+                    Text("Ваши подписчики")
+                        .font(.subheadline.italic())
+                }
+                
+                ForEach(friendViewModel.mySubscribers) { friend in
+                    
                     NavigationLink {
-                        FriendHomeView(viewModel: FriendHomeViewModel(friend: friend), presentModelViewModel: PresentModelViewModel(present: PresentModel(id: "", name: "", urlText: "", presentFromUserID: "", isReserved: false, presentDescription: "")))
+                        FriendHomeView(viewModel: FriendHomeViewModel(friend: friend), presentModelViewModel: PresentModelViewModel(present: PresentModel(name: "", urlText: "", presentFromUserID: "")))
                     } label: {
                         FriendsCell(friend: friend)
                     }
                 }
+                
+                if !nameFriend.isEmpty {
+                    Text("Глобальный поиск")
+                        .font(.subheadline.italic())
+                    
+                    ForEach(friendViewModel.allUsers.filter {
+                        self.nameFriend.isEmpty ? true : $0.email!.contains(nameFriend)
+                    }) { friend in
+                        NavigationLink {
+                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend), presentModelViewModel: PresentModelViewModel(present: PresentModel(id: "", name: "", urlText: "", presentFromUserID: "", isReserved: false, presentDescription: "")))
+                        } label: {
+                            FriendsCell(friend: friend)
+                        }
+                    }
+                }
+                
+                
+                
+                
             }
-            
-             
-            
-            
+            .listStyle(.inset)
+            //        .onAppear(perform: friendViewModel.getFriends)
+            .onAppear(perform: friendViewModel.getRequest)
+            .onAppear(perform: friendViewModel.getMySubscribers)
         }
-        .listStyle(.inset)
-        .onAppear(perform: friendViewModel.getFriends)
-        .onAppear(perform: friendViewModel.getRequest)
-        .onAppear(perform: friendViewModel.getMySubscribers)
+        
     }
 }
 

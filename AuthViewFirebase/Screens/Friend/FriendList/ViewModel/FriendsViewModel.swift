@@ -20,9 +20,10 @@ final class FriendsViewModel: ObservableObject {
     @Published var myRequest: [DBUser] = []
     @Published var allFriendsUser: [DBUser] = []
     
-    var myFriendsID: [String] = [" "]
+    @Published var myFriendsID: [String] = [" "]
     var myRequestID: [String] = [" "]
     var mySubscribersID: [String] = [" "]
+    
     
     // MARK: -- Прослушиватель всех пользователей
     
@@ -54,11 +55,8 @@ final class FriendsViewModel: ObservableObject {
 //        }
 //    }
     
-    
-    
-    // MARK: -- Прослушиваю авторизованного пользователя и кладу id друзей в массив myFriendsID и затем по фильтру in: myFriendsID прослушиваю изменения у друзей
 
-    func getFriends() {
+    func getMyFriendsID() {
         
         if let userId = try? AuthenticationManager.shared.getAuthenticatedUser().uid {
             let docRef = Firestore.firestore().collection("users").document(userId).collection("personalData").document(userId)
@@ -68,29 +66,39 @@ final class FriendsViewModel: ObservableObject {
                     print("Ошибка при получении id друзей \(error!)")
                     return
                 }
-
+                
                 guard let data = document.data() else {
                     print("Документ пустой")
                     return
                 }
-
+                
                 guard let id = data["friends_id"] as? [String] else { return }
                 self.myFriendsID = id
             }
             
-            Firestore.firestore().collection("users").whereField("user_id", in: myFriendsID).getDocuments() { (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    
-                    self.myFriends = querySnapshot?.documents.compactMap {
-                        try? $0.data(as: DBUser.self)
-                    } ?? []
-                }
-            }
         } else {
             return
         }
+        
+        getFriends()
+        
+    }
+    
+    // MARK: -- Прослушиваю авторизованного пользователя и кладу id друзей в массив myFriendsID и затем по фильтру in: myFriendsID прослушиваю изменения у друзей
+    
+    func getFriends() {
+        
+        Firestore.firestore().collection("users").whereField("user_id", in: myFriendsID).getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                
+                self.myFriends = querySnapshot?.documents.compactMap {
+                    try? $0.data(as: DBUser.self)
+                } ?? []
+            }
+        }
+        
     }
     
     // MARK: -- Прослушиваю
