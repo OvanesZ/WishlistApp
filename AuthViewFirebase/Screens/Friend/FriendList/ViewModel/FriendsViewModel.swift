@@ -23,7 +23,7 @@ final class FriendsViewModel: ObservableObject {
     @Published var myFriendsID: [String] = [" "]
     var myRequestID: [String] = [" "]
     var mySubscribersID: [String] = [" "]
-    var testId = ["PLit2ZRFRqaVKz5qqRahwLPFHAB2"]
+    var testId = [" ", "PLit2ZRFRqaVKz5qqRahwLPFHAB2"]
     
     // MARK: -- Прослушиватель всех пользователей
     
@@ -79,7 +79,31 @@ final class FriendsViewModel: ObservableObject {
         } else {
             return
         }
-        
+    }
+    
+    
+    func getMyFriendsIDAsync() async throws {
+        if let userId = try? AuthenticationManager.shared.getAuthenticatedUser().uid {
+            let docRef = Firestore.firestore().collection("users").document(userId).collection("personalData").document(userId)
+            do {
+                let document = try await docRef.getDocument()
+                
+                guard let data = document.data() else {
+                    print("Документ пустой")
+                    return
+                }
+                
+                guard let id = data["friends_id"] as? [String] else { return }
+                self.myFriendsID = id
+                
+                
+            } catch {
+                print("Error getting document: \(error)")
+            }
+            
+        } else {
+            return
+        }
         
     }
     
