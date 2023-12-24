@@ -23,7 +23,7 @@ final class FriendsViewModel: ObservableObject {
     @Published var myFriendsID: [String] = [" "]
     var myRequestID: [String] = [" "]
     var mySubscribersID: [String] = [" "]
-    
+    var testId = ["PLit2ZRFRqaVKz5qqRahwLPFHAB2"]
     
     // MARK: -- Прослушиватель всех пользователей
     
@@ -80,11 +80,28 @@ final class FriendsViewModel: ObservableObject {
             return
         }
         
-        getFriends()
         
     }
     
     // MARK: -- Прослушиваю авторизованного пользователя и кладу id друзей в массив myFriendsID и затем по фильтру in: myFriendsID прослушиваю изменения у друзей
+    
+    
+    func getFriendsAsync() async throws {
+       
+        do {
+            let querySnapshot = try await Firestore.firestore().collection("users").whereField("user_id", in: myFriendsID).getDocuments()
+            
+            self.myFriends = querySnapshot.documents.compactMap {
+                try? $0.data(as: DBUser.self)
+            }
+            
+        } catch {
+            print("Error getting documents: \(error)")
+        }
+        
+    }
+    
+    
     
     func getFriends() {
         

@@ -120,6 +120,9 @@ extension FriendsView {
             }
             .onAppear(perform: friendViewModel.fetchUsers)
             .onAppear(perform: friendViewModel.getMyFriendsID)
+            .task {
+                try? await friendViewModel.getFriendsAsync()
+            }
             //        .onAppear(perform: friendViewModel.getFriends)
             .onAppear(perform: friendViewModel.getRequest)
             .listStyle(.inset)
