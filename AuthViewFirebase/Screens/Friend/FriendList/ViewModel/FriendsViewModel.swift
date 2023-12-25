@@ -5,17 +5,14 @@
 //  Created by Ованес Захарян on 29.08.2023.
 //
 
-import Combine
-import FirebaseFirestoreSwift
-import FirebaseFirestore
-import FirebaseStorage
+import SwiftUI
 
 
-
+@MainActor
 final class FriendsViewModel: ObservableObject {
     
-    @Published var allUsers: [DBUser] = []
     @Published var myFriends: [DBUser] = []
+    @Published var allUsers: [DBUser] = []
     @Published var mySubscribers: [DBUser] = []
     @Published var myRequest: [DBUser] = []
     @Published var allFriendsUser: [DBUser] = []
@@ -23,37 +20,24 @@ final class FriendsViewModel: ObservableObject {
     @Published var myFriendsID: [String] = [" "]
     var myRequestID: [String] = [" "]
     var mySubscribersID: [String] = [" "]
-    var testId = [" ", "PLit2ZRFRqaVKz5qqRahwLPFHAB2"]
     
-    // MARK: -- Прослушиватель всех пользователей
+
+    // MARK: - НЕ УДАЛЯТЬ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     
- 
+//    func fetchUsers() {
+//        
+//        self.allUsers = DatabaseService.shared.fetchUsers()?.documents.compactMap {
+//            try? $0.data(as: DBUser.self)
+//        } ?? []
+//        
+//    }
     
-    func fetchUsers() {
-        Firestore.firestore().collection("users").addSnapshotListener { (snapshot, error) in
-            if let error = error {
-                print(error)
-                return
-            }
-            self.allUsers = snapshot?.documents.compactMap {
-                try? $0.data(as: DBUser.self)
-            } ?? []
+    func getAllUsers() async throws {
+        self.allUsers = try await DatabaseService.shared.getAllUsers().documents.compactMap {
+            try? $0.data(as: DBUser.self)
         }
     }
     
-    // MARK: -- Удаляю друга из коллекции "Friends"
-    
-//    func removingFriendFromFriends(_ email: String) {
-//        let docRef = Firestore.firestore().collection("User").document(currentUser?.email ?? "").collection("Friends").document(email)
-//
-//        docRef.delete() { error in
-//            if let error = error {
-//                print(error)
-//            } else {
-//                print("Пользователь удален успешно")
-//            }
-//        }
-//    }
     
     // MARK: - Процесс отображения друзей во вкладке "Подписки" и "Подписчики"
     
@@ -61,10 +45,7 @@ final class FriendsViewModel: ObservableObject {
         
         let document = try await DatabaseService.shared.getMyDocument()
         
-        guard let data = document.data() else {
-            print("Документ пустой")
-            return
-        }
+        guard let data = document.data() else { return }
         
         guard let id = data["friends_id"] as? [String] else { return }
         self.myFriendsID = id
@@ -81,10 +62,7 @@ final class FriendsViewModel: ObservableObject {
         
         let document = try await DatabaseService.shared.getMyDocument()
         
-        guard let data = document.data() else {
-            print("Документ пустой")
-            return
-        }
+        guard let data = document.data() else { return }
         
         guard let id = data["my_subscribers"] as? [String] else { return }
         self.mySubscribersID = id
@@ -98,73 +76,19 @@ final class FriendsViewModel: ObservableObject {
     
     
     
-    
-    // MARK: -- Прослушиваю
-
-    func getRequest() {
+    func getMyRequestID() async throws {
         
-        if let userId = try? AuthenticationManager.shared.getAuthenticatedUser().uid {
-            let docRef = Firestore.firestore().collection("users").document(userId).collection("personalData").document(userId)
-            
-            docRef.addSnapshotListener { snapshot, error in
-                guard let document = snapshot else {
-                    print("Ошибка при получении id друзей \(error!)")
-                    return
-                }
-
-                guard let data = document.data() else {
-                    print("Документ пустой")
-                    return
-                }
-
-                guard let id = data["request_friend"] as? [String] else { return }
-                self.myRequestID = id
-            }
-            
-            Firestore.firestore().collection("users").whereField("user_id", in: myRequestID).getDocuments() { (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    self.myRequest = querySnapshot?.documents.compactMap {
-                        try? $0.data(as: DBUser.self)
-                    } ?? []
-                }
-            }
-        } else {
-            return
-        }
+        let document = try await DatabaseService.shared.getMyDocument()
+        
+        guard let data = document.data() else { return }
+        
+        guard let id = data["request_friend"] as? [String] else { return }
+        self.myRequestID = id
     }
     
-    func getMySubscribers() {
-        if let userId = try? AuthenticationManager.shared.getAuthenticatedUser().uid {
-            
-            Firestore.firestore().collection("users").document(userId).collection("personalData").document(userId).addSnapshotListener { snapshot, error in
-                
-                guard let document = snapshot else {
-                    print("Ошибка при получении id друзей \(error!)")
-                    return
-                }
-                
-                guard let data = document.data() else {
-                    print("Документ пустой")
-                    return
-                }
-                
-                guard let id = data["my_subscribers"] as? [String] else { return }
-                self.mySubscribersID = id
-            }
-            
-            Firestore.firestore().collection("users").whereField("user_id", in: mySubscribersID).getDocuments() { (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    self.mySubscribers = querySnapshot?.documents.compactMap {
-                        try? $0.data(as: DBUser.self)
-                    } ?? []
-                }
-            }
-        } else {
-            return
+    func getRequest() async throws {
+        try await self.myRequest = DatabaseService.shared.getFriends(myFriendsID: myRequestID).documents.compactMap {
+            try? $0.data(as: DBUser.self)
         }
     }
     

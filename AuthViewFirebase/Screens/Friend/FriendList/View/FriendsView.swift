@@ -60,7 +60,6 @@ struct FriendsView: View {
             .navigationTitle("Друзья")
         }
         .searchable(text: $nameFriend, placement: .navigationBarDrawer(displayMode: .always), prompt: "Поиск друга").textInputAutocapitalization(.never)
-        .onAppear(perform: friendViewModel.getRequest)
     }
 }
 
@@ -118,11 +117,15 @@ extension FriendsView {
                 }
                 
             }
-            .onAppear(perform: friendViewModel.fetchUsers)
+//            .onAppear(perform: friendViewModel.fetchUsers)
             
             .task {
                 try? await friendViewModel.getMyFriendsID()
                 try? await friendViewModel.getSubscriptions()
+                try? await friendViewModel.getAllUsers()
+                
+                try? await friendViewModel.getMyRequestID()
+                try? await friendViewModel.getRequest()
             }
             .listStyle(.inset)
         }
@@ -183,7 +186,6 @@ extension FriendsView {
                 }
             }
             .listStyle(.inset)
-            .onAppear(perform: friendViewModel.getRequest)
             .task {
                 try? await friendViewModel.getMySubscribersID()
                 try? await friendViewModel.getSubscribers()
@@ -209,6 +211,5 @@ extension FriendsView {
             }
         }
         .listStyle(.inset)
-        .onAppear(perform: friendViewModel.getRequest)
     }
 }

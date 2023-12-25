@@ -188,7 +188,22 @@ class DatabaseService {
         try await Firestore.firestore().collection("users").whereField("user_id", in: myFriendsID).getDocuments()
     }
     
+    // MARK: - Процесс получения всех пользователей
     
+    func getAllUsers() async throws -> QuerySnapshot {
+        try await Firestore.firestore().collection("users").getDocuments()
+    }
+    
+    // MARK: - Прослушиватель всех пользователей
+    
+    func fetchUsers() -> QuerySnapshot? {
+        Firestore.firestore().collection("users").addSnapshotListener { (snapshot, error) in
+            if let error = error {
+                print(error)
+                return
+            }
+        } as? QuerySnapshot
+    }
     
     
     
