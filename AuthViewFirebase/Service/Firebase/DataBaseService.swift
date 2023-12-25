@@ -178,8 +178,16 @@ class DatabaseService {
     }
     
     
+    // MARK: - Процесс отображения друзей во вкладке "Подписки" и "Подписчики"
     
-
+    func getMyDocument() async throws -> DocumentSnapshot {
+        try await Firestore.firestore().collection("users").document(currentUserId).collection("personalData").document(currentUserId).getDocument()
+    }
+    
+    func getFriends(myFriendsID: [String]) async throws -> QuerySnapshot {
+        try await Firestore.firestore().collection("users").whereField("user_id", in: myFriendsID).getDocuments()
+    }
+    
     
     
     

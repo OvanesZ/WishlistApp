@@ -55,92 +55,49 @@ final class FriendsViewModel: ObservableObject {
 //        }
 //    }
     
-
-    func getMyFriendsID() {
+    // MARK: - Процесс отображения друзей во вкладке "Подписки" и "Подписчики"
+    
+    func getMyFriendsID() async throws {
         
-        if let userId = try? AuthenticationManager.shared.getAuthenticatedUser().uid {
-            let docRef = Firestore.firestore().collection("users").document(userId).collection("personalData").document(userId)
-            
-            docRef.addSnapshotListener { snapshot, error in
-                guard let document = snapshot else {
-                    print("Ошибка при получении id друзей \(error!)")
-                    return
-                }
-                
-                guard let data = document.data() else {
-                    print("Документ пустой")
-                    return
-                }
-                
-                guard let id = data["friends_id"] as? [String] else { return }
-                self.myFriendsID = id
-            }
-            
-        } else {
-            return
-        }
-    }
-    
-    
-    func getMyFriendsIDAsync() async throws {
-        if let userId = try? AuthenticationManager.shared.getAuthenticatedUser().uid {
-            let docRef = Firestore.firestore().collection("users").document(userId).collection("personalData").document(userId)
-            do {
-                let document = try await docRef.getDocument()
-                
-                guard let data = document.data() else {
-                    print("Документ пустой")
-                    return
-                }
-                
-                guard let id = data["friends_id"] as? [String] else { return }
-                self.myFriendsID = id
-                
-                
-            } catch {
-                print("Error getting document: \(error)")
-            }
-            
-        } else {
+        let document = try await DatabaseService.shared.getMyDocument()
+        
+        guard let data = document.data() else {
+            print("Документ пустой")
             return
         }
         
+        guard let id = data["friends_id"] as? [String] else { return }
+        self.myFriendsID = id
     }
     
-    // MARK: -- Прослушиваю авторизованного пользователя и кладу id друзей в массив myFriendsID и затем по фильтру in: myFriendsID прослушиваю изменения у друзей
     
+    func getSubscriptions() async throws {
+        try await self.myFriends = DatabaseService.shared.getFriends(myFriendsID: myFriendsID).documents.compactMap {
+            try? $0.data(as: DBUser.self)
+        }
+    }
     
-    func getFriendsAsync() async throws {
-       
-        do {
-            let querySnapshot = try await Firestore.firestore().collection("users").whereField("user_id", in: myFriendsID).getDocuments()
-            
-            self.myFriends = querySnapshot.documents.compactMap {
-                try? $0.data(as: DBUser.self)
-            }
-            
-        } catch {
-            print("Error getting documents: \(error)")
+    func getMySubscribersID() async throws {
+        
+        let document = try await DatabaseService.shared.getMyDocument()
+        
+        guard let data = document.data() else {
+            print("Документ пустой")
+            return
         }
         
+        guard let id = data["my_subscribers"] as? [String] else { return }
+        self.mySubscribersID = id
     }
     
-    
-    
-    func getFriends() {
-        
-        Firestore.firestore().collection("users").whereField("user_id", in: myFriendsID).getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                
-                self.myFriends = querySnapshot?.documents.compactMap {
-                    try? $0.data(as: DBUser.self)
-                } ?? []
-            }
+    func getSubscribers() async throws {
+        try await self.mySubscribers = DatabaseService.shared.getFriends(myFriendsID: mySubscribersID).documents.compactMap {
+            try? $0.data(as: DBUser.self)
         }
-        
     }
+    
+    
+    
     
     // MARK: -- Прослушиваю
 

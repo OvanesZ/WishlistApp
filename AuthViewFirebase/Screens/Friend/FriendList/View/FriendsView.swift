@@ -119,13 +119,11 @@ extension FriendsView {
                 
             }
             .onAppear(perform: friendViewModel.fetchUsers)
-//            .onAppear(perform: friendViewModel.getMyFriendsID)
+            
             .task {
-                try? await friendViewModel.getMyFriendsIDAsync()
-                try? await friendViewModel.getFriendsAsync()
+                try? await friendViewModel.getMyFriendsID()
+                try? await friendViewModel.getSubscriptions()
             }
-            //        .onAppear(perform: friendViewModel.getFriends)
-            .onAppear(perform: friendViewModel.getRequest)
             .listStyle(.inset)
         }
         
@@ -183,15 +181,13 @@ extension FriendsView {
                         }
                     }
                 }
-                
-                
-                
-                
             }
             .listStyle(.inset)
-            //        .onAppear(perform: friendViewModel.getFriends)
             .onAppear(perform: friendViewModel.getRequest)
-            .onAppear(perform: friendViewModel.getMySubscribers)
+            .task {
+                try? await friendViewModel.getMySubscribersID()
+                try? await friendViewModel.getSubscribers()
+            }
         }
         
     }
