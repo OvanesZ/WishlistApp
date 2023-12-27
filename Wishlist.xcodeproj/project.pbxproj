@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4E045B7F2B22049200DD2DD9 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E045B7E2B22049200DD2DD9 /* SettingsViewModel.swift */; };
 		4E045B812B2204C500DD2DD9 /* SettingsPersonalDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E045B802B2204C500DD2DD9 /* SettingsPersonalDataView.swift */; };
+		4E0A5ADC2B3BE0F400C8C4DB /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A5ADB2B3BE0F400C8C4DB /* CacheManager.swift */; };
 		4E19CD9F2AE1CF7F008AB36B /* FirstAppear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E19CD9E2AE1CF7F008AB36B /* FirstAppear.swift */; };
 		4E19CDA12AE30F59008AB36B /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E19CDA02AE30F59008AB36B /* SplashScreenView.swift */; };
 		4E19CDA32AE3135F008AB36B /* GochiHand-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EEF220C2AB8D4C9001B736F /* GochiHand-Regular.ttf */; };
@@ -90,6 +91,7 @@
 /* Begin PBXFileReference section */
 		4E045B7E2B22049200DD2DD9 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		4E045B802B2204C500DD2DD9 /* SettingsPersonalDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPersonalDataView.swift; sourceTree = "<group>"; };
+		4E0A5ADB2B3BE0F400C8C4DB /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		4E19CD9E2AE1CF7F008AB36B /* FirstAppear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstAppear.swift; sourceTree = "<group>"; };
 		4E19CDA02AE30F59008AB36B /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		4E19CDA92AE31EB7008AB36B /* Wishlist-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Wishlist-Info.plist"; sourceTree = "<group>"; };
@@ -188,6 +190,14 @@
 				4E045B7E2B22049200DD2DD9 /* SettingsViewModel.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		4E0A5ADD2B3BE0FA00C8C4DB /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				4E0A5ADB2B3BE0F400C8C4DB /* CacheManager.swift */,
+			);
+			path = Cache;
 			sourceTree = "<group>";
 		};
 		4E19CD9D2AE1CF61008AB36B /* Extension */ = {
@@ -346,6 +356,7 @@
 				4ED21A412B09111F001D016B /* Firebase */,
 				4ED21A432B091195001D016B /* ImagePicker */,
 				4ED21A422B091183001D016B /* Utilities */,
+				4E0A5ADD2B3BE0FA00C8C4DB /* Cache */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -706,6 +717,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4EEF21F52AA3FF96001B736F /* HeaderFriendHome.swift in Sources */,
+				4E0A5ADC2B3BE0F400C8C4DB /* CacheManager.swift in Sources */,
 				4ED21A452B091589001D016B /* RootView.swift in Sources */,
 				4ED389F22A924B1F007E30D1 /* MainTabBar.swift in Sources */,
 				4ED2F43C2B17095A00EE7004 /* UserManager.swift in Sources */,

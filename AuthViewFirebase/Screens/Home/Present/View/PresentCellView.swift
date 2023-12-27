@@ -120,12 +120,3 @@ struct PresentCellView: View {
     }
     
 }
-
-
-
-
-//struct PresentCellView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PresentCellView(present: PresentModel(name: "Iphone", havePhoto: true, urlText: "https://ozone.ru", isReserved: false, presentFromUser: UserModel(), presentImageURLText: "https://ozon.ru", presentDescription: "Red phone. 512 Gb. ProMax."))
-//    }
-//}

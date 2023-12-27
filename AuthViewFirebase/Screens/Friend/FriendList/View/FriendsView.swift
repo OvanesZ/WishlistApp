@@ -69,23 +69,33 @@ extension FriendsView {
     private var subscriptions: some View {
         
         NavigationStack {
-            if friendViewModel.myFriends.isEmpty && nameFriend.isEmpty {
-                
-                VStack {
-                    Spacer()
-                    Text("Здесь будут Ваши подписки")
-                        .foregroundStyle(.blue)
-                        .font(.title2.bold().italic())
+            
+            if friendViewModel.isLoading {
+                ProgressView()
+            } else {
+                if friendViewModel.myFriends.isEmpty && nameFriend.isEmpty {
                     
-                    Image("friends")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
+                    VStack {
+                        Spacer()
+                        Text("Здесь будут Ваши подписки")
+                            .foregroundStyle(.blue)
+                            .font(.title2.bold().italic())
+                        
+                        Image("friends")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            
+                    }
+                    .animation(Animation.easeInOut(duration: 0.9), value: friendViewModel.isLoading)
+                
                 }
             }
             
+            
+            
+            
+            
             List {
-                
-                
                 
                 if !nameFriend.isEmpty {
                     Text("Ваши подписки")
@@ -117,8 +127,6 @@ extension FriendsView {
                 }
                 
             }
-//            .onAppear(perform: friendViewModel.fetchUsers)
-            
             .task {
                 try? await friendViewModel.getMyFriendsID()
                 try? await friendViewModel.getSubscriptions()

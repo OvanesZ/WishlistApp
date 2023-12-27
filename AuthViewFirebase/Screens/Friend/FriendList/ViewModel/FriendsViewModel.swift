@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 @MainActor
 final class FriendsViewModel: ObservableObject {
     
@@ -20,6 +19,9 @@ final class FriendsViewModel: ObservableObject {
     @Published var myFriendsID: [String] = [" "]
     var myRequestID: [String] = [" "]
     var mySubscribersID: [String] = [" "]
+    @Published var isLoading = false
+    @Published var uiImage = UIImage(named: "person")
+    @Published var isLoadImage = false
     
 
     // MARK: - НЕ УДАЛЯТЬ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -42,7 +44,7 @@ final class FriendsViewModel: ObservableObject {
     // MARK: - Процесс отображения друзей во вкладке "Подписки" и "Подписчики"
     
     func getMyFriendsID() async throws {
-        
+        self.isLoading = true
         let document = try await DatabaseService.shared.getMyDocument()
         
         guard let data = document.data() else { return }
@@ -53,9 +55,11 @@ final class FriendsViewModel: ObservableObject {
     
     
     func getSubscriptions() async throws {
+        
         try await self.myFriends = DatabaseService.shared.getFriends(myFriendsID: myFriendsID).documents.compactMap {
             try? $0.data(as: DBUser.self)
         }
+        self.isLoading = false
     }
     
     func getMySubscribersID() async throws {
@@ -91,6 +95,25 @@ final class FriendsViewModel: ObservableObject {
             try? $0.data(as: DBUser.self)
         }
     }
+    
+    func getImage(friendID: String) {
+        self.isLoadImage = true
+        
+        StorageService.shared.downloadUserImage(id: friendID) { result in
+            switch result {
+            case .success(let data):
+                self.isLoadImage = false
+                if let img = UIImage(data: data) {
+                    self.uiImage = img
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    
+    
     
     
 }

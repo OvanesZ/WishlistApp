@@ -10,10 +10,9 @@ import SwiftUI
 struct FriendsCell: View {
     
     let friend: DBUser
-    @State var uiImage = UIImage(named: "person")
-    @State private var isLoadImage = false
     @State private var url: URL? = nil
     @StateObject private var viewModel: SettingsViewModel = SettingsViewModel()
+    @StateObject private var friendsViewModel: FriendsViewModel = FriendsViewModel()
     
     init(friend: DBUser) {
         self.friend = friend
@@ -24,13 +23,13 @@ struct FriendsCell: View {
         
         HStack {
             
-            Image(uiImage: uiImage!)
+            Image(uiImage: friendsViewModel.uiImage!)
                 .resizable()
                 .scaledToFill()
                 .frame(width: 60, height: 60)
                 .clipShape(Circle())
                 .overlay {
-                    if isLoadImage {
+                    if friendsViewModel.isLoadImage {
                         ProgressView()
                             .progressViewStyle(CircularProgressViewStyle(tint: .gray))
                             .scaleEffect(2)
@@ -79,19 +78,7 @@ struct FriendsCell: View {
                 .bold()
         }
         .onFirstAppear {
-            isLoadImage = true
-            
-            StorageService.shared.downloadUserImage(id: friend.userId) { result in
-                switch result {
-                case .success(let data):
-                    isLoadImage = false
-                    if let img = UIImage(data: data) {
-                        self.uiImage = img
-                    }
-                case .failure(let error):
-                    print(error.localizedDescription)
-                }
-            }
+            friendsViewModel.getImage(friendID: friend.userId)
         }
         
 //        .onAppear {
