@@ -22,39 +22,19 @@ struct PresentModalView: View {
     
     var body: some View {
         
-        NavigationStack {
+        ScrollView {
             
-            HStack {
-                Spacer()
-                Text(presentModelViewModel.present.name)
-                    .padding(.top, 40)
-                    .font(.title2.bold())
-                Spacer()
-            }
+//            HStack {
+//                Spacer()
+//                Text(presentModelViewModel.present.name)
+//                    .font(.title2.bold())
+//                Spacer()
+//            }
             
             VStack {
                 
                 RoundedRectangle(cornerRadius: 30, style: .continuous)
                     .overlay {
-//                        Image(uiImage: presentModelViewModel.uiImage)
-//                            .resizable()
-//                            .aspectRatio(contentMode: .fill)
-//
-//                        if isLoadImage {
-//                            ProgressView()
-//                                .progressViewStyle(CircularProgressViewStyle(tint: .gray))
-//                                .scaleEffect(2)
-//                        }
-                        
-//                        AsyncImage(url: urlImage) { image in
-//                            image
-//                                .resizable()
-//                                .aspectRatio(contentMode: .fill)
-//                                .frame(width: 350, height: 350)
-//                        } placeholder: {
-//                            ProgressView()
-//                        }
-//                        .frame(width: 80, height: 80)
                         
                         KFImage(presentModelViewModel.url)
                             .resizable()
@@ -65,16 +45,11 @@ struct PresentModalView: View {
                                 .progressViewStyle(CircularProgressViewStyle(tint: .gray))
                                 .scaleEffect(2)
                         }
-                            
                         
                     }
                     .opacity(50)
                     .frame(width: 350, height: 350)
                     .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
-                
-                
-                
-                
                 
                 HStack {
                     Text("Описание")
@@ -155,21 +130,6 @@ struct PresentModalView: View {
                 .padding(.bottom, 15)
             }
         }
-//        .onFirstAppear {
-//            isLoadImage = true
-//            
-//            StorageService.shared.downloadPresentImage(id: presentModelViewModel.present.id) { result in
-//                switch result {
-//                case .success(let data):
-//                    isLoadImage = false
-//                    if let img = UIImage(data: data) {
-//                        presentModelViewModel.uiImage = img
-//                    }
-//                case .failure(let error):
-//                    print(error.localizedDescription)
-//                }
-//            }
-//        }
         
         .onFirstAppear {
             isLoadImage = true
@@ -186,8 +146,8 @@ struct PresentModalView: View {
                 }
             }
         }
-        
-        
+//        .toolbar(.hidden, for: .navigationBar)
+        .navigationTitle(presentModelViewModel.present.name)
         
         
     }

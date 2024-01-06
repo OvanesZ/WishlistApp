@@ -42,7 +42,12 @@ struct HomeView: View {
                     ) {
                         Section() {
                             ForEach(viewModel.wishlist) { present in
-                                PresentCellView(present: present)
+                                NavigationLink {
+                                    PresentModalView(currentPresent: present, presentModelViewModel: PresentModelViewModel(present: present))
+                                } label: {
+                                    PresentCellView(present: present)
+                                }
+                                
                             }
                         }
                     }
@@ -73,7 +78,7 @@ struct HomeView: View {
                 .navigationTitle("Мои пожелания \(Auth.auth().currentUser?.email ?? "")")
                 
             }
-            .toolbar(.visible, for: .tabBar)      // tabBar постоянно на видимом фоне
+//            .toolbar(.visible, for: .tabBar)      // tabBar постоянно на видимом фоне
         }
         
         

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct FriendsCell: View {
     
@@ -23,52 +24,49 @@ struct FriendsCell: View {
         
         HStack {
             
-            Image(uiImage: friendsViewModel.uiImage!)
+//            if let image = friendsViewModel.cahedImage {
+//                Image(uiImage: image)
+//                    .resizable()
+//                    .scaledToFill()
+//                    .frame(width: 60, height: 60)
+//                    .clipShape(Circle())
+//                    .overlay {
+//                        if friendsViewModel.isLoadImage {
+//                            ProgressView()
+//                                .progressViewStyle(CircularProgressViewStyle(tint: .gray))
+//                                .scaleEffect(2)
+//                        }
+//                    }
+//            }
+            
+            KFImage(url)
                 .resizable()
                 .scaledToFill()
                 .frame(width: 60, height: 60)
                 .clipShape(Circle())
-                .overlay {
-                    if friendsViewModel.isLoadImage {
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle(tint: .gray))
-                            .scaleEffect(2)
-                    }
-                }
             
-//            AsyncImage(url: url) { image in
-//                image
-//                    .resizable()
-//                    .aspectRatio(contentMode: .fill)
-//                    .frame(width: 60, height: 60)
-//                    .scaledToFill()
-//                    .clipShape(Circle())
-//            } placeholder: {
-//                ProgressView()
+            
+//            AsyncImage(
+//                url: url,
+//                transaction: Transaction(animation: .linear)
+//            ) { phase in
+//                switch phase {
+//                case .empty:
+//                    ProgressView()
+//                case .success(let image):
+//                    image
+//                        .resizable()
+//                        .scaledToFill()
+//                        .transition(.scale(scale: 0.1, anchor: .center))
+//                case .failure:
+//                    Image(systemName: "wifi.slash")
+//                @unknown default:
+//                    EmptyView()
+//                }
 //            }
-//            .frame(width: 20, height: 20)
-            
-            AsyncImage(
-                url: url,
-                transaction: Transaction(animation: .linear)
-            ) { phase in
-                switch phase {
-                case .empty:
-                    ProgressView()
-                case .success(let image):
-                    image
-                        .resizable()
-                        .scaledToFill()
-                        .transition(.scale(scale: 0.1, anchor: .center))
-                case .failure:
-                    Image(systemName: "wifi.slash")
-                @unknown default:
-                    EmptyView()
-                }
-            }
-            .frame(width: 60, height: 60)
-            .background(Color.gray)
-            .clipShape(Circle())
+//            .frame(width: 60, height: 60)
+//            .background(Color.gray)
+//            .clipShape(Circle())
             
             
             
@@ -76,30 +74,18 @@ struct FriendsCell: View {
                 .padding(.leading, 3)
                 .lineLimit(2)
                 .bold()
+            
+            
         }
         .onFirstAppear {
             friendsViewModel.getImage(friendID: friend.userId)
         }
-        
-//        .onAppear {
-////            isLoadingImage = true
-//
-//            StorageService.shared.downloadURLUserImage(id: friend.id) { result in
-//                switch result {
-//                case .success(let url):
-////                    isLoadingImage = false
-//                    if let url = url {
-//                        self.url = url
-//                    }
-//                case .failure(let error):
-//                    print(error.localizedDescription)
-//                }
-//            }
-//        }
         .task {
             self.url = try? await viewModel.getUrlImageFriendAsync(id: friend.userId)
         }
-        
+        .onAppear {
+            friendsViewModel.getFromCache(userIdForNameImage: friend.userId)
+        }
         
     }
     

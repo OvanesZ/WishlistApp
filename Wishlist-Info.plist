@@ -20,6 +20,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Volja.otf</string>
+		<string>NeutralFace.otf</string>
 		<string>GochiHand-Regular.ttf</string>
 		<string>Gloock-Regular.ttf</string>
 	</array>

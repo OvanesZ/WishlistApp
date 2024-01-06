@@ -20,9 +20,15 @@ final class SettingsViewModel: ObservableObject {
     @Published var isLoadImage = false
     @Published var user: PersonalDataDBUser? = nil
     
+    let manager = CacheManager.instanse
     
     // MARK: - functions
     
+    
+    
+    func saveToCache(userIdForNameImage: String) {
+        manager.add(image: image, name: userIdForNameImage)
+    }
     
     func getUrlImageAsync() async throws -> URL {
         try await StorageService.shared.downloadURLUserImageAsync(id: dbUserPersonalData?.userId ?? "")
@@ -100,7 +106,5 @@ final class SettingsViewModel: ObservableObject {
         let password = "111111"
         try await AuthenticationManager.shared.updateEmail(email: password)
     }
-    
-    
     
 }

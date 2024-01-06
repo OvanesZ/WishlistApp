@@ -15,13 +15,17 @@ final class FriendsViewModel: ObservableObject {
     @Published var mySubscribers: [DBUser] = []
     @Published var myRequest: [DBUser] = []
     @Published var allFriendsUser: [DBUser] = []
-    
     @Published var myFriendsID: [String] = [" "]
-    var myRequestID: [String] = [" "]
-    var mySubscribersID: [String] = [" "]
     @Published var isLoading = false
     @Published var uiImage = UIImage(named: "person")
+    @Published var cahedImage: UIImage? = nil
     @Published var isLoadImage = false
+    
+    var myRequestID: [String] = [" "]
+    var mySubscribersID: [String] = [" "]
+    
+    let manager = CacheManager.instanse
+ 
     
 
     // MARK: - НЕ УДАЛЯТЬ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -110,6 +114,22 @@ final class FriendsViewModel: ObservableObject {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    
+    // MARK: - Работа с кэш
+    
+    func saveToCache(userIdForNameImage: String) {
+        guard let image = uiImage else { return }
+        manager.add(image: image, name: userIdForNameImage)
+    }
+    
+    func removeFromCache(userIdForNameImage: String) {
+        manager.remove(name: userIdForNameImage)
+    }
+    
+    func getFromCache(userIdForNameImage: String) {
+        cahedImage = manager.get(name: userIdForNameImage)
     }
     
     

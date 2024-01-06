@@ -91,6 +91,9 @@ struct SettingsPersonalDataView: View {
                                 
                                 try await UserManager.shared.createNewPersonalDataUser(user: userPersonalData)
                                 viewModel.uploadImageAsync()
+                                
+                                // сохранение изображения в кэш
+                                viewModel.saveToCache(userIdForNameImage: viewModel.dbUser?.userId ?? "image")
                             }
                             
                             dismiss()
