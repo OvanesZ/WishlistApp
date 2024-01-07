@@ -12,6 +12,7 @@ struct PresentModalView: View {
     
     let currentPresent: PresentModel
     @ObservedObject var presentModelViewModel: PresentModelViewModel
+    @Environment(\.dismiss) var dismiss
     @State private var isLoadImage = false
     let nameTextUrl: String = "[Ссылка на подарок]"
     
@@ -122,6 +123,7 @@ struct PresentModalView: View {
                 Button(action: {
                     presentModelViewModel.removingPresentFromWishlist(currentPresent.id)
                     presentModelViewModel.deletePresentImage()
+                    dismiss()
                 }) {
                     Image(systemName: "trash")
                         .font(.largeTitle)
