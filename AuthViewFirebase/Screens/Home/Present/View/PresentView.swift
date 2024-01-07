@@ -96,10 +96,11 @@ struct PresentModalView: View {
                 VStack {
                     HStack {
                         if presentModelViewModel.isHiddenReservButton {
-                            Text("Подарит")
+                            Text("Подарок зарезервирован")
                                 .font(.title2)
                                 .bold()
-                                .foregroundColor(.gray)
+//                                .foregroundColor(.gray)
+                                .foregroundStyle(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.3098039329, green: 0.01568627544, blue: 0.1294117719, alpha: 1)), Color(#colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1))]), startPoint: .topLeading, endPoint: .bottomTrailing))
                                 .opacity(15)
                                 .padding(.leading, 15)
                             
@@ -126,7 +127,7 @@ struct PresentModalView: View {
                     dismiss()
                 }) {
                     Image(systemName: "trash")
-                        .font(.largeTitle)
+                        .font(.title)
                         .foregroundColor(.red)
                 }
                 .padding(.bottom, 15)

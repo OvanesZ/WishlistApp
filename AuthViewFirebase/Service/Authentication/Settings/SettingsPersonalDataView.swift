@@ -15,7 +15,6 @@ struct SettingsPersonalDataView: View {
     @State private var showImagePickerLibrary = false
     @State private var showImagePickerCamera = false
     @ObservedObject var viewModel: SettingsViewModel
-    @StateObject private var profileViewModel: ProfileViewModel = ProfileViewModel(profile: UserModel(id: "", email: "", displayName: "", address: "", dateOfBirth: Date()))
     @Environment(\.dismiss) var dismiss
     
     var body: some View {

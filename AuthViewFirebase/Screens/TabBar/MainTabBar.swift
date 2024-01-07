@@ -12,13 +12,16 @@ struct MainTabBar: View {
 //    @StateObject var viewModel: MainTabBarViewModel = MainTabBarViewModel()
     
 //    @State var showSignInView = false
+//    @StateObject private var friendsViewModel: FriendsViewModel = FriendsViewModel()
     @Binding var showSignInView: Bool
     
     
     var body: some View {
         
+      
+        
+        
         TabView {
-//            HomeView(viewModel: HomeViewModel())
             HomeView()
                 .tabItem {
                     VStack {
@@ -27,22 +30,26 @@ struct MainTabBar: View {
                     }
                 }
             FriendsView(userViewModel: HomeViewModel())
-//            FriendsView(friendViewModel: FriendsViewModel(friend: UserModel(id: "", email: "", displayName: "", address: "", dateOfBirth: Date())), userViewModel: HomeViewModel())
                 .tabItem {
                     VStack {
                         Image(systemName: "person.3.sequence")
                         Text("Друзья")
                     }
                 }
-                .badge(1)
-    
-            ProfileView(viewModel: ProfileViewModel(profile: UserModel(id: "", email: "", displayName: "", address: "", dateOfBirth: Date())), showSignInView: $showSignInView)
-                .tabItem {
-                    VStack {
-                        Image(systemName: "gearshape")
-                        Text("Профиль")
-                    }
-                }
+//                .task {
+//                    try? await friendsViewModel.getMyRequestID()
+//                    try? await friendsViewModel.getRequest()
+//                }
+//                .badge(friendsViewModel.myRequest.count)
+            
+            
+//            ProfileView(viewModel: ProfileViewModel(profile: UserModel(id: "", email: "", displayName: "", address: "", dateOfBirth: Date())), showSignInView: $showSignInView)
+//                .tabItem {
+//                    VStack {
+//                        Image(systemName: "gearshape")
+//                        Text("Профиль")
+//                    }
+//                }
             
             SettingView(showSignInView: $showSignInView)
                 .tabItem {
@@ -58,6 +65,9 @@ struct MainTabBar: View {
         
         
     }
+    
+    
+   
     
     
 }

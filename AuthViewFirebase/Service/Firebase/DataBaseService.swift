@@ -23,10 +23,13 @@ class DatabaseService {
         return db.collection("wishlist")
     }
     
-    private var currentUserId: String {
-        return try! AuthenticationManager.shared.getAuthenticatedUser().uid
-    }
+//    private var currentUserId: String {
+//        return try! AuthenticationManager.shared.getAuthenticatedUser().uid
+//    }
     
+    private var currentId: String {
+        return Auth.auth().currentUser?.uid ?? "not auth user"
+    }
     
     private func docRefFriend(friendID: String) -> DocumentReference {
         Firestore.firestore().collection("users").document(friendID).collection("personalData").document(friendID)
@@ -117,12 +120,12 @@ class DatabaseService {
     
     func stepOneUserPressedAddFriendButton(friendId: String) async throws {
         
-        try await docRefUser(userID: currentUserId).updateData([
+        try await docRefUser(userID: currentId).updateData([
             "friends_id": FieldValue.arrayUnion([friendId])
         ])
         
         try await docRefFriend(friendID: friendId).updateData([
-            "request_friend": FieldValue.arrayUnion([currentUserId])
+            "request_friend": FieldValue.arrayUnion([currentId])
         ])
     }
     
@@ -131,20 +134,20 @@ class DatabaseService {
     
     func stepTwoForAddFriendPositive(friendId: String) async throws {
         
-        try await docRefUser(userID: currentUserId).updateData([
+        try await docRefUser(userID: currentId).updateData([
             "request_friend": FieldValue.arrayRemove([friendId])
         ])
         
-        try await docRefUser(userID: currentUserId).updateData([
+        try await docRefUser(userID: currentId).updateData([
             "friends_id": FieldValue.arrayUnion([friendId])
         ])
         
-        try await docRefUser(userID: currentUserId).updateData([
+        try await docRefUser(userID: currentId).updateData([
             "my_subscribers": FieldValue.arrayUnion([friendId])
         ])
         
         try await docRefFriend(friendID: friendId).updateData([
-            "my_subscribers": FieldValue.arrayUnion([currentUserId])
+            "my_subscribers": FieldValue.arrayUnion([currentId])
         ])
         
     }
@@ -153,12 +156,12 @@ class DatabaseService {
     
     func stepTwoForAddFriendNegative(friendId: String) async throws {
         
-        try await docRefUser(userID: currentUserId).updateData([
+        try await docRefUser(userID: currentId).updateData([
             "request_friend": FieldValue.arrayRemove([friendId])
         ])
         
         try await docRefFriend(friendID: friendId).updateData([
-            "friends_id": FieldValue.arrayRemove([currentUserId])
+            "friends_id": FieldValue.arrayRemove([currentId])
         ])
         
     }
@@ -167,12 +170,12 @@ class DatabaseService {
     
     func deleteFriend(friendId: String) async throws {
         
-        try await docRefUser(userID: currentUserId).updateData([
+        try await docRefUser(userID: currentId).updateData([
             "friends_id": FieldValue.arrayRemove([friendId])
         ])
         
         try await docRefFriend(friendID: friendId).updateData([
-            "my_subscribers": FieldValue.arrayRemove([currentUserId])
+            "my_subscribers": FieldValue.arrayRemove([currentId])
         ])
         
     }
@@ -181,7 +184,7 @@ class DatabaseService {
     // MARK: - Процесс отображения друзей во вкладке "Подписки" и "Подписчики"
     
     func getMyDocument() async throws -> DocumentSnapshot {
-        try await Firestore.firestore().collection("users").document(currentUserId).collection("personalData").document(currentUserId).getDocument()
+        try await Firestore.firestore().collection("users").document(currentId).collection("personalData").document(currentId).getDocument()
     }
     
     func getFriends(myFriendsID: [String]) async throws -> QuerySnapshot {
