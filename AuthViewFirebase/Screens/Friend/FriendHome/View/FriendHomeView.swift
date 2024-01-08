@@ -12,6 +12,8 @@ struct FriendHomeView: View {
     @StateObject private var viewModelSettings: SettingsViewModel = SettingsViewModel()
     @ObservedObject var viewModel: FriendHomeViewModel
     @State private var isButtonPressed = false
+    @State private var isButtonPressedUnsubscribe = false
+    @Environment(\.dismiss) var dismiss
     
     private var currentUserId: String {
         return try! AuthenticationManager.shared.getAuthenticatedUser().uid
@@ -40,9 +42,7 @@ struct FriendHomeView: View {
                             .font(.callout.italic())
                         
                         Button(action: {
-                            Task {
-                               try await viewModel.deleteFriend(friendId: viewModel.friend.userId)
-                            }
+                            isButtonPressedUnsubscribe.toggle()
                         }, label: {
                             Text("Отписаться")
                                 .font(.callout.bold())
@@ -52,6 +52,25 @@ struct FriendHomeView: View {
                         })
                         .buttonStyle(.borderedProminent)
                         .tint(.blue)
+                        .confirmationDialog("Отписавшись, Вы закроете доступ к пожеланиям. Отписаться?", isPresented: $isButtonPressedUnsubscribe, titleVisibility: .visible) {
+                            Button(role: .destructive) {
+                                
+                                Task {
+                                   try await viewModel.deleteFriend(friendId: viewModel.friend.userId)
+                                }
+                                dismiss()
+                            } label: {
+                                Text("Да")
+                            }
+                            
+                            Button {
+                                
+                                // TODO
+                                
+                            } label: {
+                                Text("Нет")
+                            }
+                        }
                     }
                 } else {
                     
