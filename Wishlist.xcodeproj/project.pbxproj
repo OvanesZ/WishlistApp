@@ -58,7 +58,6 @@
 		4EEF21E72A9E8ACC001B736F /* FriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEF21E62A9E8ACC001B736F /* FriendsCell.swift */; };
 		4EEF21F32AA3FF6A001B736F /* FriendHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEF21F22AA3FF6A001B736F /* FriendHomeViewModel.swift */; };
 		4EEF21F52AA3FF96001B736F /* HeaderFriendHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEF21F42AA3FF96001B736F /* HeaderFriendHome.swift */; };
-		4EEF21FA2AA403A5001B736F /* FriendPresentMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEF21F92AA403A5001B736F /* FriendPresentMainView.swift */; };
 		4EEF21FC2AA514E8001B736F /* FriendPresentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEF21FB2AA514E8001B736F /* FriendPresentView.swift */; };
 		4EEF22002AB61626001B736F /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEF21FF2AB61626001B736F /* PhotoPicker.swift */; };
 		4EEF22022AB649F5001B736F /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEF22012AB649F5001B736F /* ImagePicker.swift */; };
@@ -134,7 +133,6 @@
 		4EEF21E62A9E8ACC001B736F /* FriendsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCell.swift; sourceTree = "<group>"; };
 		4EEF21F22AA3FF6A001B736F /* FriendHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendHomeViewModel.swift; sourceTree = "<group>"; };
 		4EEF21F42AA3FF96001B736F /* HeaderFriendHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderFriendHome.swift; sourceTree = "<group>"; };
-		4EEF21F92AA403A5001B736F /* FriendPresentMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendPresentMainView.swift; sourceTree = "<group>"; };
 		4EEF21FB2AA514E8001B736F /* FriendPresentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendPresentView.swift; sourceTree = "<group>"; };
 		4EEF21FF2AB61626001B736F /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		4EEF22012AB649F5001B736F /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -514,7 +512,6 @@
 			isa = PBXGroup;
 			children = (
 				4EEF21E42A9E8AA7001B736F /* FriendHomeView.swift */,
-				4EEF21F92AA403A5001B736F /* FriendPresentMainView.swift */,
 				4EEF21FB2AA514E8001B736F /* FriendPresentView.swift */,
 				4EEF21F42AA3FF96001B736F /* HeaderFriendHome.swift */,
 			);
@@ -704,7 +701,6 @@
 				4EEF21C82A9CFF97001B736F /* HomeViewModel.swift in Sources */,
 				4E19CDA12AE30F59008AB36B /* SplashScreenView.swift in Sources */,
 				4E19CD9F2AE1CF7F008AB36B /* FirstAppear.swift in Sources */,
-				4EEF21FA2AA403A5001B736F /* FriendPresentMainView.swift in Sources */,
 				4EEF21FC2AA514E8001B736F /* FriendPresentView.swift in Sources */,
 				4EEF21E72A9E8ACC001B736F /* FriendsCell.swift in Sources */,
 				4ED38A072A9268C5007E30D1 /* UserModel.swift in Sources */,
