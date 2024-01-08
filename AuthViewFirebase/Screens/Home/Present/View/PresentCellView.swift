@@ -52,6 +52,7 @@ struct PresentCellView: View {
                     .foregroundStyle(colorScheme == .dark ? .white : .black)
                 
             }
+            .padding(.top, 4)
         
         .onAppear {
             

@@ -115,11 +115,14 @@ struct FriendHomeView: View {
                 }
             }
         }
+        .padding(.bottom, -6)
         .task {
             try? await viewModelSettings.loadFriendDBUserPersonalData(id: viewModel.friend.userId)
         }
         .navigationTitle(viewModel.friend.displayName ?? viewModelSettings.friendDbUserPersonalData?.userName ?? "")
         
+        Divider()
+            
         
         if viewModel.isFriendForFriendstArr && viewModel.isIamFriend {
             ScrollView {
@@ -141,6 +144,7 @@ struct FriendHomeView: View {
                     }
                 }
             }
+            .padding(.top, -8)
         } else {
             Spacer()
             
@@ -159,6 +163,7 @@ struct FriendHomeView: View {
             
             Spacer()
         }
+            
         
         
         
