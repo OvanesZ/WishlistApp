@@ -11,7 +11,6 @@ struct FriendHomeView: View {
     
     @StateObject private var viewModelSettings: SettingsViewModel = SettingsViewModel()
     @ObservedObject var viewModel: FriendHomeViewModel
-//    @ObservedObject var presentModelViewModel: PresentModelViewModel
     @State private var isButtonPressed = false
     
     private var currentUserId: String {
@@ -35,6 +34,7 @@ struct FriendHomeView: View {
                     .font(.callout.italic())
             } else {
                 if viewModel.isFriendForFriendstArr {
+                    
                     HStack {
                         Text("Вы подписаны")
                             .font(.callout.italic())
@@ -99,31 +99,52 @@ struct FriendHomeView: View {
         .task {
             try? await viewModelSettings.loadFriendDBUserPersonalData(id: viewModel.friend.userId)
         }
+        .navigationTitle(viewModel.friend.displayName ?? viewModelSettings.friendDbUserPersonalData?.userName ?? "")
         
-        ScrollView {
-            LazyVGrid (
-                columns: columns,
-                alignment: .center,
-                spacing: 15,
-                pinnedViews: [.sectionFooters]
-            ) {
-                Section() {
-                    ForEach(viewModel.wishlist) { present in
-                        NavigationLink {
-                            FriendPresentView(currentPresent: present, presentModelViewModel: PresentModelViewModel(present: present), friendViewModel: FriendHomeViewModel(friend: viewModel.friend))
-                        } label: {
-                            PresentCellView(present: present)
+        
+        if viewModel.isFriendForFriendstArr && viewModel.isIamFriend {
+            ScrollView {
+                LazyVGrid (
+                    columns: columns,
+                    alignment: .center,
+                    spacing: 15,
+                    pinnedViews: [.sectionFooters]
+                ) {
+                    Section() {
+                        ForEach(viewModel.wishlist) { present in
+                            NavigationLink {
+                                FriendPresentView(currentPresent: present, presentModelViewModel: PresentModelViewModel(present: present), friendViewModel: FriendHomeViewModel(friend: viewModel.friend))
+                            } label: {
+                                PresentCellView(present: present)
+                            }
+                            
                         }
-                        
                     }
                 }
             }
+        } else {
+            Spacer()
+            
+            VStack {
+                Image(systemName: "lock")
+                    .font(.largeTitle.bold())
+                    .foregroundStyle(.blue)
+                
+                Text("Подпишитесь на пользователя.")
+                    .font(.callout.italic())
+                    .foregroundStyle(.blue)
+                Text("После Вы сможете видеть пожелания.")
+                    .font(.subheadline.italic())
+                    .foregroundStyle(.blue)
+            }
+            
+            Spacer()
         }
-        .navigationTitle(viewModel.friend.displayName ?? viewModelSettings.friendDbUserPersonalData?.userName ?? "")
-        .onAppear {
-//            presentModelViewModel.getPresentImage()
-//            presentModelViewModel.getUrlPresentImage()
-        }
+        
+        
+        
+        
+        
         
     }
 }

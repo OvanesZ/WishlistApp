@@ -15,6 +15,7 @@ struct FriendPresentView: View {
     let currentPresent: PresentModel
     @ObservedObject var presentModelViewModel: PresentModelViewModel
     @ObservedObject var friendViewModel: FriendHomeViewModel
+    @Environment(\.dismiss) var dismiss
     let nameTextUrl: String = "[Ссылка на подарок]"
     
     init(currentPresent: PresentModel, presentModelViewModel: PresentModelViewModel, friendViewModel: FriendHomeViewModel) {
@@ -31,9 +32,6 @@ struct FriendPresentView: View {
                         KFImage(presentModelViewModel.url)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-//                        Image(uiImage: presentModelViewModel.uiImage)
-//                            .resizable()
-//                            .aspectRatio(contentMode: .fill)
                     }
                     .opacity(50)
                     .frame(width: 350, height: 350)
@@ -109,11 +107,13 @@ struct FriendPresentView: View {
                 // MARK: -- Кнопка выбрать подарок
                 
                 if presentModelViewModel.isHiddenReservButton {
-                    Spacer()
-                        .padding(.bottom, 45)
+//                    Spacer()
+//                        .padding(.bottom, 45)
+                    
                 } else {
                     Button(action: {
                         presentModelViewModel.reservingPresentForUserID(currentPresent, friendViewModel.friend.userId)
+                        dismiss()
                     }) {
                         Text("Выбрать подарок")
                             .padding(.init(top: 8, leading: 15, bottom: 8, trailing: 15))
@@ -128,7 +128,6 @@ struct FriendPresentView: View {
             }
         }
         .onAppear {
-            presentModelViewModel.getPresentImage()
             presentModelViewModel.getUrlPresentImage()
         }
         .navigationTitle(presentModelViewModel.present.name)

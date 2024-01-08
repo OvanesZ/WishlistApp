@@ -25,13 +25,6 @@ struct PresentModalView: View {
         
         ScrollView {
             
-//            HStack {
-//                Spacer()
-//                Text(presentModelViewModel.present.name)
-//                    .font(.title2.bold())
-//                Spacer()
-//            }
-            
             VStack {
                 
                 RoundedRectangle(cornerRadius: 30, style: .continuous)

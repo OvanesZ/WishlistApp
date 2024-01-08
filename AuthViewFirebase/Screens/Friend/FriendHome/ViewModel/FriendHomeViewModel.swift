@@ -16,6 +16,7 @@ class FriendHomeViewModel: ObservableObject {
     @Published var wishlist: [PresentModel] = []
     @Published var isFriendForRequestArr = false
     @Published var isFriendForFriendstArr = false
+    @Published var isIamFriend = false
     @Published var uiImage = UIImage(named: "person")
     
     init(friend: DBUser) {
@@ -107,6 +108,29 @@ class FriendHomeViewModel: ObservableObject {
                     }
                 }
             }
+            
+            let docRefFriend = Firestore.firestore().collection("users").document(friend.userId).collection("personalData").document(friend.userId)
+            
+            docRefFriend.addSnapshotListener { snapshot, error in
+                guard let document = snapshot else {
+                    print("Ошибка при получении id друзей \(error!)")
+                    return
+                }
+
+                guard let data = document.data() else {
+                    print("Документ пустой")
+                    return
+                }
+
+                guard let idFriends = data["friends_id"] as? [String] else { return }
+                
+                for id in idFriends {
+                    if userId == id {
+                        self.isIamFriend = true
+                    }
+                }
+            }
+            
         } else {
             return
         }
