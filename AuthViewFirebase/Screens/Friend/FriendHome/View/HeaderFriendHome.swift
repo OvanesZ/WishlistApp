@@ -51,6 +51,9 @@ struct HeaderFriendCell: View {
                     
                 }
             }
+        
+        
+        
             .onFirstAppear {
                 
                 isLoadImage = true

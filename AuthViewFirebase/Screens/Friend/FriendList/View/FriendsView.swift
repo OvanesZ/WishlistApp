@@ -105,7 +105,7 @@ extension FriendsView {
                 
                 ForEach(friendViewModel.myFriends) { friend in
                     NavigationLink {
-                        FriendHomeView(viewModel: FriendHomeViewModel(friend: friend), presentModelViewModel: PresentModelViewModel(present: PresentModel(id: "", name: "", urlText: "", presentFromUserID: "", isReserved: false, presentDescription: "")))
+                        FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
                     } label: {
                         FriendsCell(friend: friend)
                     }
@@ -119,7 +119,7 @@ extension FriendsView {
                         self.nameFriend.isEmpty ? true : $0.email!.contains(nameFriend)
                     }) { friend in
                         NavigationLink {
-                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend), presentModelViewModel: PresentModelViewModel(present: PresentModel(id: "", name: "", urlText: "", presentFromUserID: "", isReserved: false, presentDescription: "")))
+                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
                         } label: {
                             FriendsCell(friend: friend)
                         }
@@ -172,7 +172,7 @@ extension FriendsView {
                 ForEach(friendViewModel.mySubscribers) { friend in
                     
                     NavigationLink {
-                        FriendHomeView(viewModel: FriendHomeViewModel(friend: friend), presentModelViewModel: PresentModelViewModel(present: PresentModel(name: "", urlText: "", presentFromUserID: "")))
+                        FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
                     } label: {
                         FriendsCell(friend: friend)
                     }
@@ -186,7 +186,7 @@ extension FriendsView {
                         self.nameFriend.isEmpty ? true : $0.email!.contains(nameFriend)
                     }) { friend in
                         NavigationLink {
-                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend), presentModelViewModel: PresentModelViewModel(present: PresentModel(id: "", name: "", urlText: "", presentFromUserID: "", isReserved: false, presentDescription: "")))
+                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
                         } label: {
                             FriendsCell(friend: friend)
                         }
@@ -212,7 +212,7 @@ extension FriendsView {
             ForEach(friendViewModel.myRequest) { friend in
                 
                 NavigationLink {
-                    FriendHomeView(viewModel: FriendHomeViewModel(friend: friend), presentModelViewModel: PresentModelViewModel(present: PresentModel(name: "", urlText: "", presentFromUserID: "")))
+                    FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
                 } label: {
                     FriendsCell(friend: friend)
                 }

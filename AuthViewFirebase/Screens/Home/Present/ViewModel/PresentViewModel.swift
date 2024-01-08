@@ -62,6 +62,21 @@ class PresentModelViewModel: ObservableObject {
         }
     }
     
+    func getUrlPresentImage() {
+        StorageService.shared.downloadURLPresentImage(id: present.id) { result in
+            switch result {
+            case .success(let url):
+                if let url = url {
+                    self.url = url
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    
+    
     func deletePresentImage() {
         StorageService.shared.deletePresentImage(id: present.id) { result in
             switch result {

@@ -11,7 +11,7 @@ struct FriendHomeView: View {
     
     @StateObject private var viewModelSettings: SettingsViewModel = SettingsViewModel()
     @ObservedObject var viewModel: FriendHomeViewModel
-    @ObservedObject var presentModelViewModel: PresentModelViewModel
+//    @ObservedObject var presentModelViewModel: PresentModelViewModel
     @State private var isButtonPressed = false
     
     private var currentUserId: String {
@@ -29,10 +29,6 @@ struct FriendHomeView: View {
         VStack {
             
             HeaderFriendCell(viewModel: viewModel)
-            
-            //            Divider()
-            //                .padding([.leading, .trailing], 25)
-            //
             
             if viewModel.friend.userId == currentUserId {
                 Text("Ваша страница")
@@ -77,10 +73,6 @@ struct FriendHomeView: View {
                     }
                     .buttonStyle(.borderedProminent)
                     .tint(.blue)
-                    
-                    
-                    
-                    
                     .confirmationDialog("Ваши действия", isPresented: $isButtonPressed) {
                         Button {
                             
@@ -103,15 +95,10 @@ struct FriendHomeView: View {
                     }
                 }
             }
-            
         }
         .task {
             try? await viewModelSettings.loadFriendDBUserPersonalData(id: viewModel.friend.userId)
         }
-        
-        
-        
-        
         
         ScrollView {
             LazyVGrid (
@@ -123,8 +110,6 @@ struct FriendHomeView: View {
                 Section() {
                     ForEach(viewModel.wishlist) { present in
                         NavigationLink {
-//                            PresentModalView(currentPresent: present, presentModelViewModel: PresentModelViewModel(present: present))
-//                            FriendPresentsMainView(present: present, friendHomeViewModel: viewModel)
                             FriendPresentView(currentPresent: present, presentModelViewModel: PresentModelViewModel(present: present), friendViewModel: FriendHomeViewModel(friend: viewModel.friend))
                         } label: {
                             PresentCellView(present: present)
@@ -136,7 +121,8 @@ struct FriendHomeView: View {
         }
         .navigationTitle(viewModel.friend.displayName ?? viewModelSettings.friendDbUserPersonalData?.userName ?? "")
         .onAppear {
-            presentModelViewModel.getPresentImage()
+//            presentModelViewModel.getPresentImage()
+//            presentModelViewModel.getUrlPresentImage()
         }
         
     }

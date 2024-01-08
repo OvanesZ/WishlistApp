@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct FriendPresentView: View {
     
@@ -27,9 +28,12 @@ struct FriendPresentView: View {
             VStack {
                 RoundedRectangle(cornerRadius: 30, style: .continuous)
                     .overlay {
-                        Image(uiImage: presentModelViewModel.uiImage)
+                        KFImage(presentModelViewModel.url)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
+//                        Image(uiImage: presentModelViewModel.uiImage)
+//                            .resizable()
+//                            .aspectRatio(contentMode: .fill)
                     }
                     .opacity(50)
                     .frame(width: 350, height: 350)
@@ -125,6 +129,7 @@ struct FriendPresentView: View {
         }
         .onAppear {
             presentModelViewModel.getPresentImage()
+            presentModelViewModel.getUrlPresentImage()
         }
         .navigationTitle(presentModelViewModel.present.name)
         
