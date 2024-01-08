@@ -87,16 +87,10 @@ extension FriendsView {
                             
                     }
                     .animation(Animation.easeInOut(duration: 0.9), value: friendViewModel.isLoading)
-                
                 }
             }
             
-            
-            
-            
-            
             List {
-                
                 if !nameFriend.isEmpty {
                     Text("Ваши подписки")
                         .font(.subheadline.italic())
@@ -125,7 +119,6 @@ extension FriendsView {
                         }
                     }
                 }
-                
             }
             .task {
                 try? await friendViewModel.getMyFriendsID()
@@ -136,6 +129,16 @@ extension FriendsView {
                 try? await friendViewModel.getRequest()
             }
             .listStyle(.inset)
+        }
+        .refreshable {
+            Task {
+                try? await friendViewModel.getMyFriendsID()
+                try? await friendViewModel.getSubscriptions()
+                try? await friendViewModel.getAllUsers()
+                
+                try? await friendViewModel.getMyRequestID()
+                try? await friendViewModel.getRequest()
+            }
         }
         
     }
@@ -199,6 +202,12 @@ extension FriendsView {
                 try? await friendViewModel.getSubscribers()
             }
         }
+        .refreshable {
+            Task {
+                try? await friendViewModel.getMySubscribersID()
+                try? await friendViewModel.getSubscribers()
+            }
+        }
         
     }
 }
@@ -219,5 +228,11 @@ extension FriendsView {
             }
         }
         .listStyle(.inset)
+        .refreshable {
+            Task {
+                try? await friendViewModel.getMyRequestID()
+                try? await friendViewModel.getRequest()
+            }
+        }
     }
 }

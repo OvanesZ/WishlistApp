@@ -24,49 +24,11 @@ struct FriendsCell: View {
         
         HStack {
             
-//            if let image = friendsViewModel.cahedImage {
-//                Image(uiImage: image)
-//                    .resizable()
-//                    .scaledToFill()
-//                    .frame(width: 60, height: 60)
-//                    .clipShape(Circle())
-//                    .overlay {
-//                        if friendsViewModel.isLoadImage {
-//                            ProgressView()
-//                                .progressViewStyle(CircularProgressViewStyle(tint: .gray))
-//                                .scaleEffect(2)
-//                        }
-//                    }
-//            }
-            
             KFImage(url)
                 .resizable()
                 .scaledToFill()
                 .frame(width: 60, height: 60)
                 .clipShape(Circle())
-            
-            
-//            AsyncImage(
-//                url: url,
-//                transaction: Transaction(animation: .linear)
-//            ) { phase in
-//                switch phase {
-//                case .empty:
-//                    ProgressView()
-//                case .success(let image):
-//                    image
-//                        .resizable()
-//                        .scaledToFill()
-//                        .transition(.scale(scale: 0.1, anchor: .center))
-//                case .failure:
-//                    Image(systemName: "wifi.slash")
-//                @unknown default:
-//                    EmptyView()
-//                }
-//            }
-//            .frame(width: 60, height: 60)
-//            .background(Color.gray)
-//            .clipShape(Circle())
             
             
             
@@ -77,9 +39,9 @@ struct FriendsCell: View {
             
             
         }
-        .onFirstAppear {
-            friendsViewModel.getImage(friendID: friend.userId)
-        }
+//        .onFirstAppear {
+//            friendsViewModel.getImage(friendID: friend.userId)
+//        }
         .task {
             self.url = try? await viewModel.getUrlImageFriendAsync(id: friend.userId)
         }
@@ -96,9 +58,3 @@ extension Text {
         self.bold().italic()
     }
 }
-
-//struct FriendsCell_Previews: PreviewProvider {
-//    static var previews: some View {
-//        FriendsCell(friend: UserModel(id: "1", email: "test@test.com", displayName: "Test", phoneNumber: 0, address: "", userImageURLText: "https://i.klerk.ru/PeBvi-xi1wovZDomiEcqboxWA1GCQW2Ia1wBGU_KkyI/rs:fit/w:674/h:235/q:100/aHR0cHM6Ly93d3cu/a2xlcmsucnUvdWdj/L2Jsb2dQb3N0LzUw/MjU0Ny8xLnBuZw.webp", dateOfBirth: Date()))
-//    }
-//}
