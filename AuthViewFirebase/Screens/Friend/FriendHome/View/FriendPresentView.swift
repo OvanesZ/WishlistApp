@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Kingfisher
 
 struct FriendPresentView: View {
     
@@ -15,7 +14,6 @@ struct FriendPresentView: View {
     let currentPresent: PresentModel
     @ObservedObject var presentModelViewModel: PresentModelViewModel
     @ObservedObject var friendViewModel: FriendHomeViewModel
-    @Environment(\.dismiss) var dismiss
     let nameTextUrl: String = "[Ссылка на подарок]"
     
     init(currentPresent: PresentModel, presentModelViewModel: PresentModelViewModel, friendViewModel: FriendHomeViewModel) {
@@ -29,7 +27,7 @@ struct FriendPresentView: View {
             VStack {
                 RoundedRectangle(cornerRadius: 30, style: .continuous)
                     .overlay {
-                        KFImage(presentModelViewModel.url)
+                        Image(uiImage: presentModelViewModel.uiImage)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                     }
@@ -84,7 +82,7 @@ struct FriendPresentView: View {
                             Text("Подарок зарезервирован")
                                 .font(.title2)
                                 .bold()
-                                .foregroundStyle(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.3098039329, green: 0.01568627544, blue: 0.1294117719, alpha: 1)), Color(#colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1))]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                                .foregroundColor(.red)
                                 .opacity(15)
                                 .padding(.leading, 15)
                             
@@ -107,13 +105,11 @@ struct FriendPresentView: View {
                 // MARK: -- Кнопка выбрать подарок
                 
                 if presentModelViewModel.isHiddenReservButton {
-//                    Spacer()
-//                        .padding(.bottom, 45)
-                    
+                    Spacer()
+                        .padding(.bottom, 45)
                 } else {
                     Button(action: {
                         presentModelViewModel.reservingPresentForUserID(currentPresent, friendViewModel.friend.userId)
-                        dismiss()
                     }) {
                         Text("Выбрать подарок")
                             .padding(.init(top: 8, leading: 15, bottom: 8, trailing: 15))
@@ -126,9 +122,9 @@ struct FriendPresentView: View {
                 }
                 
             }
-        }
+        } // scroll
         .onAppear {
-            presentModelViewModel.getUrlPresentImage()
+            presentModelViewModel.getPresentImage()
         }
         .navigationTitle(presentModelViewModel.present.name)
         
