@@ -118,6 +118,10 @@ class StorageService {
         }
     }
     
+    func downloadURLPresentImageAsync(id: String) async throws -> URL {
+        try await presentImageRef.child(id).downloadURL()
+    }
+    
     func downloadURLPresentImage(id: String, completion: @escaping (Result<URL?, Error>) -> ()) {
         presentImageRef.child(id).downloadURL { url, error in
             guard let data = url else {

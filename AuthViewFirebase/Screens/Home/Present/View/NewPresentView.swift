@@ -9,25 +9,22 @@ import SwiftUI
 
 struct NewPresentView: View {
     
+    
+    // MARK: - properties
+    
     @State private var presentName = ""
     @State private var presentUrlForMarket = ""
     @State private var presentDescription = ""
-    @State private var isHiddenToolBar = false
-    @ObservedObject var viewModel: PresentModelViewModel
-    @ObservedObject var userViewModel: HomeViewModel
-    @Environment(\.dismiss) var dismiss
-    @State var isPhotoLibrary = false
-    
     @State private var isImageAlert = false
     @State private var showImagePickerLibrary = false
     @State private var showImagePickerCamera = false
     
+    @ObservedObject var viewModel: PresentModelViewModel
+    @Environment(\.dismiss) var dismiss
+    
+   
+    
     var body: some View {
-        
-
-        
-        
-        
         VStack {
             ScrollView {
                 HStack {
@@ -38,8 +35,6 @@ struct NewPresentView: View {
                             Image(uiImage: viewModel.uiImage)
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
-                            //                            .contrast(0.7)
-                            
                         }
                         .opacity(50)
                         .frame(width: 350, height: 350)
@@ -72,7 +67,6 @@ struct NewPresentView: View {
                     ImagePicker(sourceType: .camera, selectedImage: $viewModel.uiImage)
                 }
                 
-                
                 HStack {
                     Text("Название")
                         .font(.title2)
@@ -87,7 +81,6 @@ struct NewPresentView: View {
                     .padding(.leading, 15)
                     .padding(.trailing, 15)
                     .padding(.bottom, 15)
-                //                    .textFieldStyle(OvalTextFieldStyle())
                     .textFieldStyle(.plain)
                     .textInputAutocapitalization(.never)
                 
@@ -106,7 +99,6 @@ struct NewPresentView: View {
                     .padding(.leading, 15)
                     .padding(.trailing, 15)
                     .padding(.bottom, 15)
-                //                    .textFieldStyle(OvalTextFieldStyle())
                     .textFieldStyle(.plain)
                     .textInputAutocapitalization(.never)
                 
@@ -125,7 +117,6 @@ struct NewPresentView: View {
                     .padding(.leading, 15)
                     .padding(.trailing, 15)
                     .padding(.bottom, 15)
-                //                    .textFieldStyle(OvalTextFieldStyle())
                     .textFieldStyle(.plain)
                     .textInputAutocapitalization(.never)
                 
@@ -133,21 +124,8 @@ struct NewPresentView: View {
                     Spacer()
                     
                     Button(action: {
-                        
-                        // устарело, чуть позже отключить!
                         let newPresent = PresentModel(name: presentName, urlText: presentUrlForMarket, presentFromUserID: "", presentDescription: presentDescription)
                         viewModel.setPresent(newPresent: newPresent)
-                        
-                        
-                        // Запрос выполняется асинхронно для нового типа пользователя
-//                        Task {
-//                            let newDBPresent = DBPresent(presentId: UUID().uuidString, name: presentName, urlText: presentUrlForMarket, presentFromUserId: "", isReserved: false, presentDescription: presentDescription)
-//                            try await viewModel.setPresentInFirestore(newPresent: newDBPresent)
-//                        }
-                        
-                        
-                        
-                        
                         dismiss()
                     }) {
                         Text("Создать")

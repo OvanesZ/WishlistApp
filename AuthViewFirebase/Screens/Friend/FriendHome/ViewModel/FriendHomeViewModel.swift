@@ -21,10 +21,9 @@ class FriendHomeViewModel: ObservableObject {
     
     init(friend: DBUser) {
         self.friend = friend
-        fetchWishlistFriend()
         isFriendOrNo()
+        fetchWishlistFriend()
     }
-    
     
     
     // MARK: - Процедура подписки на пользователя
@@ -61,7 +60,8 @@ class FriendHomeViewModel: ObservableObject {
     
     
     // MARK: -- Прослушиватель коллекции wishlist друга
-    
+    //////////////// НЕ УДАЛЯТЬ, т.к пока что не совсем понятно допустимо ли использовать асинхролнный метод при обновлении свойства published
+    ///
     func fetchWishlistFriend() {
         let docRef = Firestore.firestore().collection("users").document(friend.userId).collection("wishlist")
         docRef.addSnapshotListener { (snapshot, error) in
@@ -74,6 +74,17 @@ class FriendHomeViewModel: ObservableObject {
             } ?? []
         }
     }
+    
+    //////////////// НЕ УДАЛЯТЬ, т.к пока не использую из-за того что инфа обновляется только после перезапуска экрана
+    ///
+    func fetchWishlistFriendAsync() async throws {
+        self.wishlist = try await DatabaseService.shared.getWishlistByFriend(friendId: friend.userId).documents.compactMap {
+            try? $0.data(as: PresentModel.self)
+        }
+    }
+   
+   
+    
     
     // MARK: -- Прослушиватель, если id друга есть в массиве myFriendsID то statusFriend = true (тогда скрываю кнопку "Подписаться")
     
@@ -130,27 +141,14 @@ class FriendHomeViewModel: ObservableObject {
                     }
                 }
             }
-            
         } else {
             return
         }
     }
     
-    
-    
-    func getImage() {
-        StorageService.shared.downloadUserImage(id: friend.userId) { result in
-            switch result {
-            case .success(let data):
-                if let img = UIImage(data: data) {
-                    self.uiImage = img
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
+    func getUrlAsync(id: String) async throws -> URL {
+        try await StorageService.shared.downloadURLPresentImageAsync(id: id)
     }
-    
     
     
 }

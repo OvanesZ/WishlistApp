@@ -10,11 +10,16 @@ import Kingfisher
 
 struct PresentModalView: View {
     
+    // MARK: - properties
+    
     let currentPresent: PresentModel
+    let nameTextUrl: String = "[Ссылка на подарок]"
+    
     @ObservedObject var presentModelViewModel: PresentModelViewModel
     @Environment(\.dismiss) var dismiss
     @State private var isLoadImage = false
-    let nameTextUrl: String = "[Ссылка на подарок]"
+    
+    // MARK: - init()
     
     init(currentPresent: PresentModel, presentModelViewModel: PresentModelViewModel) {
         self.currentPresent = currentPresent
@@ -24,27 +29,22 @@ struct PresentModalView: View {
     var body: some View {
         
         ScrollView {
-            
             VStack {
-                
                 RoundedRectangle(cornerRadius: 30, style: .continuous)
                     .overlay {
-                        
                         KFImage(presentModelViewModel.url)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                        
                         if isLoadImage {
                             ProgressView()
                                 .progressViewStyle(CircularProgressViewStyle(tint: .gray))
                                 .scaleEffect(2)
                         }
-                        
                     }
                     .opacity(50)
                     .frame(width: 350, height: 350)
                     .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
-                
+                    .shadow(color: .gray, radius: 10)
                 HStack {
                     Text("Описание")
                         .font(.title2)
@@ -54,10 +54,7 @@ struct PresentModalView: View {
                         .padding(.top, 25)
                     Spacer()
                 }
-                
                 // https://fonts-online.ru/fonts/volja/download Скачать новые шрифты
-                
-                
                 HStack {
                     Text(presentModelViewModel.present.presentDescription)
                         .frame(minHeight: 25, idealHeight: 25, maxHeight: 50)
@@ -65,7 +62,6 @@ struct PresentModalView: View {
                         .padding(.trailing, 5)
                         .padding(.top, 5)
                         .font(.custom("SF-Pro-Display-Regular", fixedSize: 14))
-                    
                     Spacer()
                 }
                 
@@ -92,8 +88,7 @@ struct PresentModalView: View {
                             Text("Подарок зарезервирован")
                                 .font(.title2)
                                 .bold()
-//                                .foregroundColor(.gray)
-                                .foregroundStyle(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.3098039329, green: 0.01568627544, blue: 0.1294117719, alpha: 1)), Color(#colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1))]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                                .foregroundStyle(.red)
                                 .opacity(15)
                                 .padding(.leading, 15)
                             
@@ -126,10 +121,8 @@ struct PresentModalView: View {
                 .padding(.bottom, 15)
             }
         }
-        
         .onFirstAppear {
             isLoadImage = true
-            
             StorageService.shared.downloadURLPresentImage(id: presentModelViewModel.present.id) { result in
                 switch result {
                 case .success(let url):
@@ -142,10 +135,7 @@ struct PresentModalView: View {
                 }
             }
         }
-//        .toolbar(.hidden, for: .navigationBar)
         .navigationTitle(presentModelViewModel.present.name)
-        
-        
     }
 }
 

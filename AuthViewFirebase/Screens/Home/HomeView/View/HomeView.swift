@@ -21,9 +21,6 @@ struct HomeView: View {
         GridItem(.fixed(150), spacing: 20)
     ]
     
-//    init(viewModel: HomeViewModel) {
-//        self.viewModel = viewModel
-//    }
     
     var body: some View {
         
@@ -62,7 +59,6 @@ struct HomeView: View {
                     .padding()
                 )
                 
-                
                 Button {
                     isShowingNewPresentView = true
                 } label: {
@@ -73,27 +69,10 @@ struct HomeView: View {
                 .padding(.leading, 250)
                 .padding(.top, 420)
                 .sheet(isPresented: $isShowingNewPresentView) {
-                    NewPresentView(viewModel: PresentModelViewModel(present: PresentModel(id: "", name: "", urlText: "", presentFromUserID: "")), userViewModel: HomeViewModel())
+                    NewPresentView(viewModel: PresentModelViewModel(present: PresentModel(id: "", name: "", urlText: "", presentFromUserID: "")))
                 }
                 .navigationTitle("Мои пожелания \(Auth.auth().currentUser?.email ?? "")")
-                
             }
-//            .toolbar(.visible, for: .tabBar)      // tabBar постоянно на видимом фоне
         }
-        
-        
     }
 }
-
-
-
-
-
-
-
-//
-//struct HomeView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        HomeView(viewModel: HomeViewModel())
-//    }
-//}

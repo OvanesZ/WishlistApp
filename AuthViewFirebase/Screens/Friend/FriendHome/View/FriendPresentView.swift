@@ -10,13 +10,19 @@ import Kingfisher
 
 struct FriendPresentView: View {
     
-    
+
+    // MARK: - properties
     
     let currentPresent: PresentModel
+    let nameTextUrl: String = "[Ссылка на подарок]"
+    
     @ObservedObject var presentModelViewModel: PresentModelViewModel
     @ObservedObject var friendViewModel: FriendHomeViewModel
-    let nameTextUrl: String = "[Ссылка на подарок]"
+    
     @State private var url: URL?
+
+    
+    // MARK: - init()
     
     init(currentPresent: PresentModel, presentModelViewModel: PresentModelViewModel, friendViewModel: FriendHomeViewModel) {
         self.currentPresent = currentPresent
@@ -42,6 +48,7 @@ struct FriendPresentView: View {
                     .opacity(50)
                     .frame(width: 350, height: 350)
                     .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
+                    .shadow(color: .gray, radius: 10)
                 
                 HStack {
                     Text("Описание")
@@ -130,20 +137,9 @@ struct FriendPresentView: View {
                 }
                 
             }
-        } // scroll
-        
-        .onFirstAppear {
-            
-            StorageService.shared.downloadURLPresentImage(id: presentModelViewModel.present.id) { result in
-                switch result {
-                case .success(let url):
-                    if let url = url {
-                        self.url = url
-                    }
-                case .failure(let error):
-                    print(error.localizedDescription)
-                }
-            }
+        }
+        .task {
+            self.url = try? await friendViewModel.getUrlAsync(id: presentModelViewModel.present.id)
         }
         .navigationTitle(presentModelViewModel.present.name)
         

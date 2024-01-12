@@ -23,9 +23,6 @@ class DatabaseService {
         return db.collection("wishlist")
     }
     
-//    private var currentUserId: String {
-//        return try! AuthenticationManager.shared.getAuthenticatedUser().uid
-//    }
     
     private var currentId: String {
         return Auth.auth().currentUser?.uid ?? "not auth user"
@@ -207,6 +204,11 @@ class DatabaseService {
             }
         } as? QuerySnapshot
     }
+    
+    func getWishlistByFriend(friendId: String) async throws -> QuerySnapshot {
+        try await Firestore.firestore().collection("users").document(friendId).collection("wishlist").getDocuments()
+    }
+
     
     
     

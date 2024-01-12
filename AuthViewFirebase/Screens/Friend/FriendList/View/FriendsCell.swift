@@ -39,9 +39,6 @@ struct FriendsCell: View {
             
             
         }
-//        .onFirstAppear {
-//            friendsViewModel.getImage(friendID: friend.userId)
-//        }
         .task {
             self.url = try? await viewModel.getUrlImageFriendAsync(id: friend.userId)
         }

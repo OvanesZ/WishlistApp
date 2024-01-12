@@ -18,6 +18,7 @@ struct FriendsView: View {
     @State var shouldShowCanselButton: Bool = true
     @FocusState var isFocus: Bool
     
+    
     private let keyboardPublisher = Publishers.Merge(
         NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
             .map { notification in true } ,
@@ -140,6 +141,7 @@ extension FriendsView {
                 try? await friendViewModel.getRequest()
             }
         }
+        
         
     }
 }
