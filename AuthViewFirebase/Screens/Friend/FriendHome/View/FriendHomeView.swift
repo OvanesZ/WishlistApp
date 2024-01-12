@@ -26,91 +26,90 @@ struct FriendHomeView: View {
     
     
     var body: some View {
-        NavigationStack {
-            VStack {
-                
-                HeaderFriendCell(viewModel: viewModel)
-                
-                if viewModel.friend.userId == currentUserId {
-                    Text("Ваша страница")
-                        .font(.callout.italic())
-                } else {
-                    if viewModel.isFriendForFriendstArr {
+        
+        VStack {
+            
+            HeaderFriendCell(viewModel: viewModel)
+            
+            if viewModel.friend.userId == currentUserId {
+                Text("Ваша страница")
+                    .font(.callout.italic())
+            } else {
+                if viewModel.isFriendForFriendstArr {
+                    
+                    HStack {
+                        Text("Вы подписаны")
+                            .font(.callout.italic())
                         
-                        HStack {
-                            Text("Вы подписаны")
-                                .font(.callout.italic())
-                            
-                            Button(action: {
-                                isButtonPressedUnsubscribe.toggle()
-                            }, label: {
-                                Text("Отписаться")
-                                    .font(.callout.bold())
-                                    .foregroundStyle(.white)
-                                    .padding(.leading, 25)
-                                    .padding(.trailing, 25)
-                            })
-                            .buttonStyle(.borderedProminent)
-                            .tint(.blue)
-                            .confirmationDialog("Отписавшись, Вы закроете доступ к пожеланиям. Отписаться?", isPresented: $isButtonPressedUnsubscribe, titleVisibility: .visible) {
-                                Button(role: .destructive) {
-                                    
-                                    Task {
-                                        try await viewModel.deleteFriend(friendId: viewModel.friend.userId)
-                                    }
-                                    dismiss()
-                                } label: {
-                                    Text("Да")
-                                }
-                                
-                                Button {
-                                    
-                                    // TODO
-                                    
-                                } label: {
-                                    Text("Нет")
-                                }
-                            }
-                        }
-                    } else {
-                        
-                        Button {
-                            if viewModel.isFriendForRequestArr {
-                                isButtonPressed.toggle()
-                            } else {
-                                
-                                Task {
-                                    try await viewModel.stepOneForAddFriend(friendId: viewModel.friend.userId)
-                                }
-                            }
-                        } label: {
-                            Text(viewModel.isFriendForRequestArr ? "Ответить на запрос" : "Подписаться")
+                        Button(action: {
+                            isButtonPressedUnsubscribe.toggle()
+                        }, label: {
+                            Text("Отписаться")
                                 .font(.callout.bold())
                                 .foregroundStyle(.white)
                                 .padding(.leading, 25)
                                 .padding(.trailing, 25)
-                        }
+                        })
                         .buttonStyle(.borderedProminent)
                         .tint(.blue)
-                        .confirmationDialog("Ваши действия", isPresented: $isButtonPressed) {
-                            Button {
+                        .confirmationDialog("Отписавшись, Вы закроете доступ к пожеланиям. Отписаться?", isPresented: $isButtonPressedUnsubscribe, titleVisibility: .visible) {
+                            Button(role: .destructive) {
                                 
                                 Task {
-                                    try await viewModel.stepTwoAnswerToRequestPositive(friendId: viewModel.friend.userId)
+                                   try await viewModel.deleteFriend(friendId: viewModel.friend.userId)
                                 }
-                                
+                                dismiss()
                             } label: {
-                                Text("Разрешить")
+                                Text("Да")
                             }
                             
                             Button {
                                 
-                                Task {
-                                    try await viewModel.stepTwoAnswerToRequestNegative(friendId: viewModel.friend.userId)
-                                }
+                                // TODO
+                                
                             } label: {
-                                Text("Отклонить")
+                                Text("Нет")
                             }
+                        }
+                    }
+                } else {
+                    
+                    Button {
+                        if viewModel.isFriendForRequestArr {
+                            isButtonPressed.toggle()
+                        } else {
+                            
+                            Task {
+                                try await viewModel.stepOneForAddFriend(friendId: viewModel.friend.userId)
+                            }
+                        }
+                    } label: {
+                        Text(viewModel.isFriendForRequestArr ? "Ответить на запрос" : "Подписаться")
+                            .font(.callout.bold())
+                            .foregroundStyle(.white)
+                            .padding(.leading, 25)
+                            .padding(.trailing, 25)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(.blue)
+                    .confirmationDialog("Ваши действия", isPresented: $isButtonPressed) {
+                        Button {
+                            
+                            Task {
+                                try await viewModel.stepTwoAnswerToRequestPositive(friendId: viewModel.friend.userId)
+                            }
+                            
+                        } label: {
+                            Text("Разрешить")
+                        }
+                        
+                        Button {
+                            
+                            Task {
+                                try await viewModel.stepTwoAnswerToRequestNegative(friendId: viewModel.friend.userId)
+                            }
+                        } label: {
+                            Text("Отклонить")
                         }
                     }
                 }
@@ -121,14 +120,8 @@ struct FriendHomeView: View {
             try? await viewModelSettings.loadFriendDBUserPersonalData(id: viewModel.friend.userId)
         }
         .navigationTitle(viewModel.friend.displayName ?? viewModelSettings.friendDbUserPersonalData?.userName ?? "")
-//        .background(
-//            LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)), Color(#colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))]), startPoint: .bottom, endPoint: .top)
-//                .padding(.bottom, -8)
-//                .ignoresSafeArea(.all, edges: .top)
-//        )
-//        
-//        Divider()
-//            .font(.title.bold())
+        
+        Divider()
             
         
         if viewModel.isFriendForFriendstArr && viewModel.isIamFriend {
