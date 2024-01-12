@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct FriendPresentView: View {
     
@@ -15,6 +16,7 @@ struct FriendPresentView: View {
     @ObservedObject var presentModelViewModel: PresentModelViewModel
     @ObservedObject var friendViewModel: FriendHomeViewModel
     let nameTextUrl: String = "[Ссылка на подарок]"
+    @State private var url: URL?
     
     init(currentPresent: PresentModel, presentModelViewModel: PresentModelViewModel, friendViewModel: FriendHomeViewModel) {
         self.currentPresent = currentPresent
@@ -22,12 +24,18 @@ struct FriendPresentView: View {
         self.friendViewModel = friendViewModel
     }
     
+ 
+    
     var body: some View {
         ScrollView {
             VStack {
+                Text(currentPresent.name)
+                    .font(.title2.bold())
+                    .padding()
+                
                 RoundedRectangle(cornerRadius: 30, style: .continuous)
                     .overlay {
-                        Image(uiImage: presentModelViewModel.uiImage)
+                        KFImage(url)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                     }
@@ -123,8 +131,19 @@ struct FriendPresentView: View {
                 
             }
         } // scroll
-        .onAppear {
-            presentModelViewModel.getPresentImage()
+        
+        .onFirstAppear {
+            
+            StorageService.shared.downloadURLPresentImage(id: presentModelViewModel.present.id) { result in
+                switch result {
+                case .success(let url):
+                    if let url = url {
+                        self.url = url
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
         }
         .navigationTitle(presentModelViewModel.present.name)
         

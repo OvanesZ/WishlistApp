@@ -134,12 +134,12 @@ struct FriendHomeView: View {
                 ) {
                     Section() {
                         ForEach(viewModel.wishlist) { present in
-                            NavigationLink {
-                                FriendPresentView(currentPresent: present, presentModelViewModel: PresentModelViewModel(present: present), friendViewModel: FriendHomeViewModel(friend: viewModel.friend))
-                            } label: {
-                                PresentCellView(present: present)
-                            }
-                            
+//                            NavigationLink {
+//                                FriendPresentView(presentModelViewModel: PresentModelViewModel(present: present), friendViewModel: FriendHomeViewModel(friend: viewModel.friend))
+//                            } label: {
+//                                PresentCellView(present: present)
+//                            }
+                            FriendPresentCellView(present: present, friend: viewModel.friend)
                         }
                     }
                 }

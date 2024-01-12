@@ -62,8 +62,8 @@ class PresentModelViewModel: ObservableObject {
         }
     }
     
-    func getUrlPresentImage() {
-        StorageService.shared.downloadURLPresentImage(id: present.id) { result in
+    func getUrlPresentImage(presentId: String) {
+        StorageService.shared.downloadURLPresentImage(id: presentId) { result in
             switch result {
             case .success(let url):
                 if let url = url {
