@@ -36,6 +36,7 @@ struct RootView: View {
             NavigationStack {
                 AuthenticationView(showSignInView: $showSignInView)
             }
+            .tint(.white)
         }
         
         

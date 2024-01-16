@@ -61,7 +61,7 @@ struct AuthenticationView: View {
                 NavigationLink {
                     SignInEmailView(showSignInView: $showSignInView)
                 } label: {
-                    Text("Sign In With Email")
+                    Text("Войти/Зарегистрироваться через email")
                         .font(.headline)
                         .foregroundColor(.white)
                         .frame(height: 55)
@@ -69,6 +69,7 @@ struct AuthenticationView: View {
                         .background(Color.orange)
                         .cornerRadius(10)
                 }
+                
                 
                 
                 GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .light, style: .wide, state: .normal)) {
@@ -105,7 +106,7 @@ struct AuthenticationView: View {
                 Spacer()
             }
             .padding()
-//            .navigationTitle("Авторизация")
+            //            .navigationTitle("Авторизация")
         }
         .background {
             Image("bg_wishlist")
@@ -123,5 +124,6 @@ struct AuthenticationView_Previews: PreviewProvider {
         NavigationStack {
             AuthenticationView(showSignInView: .constant(false))
         }
+        
     }
 }

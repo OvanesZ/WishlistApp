@@ -80,6 +80,8 @@ extension AuthenticationManager {
         return AuthDataResultModel(user: authDataResult.user)
     }
     
+  
+    
     @discardableResult
     func signInUser(email: String, password: String) async throws -> AuthDataResultModel {
         let authDataResult = try await Auth.auth().signIn(withEmail: email, password: password)
