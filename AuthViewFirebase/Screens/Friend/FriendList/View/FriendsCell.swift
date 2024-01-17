@@ -31,16 +31,33 @@ struct FriendsCell: View {
                 .clipShape(Circle())
             
             
+            VStack {
+                HStack {
+                    Text(friend.displayName ?? viewModel.friendDbUserPersonalData?.userName ?? "")
+                        .font(.system(.headline, design: .rounded))
+                    
+                    Spacer()
+                }
+                
+                
+                HStack {
+                    if let date = viewModel.friendDbUserPersonalData?.dateBirth {
+                        Text("\(date.formatted(.dateTime.day().month().year().locale(Locale(identifier: "ru_RU"))))")
+                            .font(.system(.footnote, design: .rounded))
+                            .foregroundStyle(Color.gray)
+                    }
+                    
+                    Spacer()
+                }
+             
+            }
             
-            Text(friend.email ?? "")
-                .padding(.leading, 3)
-                .lineLimit(2)
-                .bold()
             
             
         }
         .task {
             self.url = try? await viewModel.getUrlImageFriendAsync(id: friend.userId)
+            try? await viewModel.loadFriendDBUserPersonalData(id: friend.userId)
         }
         .onAppear {
             friendsViewModel.getFromCache(userIdForNameImage: friend.userId)

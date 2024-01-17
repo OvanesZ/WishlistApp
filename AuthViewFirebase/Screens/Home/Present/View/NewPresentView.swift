@@ -39,6 +39,7 @@ struct NewPresentView: View {
                         .opacity(50)
                         .frame(width: 350, height: 350)
                         .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
+                        .shadow(color: .gray, radius: 10)
                         .onTapGesture {
                             isImageAlert.toggle()
                         }

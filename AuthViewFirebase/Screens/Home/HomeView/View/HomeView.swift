@@ -71,7 +71,8 @@ struct HomeView: View {
                 .sheet(isPresented: $isShowingNewPresentView) {
                     NewPresentView(viewModel: PresentModelViewModel(present: PresentModel(id: "", name: "", urlText: "", presentFromUserID: "")))
                 }
-                .navigationTitle("Мои пожелания \(Auth.auth().currentUser?.email ?? "")")
+//                .navigationTitle("Мои пожелания \(Auth.auth().currentUser?.email ?? "")")
+                .navigationTitle("Мои пожелания")
             }
         }
     }

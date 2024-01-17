@@ -57,6 +57,7 @@ struct FriendPresentView: View {
                         .foregroundColor(.gray)
                         .padding(.leading, 15)
                         .padding(.top, 25)
+                 
                     Spacer()
                 }
                 
@@ -65,13 +66,19 @@ struct FriendPresentView: View {
                 
                 HStack {
                     Text(presentModelViewModel.present.presentDescription)
-                        .frame(minHeight: 25, idealHeight: 25, maxHeight: 50)
+//                        .frame(minHeight: 25, idealHeight: 25, maxHeight: 50)
+//                        .padding(.leading, 15)
+//                        .padding(.trailing, 5)
+//                        .padding(.top, 5)
+//                        .font(.custom("SF-Pro-Display-Regular", fixedSize: 14))
+                        .multilineTextAlignment(.leading)
                         .padding(.leading, 15)
                         .padding(.trailing, 5)
                         .padding(.top, 5)
-                        .font(.custom("SF-Pro-Display-Regular", fixedSize: 14))
-                    
-                    Spacer()
+                        .font(.system(.callout, design: .rounded))
+                        .font(.title)
+                        .lineLimit(nil)
+//                    Spacer()
                 }
                 
                 Divider()

@@ -57,13 +57,20 @@ struct PresentModalView: View {
                 // https://fonts-online.ru/fonts/volja/download Скачать новые шрифты
                 HStack {
                     Text(presentModelViewModel.present.presentDescription)
-                        .frame(minHeight: 25, idealHeight: 25, maxHeight: 50)
+//                        .frame(minHeight: 25, idealHeight: 25, maxHeight: 50)
+                       
+                        .multilineTextAlignment(.leading)
                         .padding(.leading, 15)
                         .padding(.trailing, 5)
                         .padding(.top, 5)
-                        .font(.custom("SF-Pro-Display-Regular", fixedSize: 14))
-                    Spacer()
+//                        .font(.custom("SF-Pro-Display-Regular", fixedSize: 14))
+                        .font(.system(.callout, design: .rounded))
+                        .font(.title)
+                        .lineLimit(nil)
+                        
+//                    Spacer()
                 }
+                
                 
                 Divider()
                     .padding()

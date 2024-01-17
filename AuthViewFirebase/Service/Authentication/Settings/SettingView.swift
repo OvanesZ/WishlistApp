@@ -183,10 +183,12 @@ extension SettingView {
             if let user = viewModel.dbUser {
                 
                 Text(user.displayName ?? viewModel.dbUserPersonalData?.userName ?? "")
-                    .font(.title2.bold())
+//                    .font(.title2.bold())
+                    .font(.system(.headline, design: .rounded))
                 
                 Text(user.email ?? "")
-                    .font(.title2)
+//                    .font(.title2)
+                    .font(.system(.callout, design: .rounded))
                 
                 
                 
@@ -195,7 +197,8 @@ extension SettingView {
             if let userPersonalData = viewModel.dbUserPersonalData {
                 if let date = userPersonalData.dateBirth {
                     Text("Дата рождения: \(date.formatted(.dateTime.day().month().year().locale(Locale(identifier: "ru_RU"))))")
-                        .font(.headline)
+//                        .font(.headline)
+                        .font(.system(.callout, design: .rounded))
                 }
             }
             
@@ -214,10 +217,14 @@ extension SettingView {
             if let user = viewModel.dbUser {
                 
                 Text(user.displayName ?? "")
-                    .font(.title2.bold())
+//                    .font(.title2.bold())
+                    .font(.system(.headline, design: .rounded))
+
                 
                 Text(user.email ?? "")
-                    .font(.title2)
+//                    .font(.title2)
+                    .font(.system(.callout, design: .rounded))
+
                 
                 
             }
@@ -225,7 +232,9 @@ extension SettingView {
             if let userPersonalData = viewModel.dbUserPersonalData {
                 if let date = userPersonalData.dateBirth {
                     Text("Дата рождения: \(date.formatted(.dateTime.day().month().year().locale(Locale(identifier: "ru_RU"))))")
-                        .font(.headline)
+//                        .font(.headline)
+                        .font(.system(.callout, design: .rounded))
+
                 }
             }
             
