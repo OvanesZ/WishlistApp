@@ -182,7 +182,7 @@ extension SettingView {
         Section {
             if let user = viewModel.dbUser {
                 
-                Text(user.displayName ?? viewModel.dbUserPersonalData?.userName ?? "")
+                Text(user.displayName ?? "")
 //                    .font(.title2.bold())
                     .font(.system(.headline, design: .rounded))
                 
@@ -194,10 +194,16 @@ extension SettingView {
                 
             }
             
-            if let userPersonalData = viewModel.dbUserPersonalData {
+//            if let userPersonalData = viewModel.dbUserPersonalData {
+//                if let date = userPersonalData.dateBirth {
+//                    Text("Дата рождения: \(date.formatted(.dateTime.day().month().year().locale(Locale(identifier: "ru_RU"))))")
+//                        .font(.system(.callout, design: .rounded))
+//                }
+//            }
+            
+            if let userPersonalData = viewModel.dbUser {
                 if let date = userPersonalData.dateBirth {
                     Text("Дата рождения: \(date.formatted(.dateTime.day().month().year().locale(Locale(identifier: "ru_RU"))))")
-//                        .font(.headline)
                         .font(.system(.callout, design: .rounded))
                 }
             }

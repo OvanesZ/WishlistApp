@@ -20,11 +20,9 @@ struct DBUser: Codable, Identifiable {
     let isPremium: Bool?
     let friendsId: [String]?
     let dateBirth: Date?
-//    var dateBirthString: String?
     var requestFriend: [String] = [""]
     let phoneNumber: String?
     var displayName: String?
-    var userName: String?
     
     init(auth: AuthDataResultModel) {
         self.id = auth.uid
@@ -36,11 +34,9 @@ struct DBUser: Codable, Identifiable {
         self.isPremium = false
         self.friendsId = []
         self.dateBirth = Date()
-//        self.dateBirthString = ""
         self.requestFriend = [""]
         self.phoneNumber = auth.phoneNumber
         self.displayName = auth.displayName
-        self.userName = ""
     }
     
     enum CodingKeys: String, CodingKey {
@@ -56,7 +52,6 @@ struct DBUser: Codable, Identifiable {
         case requestFriend = "request_friend"
         case phoneNumber = "phone_number"
         case displayName = "display_name"
-        case userName = "user_name"
     }
     
     init(from decoder: Decoder) throws {
@@ -73,7 +68,6 @@ struct DBUser: Codable, Identifiable {
         self.requestFriend = try container.decodeIfPresent([String].self, forKey: .requestFriend) ?? [""]
         self.phoneNumber = try container.decodeIfPresent(String.self, forKey: .phoneNumber)
         self.displayName = try container.decodeIfPresent(String.self, forKey: .displayName)
-        self.userName = try container.decodeIfPresent(String.self, forKey: .userName)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -90,7 +84,6 @@ struct DBUser: Codable, Identifiable {
         try container.encodeIfPresent(self.requestFriend, forKey: .requestFriend)
         try container.encodeIfPresent(self.phoneNumber, forKey: .phoneNumber)
         try container.encodeIfPresent(self.displayName, forKey: .displayName)
-        try container.encodeIfPresent(self.userName, forKey: .userName)
     }
 }
 
@@ -122,9 +115,16 @@ final class UserManager {
         try await userCollection.document(userId).collection("personalData").document(userId).getDocument(as: PersonalDataDBUser.self)
     }
     
-    func updateUserName(userId: String, userName: String) async throws {
+    func updateDisplayName(userId: String, displayName: String) async throws {
         let data: [String:Any] = [
-            DBUser.CodingKeys.userName.rawValue : userName
+            DBUser.CodingKeys.displayName.rawValue : displayName
+        ]
+        try await userDocument(userId: userId).updateData(data)
+    }
+    
+    func updateDateBirth(userId: String, date: Date) async throws {
+        let data: [String:Any] = [
+            DBUser.CodingKeys.dateBirth.rawValue : date
         ]
         try await userDocument(userId: userId).updateData(data)
     }
@@ -150,7 +150,6 @@ struct PersonalDataDBUser: Codable {
     var mySubscribers: [String] = [""]
     let dateBirth: Date?
     var requestFriend: [String] = [""]
-    var userName: String?
     var photoUrl: String?
     
     init(auth: AuthDataResultModel) {
@@ -159,7 +158,6 @@ struct PersonalDataDBUser: Codable {
         self.mySubscribers = [""]
         self.dateBirth = Date()
         self.requestFriend = [""]
-        self.userName = ""
         self.photoUrl = auth.photoUrl
     }
     
@@ -169,7 +167,6 @@ struct PersonalDataDBUser: Codable {
         self.mySubscribers = mySubscribers
         self.dateBirth = dateBirth
         self.requestFriend = requestFriend
-        self.userName = userName
         self.photoUrl = photoUrl
     }
     
@@ -179,7 +176,6 @@ struct PersonalDataDBUser: Codable {
         case mySubscribers = "my_subscribers"
         case dateBirth = "date_birth"
         case requestFriend = "request_friend"
-        case userName = "user_name"
         case photoUrl = "photo_url"
     }
     
@@ -190,7 +186,6 @@ struct PersonalDataDBUser: Codable {
         self.mySubscribers = try container.decodeIfPresent([String].self, forKey: .mySubscribers) ?? [""]
         self.dateBirth = try container.decodeIfPresent(Date.self, forKey: .dateBirth)
         self.requestFriend = try container.decodeIfPresent([String].self, forKey: .requestFriend) ?? [""]
-        self.userName = try container.decodeIfPresent(String.self, forKey: .userName)
         self.photoUrl = try container.decodeIfPresent(String.self, forKey: .photoUrl)
     }
     
@@ -201,7 +196,6 @@ struct PersonalDataDBUser: Codable {
         try container.encodeIfPresent(self.mySubscribers, forKey: .mySubscribers)
         try container.encodeIfPresent(self.dateBirth, forKey: .dateBirth)
         try container.encodeIfPresent(self.requestFriend, forKey: .requestFriend)
-        try container.encodeIfPresent(self.userName, forKey: .userName)
-        try container.encodeIfPresent(self.photoUrl, forKey: .userName)
+        try container.encodeIfPresent(self.photoUrl, forKey: .photoUrl)
     }
 }

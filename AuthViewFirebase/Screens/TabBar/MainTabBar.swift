@@ -29,7 +29,7 @@ struct MainTabBar: View {
                         Text("Главная")
                     }
                 }
-            FriendsView(userViewModel: HomeViewModel())
+            FriendsView()
                 .tabItem {
                     VStack {
                         Image(systemName: "person.3.sequence")
@@ -42,15 +42,6 @@ struct MainTabBar: View {
 //                }
 //                .badge(friendsViewModel.myRequest.count)
             
-            
-//            ProfileView(viewModel: ProfileViewModel(profile: UserModel(id: "", email: "", displayName: "", address: "", dateOfBirth: Date())), showSignInView: $showSignInView)
-//                .tabItem {
-//                    VStack {
-//                        Image(systemName: "gearshape")
-//                        Text("Профиль")
-//                    }
-//                }
-            
             SettingView(showSignInView: $showSignInView)
                 .tabItem {
                     VStack {
@@ -59,9 +50,8 @@ struct MainTabBar: View {
                     }
                 }
                 .badge("NEW")
-            
-            
         }
+        
         
         
     }

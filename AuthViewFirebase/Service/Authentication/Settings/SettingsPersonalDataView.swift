@@ -25,18 +25,8 @@ struct SettingsPersonalDataView: View {
                 .frame(width: 200, height: 200)
                 .clipShape(Circle())
                 .padding()
-//                .onAppear {
-//                    self.viewModel.getImage()
-//                }
                 .task {
                     try? await self.viewModel.getImageAsync()
-                }
-                .overlay {
-                    if viewModel.isLoadImage {
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle(tint: .gray))
-                            .scaleEffect(2)
-                    }
                 }
                 .onTapGesture {
                     isAvatarlertPresented.toggle()
@@ -66,10 +56,13 @@ struct SettingsPersonalDataView: View {
             Form {
                 Section(header: Text("Настройки профиля")) {
                     
-                    if viewModel.dbUser?.displayName == nil {
-                        TextField("Имя и Фамилия", text: $userName)
-                            .font(.body.bold())
-                    }
+//                    if viewModel.dbUser?.displayName == nil {
+//                        TextField("Имя и Фамилия", text: $userName)
+//                            .font(.body.bold())
+//                    }
+                    TextField("Имя и Фамилия", text: $userName)
+
+                        .font(.body.bold())
                     
                     
                     
@@ -86,13 +79,16 @@ struct SettingsPersonalDataView: View {
                         Spacer()
                         Button {
                             Task {
-                                let userPersonalData = PersonalDataDBUser(userId: viewModel.dbUser?.userId ?? "", friendsId: viewModel.dbUserPersonalData?.friendsId ?? [""], mySubscribers: viewModel.dbUserPersonalData?.mySubscribers ?? [""], dateBirth: dateBirth, requestFriend: viewModel.dbUserPersonalData?.requestFriend ?? [""], userName: userName, photoUrl: viewModel.dbUserPersonalData?.photoUrl)
-                                
-                                try await UserManager.shared.createNewPersonalDataUser(user: userPersonalData)
+//                                let userPersonalData = PersonalDataDBUser(userId: viewModel.dbUser?.userId ?? "", friendsId: viewModel.dbUserPersonalData?.friendsId ?? [""], mySubscribers: viewModel.dbUserPersonalData?.mySubscribers ?? [""], dateBirth: dateBirth, requestFriend: viewModel.dbUserPersonalData?.requestFriend ?? [""], userName: userName, photoUrl: viewModel.dbUserPersonalData?.photoUrl)
+//                                
+//                                try await UserManager.shared.createNewPersonalDataUser(user: userPersonalData)
                                 viewModel.uploadImageAsync()
                                 
-                                // сохранение изображения в кэш
-                                viewModel.saveToCache(userIdForNameImage: viewModel.dbUser?.userId ?? "image")
+//                                // сохранение изображения в кэш
+//                                viewModel.saveToCache(userIdForNameImage: viewModel.dbUser?.userId ?? "image")
+                                
+                                viewModel.updateDisplayName(userName: userName)
+                                viewModel.updateDateBirth(dateBirth: dateBirth)
                             }
                             
                             dismiss()

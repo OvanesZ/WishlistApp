@@ -12,12 +12,13 @@ import Combine
 struct FriendsView: View {
     
     @StateObject var friendViewModel: FriendsViewModel = FriendsViewModel()
-    @ObservedObject var userViewModel: HomeViewModel
+//    @ObservedObject var userViewModel: HomeViewModel
     @State var segmentedChoice = 0
     @State var nameFriend = ""
-    @State var shouldShowCanselButton: Bool = true
-    @FocusState var isFocus: Bool
-    
+//    @State var shouldShowCanselButton: Bool = true
+//    @FocusState var isFocus: Bool
+//    
+//    @State var isEditing = false
     
     private let keyboardPublisher = Publishers.Merge(
         NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
@@ -29,6 +30,7 @@ struct FriendsView: View {
     var body: some View {
         
         NavigationStack {
+//            SearchBarView(text: $nameFriend, isEditing: $isEditing)
             ZStack {
                 VStack {
                     Picker("", selection: $segmentedChoice) {
@@ -59,8 +61,31 @@ struct FriendsView: View {
                 }
             }
             .navigationTitle("Друзья")
+//            .toolbar(isEditing ? .hidden : .visible, for: .navigationBar).animation(.linear(duration: 0.25))
+//            .navigationBarHidden(isEditing).animation(.linear(duration: 0.25))
+
         }
         .searchable(text: $nameFriend, placement: .navigationBarDrawer(displayMode: .always), prompt: "Поиск друга").textInputAutocapitalization(.never)
+        
+      
+        
+//        .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local)
+//            .onEnded({ value in
+//                if value.translation.width < 0 {
+//                    if segmentedChoice == 0 {
+//                        segmentedChoice = 0
+//                    } else if segmentedChoice == 1 {
+//                        segmentedChoice = 0
+//                    } else if segmentedChoice == 2 {
+//                        segmentedChoice = 1
+//                    }
+//                }
+//                
+//                if value.translation.width > 0 {
+//                    // right
+//                }
+//            })
+//        )
     }
 }
 
@@ -112,6 +137,7 @@ extension FriendsView {
                     
                     ForEach(friendViewModel.allUsers.filter {
                         self.nameFriend.isEmpty ? true : $0.email!.contains(nameFriend)
+//                        self.nameFriend.isEmpty ? true : $0.displayName!.contains(nameFriend)
                     }) { friend in
                         NavigationLink {
                             FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))

@@ -33,7 +33,7 @@ struct FriendsCell: View {
             
             VStack {
                 HStack {
-                    Text(friend.displayName ?? viewModel.friendDbUserPersonalData?.userName ?? "")
+                    Text(friend.displayName ?? "")
                         .font(.system(.headline, design: .rounded))
                     
                     Spacer()

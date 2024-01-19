@@ -119,7 +119,7 @@ struct FriendHomeView: View {
         .task {
             try? await viewModelSettings.loadFriendDBUserPersonalData(id: viewModel.friend.userId)
         }
-        .navigationTitle(viewModel.friend.displayName ?? viewModelSettings.friendDbUserPersonalData?.userName ?? "")
+        .navigationTitle(viewModel.friend.displayName ?? "")
         
         Divider()
             

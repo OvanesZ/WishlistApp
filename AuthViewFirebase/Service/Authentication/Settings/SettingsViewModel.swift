@@ -17,8 +17,8 @@ final class SettingsViewModel: ObservableObject {
     @Published private(set) var dbUserPersonalData: PersonalDataDBUser? = nil
     @Published private(set) var friendDbUserPersonalData: PersonalDataDBUser? = nil
     @Published var image = UIImage(named: "person")!
-    @Published var isLoadImage = false
     @Published var user: PersonalDataDBUser? = nil
+    
     
     let manager = CacheManager.instanse
     
@@ -54,10 +54,19 @@ final class SettingsViewModel: ObservableObject {
         }
     }
     
-    func updateUserName(userName: String) {
+    func updateDisplayName(userName: String) {
         guard let dbUser else { return }
         Task {
-            try await UserManager.shared.updateUserName(userId: dbUser.userId, userName: userName)
+            try await UserManager.shared.updateDisplayName(userId: dbUser.userId, displayName: userName)
+            self.dbUser = try await UserManager.shared.getUser(userId: dbUser.userId)
+            print("updated")
+        }
+    }
+    
+    func updateDateBirth(dateBirth: Date) {
+        guard let dbUser else { return }
+        Task {
+            try await UserManager.shared.updateDateBirth(userId: dbUser.userId, date: dateBirth)
             self.dbUser = try await UserManager.shared.getUser(userId: dbUser.userId)
             print("updated")
         }
