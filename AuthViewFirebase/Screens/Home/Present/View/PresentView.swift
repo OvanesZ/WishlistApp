@@ -36,8 +36,10 @@ struct PresentModalView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                         if isLoadImage {
-                            ProgressView()
-                                .progressViewStyle(CircularProgressViewStyle(tint: .gray))
+//                            ProgressView()
+//                                .progressViewStyle(CircularProgressViewStyle(tint: .gray))
+//                                .scaleEffect(2)
+                            SkeletonView()
                                 .scaleEffect(2)
                         }
                     }

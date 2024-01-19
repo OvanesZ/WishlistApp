@@ -63,6 +63,11 @@ struct HomeView: View {
                     isShowingNewPresentView = true
                 } label: {
                     Image(systemName: "plus.circle.fill").foregroundColor(.blue)
+                        .overlay {
+                            SkeletonClearView()
+                                .clipShape(Circle())
+                                .frame(width: 70, height: 70, alignment: .center)
+                        }
                 }
                 .font(.system(size: 70))
                 .opacity(0.95)

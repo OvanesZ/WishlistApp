@@ -36,6 +36,18 @@ struct PresentCellView: View {
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 124, height: 124)
                         .clipShape(RoundedRectangle(cornerRadius: 27, style: .continuous))
+                        .background {
+                            SkeletonClearView()
+                                .frame(width: 130, height: 130)
+                                .clipShape(RoundedRectangle(cornerRadius: 27, style: .continuous))
+                        }
+                }
+                .background {
+                    if !viewModel.isLoadUrl {
+                        SkeletonView()
+                            .frame(width: 124, height: 124)
+                            .clipShape(RoundedRectangle(cornerRadius: 27, style: .continuous))
+                    }
                 }
             
             Text(present.name)

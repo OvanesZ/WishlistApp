@@ -18,6 +18,7 @@ class PresentModelViewModel: ObservableObject {
     @Published var uiImage = UIImage(named: "logo_wishlist")!
     @Published var isHiddenReservButton: Bool
     @Published var url: URL?
+    @Published var isLoadUrl = false
     
     init(present: PresentModel) {
         self.present = present
@@ -63,9 +64,11 @@ class PresentModelViewModel: ObservableObject {
     }
     
     func getUrlPresentImage(presentId: String) {
+        self.isLoadUrl = true
         StorageService.shared.downloadURLPresentImage(id: presentId) { result in
             switch result {
             case .success(let url):
+                self.isLoadUrl = false
                 if let url = url {
                     self.url = url
                 }
