@@ -61,8 +61,8 @@ struct SettingsPersonalDataView: View {
 //                            .font(.body.bold())
 //                    }
                     TextField("Имя и Фамилия", text: $userName)
-
                         .font(.body.bold())
+                        .textInputAutocapitalization(.words)
                     
                     
                     

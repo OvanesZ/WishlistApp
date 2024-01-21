@@ -44,9 +44,9 @@ struct PresentCellView: View {
                 }
                 .background {
                     if !viewModel.isLoadUrl {
-                        SkeletonView()
-                            .frame(width: 124, height: 124)
-                            .clipShape(RoundedRectangle(cornerRadius: 27, style: .continuous))
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .gray))
+                            .scaleEffect(2)
                     }
                 }
             

@@ -65,7 +65,7 @@ struct FriendsView: View {
 //            .navigationBarHidden(isEditing).animation(.linear(duration: 0.25))
 
         }
-        .searchable(text: $nameFriend, placement: .navigationBarDrawer(displayMode: .always), prompt: "Поиск друга").textInputAutocapitalization(.never)
+        .searchable(text: $nameFriend, placement: .navigationBarDrawer(displayMode: .always), prompt: "Поиск друга").textInputAutocapitalization(.words)
         
       
         
@@ -136,8 +136,12 @@ extension FriendsView {
                         .font(.subheadline.italic())
                     
                     ForEach(friendViewModel.allUsers.filter {
-                        self.nameFriend.isEmpty ? true : $0.email!.contains(nameFriend)
-//                        self.nameFriend.isEmpty ? true : $0.displayName!.contains(nameFriend)
+                        if let displayName = $0.displayName {
+                            return self.nameFriend.isEmpty ? true : displayName.contains(nameFriend)
+                        }
+                        return self.nameFriend.isEmpty
+                        /// Если при тестировании выявятся ошибки, ниже строка, которая без развертывания работала успешно (вместе 4х строк выше)
+//                        self.nameFriend.isEmpty ? true : $0.email!.contains(nameFriend)
                     }) { friend in
                         NavigationLink {
                             FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
