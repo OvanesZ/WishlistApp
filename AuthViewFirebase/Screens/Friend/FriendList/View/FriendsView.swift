@@ -40,7 +40,10 @@ struct FriendsView: View {
                             .tag(1)
                         Text("Запросы (\(friendViewModel.myRequest.count))")
                             .tag(2)
-                    }.padding([.leading, .trailing], 45).pickerStyle(SegmentedPickerStyle())
+                    }
+                    .padding([.leading, .trailing], 45)
+                    .pickerStyle(SegmentedPickerStyle())
+//                    .pickerStyle(.palette)
                     
                     
                     

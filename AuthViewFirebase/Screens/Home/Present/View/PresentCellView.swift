@@ -37,9 +37,12 @@ struct PresentCellView: View {
                         .frame(width: 124, height: 124)
                         .clipShape(RoundedRectangle(cornerRadius: 27, style: .continuous))
                         .background {
-                            SkeletonClearView()
-                                .frame(width: 130, height: 130)
-                                .clipShape(RoundedRectangle(cornerRadius: 27, style: .continuous))
+                            ZStack {
+                                SkeletonClearView()
+                                    .frame(width: 130, height: 130)
+                                    .clipShape(RoundedRectangle(cornerRadius: 27, style: .continuous))
+                            }
+                           
                         }
                 }
                 .background {
