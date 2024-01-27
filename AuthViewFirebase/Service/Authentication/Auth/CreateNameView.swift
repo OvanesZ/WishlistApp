@@ -83,7 +83,11 @@ struct CreateNameView: View {
                 
                 Button {
                     
-                    
+                    Task {
+                        let userPersonalData = PersonalDataDBUser(userId: viewModel.currentUser?.uid ?? "", friendsId: viewModel.dbUserPersonalData?.friendsId ?? [""], mySubscribers: viewModel.dbUserPersonalData?.mySubscribers ?? [""], requestFriend: viewModel.dbUserPersonalData?.requestFriend ?? [""])
+                        
+                        try await UserManager.shared.createNewPersonalDataUser(user: userPersonalData)
+                    }
                     
                     UserDefaults.standard.setValue(false, forKey: "NewUser")
                     UserDefaults.standard.setValue(false, forKey: viewModel.currentUser?.uid ?? "")
