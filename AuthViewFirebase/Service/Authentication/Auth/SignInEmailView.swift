@@ -64,8 +64,8 @@ struct SignInEmailView: View {
                 Button {
                     Task {
                         do {
+                            UserDefaults.standard.setValue(true, forKey: "NewUser")
                             try await viewModel.signUp()
-    //                        showSignInView = false
                             showSignInView = viewModel.isBindingShow
                             return
                         } catch {
@@ -76,6 +76,7 @@ struct SignInEmailView: View {
                             viewModel.confirmPassword = ""
                         }
                     }
+                    
                 } label: {
                     Text("Зарегистрироваться")
                         .font(.headline)

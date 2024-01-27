@@ -34,13 +34,22 @@ struct HeaderFriendCell: View {
                     .frame(height: 25)
                     .padding(.horizontal, 20)
                 
-                if let date = viewModelSettings.friendDbUserPersonalData?.dateBirth {
+                if let date = viewModel.friend.dateBirth {
                     Text("\(date.formatted(.dateTime.day().month().year().locale(Locale(identifier: "ru_RU"))))")
                         .font(.headline)
                         .frame(maxWidth: .infinity)
                         .frame(height: 25, alignment: .leading)
                         .padding(.horizontal, 20)
                 }
+               
+                
+//                if let date = viewModelSettings.friendDbUserPersonalData?.dateBirth {
+//                    Text("\(date.formatted(.dateTime.day().month().year().locale(Locale(identifier: "ru_RU"))))")
+//                        .font(.headline)
+//                        .frame(maxWidth: .infinity)
+//                        .frame(height: 25, alignment: .leading)
+//                        .padding(.horizontal, 20)
+//                }
                 
             }
         }
@@ -48,8 +57,8 @@ struct HeaderFriendCell: View {
             self.url = try? await viewModelSettings.getUrlImageFriendAsync(id: viewModel.friend.userId)
         }
         .padding(.leading)
-        .task {
-            try? await viewModelSettings.loadFriendDBUserPersonalData(id: viewModel.friend.userId)
-        }
+//        .task {
+//            try? await viewModelSettings.loadFriendDBUserPersonalData(id: viewModel.friend.userId)
+//        }
     }
 }

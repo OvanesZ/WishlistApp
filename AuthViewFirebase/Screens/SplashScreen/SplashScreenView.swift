@@ -17,12 +17,6 @@ struct SplashScreenView: View {
         
         
         if isActive {
-//            if let user = AuthService.shared.currentUser {
-//                let viewModel = MainTabBarViewModel(user: user)
-//                MainTabBar(viewModel: viewModel)
-//            } else {
-//                AuthView()
-//            }
             RootView()
         } else {
             ZStack {
@@ -61,6 +55,7 @@ struct SplashScreenView: View {
                         self.isActive = true
                     }
                 }
+                
             }
         }
         
@@ -70,9 +65,3 @@ struct SplashScreenView: View {
     
     
 }
-
-//struct SplashScreenView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SplashScreenView()
-//    }
-//}

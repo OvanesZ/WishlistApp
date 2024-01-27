@@ -45,7 +45,6 @@ final class SignInEmailViewModel: ObservableObject {
             confirmPassword = ""
         }
         
-        
     }
     
     func signIn() async throws {

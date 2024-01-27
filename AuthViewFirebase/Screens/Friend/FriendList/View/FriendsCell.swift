@@ -33,7 +33,7 @@ struct FriendsCell: View {
             
             VStack {
                 HStack {
-                    Text(friend.displayName ?? "")
+                    Text(friend.userName ?? "")
                         .font(.system(.headline, design: .rounded))
                     
                     Spacer()
@@ -41,7 +41,7 @@ struct FriendsCell: View {
                 
                 
                 HStack {
-                    if let date = viewModel.friendDbUserPersonalData?.dateBirth {
+                    if let date = friend.dateBirth {
                         Text("\(date.formatted(.dateTime.day().month().year().locale(Locale(identifier: "ru_RU"))))")
                             .font(.system(.footnote, design: .rounded))
                             .foregroundStyle(Color.gray)

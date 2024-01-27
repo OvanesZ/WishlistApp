@@ -18,11 +18,11 @@ struct DBUser: Codable, Identifiable {
     let photoUrl: String?
     let dateCreated: Date?
     let isPremium: Bool?
-    let friendsId: [String]?
-    let dateBirth: Date?
-    var requestFriend: [String] = [""]
+    var dateBirth: Date?
+//    var requestFriend: [String] = [""]
     let phoneNumber: String?
     var displayName: String?
+    var userName: String?
     
     init(auth: AuthDataResultModel) {
         self.id = auth.uid
@@ -32,9 +32,7 @@ struct DBUser: Codable, Identifiable {
         self.photoUrl = auth.photoUrl
         self.dateCreated = Date()
         self.isPremium = false
-        self.friendsId = []
-        self.dateBirth = Date()
-        self.requestFriend = [""]
+//        self.requestFriend = [""]
         self.phoneNumber = auth.phoneNumber
         self.displayName = auth.displayName
     }
@@ -47,11 +45,11 @@ struct DBUser: Codable, Identifiable {
         case photoUrl = "photo_url"
         case dateCreated = "date_created"
         case isPremium = "user_isPremium"
-        case friendsId = "friends_id"
         case dateBirth = "date_birth"
-        case requestFriend = "request_friend"
+//        case requestFriend = "request_friend"
         case phoneNumber = "phone_number"
         case displayName = "display_name"
+        case userName = "user_name"
     }
     
     init(from decoder: Decoder) throws {
@@ -63,11 +61,11 @@ struct DBUser: Codable, Identifiable {
         self.photoUrl = try container.decodeIfPresent(String.self, forKey: .photoUrl)
         self.dateCreated = try container.decodeIfPresent(Date.self, forKey: .dateCreated)
         self.isPremium = try container.decodeIfPresent(Bool.self, forKey: .isPremium)
-        self.friendsId = try container.decodeIfPresent([String].self, forKey: .friendsId)
         self.dateBirth = try container.decodeIfPresent(Date.self, forKey: .dateBirth)
-        self.requestFriend = try container.decodeIfPresent([String].self, forKey: .requestFriend) ?? [""]
+//        self.requestFriend = try container.decodeIfPresent([String].self, forKey: .requestFriend) ?? [""]
         self.phoneNumber = try container.decodeIfPresent(String.self, forKey: .phoneNumber)
         self.displayName = try container.decodeIfPresent(String.self, forKey: .displayName)
+        self.userName = try container.decodeIfPresent(String.self, forKey: .userName)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -79,11 +77,11 @@ struct DBUser: Codable, Identifiable {
         try container.encodeIfPresent(self.photoUrl, forKey: .photoUrl)
         try container.encodeIfPresent(self.dateCreated, forKey: .dateCreated)
         try container.encodeIfPresent(self.isPremium, forKey: .isPremium)
-        try container.encodeIfPresent(self.friendsId, forKey: .friendsId)
         try container.encodeIfPresent(self.dateBirth, forKey: .dateBirth)
-        try container.encodeIfPresent(self.requestFriend, forKey: .requestFriend)
+//        try container.encodeIfPresent(self.requestFriend, forKey: .requestFriend)
         try container.encodeIfPresent(self.phoneNumber, forKey: .phoneNumber)
         try container.encodeIfPresent(self.displayName, forKey: .displayName)
+        try container.encodeIfPresent(self.userName, forKey: .userName)
     }
 }
 
@@ -100,7 +98,7 @@ final class UserManager {
     
     
     func createNewUser(user: DBUser) async throws {
-        try userDocument(userId: user.userId).setData(from: user, merge: false)
+        try userDocument(userId: user.userId).setData(from: user, merge: true)
     }
     
     func createNewPersonalDataUser(user: PersonalDataDBUser) async throws {
@@ -115,28 +113,40 @@ final class UserManager {
         try await userCollection.document(userId).collection("personalData").document(userId).getDocument(as: PersonalDataDBUser.self)
     }
     
-    func updateDisplayName(userId: String, displayName: String) async throws {
-        let data: [String:Any] = [
-            DBUser.CodingKeys.displayName.rawValue : displayName
-        ]
-        try await userDocument(userId: userId).updateData(data)
-    }
+//    func updateDisplayName(userId: String, displayName: String) async throws {
+//        let data: [String:Any] = [
+//            DBUser.CodingKeys.displayName.rawValue : displayName
+//        ]
+//        try await userDocument(userId: userId).updateData(data)
+//    }
     
-    func updateDateBirth(userId: String, date: Date) async throws {
+//    func updateDateBirth(userId: String, date: Date) async throws {
+//        let data: [String:Any] = [
+//            DBUser.CodingKeys.dateBirth.rawValue : date
+//        ]
+//        try await userDocument(userId: userId).updateData(data)
+//    }
+    
+    func updateDateBirth(userId: String, date: Date) {
         let data: [String:Any] = [
             DBUser.CodingKeys.dateBirth.rawValue : date
         ]
-        try await userDocument(userId: userId).updateData(data)
+        userDocument(userId: userId).setData(data, merge: true)
     }
     
-    func updateUrlImage(userId: String, url: String) async throws {
+//    func updateUrlImage(userId: String, url: String) async throws {
+//        let data: [String:Any] = [
+//            PersonalDataDBUser.CodingKeys.photoUrl.rawValue : url
+//        ]
+//        try await userCollection.document(userId).collection("personalData").document(userId).updateData(data)
+//    }
+    
+    func updateUserName(userId: String, userName: String) {
         let data: [String:Any] = [
-            PersonalDataDBUser.CodingKeys.photoUrl.rawValue : url
+            DBUser.CodingKeys.userName.rawValue : userName
         ]
-        try await userCollection.document(userId).collection("personalData").document(userId).updateData(data)
+        userDocument(userId: userId).setData(data, merge: true)
     }
-    
-    
  
     
     
@@ -148,35 +158,27 @@ struct PersonalDataDBUser: Codable {
     let userId: String
     var friendsId: [String] = [""]
     var mySubscribers: [String] = [""]
-    let dateBirth: Date?
     var requestFriend: [String] = [""]
-    var photoUrl: String?
     
     init(auth: AuthDataResultModel) {
         self.userId = auth.uid
         self.friendsId = [""]
         self.mySubscribers = [""]
-        self.dateBirth = Date()
         self.requestFriend = [""]
-        self.photoUrl = auth.photoUrl
     }
     
-    init(userId: String, friendsId: [String], mySubscribers: [String], dateBirth: Date?, requestFriend: [String], userName: String?, photoUrl: String?) {
+    init(userId: String, friendsId: [String], mySubscribers: [String], requestFriend: [String]) {
         self.userId = userId
         self.friendsId = friendsId
         self.mySubscribers = mySubscribers
-        self.dateBirth = dateBirth
         self.requestFriend = requestFriend
-        self.photoUrl = photoUrl
     }
     
     enum CodingKeys: String, CodingKey {
         case userId = "user_id"
         case friendsId = "friends_id"
         case mySubscribers = "my_subscribers"
-        case dateBirth = "date_birth"
         case requestFriend = "request_friend"
-        case photoUrl = "photo_url"
     }
     
     init(from decoder: Decoder) throws {
@@ -184,9 +186,7 @@ struct PersonalDataDBUser: Codable {
         self.userId = try container.decode(String.self, forKey: .userId)
         self.friendsId = try container.decodeIfPresent([String].self, forKey: .friendsId) ?? [""]
         self.mySubscribers = try container.decodeIfPresent([String].self, forKey: .mySubscribers) ?? [""]
-        self.dateBirth = try container.decodeIfPresent(Date.self, forKey: .dateBirth)
         self.requestFriend = try container.decodeIfPresent([String].self, forKey: .requestFriend) ?? [""]
-        self.photoUrl = try container.decodeIfPresent(String.self, forKey: .photoUrl)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -194,8 +194,6 @@ struct PersonalDataDBUser: Codable {
         try container.encode(self.userId, forKey: .userId)
         try container.encodeIfPresent(self.friendsId, forKey: .friendsId)
         try container.encodeIfPresent(self.mySubscribers, forKey: .mySubscribers)
-        try container.encodeIfPresent(self.dateBirth, forKey: .dateBirth)
         try container.encodeIfPresent(self.requestFriend, forKey: .requestFriend)
-        try container.encodeIfPresent(self.photoUrl, forKey: .photoUrl)
     }
 }

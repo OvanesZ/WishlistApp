@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import FirebaseFirestore
+import FirebaseAuth
 
 @MainActor
 final class SettingsViewModel: ObservableObject {
@@ -18,6 +19,8 @@ final class SettingsViewModel: ObservableObject {
     @Published private(set) var friendDbUserPersonalData: PersonalDataDBUser? = nil
     @Published var image = UIImage(named: "person")!
     @Published var user: PersonalDataDBUser? = nil
+
+    var currentUser = Auth.auth().currentUser
     
     
     let manager = CacheManager.instanse
@@ -54,21 +57,32 @@ final class SettingsViewModel: ObservableObject {
         }
     }
     
-    func updateDisplayName(userName: String) {
-        guard let dbUser else { return }
-        Task {
-            try await UserManager.shared.updateDisplayName(userId: dbUser.userId, displayName: userName)
-            self.dbUser = try await UserManager.shared.getUser(userId: dbUser.userId)
-            print("updated")
+//    func updateDisplayName(userName: String) {
+//        guard let dbUser else { return }
+//        Task {
+//            try await UserManager.shared.updateDisplayName(userId: dbUser.userId, displayName: userName)
+//            self.dbUser = try await UserManager.shared.getUser(userId: dbUser.userId)
+//            print("updated")
+//        }
+//    }
+    
+    func updateUserName(userName: String) {
+        
+        if let currenUserId = Auth.auth().currentUser?.uid {
+            UserManager.shared.updateUserName(userId: currenUserId, userName: userName)
         }
+        
     }
     
     func updateDateBirth(dateBirth: Date) {
-        guard let dbUser else { return }
-        Task {
-            try await UserManager.shared.updateDateBirth(userId: dbUser.userId, date: dateBirth)
-            self.dbUser = try await UserManager.shared.getUser(userId: dbUser.userId)
-            print("updated")
+//        guard let dbUser else { return }
+//        Task {
+//            UserManager.shared.updateDateBirth(userId: dbUser.userId, date: dateBirth)
+//            self.dbUser = try await UserManager.shared.getUser(userId: dbUser.userId)
+//            print("updated")
+//        }
+        if let currenUserId = Auth.auth().currentUser?.uid {
+            UserManager.shared.updateDateBirth(userId: currenUserId, date: dateBirth)
         }
     }
     

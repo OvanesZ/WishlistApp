@@ -42,8 +42,8 @@ struct FriendsView: View {
                             .tag(2)
                     }
                     .padding([.leading, .trailing], 45)
-                    .pickerStyle(SegmentedPickerStyle())
-//                    .pickerStyle(.palette)
+//                    .pickerStyle(SegmentedPickerStyle())
+                    .pickerStyle(.segmented)
                     
                     
                     
@@ -68,7 +68,7 @@ struct FriendsView: View {
 //            .navigationBarHidden(isEditing).animation(.linear(duration: 0.25))
 
         }
-        .searchable(text: $nameFriend, placement: .navigationBarDrawer(displayMode: .always), prompt: "Поиск друга").textInputAutocapitalization(.words)
+        .searchable(text: $nameFriend, placement: .navigationBarDrawer(displayMode: .always), prompt: "Поиск друга").textInputAutocapitalization(.never)
         
       
         
@@ -139,8 +139,8 @@ extension FriendsView {
                         .font(.subheadline.italic())
                     
                     ForEach(friendViewModel.allUsers.filter {
-                        if let displayName = $0.displayName {
-                            return self.nameFriend.isEmpty ? true : displayName.contains(nameFriend)
+                        if let userName = $0.userName {
+                            return self.nameFriend.isEmpty ? true : userName.contains(nameFriend)
                         }
                         return self.nameFriend.isEmpty
                         /// Если при тестировании выявятся ошибки, ниже строка, которая без развертывания работала успешно (вместе 4х строк выше)
@@ -221,7 +221,10 @@ extension FriendsView {
                         .font(.subheadline.italic())
                     
                     ForEach(friendViewModel.allUsers.filter {
-                        self.nameFriend.isEmpty ? true : $0.email!.contains(nameFriend)
+                        if let userName = $0.userName {
+                            return self.nameFriend.isEmpty ? true : userName.contains(nameFriend)
+                        }
+                        return self.nameFriend.isEmpty
                     }) { friend in
                         NavigationLink {
                             FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))

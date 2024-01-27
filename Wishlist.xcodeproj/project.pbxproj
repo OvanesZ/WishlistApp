@@ -19,6 +19,7 @@
 		4E4687ED2AF6E09B0032D5B7 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 4E4687EC2AF6E09B0032D5B7 /* GoogleSignIn */; };
 		4E4687EF2AF6E09B0032D5B7 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4E4687EE2AF6E09B0032D5B7 /* GoogleSignInSwift */; };
 		4E4687F12AF6E6E70032D5B7 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4687F02AF6E6E70032D5B7 /* Utilities.swift */; };
+		4E744FAC2B6464B5005587A5 /* CreateNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E744FAB2B6464B5005587A5 /* CreateNameView.swift */; };
 		4E8358772B5188A700A71A25 /* FriendPresentCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8358762B5188A700A71A25 /* FriendPresentCellView.swift */; };
 		4ED21A382B090FB6001D016B /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED21A372B090FB5001D016B /* AuthenticationView.swift */; };
 		4ED21A3A2B090FF1001D016B /* SignInGoogleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED21A392B090FF1001D016B /* SignInGoogleHelper.swift */; };
@@ -101,6 +102,7 @@
 		4E41CB132B5B0A88000BD2B6 /* SkeletonClearView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonClearView.swift; sourceTree = "<group>"; };
 		4E4687F02AF6E6E70032D5B7 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		4E744FAA2B6373E5005587A5 /* Wishlist.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Wishlist.entitlements; sourceTree = "<group>"; };
+		4E744FAB2B6464B5005587A5 /* CreateNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNameView.swift; sourceTree = "<group>"; };
 		4E8358762B5188A700A71A25 /* FriendPresentCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendPresentCellView.swift; sourceTree = "<group>"; };
 		4ED21A372B090FB5001D016B /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
 		4ED21A392B090FF1001D016B /* SignInGoogleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInGoogleHelper.swift; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				4ED21A372B090FB5001D016B /* AuthenticationView.swift */,
+				4E744FAB2B6464B5005587A5 /* CreateNameView.swift */,
 				4ED2F43E2B18DFCF00EE7004 /* AuthenticationViewModel.swift */,
 				4ED21A3F2B091077001D016B /* SignInEmailView.swift */,
 				4ED2F4402B18E09700EE7004 /* SignInEmailViewModel.swift */,
@@ -733,6 +736,7 @@
 				4ED21A482B0A1963001D016B /* SettingView.swift in Sources */,
 				4ED38A092A9269CC007E30D1 /* DataBaseService.swift in Sources */,
 				4ED21A3C2B09101C001D016B /* AuthenticationManager.swift in Sources */,
+				4E744FAC2B6464B5005587A5 /* CreateNameView.swift in Sources */,
 				4ED2F4432B18E2A800EE7004 /* PresentManager.swift in Sources */,
 				4EEF21E22A9E8765001B736F /* FriendsViewModel.swift in Sources */,
 				4ED21A3A2B090FF1001D016B /* SignInGoogleHelper.swift in Sources */,

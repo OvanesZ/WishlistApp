@@ -12,21 +12,29 @@ struct RootView: View {
     
     @State private var showSignInView = false
     
+    
     var body: some View {
         
         ZStack {
+            
             if !showSignInView {
                 
-//                if let user = Auth.auth().currentUser {
-//                    let viewModel = MainTabBarViewModel(user: user)
-//                    MainTabBar(viewModel: viewModel, showSignInView: showSignInView)
+//                if UserDefaults.standard.bool(forKey: "NewUser") == true {
+//                    CreateNameView(showSignInView: $showSignInView)
 //                } else {
-//                    AuthenticationView(showSignInView: $showSignInView)
+//                    MainTabBar(showSignInView: $showSignInView)
 //                }
                 
-                MainTabBar(showSignInView: $showSignInView)
+                if UserDefaults.standard.bool(forKey: Auth.auth().currentUser?.uid ?? "") == true || UserDefaults.standard.bool(forKey: "NewUser") == true {
+                    CreateNameView(showSignInView: $showSignInView)
+                } else {
+                    MainTabBar(showSignInView: $showSignInView)
+                }
+              
+               
                 
             }
+            
         }
         .onAppear {
             let authuser = try? AuthenticationManager.shared.getAuthenticatedUser()

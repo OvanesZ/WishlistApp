@@ -143,75 +143,23 @@ struct SettingView: View {
 
 extension SettingView {
     private var emailSection: some View {
-//        Section {
-//            Button("Сбросить пароль") {
-//                Task {
-//                    do {
-//                        try await viewModel.resetPassword()
-//                        print("Password reset!")
-//                    } catch {
-//                        print(error)
-//                    }
-//                }
-//            }
-//            
-//            Button("Обновить пароль") {
-//                Task {
-//                    do {
-//                        try await viewModel.updatePassword()
-//                        print("Password reset!")
-//                    } catch {
-//                        print(error)
-//                    }
-//                }
-//            }
-//            
-//            Button("Обновить email") {
-//                Task {
-//                    do {
-//                        try await viewModel.updateEmail()
-//                        print("Password reset!")
-//                    } catch {
-//                        print(error)
-//                    }
-//                }
-//            }
-//        } header: {
-//            Text("Функции электронной почты")
-//        }
+        
         Section {
             if let user = viewModel.dbUser {
                 
-                Text(user.displayName ?? "")
-//                    .font(.title2.bold())
+                Text(user.userName ?? "")
                     .font(.system(.headline, design: .rounded))
                 
                 Text(user.email ?? "")
-//                    .font(.title2)
                     .font(.system(.callout, design: .rounded))
                 
-                
-                
-            }
-            
-//            if let userPersonalData = viewModel.dbUserPersonalData {
-//                if let date = userPersonalData.dateBirth {
-//                    Text("Дата рождения: \(date.formatted(.dateTime.day().month().year().locale(Locale(identifier: "ru_RU"))))")
-//                        .font(.system(.callout, design: .rounded))
-//                }
-//            }
-            
-            if let userPersonalData = viewModel.dbUser {
-                if let date = userPersonalData.dateBirth {
+                if let date = user.dateBirth {
                     Text("Дата рождения: \(date.formatted(.dateTime.day().month().year().locale(Locale(identifier: "ru_RU"))))")
                         .font(.system(.callout, design: .rounded))
                 }
+                
             }
-            
-            
-            
         }
-        
     }
 }
 
@@ -222,30 +170,19 @@ extension SettingView {
         Section {
             if let user = viewModel.dbUser {
                 
-                Text(user.displayName ?? "")
-//                    .font(.title2.bold())
+                Text(user.userName ?? "")
                     .font(.system(.headline, design: .rounded))
 
                 
                 Text(user.email ?? "")
-//                    .font(.title2)
                     .font(.system(.callout, design: .rounded))
 
-                
-                
-            }
-            
-            if let userPersonalData = viewModel.dbUserPersonalData {
-                if let date = userPersonalData.dateBirth {
+                if let date = user.dateBirth {
                     Text("Дата рождения: \(date.formatted(.dateTime.day().month().year().locale(Locale(identifier: "ru_RU"))))")
-//                        .font(.headline)
                         .font(.system(.callout, design: .rounded))
-
                 }
+                
             }
-            
-            
-            
         }
     }
 }

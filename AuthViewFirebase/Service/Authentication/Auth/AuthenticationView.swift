@@ -18,6 +18,7 @@ struct AuthenticationView: View {
     @State private var opacity = 0.5
     
     
+    
     var body: some View {
         ZStack {
             VStack {
@@ -75,6 +76,7 @@ struct AuthenticationView: View {
                 GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .light, style: .wide, state: .normal)) {
                     Task {
                         do {
+//                            UserDefaults.standard.setValue(true, forKey: "NewUser")
                             try await viewModel.signInGoogle()
                             showSignInView = false
                         } catch {
@@ -88,6 +90,10 @@ struct AuthenticationView: View {
                 Button(action: {
                     Task {
                         do {
+                            
+                           
+                            
+                            UserDefaults.standard.setValue(true, forKey: "NewUser")
                             try await viewModel.signInApple()
                             showSignInView = false
                         } catch {
@@ -113,6 +119,9 @@ struct AuthenticationView: View {
                 .resizable()
                 .edgesIgnoringSafeArea(.all)
                 .aspectRatio(contentMode: .fill)
+        }
+        .task {
+            try? await viewModel.getAllUsers()
         }
     }
 }
