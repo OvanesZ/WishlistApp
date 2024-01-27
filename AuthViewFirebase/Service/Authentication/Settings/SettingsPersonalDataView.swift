@@ -56,16 +56,9 @@ struct SettingsPersonalDataView: View {
             Form {
                 Section(header: Text("Настройки профиля")) {
                     
-//                    if viewModel.dbUser?.displayName == nil {
-//                        TextField("Имя и Фамилия", text: $userName)
-//                            .font(.body.bold())
-//                    }
                     TextField("Имя и Фамилия", text: $userName)
                         .font(.body.bold())
                         .textInputAutocapitalization(.words)
-                    
-                    
-                    
                     
                     DatePicker(selection: $dateBirth, displayedComponents: [.date]) {
                         Text("Дата рождения")
@@ -79,15 +72,12 @@ struct SettingsPersonalDataView: View {
                         Spacer()
                         Button {
                             Task {
-                                let userPersonalData = PersonalDataDBUser(userId: viewModel.dbUser?.userId ?? "", friendsId: viewModel.dbUserPersonalData?.friendsId ?? [""], mySubscribers: viewModel.dbUserPersonalData?.mySubscribers ?? [""], requestFriend: viewModel.dbUserPersonalData?.requestFriend ?? [""])
-                                
-                                try await UserManager.shared.createNewPersonalDataUser(user: userPersonalData)
                                 viewModel.uploadImageAsync()
-                                
-                                
-                                viewModel.updateDateBirth(dateBirth: dateBirth)
-                                viewModel.updateUserName(userName: userName)
+                                try? await viewModel.loadCurrentDBUser()
                             }
+                            
+                            viewModel.updateDateBirth(dateBirth: dateBirth)
+                            viewModel.updateUserName(userName: userName)
                             
                             dismiss()
                         } label: {

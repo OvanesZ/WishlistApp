@@ -75,12 +75,6 @@ final class SettingsViewModel: ObservableObject {
     }
     
     func updateDateBirth(dateBirth: Date) {
-//        guard let dbUser else { return }
-//        Task {
-//            UserManager.shared.updateDateBirth(userId: dbUser.userId, date: dateBirth)
-//            self.dbUser = try await UserManager.shared.getUser(userId: dbUser.userId)
-//            print("updated")
-//        }
         if let currenUserId = Auth.auth().currentUser?.uid {
             UserManager.shared.updateDateBirth(userId: currenUserId, date: dateBirth)
         }

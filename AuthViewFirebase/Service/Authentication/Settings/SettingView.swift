@@ -45,11 +45,6 @@ struct SettingView: View {
                             .frame(width: 200, height: 200)
                             .background(Color.gray)
                             .clipShape(Circle())
-                        
-//                            .resizable()
-//                            .scaledToFill()
-//                            .frame(width: 200, height: 200)
-//                            .clipShape(Circle())
                     }
                   
                 
@@ -66,13 +61,16 @@ struct SettingView: View {
                             googleSection
                         }
                         
+                        if viewModel.authProviders.contains(.apple) {
+                            googleSection
+                        }
+                        
                     }
                     
                     
                 }
                 .refreshable(action: {
                     self.url = try? await viewModel.getUrlImageAsync()
-                    try? await viewModel.loadCurrentDBUserPersonalData()
 
                 })
                 
@@ -129,7 +127,6 @@ struct SettingView: View {
             }
             .task {
                 try? await viewModel.loadCurrentDBUser()
-                try? await viewModel.loadCurrentDBUserPersonalData()
                 self.url = try? await viewModel.getUrlImageAsync()
             }
           
@@ -166,6 +163,30 @@ extension SettingView {
 
 extension SettingView {
     private var googleSection: some View {
+        
+        Section {
+            if let user = viewModel.dbUser {
+                
+                Text(user.userName ?? "")
+                    .font(.system(.headline, design: .rounded))
+
+                
+                Text(user.email ?? "")
+                    .font(.system(.callout, design: .rounded))
+
+                if let date = user.dateBirth {
+                    Text("Дата рождения: \(date.formatted(.dateTime.day().month().year().locale(Locale(identifier: "ru_RU"))))")
+                        .font(.system(.callout, design: .rounded))
+                }
+                
+            }
+        }
+    }
+}
+
+
+extension SettingView {
+    private var appleSection: some View {
         
         Section {
             if let user = viewModel.dbUser {
