@@ -169,7 +169,6 @@ extension SettingView {
                 
                 Text(user.userName ?? "")
                     .font(.system(.headline, design: .rounded))
-
                 
                 Text(user.email ?? "")
                     .font(.system(.callout, design: .rounded))
@@ -193,7 +192,6 @@ extension SettingView {
                 
                 Text(user.userName ?? "")
                     .font(.system(.headline, design: .rounded))
-
                 
                 Text(user.email ?? "")
                     .font(.system(.callout, design: .rounded))

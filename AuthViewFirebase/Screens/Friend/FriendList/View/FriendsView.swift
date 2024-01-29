@@ -66,7 +66,6 @@ struct FriendsView: View {
             .navigationTitle("Друзья")
 //            .toolbar(isEditing ? .hidden : .visible, for: .navigationBar).animation(.linear(duration: 0.25))
 //            .navigationBarHidden(isEditing).animation(.linear(duration: 0.25))
-
         }
         .searchable(text: $nameFriend, placement: .navigationBarDrawer(displayMode: .always), prompt: "Поиск друга").textInputAutocapitalization(.never)
         

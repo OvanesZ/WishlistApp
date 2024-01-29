@@ -43,7 +43,7 @@ struct NewPresentView: View {
                         .onTapGesture {
                             isImageAlert.toggle()
                         }
-                        .confirmationDialog("Откуда взять фотку", isPresented: $isImageAlert) {
+                        .confirmationDialog("Откуда взять фотографию?", isPresented: $isImageAlert) {
                             Button {
                                 showImagePickerLibrary.toggle()
                                 

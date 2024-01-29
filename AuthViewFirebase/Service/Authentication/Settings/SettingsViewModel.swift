@@ -18,6 +18,7 @@ final class SettingsViewModel: ObservableObject {
     @Published private(set) var dbUserPersonalData: PersonalDataDBUser? = nil
     @Published private(set) var friendDbUserPersonalData: PersonalDataDBUser? = nil
     @Published var image = UIImage(named: "person")!
+    
     @Published var user: PersonalDataDBUser? = nil
 
     var currentUser = Auth.auth().currentUser
@@ -50,10 +51,10 @@ final class SettingsViewModel: ObservableObject {
         }
     }
     
-    func uploadImageAsync() {
+    func uploadImageAsync(userID: String) {
         guard let imageData = image.jpegData(compressionQuality: 0.15) else { return }
         Task {
-            try await StorageService.shared.uploadAsync(id: dbUserPersonalData?.userId ?? "", data: imageData)
+            try await StorageService.shared.uploadAsync(id: userID, data: imageData)
         }
     }
     

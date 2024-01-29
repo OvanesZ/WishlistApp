@@ -15,7 +15,6 @@ struct MainTabBar: View {
 //    @StateObject private var friendsViewModel: FriendsViewModel = FriendsViewModel()
     @Binding var showSignInView: Bool
     
-    
     var body: some View {
         
       

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct CreateNameView: View {
     
@@ -13,6 +14,9 @@ struct CreateNameView: View {
     @State private var userSername = ""
     @State var isPresentRoot = false
     @State private var dateBirth = Date()
+    @State private var isImageAlert = false
+    @State private var showImagePickerLibrary = false
+    @State private var showImagePickerCamera = false
     @Binding var showSignInView: Bool
     @StateObject private var viewModel: SettingsViewModel = SettingsViewModel()
     
@@ -31,7 +35,7 @@ struct CreateNameView: View {
                 }
       
                 HStack {
-                    Text("Укажите, пожалуйста, Ваше имя, фамилию и дату рождения")
+                    Text("Укажите, пожалуйста, Ваше имя, фамилию и дату рождения и выберете аватарку")
                         .font(.system(.subheadline, design: .default))
                         .padding()
                         .foregroundColor(.white)
@@ -41,15 +45,45 @@ struct CreateNameView: View {
                 .padding(.top, -25)
       
                 
-                
-//                Image("logo_wishlist")
-//                    .resizable()
-//                    .aspectRatio(contentMode: .fit)
-                //                .blur(radius: CGFloat(blur))
-                
                 Spacer()
                 
                 Section {
+                    
+                    
+                    Circle()
+                        .overlay {
+                            Image(uiImage: viewModel.image)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .clipShape(Circle())
+                        }
+                        .frame(width: 200, height: 200)
+                        .padding()
+                        .onTapGesture {
+                            isImageAlert.toggle()
+                        }
+                        .confirmationDialog("Откуда взять фотографию?", isPresented: $isImageAlert) {
+                            Button {
+                                showImagePickerLibrary.toggle()
+                                
+                            } label: {
+                                Text("Галерея")
+                            }
+                            
+                            Button {
+                                showImagePickerCamera.toggle()
+                                
+                            } label: {
+                                Text("Камера")
+                            }
+                        }
+                     
+                    
+                    
+                    
+                    
+                    
+                    
                     TextField("", text: $userName, prompt: Text("Имя").foregroundColor(.gray))
                         .padding()
                         .background(Color.white)
@@ -88,7 +122,7 @@ struct CreateNameView: View {
                         
                         try await UserManager.shared.createNewPersonalDataUser(user: userPersonalData)
                     }
-                    
+                    viewModel.uploadImageAsync(userID: viewModel.currentUser?.uid ?? "")
                     UserDefaults.standard.setValue(false, forKey: "NewUser")
                     UserDefaults.standard.setValue(false, forKey: viewModel.currentUser?.uid ?? "")
                     viewModel.updateUserName(userName: "\(userName) \(userSername)")
@@ -117,9 +151,14 @@ struct CreateNameView: View {
                     .edgesIgnoringSafeArea(.all)
                     .aspectRatio(contentMode: .fill)
             }
+            
         }
-        
-        
+        .sheet(isPresented: $showImagePickerLibrary, content: {
+            ImagePicker(sourceType: .photoLibrary, selectedImage: $viewModel.image)
+        })
+        .sheet(isPresented: $showImagePickerCamera) {
+            ImagePicker(sourceType: .camera, selectedImage: $viewModel.image)
+        }
         
     }
 }

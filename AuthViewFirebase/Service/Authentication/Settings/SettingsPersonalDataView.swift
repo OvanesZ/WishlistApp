@@ -72,7 +72,7 @@ struct SettingsPersonalDataView: View {
                         Spacer()
                         Button {
                             Task {
-                                viewModel.uploadImageAsync()
+                                viewModel.uploadImageAsync(userID: viewModel.currentUser?.uid ?? "")
                                 try? await viewModel.loadCurrentDBUser()
                             }
                             

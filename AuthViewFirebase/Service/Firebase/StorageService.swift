@@ -136,7 +136,7 @@ class StorageService {
     
     func deletePresentImage(id: String, completion: @escaping (Result<Data, Error>) -> ()) {
         presentImageRef.child(id).delete { error in
-            if let errorr = error {
+            if error != nil {
                 print("Ошибка при удалении изображения подарка!")
             } else {
                 print("Изображение удалено успешно!")
