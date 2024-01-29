@@ -77,12 +77,6 @@ struct CreateNameView: View {
                                 Text("Камера")
                             }
                         }
-                     
-                    
-                    
-                    
-                    
-                    
                     
                     TextField("", text: $userName, prompt: Text("Имя").foregroundColor(.gray))
                         .padding()

@@ -10,6 +10,7 @@ import SwiftUI
 struct SettingsPersonalDataView: View {
     
     @State private var userName = ""
+    @State private var userSername = ""
     @State private var dateBirth = Date()
     @State private var isAvatarlertPresented = false
     @State private var showImagePickerLibrary = false
@@ -19,19 +20,20 @@ struct SettingsPersonalDataView: View {
     
     var body: some View {
         NavigationStack {
-            Image(uiImage: viewModel.image)
-                .resizable()
-                .scaledToFill()
-                .frame(width: 200, height: 200)
-                .clipShape(Circle())
-                .padding()
-                .task {
-                    try? await self.viewModel.getImageAsync()
+            
+            Circle()
+                .overlay {
+                    Image(uiImage: viewModel.image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .clipShape(Circle())
                 }
+                .frame(width: 200, height: 200)
+                .padding()
                 .onTapGesture {
                     isAvatarlertPresented.toggle()
                 }
-                .confirmationDialog("Откуда взять фотку", isPresented: $isAvatarlertPresented) {
+                .confirmationDialog("Откуда взять фотографию?", isPresented: $isAvatarlertPresented) {
                     Button {
                         showImagePickerLibrary.toggle()
                         
@@ -46,6 +48,9 @@ struct SettingsPersonalDataView: View {
                         Text("Камера")
                     }
                 }
+            
+            
+            
                 .sheet(isPresented: $showImagePickerLibrary) {
                     ImagePicker(sourceType: .photoLibrary, selectedImage: $viewModel.image)
                 }
@@ -56,7 +61,11 @@ struct SettingsPersonalDataView: View {
             Form {
                 Section(header: Text("Настройки профиля")) {
                     
-                    TextField("Имя и Фамилия", text: $userName)
+                    TextField("Имя", text: $userName)
+                        .font(.body.bold())
+                        .textInputAutocapitalization(.words)
+                    
+                    TextField("Фамилия", text: $userSername)
                         .font(.body.bold())
                         .textInputAutocapitalization(.words)
                     
@@ -77,7 +86,7 @@ struct SettingsPersonalDataView: View {
                             }
                             
                             viewModel.updateDateBirth(dateBirth: dateBirth)
-                            viewModel.updateUserName(userName: userName)
+                            viewModel.updateUserName(userName: "\(userName) \(userSername)")
                             
                             dismiss()
                         } label: {
@@ -88,7 +97,7 @@ struct SettingsPersonalDataView: View {
                 }
             }
         }
-        
+   
         
     }
 }

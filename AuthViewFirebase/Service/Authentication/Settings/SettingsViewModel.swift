@@ -35,7 +35,7 @@ final class SettingsViewModel: ObservableObject {
     }
     
     func getUrlImageAsync() async throws -> URL {
-        try await StorageService.shared.downloadURLUserImageAsync(id: dbUserPersonalData?.userId ?? "")
+        try await StorageService.shared.downloadURLUserImageAsync(id: currentUser?.uid ?? "")
     }
     
     func getUrlImageFriendAsync(id: String) async throws -> URL {
@@ -44,7 +44,7 @@ final class SettingsViewModel: ObservableObject {
     
     func getImageAsync() async throws {
         Task {
-            let data = try await StorageService.shared.downloadUserImageAsync(id: dbUserPersonalData?.userId ?? "")
+            let data = try await StorageService.shared.downloadUserImageAsync(id: currentUser?.uid ?? "")
             if let img = UIImage(data: data) {
                 self.image = img
             }
