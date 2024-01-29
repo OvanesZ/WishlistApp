@@ -153,6 +153,7 @@ extension FriendsView {
                     }
                 }
             }
+            .scrollDismissesKeyboard(.immediately)
             .task {
                 try? await friendViewModel.getMyFriendsID()
                 try? await friendViewModel.getSubscriptions()
