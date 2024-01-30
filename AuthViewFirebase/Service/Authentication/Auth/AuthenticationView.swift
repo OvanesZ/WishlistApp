@@ -123,6 +123,7 @@ struct AuthenticationView: View {
         .task {
             try? await viewModel.getAllUsers()
         }
+        
     }
 }
 

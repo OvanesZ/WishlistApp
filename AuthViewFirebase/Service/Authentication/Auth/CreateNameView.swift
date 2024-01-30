@@ -135,7 +135,7 @@ struct CreateNameView: View {
                 .disabled(userName.isEmpty && userSername.isEmpty)
                 
             }
-          
+           
             .fullScreenCover(isPresented: $isPresentRoot, content: {
                 RootView()
             })
@@ -158,6 +158,7 @@ struct CreateNameView: View {
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
+        
         
     }
 }

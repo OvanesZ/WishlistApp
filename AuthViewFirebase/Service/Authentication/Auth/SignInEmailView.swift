@@ -14,6 +14,7 @@ struct SignInEmailView: View {
     @Binding var showSignInView: Bool
     @State private var isAuth = false
     @State private var blur = 0
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         
@@ -160,6 +161,23 @@ struct SignInEmailView: View {
         .alert(viewModel.alertMessage, isPresented: $viewModel.isAlertShow) {
             Button("OK") {
                 
+            }
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    dismiss()
+                } label: {
+                    HStack {
+                        Image(systemName: "chevron.backward")
+                            
+                        
+                        Text("Назад")
+                    }
+                    .foregroundStyle(.white)
+                }
+
             }
         }
     }

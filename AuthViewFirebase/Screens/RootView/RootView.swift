@@ -44,7 +44,12 @@ struct RootView: View {
             NavigationStack {
                 AuthenticationView(showSignInView: $showSignInView)
             }
-            .tint(.white)
+//            .tint(Color(.backButton))
+          
+            // сброс клавиатуры
+            .onTapGesture {
+                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+            }
         }
         
         
