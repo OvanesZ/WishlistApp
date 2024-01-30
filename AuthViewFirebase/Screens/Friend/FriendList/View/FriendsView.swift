@@ -44,6 +44,7 @@ struct FriendsView: View {
                     .padding([.leading, .trailing], 45)
 //                    .pickerStyle(SegmentedPickerStyle())
                     .pickerStyle(.segmented)
+                   
                     
                     
                     
@@ -69,7 +70,6 @@ struct FriendsView: View {
         }
         .searchable(text: $nameFriend, placement: .navigationBarDrawer(displayMode: .always), prompt: "Поиск друга").textInputAutocapitalization(.never)
         
-      
         
 //        .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local)
 //            .onEnded({ value in
@@ -102,19 +102,21 @@ extension FriendsView {
                 ProgressView()
             } else {
                 if friendViewModel.myFriends.isEmpty && nameFriend.isEmpty {
-                    
+
                     VStack {
-                        Spacer()
+//                        Spacer()
                         Text("Здесь будут Ваши подписки")
                             .foregroundStyle(.blue)
                             .font(.title2.bold().italic())
                         
                         Image("friends")
                             .resizable()
-                            .aspectRatio(contentMode: .fill)
+                            .aspectRatio(contentMode: .fit)
+                            
                             
                     }
                     .animation(Animation.easeInOut(duration: 0.9), value: friendViewModel.isLoading)
+                    
                 }
             }
             
@@ -196,7 +198,7 @@ extension FriendsView {
                     
                     Image("friends")
                         .resizable()
-                        .aspectRatio(contentMode: .fill)
+                        .aspectRatio(contentMode: .fit)
                 }
             }
             
@@ -235,6 +237,7 @@ extension FriendsView {
                 }
             }
             .listStyle(.inset)
+            .scrollDismissesKeyboard(.immediately)
             .task {
                 try? await friendViewModel.getMySubscribersID()
                 try? await friendViewModel.getSubscribers()
@@ -266,6 +269,7 @@ extension FriendsView {
             }
         }
         .listStyle(.inset)
+        .scrollDismissesKeyboard(.immediately)
         .refreshable {
             Task {
                 try? await friendViewModel.getMyRequestID()
