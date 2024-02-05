@@ -24,11 +24,37 @@ struct FriendsCell: View {
         
         HStack {
             
-            KFImage(url)
-                .resizable()
-                .scaledToFill()
-                .frame(width: 60, height: 60)
-                .clipShape(Circle())
+//            KFImage(url)
+//                .resizable()
+//                .scaledToFill()
+//                .frame(width: 60, height: 60)
+//                .clipShape(Circle())
+            
+            
+            AsyncImage(
+                url: url,
+                transaction: Transaction(animation: .linear)
+            ) { phase in
+                switch phase {
+                case .empty:
+                    ProgressView()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 60, height: 60)
+                        .clipShape(Circle())
+                case .success(let image):
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 60, height: 60)
+                        .clipShape(Circle())
+//                                    .transition(.scale(scale: 0.1, anchor: .center))
+                case .failure:
+                    Image(systemName: "wifi.slash")
+                @unknown default:
+                    EmptyView()
+                }
+            }
+            
             
             
             VStack {

@@ -41,14 +41,36 @@ struct FriendPresentView: View {
                 
                 RoundedRectangle(cornerRadius: 30, style: .continuous)
                     .overlay {
-                        KFImage(url)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
+                        
+//                        KFImage(url)
+//                            .resizable()
+//                            .aspectRatio(contentMode: .fill)
+                        
+                        AsyncImage(
+                            url: url,
+                            transaction: Transaction(animation: .linear)
+                        ) { phase in
+                            switch phase {
+                            case .empty:
+//                                ProgressView()
+                                SkeletonView()
+                            case .success(let image):
+                                image
+                                    .resizable()
+                                    .scaledToFill()
+//                                    .transition(.scale(scale: 0.1, anchor: .center))
+                            case .failure:
+                                Image(systemName: "wifi.slash")
+                            @unknown default:
+                                EmptyView()
+                            }
+                        }
+                        
+                        
                     }
                     .opacity(50)
                     .frame(width: 350, height: 350)
                     .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
-                    .shadow(color: .gray, radius: 10)
                 
                 HStack {
                     Text("Описание")

@@ -31,7 +31,7 @@ class PresentModelViewModel: ObservableObject {
     
     
     func setPresent(newPresent: PresentModel) {
-        guard let imageData = uiImage.jpegData(compressionQuality: 0.75) else { return }
+        guard let imageData = uiImage.jpegData(compressionQuality: 0.25) else { return }
         
         DatabaseService.shared.setPresent(present: newPresent, image: imageData) { result in
             switch result {

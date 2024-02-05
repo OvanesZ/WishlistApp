@@ -31,26 +31,42 @@ struct PresentCellView: View {
                 .stroke(present.isReserved ? LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.3098039329, green: 0.01568627544, blue: 0.1294117719, alpha: 1)), Color(#colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1))]), startPoint: .topLeading, endPoint: .bottomTrailing) : LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1)), Color(#colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1))]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 3)
                 .frame(width: 130, height: 130)
                 .overlay {
-                    KFImage(viewModel.url)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 124, height: 124)
-                        .clipShape(RoundedRectangle(cornerRadius: 27, style: .continuous))
-                        .background {
-                            ZStack {
-                                SkeletonClearView()
-                                    .frame(width: 130, height: 130)
-                                    .clipShape(RoundedRectangle(cornerRadius: 27, style: .continuous))
-                            }
-                           
+                    
+//                    if viewModel.isLoadUrl {
+//                        ProgressView()
+//                            .progressViewStyle(CircularProgressViewStyle(tint: .gray))
+//                            .scaleEffect(2)
+//                    } else {
+//                        KFImage(viewModel.url)
+//                            .resizable()
+//                            .aspectRatio(contentMode: .fill)
+//                            .frame(width: 124, height: 124)
+//                            .clipShape(RoundedRectangle(cornerRadius: 27, style: .continuous))
+//                    }
+                    
+                    AsyncImage(
+                        url: viewModel.url,
+                        transaction: Transaction(animation: .linear)
+                    ) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView()
+                        case .success(let image):
+                            image
+                                .resizable()
+                            
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 124, height: 124)
+                                .clipShape(RoundedRectangle(cornerRadius: 27, style: .continuous))
+//                                    .transition(.scale(scale: 0.1, anchor: .center))
+                        case .failure:
+                            Image(systemName: "wifi.slash")
+                        @unknown default:
+                            EmptyView()
                         }
-                }
-                .background {
-                    if !viewModel.isLoadUrl {
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle(tint: .gray))
-                            .scaleEffect(2)
                     }
+                    
+                    
                 }
             
             Text(present.name)

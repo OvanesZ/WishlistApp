@@ -117,9 +117,17 @@ struct FriendHomeView: View {
         }
         .padding(.bottom, -6)
         .task {
-            try? await viewModelSettings.loadFriendDBUserPersonalData(id: viewModel.friend.userId)
+//            try? await viewModelSettings.loadFriendDBUserPersonalData(id: viewModel.friend.userId)
         }
         .navigationTitle(viewModel.friend.userName ?? "")
+        .onAppear {
+            viewModel.isStopListener = false
+            viewModel.fetchWishlistFriend()
+        }
+        .onDisappear {
+            viewModel.isStopListener = true
+            viewModel.fetchWishlistFriend()
+        }
         
         Divider()
             
@@ -133,7 +141,7 @@ struct FriendHomeView: View {
                     pinnedViews: [.sectionFooters]
                 ) {
                     Section() {
-                        ForEach(viewModel.wishlist) { present in
+                        ForEach(viewModel.wishlist ?? [PresentModel(id: "", name: "", urlText: "", presentFromUserID: "", isReserved: false, presentDescription: "")]) { present in
                             FriendPresentCellView(present: present, friend: viewModel.friend)
                         }
                     }

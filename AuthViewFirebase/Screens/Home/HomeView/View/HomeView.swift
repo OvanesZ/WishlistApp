@@ -49,7 +49,14 @@ struct HomeView: View {
                         }
                     }
                 }
-                .onAppear(perform: viewModel.fetchWishlist)
+                .onAppear {
+                    viewModel.isStopListener = false
+                    viewModel.fetchWishlist()
+                }
+                .onDisappear {
+                    viewModel.isStopListener = true
+                    viewModel.fetchWishlist()
+                }
                 .background(
                     Image("bglogo_wishlist")
                     .resizable()

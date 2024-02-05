@@ -13,18 +13,22 @@ import FirebaseFirestore
 class FriendHomeViewModel: ObservableObject {
     
     let friend: DBUser
-    @Published var wishlist: [PresentModel] = []
+//    @Published var wishlist: [PresentModel] = []
+    @Published var wishlist: [PresentModel]? = nil
     @Published var isFriendForRequestArr = false
     @Published var isFriendForFriendstArr = false
     @Published var isIamFriend = false
     @Published var uiImage = UIImage(named: "person")
+    @Published var isStopListener = false
     
     init(friend: DBUser) {
         self.friend = friend
         isFriendOrNo()
-        fetchWishlistFriend()
+//        fetchWishlistFriend()
     }
     
+   
+   
     
     // MARK: - Процедура подписки на пользователя
     
@@ -64,7 +68,8 @@ class FriendHomeViewModel: ObservableObject {
     ///
     func fetchWishlistFriend() {
         let docRef = Firestore.firestore().collection("users").document(friend.userId).collection("wishlist")
-        docRef.addSnapshotListener { (snapshot, error) in
+        
+        let listener = docRef.addSnapshotListener { (snapshot, error) in
             if let error = error {
                 print(error.localizedDescription)
                 return
@@ -72,16 +77,24 @@ class FriendHomeViewModel: ObservableObject {
             self.wishlist = snapshot?.documents.compactMap {
                 try? $0.data(as: PresentModel.self)
             } ?? []
+//            print("До очистки\(MemoryLayout<PresentModel>.size)")
+            print("Before stoped listener \(String(describing: self.wishlist?.count))")
+        }
+        if isStopListener {
+            listener.remove()
+            wishlist = nil
+//            print("После очистки\(MemoryLayout<PresentModel>.size)")
+            print("After stoped listener \(String(describing: self.wishlist?.count))")
         }
     }
     
     //////////////// НЕ УДАЛЯТЬ, т.к пока не использую из-за того что инфа обновляется только после перезапуска экрана
     ///
-    func fetchWishlistFriendAsync() async throws {
-        self.wishlist = try await DatabaseService.shared.getWishlistByFriend(friendId: friend.userId).documents.compactMap {
-            try? $0.data(as: PresentModel.self)
-        }
-    }
+//    func fetchWishlistFriendAsync() async throws {
+//        self.wishlist = try await DatabaseService.shared.getWishlistByFriend(friendId: friend.userId).documents.compactMap {
+//            try? $0.data(as: PresentModel.self)
+//        }
+//    }
    
    
     

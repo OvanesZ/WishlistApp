@@ -16,12 +16,15 @@ final class HomeViewModel: ObservableObject {
     
     @Published var wishlist: [PresentModel] = [] // будет содержать все подарки пользователя
     var currentUser = Auth.auth().currentUser
-    
+    @Published var isStopListener = false
     
 //    init() {
 //        fetchWishlist()
 //    }
     
+//    deinit {
+//        fetchWishlist()
+//    }
     
     
     
@@ -32,7 +35,8 @@ final class HomeViewModel: ObservableObject {
         
         if let user = AuthService.shared.currentUser {
             let docRef = Firestore.firestore().collection("users").document(user.uid).collection("wishlist")
-            docRef.addSnapshotListener { (snapshot, error) in
+           
+            let listener = docRef.addSnapshotListener { (snapshot, error) in
                 if let error = error {
                     print(error.localizedDescription)
                     return
@@ -41,10 +45,17 @@ final class HomeViewModel: ObservableObject {
                     try? $0.data(as: PresentModel.self)
                 } ?? []
             }
+            if isStopListener {
+                listener.remove()
+                wishlist = []
+            }
+            
         } else {
             return
         }
+        
     }
+    
     
     
     

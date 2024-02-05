@@ -32,21 +32,46 @@ struct PresentModalView: View {
             VStack {
                 RoundedRectangle(cornerRadius: 30, style: .continuous)
                     .overlay {
-                        KFImage(presentModelViewModel.url)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                        if isLoadImage {
-                            ProgressView()
-                                .progressViewStyle(CircularProgressViewStyle(tint: .gray))
-                                .scaleEffect(2)
-//                            SkeletonView()
+//                        KFImage(presentModelViewModel.url)
+//                            .resizable()
+//                            .aspectRatio(contentMode: .fill)
+//                        if isLoadImage {
+//                            ProgressView()
+//                                .progressViewStyle(CircularProgressViewStyle(tint: .gray))
 //                                .scaleEffect(2)
+////                            SkeletonView()
+////                                .scaleEffect(2)
+//                        }
+                        
+                        AsyncImage(
+                            url: presentModelViewModel.url,
+                            transaction: Transaction(animation: .linear)
+                        ) { phase in
+                            switch phase {
+                            case .empty:
+//                                ProgressView()
+                                SkeletonView()
+                            case .success(let image):
+                                image
+                                    .resizable()
+                                    .scaledToFill()
+//                                    .transition(.scale(scale: 0.1, anchor: .center))
+                            case .failure:
+                                Image(systemName: "wifi.slash")
+                            @unknown default:
+                                EmptyView()
+                            }
                         }
+                        
+                        
+                        
+                        
+                        
                     }
                     .opacity(50)
                     .frame(width: 350, height: 350)
                     .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
-                    .shadow(color: .gray, radius: 10)
+//                    .shadow(color: .gray, radius: 10)
                 HStack {
                     Text("Описание")
                         .font(.title2)
@@ -145,6 +170,7 @@ struct PresentModalView: View {
             }
         }
         .navigationTitle(presentModelViewModel.present.name)
+//        .redacted(reason: .placeholder)
     }
 }
 

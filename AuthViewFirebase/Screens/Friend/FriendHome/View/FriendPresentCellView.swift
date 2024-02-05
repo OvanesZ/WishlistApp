@@ -40,11 +40,43 @@ struct FriendPresentCellView: View {
                     }
                     .overlay {
                         Button(action: {isCellPressed = true}, label: {
-                            KFImage(viewModel.url)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 124, height: 124)
-                                .clipShape(RoundedRectangle(cornerRadius: 27, style: .continuous))
+//                            AsyncImage(url: viewModel.url) { image in
+//                                image.image?.resizable()
+//                            }
+//                                
+//                                .aspectRatio(contentMode: .fill)
+//                                .frame(width: 124, height: 124)
+//                                .clipShape(RoundedRectangle(cornerRadius: 27, style: .continuous))
+                            
+                            
+                            AsyncImage(
+                                url: viewModel.url,
+                                transaction: Transaction(animation: .linear)
+                            ) { phase in
+                                switch phase {
+                                case .empty:
+                                    ProgressView()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 124, height: 124)
+                                        .clipShape(Circle())
+                                case .success(let image):
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 124, height: 124)
+                                        .clipShape(RoundedRectangle(cornerRadius: 27, style: .continuous))
+                                case .failure:
+                                    Image(systemName: "wifi.slash")
+                                @unknown default:
+                                    EmptyView()
+                                }
+                            }
+                            
+//                            KFImage(viewModel.url)
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fill)
+//                                .frame(width: 124, height: 124)
+//                                .clipShape(RoundedRectangle(cornerRadius: 27, style: .continuous))
                         })
                      
                             

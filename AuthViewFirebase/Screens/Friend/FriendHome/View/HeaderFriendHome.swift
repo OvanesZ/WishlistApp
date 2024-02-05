@@ -21,11 +21,35 @@ struct HeaderFriendCell: View {
         
         HStack {
             
-            KFImage(url)
-                .resizable()
-                .scaledToFill()
-                .frame(width: 120, height: 120)
-                .clipShape(Circle())
+//            KFImage(url)
+//                .resizable()
+//                .scaledToFill()
+//                .frame(width: 120, height: 120)
+//                .clipShape(Circle())
+            
+            AsyncImage(
+                url: url,
+                transaction: Transaction(animation: .linear)
+            ) { phase in
+                switch phase {
+                case .empty:
+                    ProgressView()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 120, height: 120)
+                        .clipShape(Circle())
+                case .success(let image):
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 120, height: 120)
+                        .clipShape(Circle())
+//                                    .transition(.scale(scale: 0.1, anchor: .center))
+                case .failure:
+                    Image(systemName: "wifi.slash")
+                @unknown default:
+                    EmptyView()
+                }
+            }
             
             VStack {
                 Text("Дата рождения:")
@@ -41,7 +65,7 @@ struct HeaderFriendCell: View {
                         .frame(height: 25, alignment: .leading)
                         .padding(.horizontal, 20)
                 }
-               
+              
                 
 //                if let date = viewModelSettings.friendDbUserPersonalData?.dateBirth {
 //                    Text("\(date.formatted(.dateTime.day().month().year().locale(Locale(identifier: "ru_RU"))))")
