@@ -10,6 +10,13 @@ import SwiftUI
 
 struct SignInEmailView: View {
     
+    enum Field {
+        case login
+        case password
+        case confirmPassword
+    }
+    @FocusState private var focusedField: Field?
+    
     @StateObject private var viewModel = SignInEmailViewModel()
     @Binding var showSignInView: Bool
     @State private var isAuth = false
@@ -40,6 +47,8 @@ struct SignInEmailView: View {
                 .textContentType(.emailAddress)
                 .keyboardType(.emailAddress)
                 .foregroundStyle(.black)
+                .focused($focusedField, equals: .login)
+                .submitLabel(.next)
             
                 
             
@@ -49,6 +58,8 @@ struct SignInEmailView: View {
                 .cornerRadius(10)
                 .textContentType(.password)
                 .foregroundStyle(.black)
+                .focused($focusedField, equals: .password)
+                .submitLabel(.next)
 
             if isAuth {
                 SecureField("", text: $viewModel.confirmPassword, prompt: Text("Повторите пароль").foregroundColor(.gray))
@@ -57,6 +68,8 @@ struct SignInEmailView: View {
                     .cornerRadius(10)
                     .textContentType(.newPassword)
                     .foregroundStyle(.black)
+                    .focused($focusedField, equals: .confirmPassword)
+                    .submitLabel(.join)
             }
             
             // Действие на авторизацию и регистрацию в одной кнопке. При желании можно сделать две разные кнопки.
@@ -180,6 +193,16 @@ struct SignInEmailView: View {
 
             }
         }
+        .onSubmit {
+                  switch focusedField {
+                  case .login:
+                      focusedField = .password
+                  case .password:
+                      focusedField = .confirmPassword
+                  default:
+                      print("Creating account…")
+                  }
+              }
     }
 }
 
