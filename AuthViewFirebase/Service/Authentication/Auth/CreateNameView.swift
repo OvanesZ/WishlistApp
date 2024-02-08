@@ -18,7 +18,7 @@ struct CreateNameView: View {
     @State private var showImagePickerLibrary = false
     @State private var showImagePickerCamera = false
     @Binding var showSignInView: Bool
-    @StateObject private var viewModel: SettingsViewModel = SettingsViewModel()
+    @StateObject var viewModel: SettingsViewModel = SettingsViewModel()
     
     var body: some View {
         
@@ -119,7 +119,7 @@ struct CreateNameView: View {
                     viewModel.uploadImageAsync(userID: viewModel.currentUser?.uid ?? "")
                     UserDefaults.standard.setValue(false, forKey: "NewUser")
                     UserDefaults.standard.setValue(false, forKey: viewModel.currentUser?.uid ?? "")
-                    viewModel.updateUserName(userName: "\(userName) \(userSername)")
+                    viewModel.updateUserName(userName: userName, userSerName: userSername)
                     viewModel.updateDateBirth(dateBirth: dateBirth)
                     isPresentRoot = true
                     showSignInView = false
@@ -166,6 +166,6 @@ struct CreateNameView: View {
 
 
 
-#Preview {
-    CreateNameView(showSignInView: .constant(false))
-}
+//#Preview {
+//    CreateNameView(showSignInView: .constant(false))
+//}

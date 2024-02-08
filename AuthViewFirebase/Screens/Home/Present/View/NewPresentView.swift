@@ -35,6 +35,13 @@ struct NewPresentView: View {
                             Image(uiImage: viewModel.uiImage)
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
+//                                .overlay(alignment: .bottomTrailing) {
+//                                    Image(systemName: "plus.square")
+//                                        .padding([.trailing, .bottom], 20)
+//                                        .font(.largeTitle.bold())
+//                                        .foregroundStyle(.blue)
+//                                        .ignoresSafeArea()
+//                                }
                         }
                         .opacity(50)
                         .frame(width: 350, height: 350)

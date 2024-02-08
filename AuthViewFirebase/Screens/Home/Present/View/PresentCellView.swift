@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Kingfisher
+//import CachedAsyncImage
 
 struct PresentCellView: View {
     

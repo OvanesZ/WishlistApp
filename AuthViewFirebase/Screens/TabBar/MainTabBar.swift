@@ -40,12 +40,13 @@ struct MainTabBar: View {
 //                    try? await friendsViewModel.getRequest()
 //                }
 //                .badge(friendsViewModel.myRequest.count)
+                .badge(1)
             
             SettingView(showSignInView: $showSignInView)
                 .tabItem {
                     VStack {
                         Image(systemName: "gearshape")
-                        Text("Профиль NEW")
+                        Text("Профиль")
                     }
                 }
                 .badge("NEW")

@@ -23,6 +23,21 @@ struct DBUser: Codable, Identifiable {
     let phoneNumber: String?
     var displayName: String?
     var userName: String?
+    var userSerName: String?
+    
+//    init(id: String, userId: String, isAnonimous: Bool?, email: String?, photoUrl: String?, dateCreated: Date?, isPremium: Bool?, dateBirth: Date?, phoneNumber: String?, displayName: String?, userName: String) {
+//        self.id = id
+//        self.userId = userId
+//        self.isAnonymous = isAnonimous
+//        self.email = email
+//        self.photoUrl = photoUrl
+//        self.dateCreated = dateCreated
+//        self.isPremium = isPremium
+//        self.dateBirth = dateBirth
+//        self.phoneNumber = phoneNumber
+//        self.displayName = displayName
+//        self.userName = userName
+//    }
     
     init(auth: AuthDataResultModel) {
         self.id = auth.uid
@@ -50,6 +65,7 @@ struct DBUser: Codable, Identifiable {
         case phoneNumber = "phone_number"
         case displayName = "display_name"
         case userName = "user_name"
+        case userSerName = "user_sername"
     }
     
     init(from decoder: Decoder) throws {
@@ -66,6 +82,8 @@ struct DBUser: Codable, Identifiable {
         self.phoneNumber = try container.decodeIfPresent(String.self, forKey: .phoneNumber)
         self.displayName = try container.decodeIfPresent(String.self, forKey: .displayName)
         self.userName = try container.decodeIfPresent(String.self, forKey: .userName)
+        self.userSerName = try container.decodeIfPresent(String.self, forKey: .userSerName)
+
     }
     
     func encode(to encoder: Encoder) throws {
@@ -82,6 +100,8 @@ struct DBUser: Codable, Identifiable {
         try container.encodeIfPresent(self.phoneNumber, forKey: .phoneNumber)
         try container.encodeIfPresent(self.displayName, forKey: .displayName)
         try container.encodeIfPresent(self.userName, forKey: .userName)
+        try container.encodeIfPresent(self.userSerName, forKey: .userSerName)
+
     }
 }
 
@@ -141,9 +161,10 @@ final class UserManager {
 //        try await userCollection.document(userId).collection("personalData").document(userId).updateData(data)
 //    }
     
-    func updateUserName(userId: String, userName: String) {
+    func updateUserName(userId: String, userName: String, userSerName: String) {
         let data: [String:Any] = [
-            DBUser.CodingKeys.userName.rawValue : userName
+            DBUser.CodingKeys.userName.rawValue : userName,
+            DBUser.CodingKeys.userSerName.rawValue : userSerName
         ]
         userDocument(userId: userId).setData(data, merge: true)
     }

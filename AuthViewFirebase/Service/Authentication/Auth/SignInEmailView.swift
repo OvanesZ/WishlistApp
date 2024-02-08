@@ -190,6 +190,30 @@ struct SignInEmailView: View {
                     }
                     .foregroundStyle(.white)
                 }
+            }
+            
+            ToolbarItem(placement: .keyboard) {
+                Button {
+                    switch focusedField {
+                    case .login:
+                        focusedField = .password
+                    case .password:
+                        focusedField = .confirmPassword
+                    default:
+                        print("Создается аккаунт")
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    }
+                } label: {
+                    if focusedField == .login {
+                        Text("Далее")
+                    } else if focusedField == .password {
+                        Text("Далее")
+                    } else {
+                        Text("Готово")
+
+                    }
+                    
+                }
 
             }
         }
@@ -200,7 +224,7 @@ struct SignInEmailView: View {
                   case .password:
                       focusedField = .confirmPassword
                   default:
-                      print("Creating account…")
+                      print("Создается аккаунт")
                   }
               }
     }

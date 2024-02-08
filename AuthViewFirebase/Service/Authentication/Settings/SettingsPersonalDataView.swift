@@ -9,9 +9,9 @@ import SwiftUI
 
 struct SettingsPersonalDataView: View {
     
-    @State private var userName = ""
-    @State private var userSername = ""
-    @State private var dateBirth = Date()
+//    @State private var userName = ""
+//    @State private var userSername = ""
+//    @State private var dateBirth = Date()
     @State private var isAvatarlertPresented = false
     @State private var showImagePickerLibrary = false
     @State private var showImagePickerCamera = false
@@ -61,15 +61,15 @@ struct SettingsPersonalDataView: View {
             Form {
                 Section(header: Text("Настройки профиля")) {
                     
-                    TextField("Имя", text: $userName)
+                    TextField("Имя", text: $viewModel.userName)
                         .font(.body.bold())
                         .textInputAutocapitalization(.words)
                     
-                    TextField("Фамилия", text: $userSername)
+                    TextField("Фамилия", text: $viewModel.userSername)
                         .font(.body.bold())
                         .textInputAutocapitalization(.words)
                     
-                    DatePicker(selection: $dateBirth, displayedComponents: [.date]) {
+                    DatePicker(selection: $viewModel.dateBirth, displayedComponents: [.date]) {
                         Text("Дата рождения")
                     }
                     .datePickerStyle(.automatic)
@@ -85,8 +85,9 @@ struct SettingsPersonalDataView: View {
                                 try? await viewModel.loadCurrentDBUser()
                             }
                             
-                            viewModel.updateDateBirth(dateBirth: dateBirth)
-                            viewModel.updateUserName(userName: "\(userName) \(userSername)")
+                            viewModel.updateDateBirth(dateBirth: viewModel.dateBirth)
+                            viewModel.updateUserName(userName: viewModel.userName, userSerName: viewModel.userSername)
+
                             
                             dismiss()
                         } label: {

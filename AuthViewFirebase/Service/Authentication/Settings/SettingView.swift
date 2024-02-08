@@ -10,12 +10,12 @@ import Kingfisher
 
 struct SettingView: View {
     
-    @StateObject private var viewModel = SettingsViewModel()
+    @StateObject private var viewModel: SettingsViewModel = SettingsViewModel()
     @Binding var showSignInView: Bool
     @State private var isQuitAlertPresented = false
     @State private var userName: String = ""
     @State private var showSettingsPersonalData = false
-    @State private var url: URL? = nil
+//    @State private var url: URL? = nil
     
     var body: some View {
         
@@ -26,7 +26,7 @@ struct SettingView: View {
                     .frame(width: 200, height: 200)
                     .overlay {
                             AsyncImage(
-                                url: url,
+                                url: viewModel.url,
                                 transaction: Transaction(animation: .linear)
                             ) { phase in
                                 switch phase {
@@ -81,7 +81,7 @@ struct SettingView: View {
                     
                 }
                 .refreshable(action: {
-                    self.url = try? await viewModel.getUrlImageAsync()
+                    viewModel.url = try? await viewModel.getUrlImageAsync()
 
                 })
                 
@@ -121,6 +121,9 @@ struct SettingView: View {
                     ToolbarItem(placement: .topBarLeading) {
                         Button {
                             showSettingsPersonalData = true
+                            Task {
+                                try await viewModel.getImageAsync()
+                            }
                         } label: {
                             HStack {
                                 Text("Редактировать")
@@ -138,7 +141,7 @@ struct SettingView: View {
             }
             .task {
                 try? await viewModel.loadCurrentDBUser()
-                self.url = try? await viewModel.getUrlImageAsync()
+                viewModel.url = try? await viewModel.getUrlImageAsync()
             }
           
         }
@@ -155,8 +158,9 @@ extension SettingView {
         Section {
             if let user = viewModel.dbUser {
                 
-                Text(user.userName ?? "")
+                Text((user.userName ?? "") + " " + (user.userSerName ?? ""))
                     .font(.system(.headline, design: .rounded))
+                    
                 
                 Text(user.email ?? "")
                     .font(.system(.callout, design: .rounded))
@@ -166,7 +170,8 @@ extension SettingView {
                         .font(.system(.callout, design: .rounded))
                 }
                 
-            }
+            } 
+                
         }
     }
 }
@@ -178,7 +183,7 @@ extension SettingView {
         Section {
             if let user = viewModel.dbUser {
                 
-                Text(user.userName ?? "")
+                Text((user.userName ?? "") + " " + (user.userSerName ?? ""))
                     .font(.system(.headline, design: .rounded))
                 
                 Text(user.email ?? "")
@@ -201,7 +206,7 @@ extension SettingView {
         Section {
             if let user = viewModel.dbUser {
                 
-                Text(user.userName ?? "")
+                Text((user.userName ?? "") + " " + (user.userSerName ?? ""))
                     .font(.system(.headline, design: .rounded))
                 
                 Text(user.email ?? "")

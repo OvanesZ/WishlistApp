@@ -18,9 +18,16 @@ final class SettingsViewModel: ObservableObject {
     @Published private(set) var dbUserPersonalData: PersonalDataDBUser? = nil
     @Published private(set) var friendDbUserPersonalData: PersonalDataDBUser? = nil
     @Published var image = UIImage(named: "person")!
-    
-    @Published var user: PersonalDataDBUser? = nil
 
+    
+    @Published var userName = ""
+    @Published var userSername = ""
+    @Published var dateBirth = Date()
+    @Published var url: URL? = nil
+
+    
+   
+    
     var currentUser = Auth.auth().currentUser
     
     
@@ -52,7 +59,7 @@ final class SettingsViewModel: ObservableObject {
     }
     
     func uploadImageAsync(userID: String) {
-        guard let imageData = image.jpegData(compressionQuality: 0.15) else { return }
+        guard let imageData = image.jpegData(compressionQuality: 0.25) else { return }
         Task {
             try await StorageService.shared.uploadAsync(id: userID, data: imageData)
         }
@@ -67,10 +74,10 @@ final class SettingsViewModel: ObservableObject {
 //        }
 //    }
     
-    func updateUserName(userName: String) {
+    func updateUserName(userName: String, userSerName: String) {
         
         if let currenUserId = Auth.auth().currentUser?.uid {
-            UserManager.shared.updateUserName(userId: currenUserId, userName: userName)
+            UserManager.shared.updateUserName(userId: currenUserId, userName: userName, userSerName: userSerName)
         }
         
     }
@@ -84,6 +91,9 @@ final class SettingsViewModel: ObservableObject {
     func loadCurrentDBUser() async throws {
         let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
         self.dbUser = try await UserManager.shared.getUser(userId: authDataResult.uid)
+        self.userName = dbUser?.userName ?? ""
+        self.userSername = dbUser?.userSerName ?? ""
+        self.dateBirth = dbUser?.dateBirth ?? Date()
     }
     
     func loadCurrentDBUserPersonalData() async throws {

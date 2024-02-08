@@ -149,22 +149,45 @@ struct FriendHomeView: View {
             }
             .padding(.top, -8)
         } else {
-            Spacer()
             
-            VStack {
-                Image(systemName: "lock")
-                    .font(.largeTitle.bold())
-                    .foregroundStyle(.blue)
+            if viewModel.isFriendForFriendstArr {
+                Spacer()
                 
-                Text("Подпишитесь на пользователя.")
-                    .font(.callout.italic())
-                    .foregroundStyle(.blue)
-                Text("После Вы сможете видеть пожелания.")
-                    .font(.subheadline.italic())
-                    .foregroundStyle(.blue)
+                VStack {
+                    Image(systemName: "lock")
+                        .font(.largeTitle.bold())
+                        .foregroundStyle(.blue)
+                    
+                    Text("Запрос отправлен.")
+                        .font(.callout.italic())
+                        .foregroundStyle(.blue)
+                    Text("Дождитесь ответа.")
+                        .font(.subheadline.italic())
+                        .foregroundStyle(.blue)
+                }
+                
+                Spacer()
+            } else {
+                Spacer()
+                
+                VStack {
+                    Image(systemName: "lock")
+                        .font(.largeTitle.bold())
+                        .foregroundStyle(.blue)
+                    
+                    Text("Подпишитесь на пользователя.")
+                        .font(.callout.italic())
+                        .foregroundStyle(.blue)
+                    Text("После Вы сможете видеть пожелания.")
+                        .font(.subheadline.italic())
+                        .foregroundStyle(.blue)
+                }
+                
+                Spacer()
             }
+                
             
-            Spacer()
+            
         }
             
         
