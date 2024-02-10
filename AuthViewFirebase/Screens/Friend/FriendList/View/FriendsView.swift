@@ -68,7 +68,8 @@ struct FriendsView: View {
 //            .toolbar(isEditing ? .hidden : .visible, for: .navigationBar).animation(.linear(duration: 0.25))
 //            .navigationBarHidden(isEditing).animation(.linear(duration: 0.25))
         }
-        .searchable(text: $nameFriend, placement: .navigationBarDrawer(displayMode: .always), prompt: "Поиск друга").textInputAutocapitalization(.never)
+        .searchable(text: $nameFriend, placement: .navigationBarDrawer(displayMode: .always), prompt: "Поиск друга")
+//        .textInputAutocapitalization(.none)
         
         
 //        .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local)
@@ -112,11 +113,8 @@ extension FriendsView {
                         Image("friends")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            
-                            
                     }
                     .animation(Animation.easeInOut(duration: 0.9), value: friendViewModel.isLoading)
-                    
                 }
             }
             

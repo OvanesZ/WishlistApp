@@ -23,16 +23,23 @@ struct SettingsPersonalDataView: View {
             
             Circle()
                 .overlay {
-                    Image(uiImage: viewModel.image)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .clipShape(Circle())
+                    Button {
+                        isAvatarlertPresented.toggle()
+                    } label: {
+                        Image(uiImage: viewModel.image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .clipShape(Circle())
+                    }
+                    .frame(width: 200, height: 200)
+
+            
                 }
                 .frame(width: 200, height: 200)
                 .padding()
-                .onTapGesture {
-                    isAvatarlertPresented.toggle()
-                }
+//                .onTapGesture {
+//                    isAvatarlertPresented.toggle()
+//                }
                 .confirmationDialog("Откуда взять фотографию?", isPresented: $isAvatarlertPresented) {
                     Button {
                         showImagePickerLibrary.toggle()

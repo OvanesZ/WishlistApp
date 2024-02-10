@@ -14,6 +14,7 @@ struct MainTabBar: View {
 //    @State var showSignInView = false
 //    @StateObject private var friendsViewModel: FriendsViewModel = FriendsViewModel()
     @Binding var showSignInView: Bool
+//    @State private var badge: String = ""
     
     var body: some View {
         
@@ -31,7 +32,7 @@ struct MainTabBar: View {
             FriendsView()
                 .tabItem {
                     VStack {
-                        Image(systemName: "person.3.sequence")
+                        Image(systemName: "person.3.fill")
                         Text("Друзья")
                     }
                 }
@@ -40,17 +41,19 @@ struct MainTabBar: View {
 //                    try? await friendsViewModel.getRequest()
 //                }
 //                .badge(friendsViewModel.myRequest.count)
-                .badge(1)
+//                .badge(1)
+//                .badge(badge)
             
             SettingView(showSignInView: $showSignInView)
                 .tabItem {
                     VStack {
-                        Image(systemName: "gearshape")
+                        Image(systemName: "gear")
                         Text("Профиль")
                     }
                 }
-                .badge("NEW")
+//                .badge("NEW")
         }
+        
         
         
         
