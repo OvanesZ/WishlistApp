@@ -88,7 +88,6 @@ struct SettingsPersonalDataView: View {
                             viewModel.updateDateBirth(dateBirth: viewModel.dateBirth)
                             viewModel.updateUserName(userName: viewModel.userName, userSerName: viewModel.userSername)
 
-                            
                             dismiss()
                         } label: {
                             Text("Подтвердить")

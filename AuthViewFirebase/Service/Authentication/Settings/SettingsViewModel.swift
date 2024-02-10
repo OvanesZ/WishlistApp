@@ -23,7 +23,7 @@ final class SettingsViewModel: ObservableObject {
     @Published var userName = ""
     @Published var userSername = ""
     @Published var dateBirth = Date()
-    @Published var url: URL? = nil
+    @Published var url: URL?
 
     
    
@@ -35,10 +35,31 @@ final class SettingsViewModel: ObservableObject {
     
     // MARK: - functions
     
-    
+    func getUrlUserImage() {
+//        self.isLoadUrl = true
+        StorageService.shared.downloadURLUserImage(id: currentUser?.uid ?? "") { result in
+            switch result {
+            case .success(let url):
+//                self.isLoadUrl = false
+                if let url = url {
+                    self.url = url
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
     
     func saveToCache(userIdForNameImage: String) {
         manager.add(image: image, name: userIdForNameImage)
+    }
+    
+    func removeFromCache(userIdForNameImage: String) {
+        manager.remove(name: userIdForNameImage)
+    }
+    
+    func getImageFromCache(userIdForNameImage: String) {
+        self.image = manager.get(name: userIdForNameImage) ?? UIImage(named: "person")!
     }
     
     func getUrlImageAsync() async throws -> URL {

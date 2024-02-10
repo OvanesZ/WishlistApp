@@ -15,7 +15,6 @@ struct SettingView: View {
     @State private var isQuitAlertPresented = false
     @State private var userName: String = ""
     @State private var showSettingsPersonalData = false
-//    @State private var url: URL? = nil
     
     var body: some View {
         
@@ -23,42 +22,32 @@ struct SettingView: View {
             VStack {
                 
                 Circle()
-                    .frame(width: 200, height: 200)
+//                    .frame(width: 200, height: 200)
                     .overlay {
-                            AsyncImage(
-                                url: viewModel.url,
-                                transaction: Transaction(animation: .linear)
-                            ) { phase in
-                                switch phase {
-                                case .empty:
-                                    ProgressView()
-                                case .success(let image):
-                                    image
-                                        .resizable()
-                                        .scaledToFill()
-//                                        .transition(.scale(scale: 0.1, anchor: .center))
-                                case .failure:
-                                    Image(systemName: "wifi.slash")
-                                @unknown default:
-                                    EmptyView()
-                                }
-                            }
-                            .frame(width: 200, height: 200)
-                            .background(Color.gray)
+//                            AsyncImage(
+//                                url: viewModel.url,
+//                                transaction: Transaction(animation: .linear)
+//                            ) { phase in
+//                                switch phase {
+//                                case .empty:
+//                                    ProgressView()
+//                                case .success(let image):
+//                                    image
+//                                        .resizable()
+//                                        .scaledToFill()
+////                                        .transition(.scale(scale: 0.1, anchor: .center))
+//                                case .failure:
+//                                    Image(systemName: "wifi.slash")
+//                                @unknown default:
+//                                    EmptyView()
+//                                }
+//                            }
+                        Image(uiImage: viewModel.image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
                             .clipShape(Circle())
                     }
-                
-//                Circle()
-//                    .overlay {
-//                        KFImage(url)
-//                            .resizable()
-//                            .aspectRatio(contentMode: .fill)
-//                            .clipShape(Circle())
-//                    }
-//                    .frame(width: 200, height: 200)
-//                    .padding()
-                  
-                
+                    .frame(width: 200, height: 200)
                 
                 Form {
                     
@@ -89,6 +78,7 @@ struct SettingView: View {
                 .onAppear {
                     viewModel.loadAuthProviders()
                 }
+             
                
                 
                 .toolbar {
@@ -141,11 +131,13 @@ struct SettingView: View {
             }
             .task {
                 try? await viewModel.loadCurrentDBUser()
-                viewModel.url = try? await viewModel.getUrlImageAsync()
+                try? await viewModel.getImageAsync()
             }
+            
+            
+            
           
         }
-        
     }
     
 }

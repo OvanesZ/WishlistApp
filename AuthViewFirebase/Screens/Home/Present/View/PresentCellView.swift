@@ -32,18 +32,6 @@ struct PresentCellView: View {
                 .frame(width: 130, height: 130)
                 .overlay {
                     
-//                    if viewModel.isLoadUrl {
-//                        ProgressView()
-//                            .progressViewStyle(CircularProgressViewStyle(tint: .gray))
-//                            .scaleEffect(2)
-//                    } else {
-//                        KFImage(viewModel.url)
-//                            .resizable()
-//                            .aspectRatio(contentMode: .fill)
-//                            .frame(width: 124, height: 124)
-//                            .clipShape(RoundedRectangle(cornerRadius: 27, style: .continuous))
-//                    }
-                    
                     AsyncImage(
                         url: viewModel.url,
                         transaction: Transaction(animation: .linear)
