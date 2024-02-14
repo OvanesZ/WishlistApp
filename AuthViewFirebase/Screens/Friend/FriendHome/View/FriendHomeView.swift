@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+//import FirebaseAuth
 
 struct FriendHomeView: View {
     
@@ -15,9 +16,11 @@ struct FriendHomeView: View {
     @State private var isButtonPressedUnsubscribe = false
     @Environment(\.dismiss) var dismiss
     
-    private var currentUserId: String {
-        return try! AuthenticationManager.shared.getAuthenticatedUser().uid
-    }
+//    private var currentUserId: String {
+//        return try! AuthenticationManager.shared.getAuthenticatedUser().uid
+//    }
+    ////////////////// TODO избавиться от зависимостей
+//    private var currentUserId = Auth.auth().currentUser?.uid
     
     var columns: [GridItem] = [
         GridItem(.fixed(150), spacing: 20),
@@ -31,7 +34,7 @@ struct FriendHomeView: View {
             
             HeaderFriendCell(viewModel: viewModel)
             
-            if viewModel.friend.userId == currentUserId {
+            if viewModel.friend.userId == viewModelSettings.currentUser?.uid {
                 Text("Ваша страница")
                     .font(.callout.italic())
             } else {

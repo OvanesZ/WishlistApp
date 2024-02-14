@@ -65,10 +65,24 @@ struct FriendsView: View {
                 }
             }
             .navigationTitle("Друзья")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        friendViewModel.test()
+                        print("testBadge = \(friendViewModel.testBadge)")
+                    } label: {
+                        Text("TEST")
+                            .font(.title.bold())
+                            .foregroundStyle(.red)
+                    }
+
+                }
+            }
 //            .toolbar(isEditing ? .hidden : .visible, for: .navigationBar).animation(.linear(duration: 0.25))
 //            .navigationBarHidden(isEditing).animation(.linear(duration: 0.25))
         }
         .searchable(text: $nameFriend, placement: .navigationBarDrawer(displayMode: .always), prompt: "Поиск друга")
+       
 //        .textInputAutocapitalization(.none)
         
         
@@ -120,8 +134,15 @@ extension FriendsView {
             
             List {
                 if !nameFriend.isEmpty {
-                    Text("Ваши подписки")
-                        .font(.subheadline.italic())
+                    if friendViewModel.myFriends.isEmpty {
+                        Text("У Вас пока нет подписок")
+                            .font(.subheadline.italic())
+                            .padding()
+                    } else {
+                        Text("Ваши подписки")
+                            .font(.subheadline.italic())
+                            .padding()
+                    }
                 }
                 
                 
@@ -134,8 +155,22 @@ extension FriendsView {
                 }
                 
                 if !nameFriend.isEmpty {
-                    Text("Глобальный поиск")
-                        .font(.subheadline.italic())
+                    
+                    HStack {
+                        Text("Глобальный поиск")
+                            .font(.subheadline.italic())
+                            .padding()
+                            
+                        Image(systemName: "network")
+                            .foregroundStyle(.blue)
+                            .font(.title2.bold())
+                            .overlay {
+                                SkeletonClearView()
+                                    .clipShape(Circle())
+                                    .frame(width: 70, height: 70, alignment: .center)
+                            }
+                    }
+                    .padding(.top, 35)
                     
                     ForEach(friendViewModel.allUsers.filter {
                         if let userName = $0.userName {
@@ -203,8 +238,15 @@ extension FriendsView {
             List {
                 
                 if !nameFriend.isEmpty {
-                    Text("Ваши подписчики")
-                        .font(.subheadline.italic())
+                    if friendViewModel.mySubscribers.isEmpty {
+                        Text("У Вас пока нет подписчиков")
+                            .font(.subheadline.italic())
+                            .padding()
+                    } else {
+                        Text("Ваши подписчики")
+                            .font(.subheadline.italic())
+                            .padding()
+                    }
                 }
                 
                 ForEach(friendViewModel.mySubscribers) { friend in
@@ -217,8 +259,21 @@ extension FriendsView {
                 }
                 
                 if !nameFriend.isEmpty {
-                    Text("Глобальный поиск")
-                        .font(.subheadline.italic())
+                    HStack {
+                        Text("Глобальный поиск")
+                            .font(.subheadline.italic())
+                            .padding()
+                            
+                        Image(systemName: "network")
+                            .foregroundStyle(.blue)
+                            .font(.title2.bold())
+                            .overlay {
+                                SkeletonClearView()
+                                    .clipShape(Circle())
+                                    .frame(width: 70, height: 70, alignment: .center)
+                            }
+                    }
+                    .padding(.top, 35)
                     
                     ForEach(friendViewModel.allUsers.filter {
                         if let userName = $0.userName {

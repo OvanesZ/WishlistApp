@@ -9,12 +9,8 @@ import SwiftUI
 
 struct MainTabBar: View {
     
-//    @StateObject var viewModel: MainTabBarViewModel = MainTabBarViewModel()
-    
-//    @State var showSignInView = false
-//    @StateObject private var friendsViewModel: FriendsViewModel = FriendsViewModel()
+    @StateObject private var friendsViewModel: FriendsViewModel = FriendsViewModel()
     @Binding var showSignInView: Bool
-//    @State private var badge: String = ""
     
     var body: some View {
         
@@ -36,13 +32,7 @@ struct MainTabBar: View {
                         Text("Друзья")
                     }
                 }
-//                .task {
-//                    try? await friendsViewModel.getMyRequestID()
-//                    try? await friendsViewModel.getRequest()
-//                }
-//                .badge(friendsViewModel.myRequest.count)
-//                .badge(1)
-//                .badge(badge)
+                .badge(friendsViewModel.testBadge)
             
             SettingView(showSignInView: $showSignInView)
                 .tabItem {
@@ -58,9 +48,6 @@ struct MainTabBar: View {
         
         
     }
-    
-    
-   
     
     
 }

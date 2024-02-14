@@ -67,12 +67,13 @@ struct HomeView: View {
                 )
                 
                 
-                
-                Button {
-                    isShowingNewPresentView = true
-                } label: {
-                    VStack {
-                        Spacer()
+                VStack {
+                    
+                    Spacer()
+                    
+                    Button {
+                        isShowingNewPresentView = true
+                    } label: {
                         Image(systemName: "plus.circle.fill").foregroundColor(.blue)
                             .overlay {
                                 SkeletonClearView()

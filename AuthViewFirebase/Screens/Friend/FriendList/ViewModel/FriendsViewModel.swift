@@ -21,6 +21,8 @@ final class FriendsViewModel: ObservableObject {
     @Published var cahedImage: UIImage? = nil
     @Published var isLoadImage = false
     
+    @Published var testBadge = 1
+    
     var myRequestID: [String] = [" "]
     var mySubscribersID: [String] = [" "]
     
@@ -37,6 +39,11 @@ final class FriendsViewModel: ObservableObject {
 //        } ?? []
 //        
 //    }
+    
+    func test() {
+        self.testBadge += 1
+        objectWillChange.send()
+    }
     
     func getAllUsers() async throws {
         self.allUsers = try await DatabaseService.shared.getAllUsers().documents.compactMap {
