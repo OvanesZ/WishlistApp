@@ -11,7 +11,7 @@ import Combine
 
 struct FriendsView: View {
     
-    @StateObject var friendViewModel: FriendsViewModel = FriendsViewModel()
+    @ObservedObject var friendViewModel: FriendsViewModel
 //    @ObservedObject var userViewModel: HomeViewModel
     @State var segmentedChoice = 0
     @State var nameFriend = ""

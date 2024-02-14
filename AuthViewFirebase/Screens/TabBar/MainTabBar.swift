@@ -25,7 +25,7 @@ struct MainTabBar: View {
                         Text("Главная")
                     }
                 }
-            FriendsView()
+            FriendsView(friendViewModel: friendsViewModel)
                 .tabItem {
                     VStack {
                         Image(systemName: "person.3.fill")
