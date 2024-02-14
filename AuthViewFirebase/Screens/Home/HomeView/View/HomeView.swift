@@ -66,20 +66,26 @@ struct HomeView: View {
                     .padding()
                 )
                 
+                
+                
                 Button {
                     isShowingNewPresentView = true
                 } label: {
-                    Image(systemName: "plus.circle.fill").foregroundColor(.blue)
-                        .overlay {
-                            SkeletonClearView()
-                                .clipShape(Circle())
-                                .frame(width: 70, height: 70, alignment: .center)
-                        }
+                    VStack {
+                        Spacer()
+                        Image(systemName: "plus.circle.fill").foregroundColor(.blue)
+                            .overlay {
+                                SkeletonClearView()
+                                    .clipShape(Circle())
+                                    .frame(width: 70, height: 70, alignment: .center)
+                            }
+                    }
                 }
                 .font(.system(size: 70))
                 .opacity(0.95)
                 .padding(.leading, 250)
-                .padding(.top, 420)
+//                .padding(.top, 420)
+                .padding(.bottom, 50)
                 .sheet(isPresented: $isShowingNewPresentView) {
                     NewPresentView(viewModel: PresentModelViewModel(present: PresentModel(id: "", name: "", urlText: "", presentFromUserID: "")))
                 }
