@@ -69,6 +69,7 @@ struct FriendsView: View {
 //            .navigationBarHidden(isEditing).animation(.linear(duration: 0.25))
         }
         .searchable(text: $nameFriend, placement: .navigationBarDrawer(displayMode: .always), prompt: "Поиск друга")
+        
        
 //        .textInputAutocapitalization(.none)
         
@@ -164,8 +165,6 @@ extension FriendsView {
                             return self.nameFriend.isEmpty ? true : userName.contains(nameFriend)
                         }
                         return self.nameFriend.isEmpty
-                        /// Если при тестировании выявятся ошибки, ниже строка, которая без развертывания работала успешно (вместе 4х строк выше)
-//                        self.nameFriend.isEmpty ? true : $0.email!.contains(nameFriend)
                     }) { friend in
                         NavigationLink {
                             FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
@@ -281,6 +280,9 @@ extension FriendsView {
             .task {
                 try? await friendViewModel.getMySubscribersID()
                 try? await friendViewModel.getSubscribers()
+                
+                try? await friendViewModel.getMyRequestID()
+                try? await friendViewModel.getRequest()
             }
         }
         .refreshable {
@@ -307,6 +309,10 @@ extension FriendsView {
                     FriendsCell(friend: friend)
                 }
             }
+        }
+        .task {
+            try? await friendViewModel.getMyRequestID()
+            try? await friendViewModel.getRequest()
         }
         .listStyle(.inset)
         .scrollDismissesKeyboard(.immediately)

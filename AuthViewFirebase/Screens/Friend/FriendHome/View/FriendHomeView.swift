@@ -59,9 +59,10 @@ struct FriendHomeView: View {
                             Button(role: .destructive) {
                                 
                                 Task {
-                                   try await viewModel.deleteFriend(friendId: viewModel.friend.userId)
+                                    try await viewModel.deleteFriend(friendId: viewModel.friend.userId)
+                                    dismiss()
                                 }
-                                dismiss()
+                               
                             } label: {
                                 Text("Да")
                             }

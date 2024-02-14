@@ -27,6 +27,12 @@ final class FriendsViewModel: ObservableObject {
     
     let manager = CacheManager.instanse
  
+    init() {
+        Task {
+            try? await getMyRequestID()
+            try? await getRequest()
+        }
+    }
     
 
     // MARK: - НЕ УДАЛЯТЬ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
