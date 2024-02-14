@@ -32,7 +32,7 @@ struct MainTabBar: View {
                         Text("Друзья")
                     }
                 }
-                .badge(friendsViewModel.testBadge)
+                .badge(friendsViewModel.myRequest.count)
             
             SettingView(showSignInView: $showSignInView)
                 .tabItem {
