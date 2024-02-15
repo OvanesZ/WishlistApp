@@ -32,17 +32,6 @@ struct PresentModalView: View {
             VStack {
                 RoundedRectangle(cornerRadius: 30, style: .continuous)
                     .overlay {
-//                        KFImage(presentModelViewModel.url)
-//                            .resizable()
-//                            .aspectRatio(contentMode: .fill)
-//                        if isLoadImage {
-//                            ProgressView()
-//                                .progressViewStyle(CircularProgressViewStyle(tint: .gray))
-//                                .scaleEffect(2)
-////                            SkeletonView()
-////                                .scaleEffect(2)
-//                        }
-                        
                         AsyncImage(
                             url: presentModelViewModel.url,
                             transaction: Transaction(animation: .linear)
@@ -55,18 +44,12 @@ struct PresentModalView: View {
                                 image
                                     .resizable()
                                     .scaledToFill()
-//                                    .transition(.scale(scale: 0.1, anchor: .center))
                             case .failure:
                                 Image(systemName: "wifi.slash")
                             @unknown default:
                                 EmptyView()
                             }
                         }
-                        
-                        
-                        
-                        
-                        
                     }
                     .opacity(50)
                     .frame(width: 350, height: 350)

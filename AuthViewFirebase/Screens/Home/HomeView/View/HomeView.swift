@@ -11,7 +11,9 @@ import FirebaseAuth
 struct HomeView: View {
     
     
-    
+    @State private var isShowReservedPresents = false
+    @State private var isShowReservedPresentsCard = false
+
     @State private var isShowingNewPresentView = false
     @StateObject var viewModel: HomeViewModel = HomeViewModel()
     
@@ -90,8 +92,35 @@ struct HomeView: View {
                 .sheet(isPresented: $isShowingNewPresentView) {
                     NewPresentView(viewModel: PresentModelViewModel(present: PresentModel(id: "", name: "", urlText: "", presentFromUserID: "")))
                 }
-//                .navigationTitle("Мои пожелания \(Auth.auth().currentUser?.email ?? "")")
+                .sheet(isPresented: $isShowReservedPresents) {
+                    ReservedPresentForFriend(viewModel: ReservedPresentViewModel(present: PresentModel(name: "", urlText: "", presentFromUserID: "")))
+                }
+//                .fullScreenCover(isPresented: $isShowReservedPresentsCard, content: {
+//                    ReservedPresentsCardView()
+//                })
+                .sheet(isPresented: $isShowReservedPresentsCard) {
+                    ReservedPresentsCardView()
+                }
                 .navigationTitle("Мои пожелания")
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button(action: {
+                            isShowReservedPresents = true
+                        }, label: {
+                            Text("Выбранные подарки")
+                        })
+                    }
+                    
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button(action: {
+                            isShowReservedPresentsCard = true
+                        }, label: {
+                            Text("Выбранные подарки")
+                        })
+                    }
+                    
+                    
+                }
             }
         }
     }
