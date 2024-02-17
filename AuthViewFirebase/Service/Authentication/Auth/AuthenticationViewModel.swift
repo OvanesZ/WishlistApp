@@ -21,9 +21,11 @@ final class AuthenticationViewModel: ObservableObject {
         for userr in allUsers {
             if user.userId == userr.userId {
                 UserDefaults.standard.setValue(false, forKey: user.userId)
+                UserDefaults.standard.setValue(false, forKey: "NewUser")
                 return
             } else {
                 UserDefaults.standard.setValue(true, forKey: user.userId)
+                UserDefaults.standard.setValue(false, forKey: "NewUser")
             }
         }
         
@@ -39,9 +41,11 @@ final class AuthenticationViewModel: ObservableObject {
         for userr in allUsers {
             if user.userId == userr.userId {
                 UserDefaults.standard.setValue(false, forKey: user.userId)
+                UserDefaults.standard.setValue(false, forKey: "NewUser")
                 return
             } else {
                 UserDefaults.standard.setValue(true, forKey: user.userId)
+                UserDefaults.standard.setValue(false, forKey: "NewUser")
             }
         }
         
