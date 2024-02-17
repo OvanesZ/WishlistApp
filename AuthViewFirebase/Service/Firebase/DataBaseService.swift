@@ -116,16 +116,45 @@ class DatabaseService {
     // 1. Пользователь нажал на кнопку подписаться у найденного друга
     
     func stepOneUserPressedAddFriendButton(friendId: String) async throws {
+        var friendArrFriensID: [String] = []
         
-        try await docRefUser(userID: currentId).updateData([
-            "friends_id": FieldValue.arrayUnion([friendId])
-        ])
+        let document = try await docRefFriend(friendID: friendId).getDocument()
+        guard let data = document.data() else { return }
         
-        try await docRefFriend(friendID: friendId).updateData([
-            "request_friend": FieldValue.arrayUnion([currentId])
-        ])
+        guard let id = data["friends_id"] as? [String] else { return }
+        friendArrFriensID = id
+       
+        // Повторная подписка. Если ранее был подписан на друга, отписался, а друг не отписался, и при повторном нажатии на кнопку "Подписаться" выполняется этот алгоритм.
+        
+        for id in friendArrFriensID {
+            if currentId == id {
+                try await docRefUser(userID: currentId).updateData([
+                    "friends_id": FieldValue.arrayUnion([friendId])
+                ])
+                
+                try await docRefFriend(friendID: friendId).updateData([
+                    "my_subscribers": FieldValue.arrayUnion([currentId])
+                ])
+                print("Повторная подписка на пользователя")
+                return
+            }
+        }
+        
+        // Первичная подписка
+        for id in friendArrFriensID {
+            if currentId != id {
+                try await docRefUser(userID: currentId).updateData([
+                    "friends_id": FieldValue.arrayUnion([friendId])
+                ])
+                
+                try await docRefFriend(friendID: friendId).updateData([
+                    "request_friend": FieldValue.arrayUnion([currentId])
+                ])
+                print("Первичная подписка на пользователя")
+            }
+        }
+        
     }
-    
     
     // 2. Друг ответил на запрос (подписаться в ответ)
     
