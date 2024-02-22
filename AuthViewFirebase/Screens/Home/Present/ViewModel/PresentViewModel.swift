@@ -109,8 +109,8 @@ class PresentModelViewModel: ObservableObject {
     
     // MARK: -- В момент резерва подарка создаю подколлекцию с информацией о id подарка и друга
     
-    func setFriendPresentList(friendId: String, presentId: String) async throws {
-        try await DatabaseService.shared.setFriendPresentList(friendId: friendId, presentId: presentId)
+    func setFriendPresentList(present: PresentModel) async throws {
+        try await DatabaseService.shared.setFriendPresentList(present: present)
     }
     
     

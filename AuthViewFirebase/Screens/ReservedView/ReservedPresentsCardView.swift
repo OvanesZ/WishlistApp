@@ -20,15 +20,15 @@ struct ReservedPresentsCardView: View {
                 ForEach(viewModel.presents) { present in
                     ReservedPresentsCardCell(present: present, viewModel: viewModel)
                         .padding(6)
+                       
                 }
                 
                 
                 
             }
             .task {
-                try? await viewModel.getDict()
-                try? await viewModel.test()
-                try? await viewModel.setFriends()
+                try? await viewModel.getPresentsFromPresentsForFriend()
+                try? await viewModel.getPresents()
             }
         }
         

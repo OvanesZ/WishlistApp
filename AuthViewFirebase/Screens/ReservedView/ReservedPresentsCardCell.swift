@@ -6,14 +6,15 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ReservedPresentsCardCell: View {
    
     let present: PresentModel
-    var image = UIImage(named: "person")!
     
-    
-    
+    @State private var image = UIImage(named: "person")!
+    @State private var url: URL? = nil
+    @State private var urlFriendImage: URL? = nil
     @State private var flippedCard: Bool = true
     @State private var friend: DBUser = DBUser(id: "", userId: "", isAnonimous: false, email: "", photoUrl: "", dateCreated: Date(), isPremium: false, dateBirth: Date(), phoneNumber: "", displayName: "", userName: "")
     @ObservedObject var viewModel: ReservedPresentsCardViewModel
@@ -25,8 +26,7 @@ struct ReservedPresentsCardCell: View {
             
             ZStack {
                 
-                
-                Image("dayson")
+                KFImage(url)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(height: 160)
@@ -34,75 +34,81 @@ struct ReservedPresentsCardCell: View {
                     .blur(radius: flippedCard ? 6 : 0)
                 
                 if flippedCard {
-                    Image("person")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(height: 110)
-                        .clipShape(Circle())
+                    Circle()
+                        .colorInvert()
+                        .frame(width: 115, height: 115)
                         .offset(y: 55)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .padding(.horizontal)
+                        .overlay {
+                            KFImage(urlFriendImage)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 110, height: 110)
+                                .clipShape(Circle())
+                                .offset(y: 55)
+                                .frame(alignment: .center)
+                                .padding(.horizontal)
+                        }
                 }
-             
+            }
+            .overlay(alignment: .topTrailing) {
+                Button {
+                    withAnimation {
+                        flippedCard.toggle()
+                    }
+                } label: {
+                    Text(flippedCard ? "Подробнее" : "Скрыть")
+                        .padding(.vertical, 4)
+                        .padding(.horizontal)
+                        .shadow(color: .white, radius: 50)
+                        .overlay {
+                            Capsule()
+                                .stroke(lineWidth: 2)
+                                .shadow(color: .white, radius: 50)
+                        }
+                        .padding()
+                }
             }
          
             VStack {
                 
                 
-                Button(action: {
-                    
-                    withAnimation {
-                        flippedCard.toggle()
-                    }
-                    
-                }, label: {
-                    Text(flippedCard ? "Подробнее" : "Скрыть")
-                        .padding(.vertical, 4)
-                        .padding(.horizontal)
-                        .foregroundStyle(.black)
-                        .overlay {
-                            Capsule()
-                                .stroke(lineWidth: 2)
-                                .foregroundStyle(.black)
-
-                        }
-                })
-                .frame(maxWidth: .infinity, alignment: .bottomTrailing)
-                .padding(.trailing, 10)
-                .padding(.bottom, 20)
-                .padding(.top, 20)
+//                Button(action: {
+//                    
+//                    withAnimation {
+//                        flippedCard.toggle()
+//                    }
+//                    
+//                }, label: {
+//                    Text(flippedCard ? "Подробнее" : "Скрыть")
+//                        .padding(.vertical, 4)
+//                        .padding(.horizontal)
+//                        .foregroundStyle(.black)
+//                        .overlay {
+//                            Capsule()
+//                                .stroke(lineWidth: 2)
+//                                .foregroundStyle(.black)
+//
+//                        }
+//                })
+//                .frame(maxWidth: .infinity, alignment: .bottomTrailing)
+//                .padding(.trailing, 10)
+//                .padding(.bottom, 20)
+//                .padding(.top, 20)
 
                 
                 HStack {
                     Text(flippedCard ? (friend.userName ?? "") + " " + (friend.userSerName ?? "") : "Описание")
                         .font(.title3.bold())
                     
-//                    Button(action: {
-//                        
-//                        withAnimation {
-//                            flippedCard.toggle()
-//                        }
-//                        
-//                    }, label: {
-//                        Text(flippedCard ? "Подробнее" : "Скрыть")
-//                            .padding(.vertical, 4)
-//                            .padding(.horizontal)
-//                            .overlay {
-//                                Capsule()
-//                                    .stroke(lineWidth: 2)
-//                            }
-//                    })
-//                    .frame(maxWidth: .infinity, alignment: .bottomTrailing)
-//                    .padding(.trailing, 10)
-//                    .padding(.bottom, 20)
-//                    .padding(.top, 20)
-                    
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading)
                 .padding(.bottom, -8)
+                .padding(.top)
                 .task {
                     self.friend = try! await viewModel.getFriend(friendId: present.ownerId)
+                    self.url = try? await viewModel.getUrlPresentImage(presentId: present.id)
+                    self.urlFriendImage = try? await viewModel.getUrlFriendImage(friendId: present.ownerId)
                 }
                 
                 
@@ -113,9 +119,11 @@ struct ReservedPresentsCardCell: View {
                     
                 }
             }
+            
         }
         .background(Color(.tertiarySystemFill))
         .clipShape(RoundedRectangle(cornerRadius: 26))
+        
       
         
     }

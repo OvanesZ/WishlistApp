@@ -150,7 +150,7 @@ struct FriendPresentView: View {
                         presentModelViewModel.reservingPresentForUserID(currentPresent, friendViewModel.friend.userId)
                         
                         Task {
-                            try await presentModelViewModel.setFriendPresentList(friendId: friendViewModel.friend.userId,  presentId: currentPresent.id)
+                            try await presentModelViewModel.setFriendPresentList(present: currentPresent)
                         }
                     }) {
                         Text("Выбрать подарок")

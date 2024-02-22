@@ -234,126 +234,55 @@ class DatabaseService {
         } as? QuerySnapshot
     }
     
-    func getWishlistByFriend(friendId: String) async throws -> QuerySnapshot {
-        try await Firestore.firestore().collection("users").document(friendId).collection("wishlist").getDocuments()
-    }
+//    func getWishlistByFriend(friendId: String) async throws -> QuerySnapshot {
+//        try await Firestore.firestore().collection("users").document(friendId).collection("wishlist").getDocuments()
+//    }
 
     
-    func setFriendPresentList(friendId: String, presentId: String) async throws {
-        
-        let data: [String:Any] = [
-            "present_id": presentId
-        ]
-        
-        try await Firestore.firestore().collection("users").document(currentId).collection("presentsForFriend").document(presentId).setData(data)
-    }
-    
-    func getFriendPresentList() async throws -> [String : String] {
-        var friendsAndPresents: [String : String] = [:]
-        var dict: [PresentModel : DBUser] = [:]
-        let docRef = Firestore.firestore().collection("users").document(currentId).collection("presentsForFriend")
-        
-        let querySnapshot = try await docRef.getDocuments()
-        
-        for document in querySnapshot.documents {
-            let data = document.data()
-            let friendId = data["friend_id"] as? String ?? ""
-            let presentId = data["present_id"] as? String ?? ""
-            friendsAndPresents[presentId] = friendId
-        }
-        
-        
-        
-        return friendsAndPresents
-    }
-    
-    
-    func getFriendForCell(friendId: String) async throws -> DBUser {
-        try await Firestore.firestore().collection("users").document(friendId).getDocument(as: DBUser.self)
-    }
-//    func getFriendPresentList() async throws -> [String] {
-//        var presents: [String] = []
+//    func setFriendPresentList(friendId: String, presentId: String) async throws {
 //        
-//        let docRef = Firestore.firestore().collection("users").document(currentId).collection("presentsForFriend")
+//        let data: [String:Any] = [
+//            "present_id": presentId,
+//            "friend_id": friendId
+//        ]
 //        
-//        let querySnapshot = try await docRef.getDocuments()
-//        
-//        for document in querySnapshot.documents {
-//            let data = document.data()
-//            let presentId = data["present_id"] as? String ?? ""
-//            presents.append(presentId)
-//        }
-//        return presents
+//        try await Firestore.firestore().collection("users").document(currentId).collection("presentsForFriend").document(presentId).setData(data)
 //    }
     
     
     
-    func tes(dict: [String : String]) async throws -> [PresentModel] {
-        var presents: [PresentModel] = []
-        
-        for data in dict {
-            let doc = try await Firestore.firestore().collection("users").document(data.value).collection("wishlist").document(data.key).getDocument()
-            
-            let data = doc.data()
-            
-            let id = data?["id"] as? String
-            let name = data?["name"] as? String
-            let presentDescription = data?["presentDescription"] as? String
-            let urlText = data?["urlText"] as? String
-            let ownerId = (data?["ownerId"] as? String)!
-            
-            
-            presents.append(PresentModel(id: id ?? "", name: name ?? "", urlText: urlText ?? "", presentFromUserID: "", isReserved: true, presentDescription: presentDescription ?? "", ownerId: ownerId))
-            
-        }
-        return presents
+    
+    
+    
+    // MARK: - ReservedPresentsCardViewModel start func
+    
+    func setFriendPresentList(present: PresentModel) async throws {
+        try Firestore.firestore().collection("users").document(currentId).collection("presentsForFriend").document(present.id).setData(from: present)
     }
     
-    func setFriends(dict: [String : String]) async throws -> [DBUser] {
-        var friends: [DBUser] = []
-        
-        for data in dict {
-            let doc = try await Firestore.firestore().collection("users").document(data.value).getDocument()
-            
-            let data = doc.data()
-            
-            let id = data?["id"] as? String
-            let userId = data?["user_id"] as? String
-            let isAnonymous = data?["is_anonymous"] as? Bool
-            let email = data?["email"] as? String
-            let photoUrl = data?["photo_url"] as? String
-            let dateCreated = data?["date_created"] as? Date
-            let isPremium = data?["user_isPremium"] as? Bool
-            let dateBirth = data?["date_birth"] as? Date
-            let phoneNumber = data?["phone_number"] as? String
-            let displayName = data?["display_name"] as? String
-            let userName = data?["user_name"] as? String
-            let userSerName = data?["user_sername"] as? String
-            
-            friends.append(DBUser(id: id ?? "", userId: userId ?? "", isAnonimous: isAnonymous, email: email, photoUrl: photoUrl, dateCreated: dateCreated, isPremium: isPremium, dateBirth: dateBirth, phoneNumber: phoneNumber, displayName: displayName, userName: userName ?? ""))
-            
-        }
-        return friends
+    func getPresentsFromPresentsForFriend() async throws -> QuerySnapshot {
+        try await Firestore.firestore().collection("users").document(currentId).collection("presentsForFriend").getDocuments()
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    func setPresents(presentsId: [String]) async throws -> [PresentModel] {
-        var presents: [PresentModel] = []
-        
-        for present in presentsId {
-            Firestore.firestore().collection("users").document(present)
-        }
-      
-        
-        return presents
+    func getPresentsForSell(ownerId: String, presentId: String) async throws -> PresentModel {
+        try await Firestore.firestore().collection("users").document(ownerId).collection("wishlist").document(presentId).getDocument(as: PresentModel.self)
     }
+    
+    // Использую для загрузки друга в ячейку с подарком ReservedView
+    func getFriendForCell(friendId: String) async throws -> DBUser {
+        try await Firestore.firestore().collection("users").document(friendId).getDocument(as: DBUser.self)
+    }
+    
+    // MARK: - end func for ReservedPresentsCardViewModel
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 }
 
