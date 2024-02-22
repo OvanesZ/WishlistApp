@@ -13,7 +13,7 @@ struct PresentCellView: View {
     // MARK: - properties
     
     let present: PresentModel
-    @StateObject var viewModel = PresentModelViewModel(present: PresentModel(name: "", urlText: "", presentFromUserID: ""))
+    @StateObject var viewModel = PresentModelViewModel(present: PresentModel(name: "", urlText: "", presentFromUserID: "", ownerId: ""))
     @Environment(\.colorScheme) var colorScheme
     
     // MARK: - init()

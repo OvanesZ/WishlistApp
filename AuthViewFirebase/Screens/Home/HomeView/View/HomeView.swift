@@ -90,28 +90,15 @@ struct HomeView: View {
 //                .padding(.top, 420)
                 .padding(.bottom, 50)
                 .sheet(isPresented: $isShowingNewPresentView) {
-                    NewPresentView(viewModel: PresentModelViewModel(present: PresentModel(id: "", name: "", urlText: "", presentFromUserID: "")))
+                    NewPresentView(viewModel: PresentModelViewModel(present: PresentModel(id: "", name: "", urlText: "", presentFromUserID: "", ownerId: "")))
                 }
-                .sheet(isPresented: $isShowReservedPresents) {
-                    ReservedPresentForFriend(viewModel: ReservedPresentViewModel(present: PresentModel(name: "", urlText: "", presentFromUserID: "")))
-                }
-//                .fullScreenCover(isPresented: $isShowReservedPresentsCard, content: {
-//                    ReservedPresentsCardView()
-//                })
                 .sheet(isPresented: $isShowReservedPresentsCard) {
                     ReservedPresentsCardView()
                 }
                 .navigationTitle("Мои пожелания")
                 .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button(action: {
-                            isShowReservedPresents = true
-                        }, label: {
-                            Text("Выбранные подарки")
-                        })
-                    }
                     
-                    ToolbarItem(placement: .topBarLeading) {
+                    ToolbarItem(placement: .topBarTrailing) {
                         Button(action: {
                             isShowReservedPresentsCard = true
                         }, label: {

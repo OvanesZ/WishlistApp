@@ -85,9 +85,9 @@ struct FriendsCell: View {
             self.url = try? await viewModel.getUrlImageFriendAsync(id: friend.userId)
             try? await viewModel.loadFriendDBUserPersonalData(id: friend.userId)
         }
-        .onAppear {
-            friendsViewModel.getFromCache(userIdForNameImage: friend.userId)
-        }
+//        .onAppear {
+//            friendsViewModel.getFromCache(userIdForNameImage: friend.userId)
+//        }
         
     }
     

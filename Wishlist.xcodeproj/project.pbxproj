@@ -19,11 +19,13 @@
 		4E4687ED2AF6E09B0032D5B7 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 4E4687EC2AF6E09B0032D5B7 /* GoogleSignIn */; };
 		4E4687EF2AF6E09B0032D5B7 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4E4687EE2AF6E09B0032D5B7 /* GoogleSignInSwift */; };
 		4E4687F12AF6E6E70032D5B7 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4687F02AF6E6E70032D5B7 /* Utilities.swift */; };
-		4E66688F2B7DD0330034FB69 /* ReservedPresentForFriend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E66688E2B7DD0330034FB69 /* ReservedPresentForFriend.swift */; };
 		4E744FAC2B6464B5005587A5 /* CreateNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E744FAB2B6464B5005587A5 /* CreateNameView.swift */; };
 		4E744FAF2B71F9F4005587A5 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 4E744FAE2B71F9F4005587A5 /* CachedAsyncImage */; };
 		4E8358772B5188A700A71A25 /* FriendPresentCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8358762B5188A700A71A25 /* FriendPresentCellView.swift */; };
-		4EC8806E2B7E0AEB005E7835 /* ReservedPresentsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC8806D2B7E0AEB005E7835 /* ReservedPresentsCardView.swift */; };
+		4EC880702B849A33005E7835 /* ReservedPresentsCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC8806F2B849A33005E7835 /* ReservedPresentsCardCell.swift */; };
+		4EC880732B849A84005E7835 /* ReservedPresentsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC880722B849A84005E7835 /* ReservedPresentsCardView.swift */; };
+		4EC880752B849AB8005E7835 /* ReservedPresentsCardFriendDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC880742B849AB8005E7835 /* ReservedPresentsCardFriendDataCell.swift */; };
+		4EC880772B849B02005E7835 /* ReservedPresentsCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC880762B849B02005E7835 /* ReservedPresentsCardViewModel.swift */; };
 		4ED21A382B090FB6001D016B /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED21A372B090FB5001D016B /* AuthenticationView.swift */; };
 		4ED21A3A2B090FF1001D016B /* SignInGoogleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED21A392B090FF1001D016B /* SignInGoogleHelper.swift */; };
 		4ED21A3C2B09101C001D016B /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED21A3B2B09101C001D016B /* AuthenticationManager.swift */; };
@@ -104,11 +106,13 @@
 		4E41CB102B5AFB96000BD2B6 /* SkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonView.swift; sourceTree = "<group>"; };
 		4E41CB132B5B0A88000BD2B6 /* SkeletonClearView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonClearView.swift; sourceTree = "<group>"; };
 		4E4687F02AF6E6E70032D5B7 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
-		4E66688E2B7DD0330034FB69 /* ReservedPresentForFriend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservedPresentForFriend.swift; sourceTree = "<group>"; };
 		4E744FAA2B6373E5005587A5 /* Wishlist.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Wishlist.entitlements; sourceTree = "<group>"; };
 		4E744FAB2B6464B5005587A5 /* CreateNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNameView.swift; sourceTree = "<group>"; };
 		4E8358762B5188A700A71A25 /* FriendPresentCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendPresentCellView.swift; sourceTree = "<group>"; };
-		4EC8806D2B7E0AEB005E7835 /* ReservedPresentsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservedPresentsCardView.swift; sourceTree = "<group>"; };
+		4EC8806F2B849A33005E7835 /* ReservedPresentsCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservedPresentsCardCell.swift; sourceTree = "<group>"; };
+		4EC880722B849A84005E7835 /* ReservedPresentsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservedPresentsCardView.swift; sourceTree = "<group>"; };
+		4EC880742B849AB8005E7835 /* ReservedPresentsCardFriendDataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservedPresentsCardFriendDataCell.swift; sourceTree = "<group>"; };
+		4EC880762B849B02005E7835 /* ReservedPresentsCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservedPresentsCardViewModel.swift; sourceTree = "<group>"; };
 		4ED21A372B090FB5001D016B /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
 		4ED21A392B090FF1001D016B /* SignInGoogleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInGoogleHelper.swift; sourceTree = "<group>"; };
 		4ED21A3B2B09101C001D016B /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
@@ -233,6 +237,17 @@
 				4E41CB132B5B0A88000BD2B6 /* SkeletonClearView.swift */,
 			);
 			path = Skeleton;
+			sourceTree = "<group>";
+		};
+		4EC880712B849A3C005E7835 /* ReservedView */ = {
+			isa = PBXGroup;
+			children = (
+				4EC880722B849A84005E7835 /* ReservedPresentsCardView.swift */,
+				4EC8806F2B849A33005E7835 /* ReservedPresentsCardCell.swift */,
+				4EC880742B849AB8005E7835 /* ReservedPresentsCardFriendDataCell.swift */,
+				4EC880762B849B02005E7835 /* ReservedPresentsCardViewModel.swift */,
+			);
+			path = ReservedView;
 			sourceTree = "<group>";
 		};
 		4ED21A362B090F80001D016B /* Authentication */ = {
@@ -400,6 +415,7 @@
 			isa = PBXGroup;
 			children = (
 				4ED21A462B091590001D016B /* RootView */,
+				4EC880712B849A3C005E7835 /* ReservedView */,
 				4EEF21C12A9CFB32001B736F /* Home */,
 				4EEF21DB2A9D0C09001B736F /* Friend */,
 				4EEF21C92A9D04F2001B736F /* TabBar */,
@@ -446,8 +462,6 @@
 			isa = PBXGroup;
 			children = (
 				4ED389F32A924D2C007E30D1 /* HomeView.swift */,
-				4E66688E2B7DD0330034FB69 /* ReservedPresentForFriend.swift */,
-				4EC8806D2B7E0AEB005E7835 /* ReservedPresentsCardView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -711,12 +725,12 @@
 			files = (
 				4EEF21F52AA3FF96001B736F /* HeaderFriendHome.swift in Sources */,
 				4E0A5ADC2B3BE0F400C8C4DB /* CacheManager.swift in Sources */,
-				4E66688F2B7DD0330034FB69 /* ReservedPresentForFriend.swift in Sources */,
 				4ED21A452B091589001D016B /* RootView.swift in Sources */,
 				4ED389F22A924B1F007E30D1 /* MainTabBar.swift in Sources */,
 				4ED2F43C2B17095A00EE7004 /* UserManager.swift in Sources */,
 				4E41CB112B5AFB96000BD2B6 /* SkeletonView.swift in Sources */,
 				4ED389F62A924D43007E30D1 /* FriendsView.swift in Sources */,
+				4EC880732B849A84005E7835 /* ReservedPresentsCardView.swift in Sources */,
 				4EEF22022AB649F5001B736F /* ImagePicker.swift in Sources */,
 				4E23D35E2B5975FC0045FA94 /* SearchBarView.swift in Sources */,
 				4EEF21C62A9CFC90001B736F /* PresentCellView.swift in Sources */,
@@ -724,6 +738,7 @@
 				4EEF21F32AA3FF6A001B736F /* FriendHomeViewModel.swift in Sources */,
 				4ED21A402B091077001D016B /* SignInEmailView.swift in Sources */,
 				4ED2F4412B18E09700EE7004 /* SignInEmailViewModel.swift in Sources */,
+				4EC880772B849B02005E7835 /* ReservedPresentsCardViewModel.swift in Sources */,
 				4EEF21E52A9E8AA7001B736F /* FriendHomeView.swift in Sources */,
 				4ED389F42A924D2C007E30D1 /* HomeView.swift in Sources */,
 				4EEF21DD2A9E5B41001B736F /* CyrcleShadow.swift in Sources */,
@@ -733,6 +748,7 @@
 				4E41CB142B5B0A88000BD2B6 /* SkeletonClearView.swift in Sources */,
 				4ED38A052A926692007E30D1 /* MainTabBarViewModel.swift in Sources */,
 				4ED21A382B090FB6001D016B /* AuthenticationView.swift in Sources */,
+				4EC880752B849AB8005E7835 /* ReservedPresentsCardFriendDataCell.swift in Sources */,
 				4EEF22042AB65515001B736F /* StorageService.swift in Sources */,
 				4ED389C82A91574E007E30D1 /* AuthViewFirebaseApp.swift in Sources */,
 				4EEF21C02A9CFA8C001B736F /* PresentModel.swift in Sources */,
@@ -743,12 +759,12 @@
 				4E19CD9F2AE1CF7F008AB36B /* FirstAppear.swift in Sources */,
 				4EEF21FC2AA514E8001B736F /* FriendPresentView.swift in Sources */,
 				4EEF21E72A9E8ACC001B736F /* FriendsCell.swift in Sources */,
-				4EC8806E2B7E0AEB005E7835 /* ReservedPresentsCardView.swift in Sources */,
 				4ED38A072A9268C5007E30D1 /* UserModel.swift in Sources */,
 				4ED21A482B0A1963001D016B /* SettingView.swift in Sources */,
 				4ED38A092A9269CC007E30D1 /* DataBaseService.swift in Sources */,
 				4ED21A3C2B09101C001D016B /* AuthenticationManager.swift in Sources */,
 				4E744FAC2B6464B5005587A5 /* CreateNameView.swift in Sources */,
+				4EC880702B849A33005E7835 /* ReservedPresentsCardCell.swift in Sources */,
 				4ED2F4432B18E2A800EE7004 /* PresentManager.swift in Sources */,
 				4EEF21E22A9E8765001B736F /* FriendsViewModel.swift in Sources */,
 				4ED21A3A2B090FF1001D016B /* SignInGoogleHelper.swift in Sources */,

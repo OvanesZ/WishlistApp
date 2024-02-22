@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-
-import SwiftUI
 import Kingfisher
 
 struct FriendPresentCellView: View {
@@ -17,7 +15,7 @@ struct FriendPresentCellView: View {
     @State var isShowPresentCell = false
     @State private var isLoadingImage = false
     @GestureState private var isLongPressed = false
-    @StateObject var viewModel = PresentModelViewModel(present: PresentModel(name: "", urlText: "", presentFromUserID: ""))
+    @StateObject var viewModel = PresentModelViewModel(present: PresentModel(name: "", urlText: "", presentFromUserID: "", ownerId: ""))
     @Environment(\.colorScheme) var colorScheme
     @State private var isCellPressed = false
     

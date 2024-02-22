@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-//import FirebaseAuth
 
 struct FriendHomeView: View {
     
@@ -16,11 +15,6 @@ struct FriendHomeView: View {
     @State private var isButtonPressedUnsubscribe = false
     @Environment(\.dismiss) var dismiss
     
-//    private var currentUserId: String {
-//        return try! AuthenticationManager.shared.getAuthenticatedUser().uid
-//    }
-    ////////////////// TODO избавиться от зависимостей
-//    private var currentUserId = Auth.auth().currentUser?.uid
     
     var columns: [GridItem] = [
         GridItem(.fixed(150), spacing: 20),
@@ -145,7 +139,7 @@ struct FriendHomeView: View {
                     pinnedViews: [.sectionFooters]
                 ) {
                     Section() {
-                        ForEach(viewModel.wishlist ?? [PresentModel(id: "", name: "", urlText: "", presentFromUserID: "", isReserved: false, presentDescription: "")]) { present in
+                        ForEach(viewModel.wishlist ?? [PresentModel(id: "", name: "", urlText: "", presentFromUserID: "", isReserved: false, presentDescription: "", ownerId: "")]) { present in
                             FriendPresentCellView(present: present, friend: viewModel.friend)
                         }
                     }

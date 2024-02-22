@@ -27,7 +27,7 @@ import FirebaseFirestoreSwift
 //
 //}
 
-struct PresentModel: Codable, Identifiable {
+struct PresentModel: Codable, Identifiable, Hashable {
     
     var id: String = UUID().uuidString
     var name: String
@@ -35,6 +35,7 @@ struct PresentModel: Codable, Identifiable {
     var presentFromUserID: String
     var isReserved = false
     var presentDescription = ""
+    var ownerId: String
     
     var representation: [String: Any] {
         var repres = [String: Any]()
@@ -44,6 +45,7 @@ struct PresentModel: Codable, Identifiable {
         repres["presentFromUserID"] = self.presentFromUserID
         repres["isReserved"] = self.isReserved
         repres["presentDescription"] = self.presentDescription
+        repres["ownerId"] = self.ownerId
         
         return repres
     }

@@ -25,7 +25,7 @@ class PresentModelViewModel: ObservableObject {
         self.isHiddenReservButton = present.isReserved
     }
     
-    private let currentUser = Auth.auth().currentUser
+    let currentUser = Auth.auth().currentUser
     
     //MARK: -- Добавляю новый подарок в коллекцию "Wishlist"
     
@@ -107,6 +107,11 @@ class PresentModelViewModel: ObservableObject {
         }
     }
     
+    // MARK: -- В момент резерва подарка создаю подколлекцию с информацией о id подарка и друга
+    
+    func setFriendPresentList(friendId: String, presentId: String) async throws {
+        try await DatabaseService.shared.setFriendPresentList(friendId: friendId, presentId: presentId)
+    }
     
     
     // MARK: -- Удаляю подарок из коллекции "Wishlist"

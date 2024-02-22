@@ -25,19 +25,19 @@ struct DBUser: Codable, Identifiable {
     var userName: String?
     var userSerName: String?
     
-//    init(id: String, userId: String, isAnonimous: Bool?, email: String?, photoUrl: String?, dateCreated: Date?, isPremium: Bool?, dateBirth: Date?, phoneNumber: String?, displayName: String?, userName: String) {
-//        self.id = id
-//        self.userId = userId
-//        self.isAnonymous = isAnonimous
-//        self.email = email
-//        self.photoUrl = photoUrl
-//        self.dateCreated = dateCreated
-//        self.isPremium = isPremium
-//        self.dateBirth = dateBirth
-//        self.phoneNumber = phoneNumber
-//        self.displayName = displayName
-//        self.userName = userName
-//    }
+    init(id: String, userId: String, isAnonimous: Bool?, email: String?, photoUrl: String?, dateCreated: Date?, isPremium: Bool?, dateBirth: Date?, phoneNumber: String?, displayName: String?, userName: String) {
+        self.id = id
+        self.userId = userId
+        self.isAnonymous = isAnonimous
+        self.email = email
+        self.photoUrl = photoUrl
+        self.dateCreated = dateCreated
+        self.isPremium = isPremium
+        self.dateBirth = dateBirth
+        self.phoneNumber = phoneNumber
+        self.displayName = displayName
+        self.userName = userName
+    }
     
     init(auth: AuthDataResultModel) {
         self.id = auth.uid
