@@ -14,18 +14,13 @@ struct HeaderFriendCell: View {
     @ObservedObject var viewModel: FriendHomeViewModel
     @State private var isLoadImage = false
     @State private var url: URL? = nil
+    @State private var isZommed = false
     
     
     var body: some View {
         
         
         HStack {
-            
-//            KFImage(url)
-//                .resizable()
-//                .scaledToFill()
-//                .frame(width: 120, height: 120)
-//                .clipShape(Circle())
             
             AsyncImage(
                 url: url,
@@ -44,6 +39,12 @@ struct HeaderFriendCell: View {
                         .frame(width: 120, height: 120)
                         .clipShape(Circle())
 //                                    .transition(.scale(scale: 0.1, anchor: .center))
+                        .onTapGesture {
+                            isZommed.toggle()
+                        }
+                        .fullScreenCover(isPresented: $isZommed, content: {
+                            SwiftUIView(viewModelSettings: viewModelSettings, viewModel: viewModel)
+                        })
                 case .failure:
                     Image(systemName: "wifi.slash")
                 @unknown default:
@@ -65,24 +66,11 @@ struct HeaderFriendCell: View {
                         .frame(height: 25, alignment: .leading)
                         .padding(.horizontal, 20)
                 }
-              
-                
-//                if let date = viewModelSettings.friendDbUserPersonalData?.dateBirth {
-//                    Text("\(date.formatted(.dateTime.day().month().year().locale(Locale(identifier: "ru_RU"))))")
-//                        .font(.headline)
-//                        .frame(maxWidth: .infinity)
-//                        .frame(height: 25, alignment: .leading)
-//                        .padding(.horizontal, 20)
-//                }
-                
             }
         }
         .task {
             self.url = try? await viewModelSettings.getUrlImageFriendAsync(id: viewModel.friend.userId)
         }
         .padding(.leading)
-//        .task {
-//            try? await viewModelSettings.loadFriendDBUserPersonalData(id: viewModel.friend.userId)
-//        }
     }
 }
