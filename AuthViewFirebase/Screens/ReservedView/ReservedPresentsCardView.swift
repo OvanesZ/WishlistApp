@@ -20,7 +20,6 @@ struct ReservedPresentsCardView: View {
                 ForEach(viewModel.presents) { present in
                     ReservedPresentsCardCell(present: present, viewModel: viewModel)
                         .padding(6)
-                       
                 }
                 
                 

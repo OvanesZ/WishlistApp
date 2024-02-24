@@ -35,7 +35,7 @@ struct ReservedPresentsCardCell: View {
                 
                 if flippedCard {
                     Circle()
-                        .colorInvert()
+                        .foregroundColor(.white)
                         .frame(width: 115, height: 115)
                         .offset(y: 55)
                         .overlay {
@@ -57,20 +57,20 @@ struct ReservedPresentsCardCell: View {
                     }
                 } label: {
                     Text(flippedCard ? "Подробнее" : "Скрыть")
-                        .padding(.vertical, 4)
+                        .padding([.top, .bottom, .trailing, .leading], 4)
+                        .font(.callout.bold())
+                        .foregroundStyle(.white)
                         .padding(.horizontal)
-                        .shadow(color: .white, radius: 50)
-                        .overlay {
-                            Capsule()
-                                .stroke(lineWidth: 2)
-                                .shadow(color: .white, radius: 50)
-                        }
+                        .background(Color.gray)
+                        .opacity(0.85)
+                        .cornerRadius(16)
                         .padding()
                 }
             }
          
             VStack {
-                
+            
+
                 
 //                Button(action: {
 //                    
@@ -104,7 +104,7 @@ struct ReservedPresentsCardCell: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading)
                 .padding(.bottom, -8)
-                .padding(.top)
+                .padding(.top, 25)
                 .task {
                     self.friend = try! await viewModel.getFriend(friendId: present.ownerId)
                     self.url = try? await viewModel.getUrlPresentImage(presentId: present.id)
@@ -123,6 +123,7 @@ struct ReservedPresentsCardCell: View {
         }
         .background(Color(.tertiarySystemFill))
         .clipShape(RoundedRectangle(cornerRadius: 26))
+     
         
       
         
