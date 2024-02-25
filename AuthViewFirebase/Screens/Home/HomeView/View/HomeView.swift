@@ -102,7 +102,20 @@ struct HomeView: View {
                         Button(action: {
                             isShowReservedPresentsCard = true
                         }, label: {
-                            Text("Выбранные подарки")
+                            HStack {
+                                Image(systemName: "gift.fill")
+                                
+                                Text("друзьям")
+                            }
+                            .foregroundStyle(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1)), Color(#colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1))]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                            .padding(4)
+                            .padding([.leading, .trailing], 4)
+                            .overlay {
+                                Capsule()
+                                    .stroke(lineWidth: 2)
+                                    .foregroundStyle(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1)), Color(#colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1))]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                            }
+                            
                         })
                     }
                     

@@ -11,6 +11,7 @@ import Kingfisher
 struct ReservedPresentsCardCell: View {
    
     let present: PresentModel
+    private let nameTextUrl: String = "[Ссылка на подарок]"
     
     @State private var image = UIImage(named: "person")!
     @State private var url: URL? = nil
@@ -69,33 +70,7 @@ struct ReservedPresentsCardCell: View {
             }
          
             VStack {
-            
 
-                
-//                Button(action: {
-//                    
-//                    withAnimation {
-//                        flippedCard.toggle()
-//                    }
-//                    
-//                }, label: {
-//                    Text(flippedCard ? "Подробнее" : "Скрыть")
-//                        .padding(.vertical, 4)
-//                        .padding(.horizontal)
-//                        .foregroundStyle(.black)
-//                        .overlay {
-//                            Capsule()
-//                                .stroke(lineWidth: 2)
-//                                .foregroundStyle(.black)
-//
-//                        }
-//                })
-//                .frame(maxWidth: .infinity, alignment: .bottomTrailing)
-//                .padding(.trailing, 10)
-//                .padding(.bottom, 20)
-//                .padding(.top, 20)
-
-                
                 HStack {
                     Text(flippedCard ? (friend.userName ?? "") + " " + (friend.userSerName ?? "") : "Описание")
                         .font(.title3.bold())
@@ -111,13 +86,26 @@ struct ReservedPresentsCardCell: View {
                     self.urlFriendImage = try? await viewModel.getUrlFriendImage(friendId: present.ownerId)
                 }
                 
+               
+             
+                
                 
                 HStack {
                     Text(flippedCard ? present.name : present.presentDescription)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding([.leading, .bottom])
-                    
                 }
+                
+                if !flippedCard {
+                    HStack {
+                        Text(.init(nameTextUrl+"(\(present.urlText))"))
+                            .underline()
+                            .padding(.leading, 15)
+                        Spacer()
+                    }
+                    .padding(.bottom, 6)
+                }
+                
             }
             
         }
