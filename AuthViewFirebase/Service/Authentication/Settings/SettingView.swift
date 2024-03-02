@@ -22,26 +22,7 @@ struct SettingView: View {
             VStack {
                 
                 Circle()
-//                    .frame(width: 200, height: 200)
                     .overlay {
-//                            AsyncImage(
-//                                url: viewModel.url,
-//                                transaction: Transaction(animation: .linear)
-//                            ) { phase in
-//                                switch phase {
-//                                case .empty:
-//                                    ProgressView()
-//                                case .success(let image):
-//                                    image
-//                                        .resizable()
-//                                        .scaledToFill()
-////                                        .transition(.scale(scale: 0.1, anchor: .center))
-//                                case .failure:
-//                                    Image(systemName: "wifi.slash")
-//                                @unknown default:
-//                                    EmptyView()
-//                                }
-//                            }
                         Image(uiImage: viewModel.image)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
@@ -69,16 +50,16 @@ struct SettingView: View {
                     
                     
                 }
-                .refreshable(action: {
-                    viewModel.url = try? await viewModel.getUrlImageAsync()
-
-                })
                 
                 
                 .onAppear {
                     viewModel.loadAuthProviders()
                 }
              
+                .onDisappear {
+                
+                    
+                }
                
                 
                 .toolbar {

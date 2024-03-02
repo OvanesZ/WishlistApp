@@ -9,7 +9,6 @@ import SwiftUI
 
 struct FriendHomeView: View {
     
-    @StateObject private var viewModelSettings: SettingsViewModel = SettingsViewModel()
     @ObservedObject var viewModel: FriendHomeViewModel
     @State private var isButtonPressed = false
     @State private var isButtonPressedUnsubscribe = false
@@ -28,7 +27,7 @@ struct FriendHomeView: View {
             
             HeaderFriendCell(viewModel: viewModel)
             
-            if viewModel.friend.userId == viewModelSettings.currentUser?.uid {
+            if viewModel.friend.userId == AuthService.shared.currentUser?.uid {
                 Text("Ваша страница")
                     .font(.callout.italic())
             } else {

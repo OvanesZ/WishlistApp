@@ -8,10 +8,7 @@
 import SwiftUI
 
 struct SettingsPersonalDataView: View {
-    
-//    @State private var userName = ""
-//    @State private var userSername = ""
-//    @State private var dateBirth = Date()
+ 
     @State private var isAvatarlertPresented = false
     @State private var showImagePickerLibrary = false
     @State private var showImagePickerCamera = false
@@ -88,7 +85,7 @@ struct SettingsPersonalDataView: View {
                         Spacer()
                         Button {
                             Task {
-                                viewModel.uploadImageAsync(userID: viewModel.currentUser?.uid ?? "")
+                                viewModel.uploadImageAsync(userID: AuthService.shared.currentUser?.uid ?? "")
                                 try? await viewModel.loadCurrentDBUser()
                             }
                             
@@ -108,7 +105,3 @@ struct SettingsPersonalDataView: View {
         
     }
 }
-
-//#Preview {
-//    SettingsPersonalDataView(viewModel: SettingsViewModel())
-//}

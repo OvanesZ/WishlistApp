@@ -28,6 +28,9 @@ struct ReservedPresentsCardCell: View {
             ZStack {
                 
                 KFImage(url)
+                    .placeholder {
+                        ProgressView()
+                    }
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(height: 160)
@@ -41,6 +44,9 @@ struct ReservedPresentsCardCell: View {
                         .offset(y: 55)
                         .overlay {
                             KFImage(urlFriendImage)
+                                .placeholder {
+                                    ProgressView()
+                                }
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: 110, height: 110)
@@ -111,6 +117,9 @@ struct ReservedPresentsCardCell: View {
         }
         .background(Color(.tertiarySystemFill))
         .clipShape(RoundedRectangle(cornerRadius: 26))
+//        .onDisappear {
+//            ImageCache.default.clearCache()
+//        }
      
         
       

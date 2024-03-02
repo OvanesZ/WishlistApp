@@ -163,5 +163,7 @@ class FriendHomeViewModel: ObservableObject {
         try await StorageService.shared.downloadURLPresentImageAsync(id: id)
     }
     
-    
+    func getUrlImageFriendAsync(id: String) async throws -> URL {
+        try await StorageService.shared.downloadURLUserImageAsync(id: id)
+    }
 }

@@ -12,13 +12,8 @@ import Combine
 struct FriendsView: View {
     
     @ObservedObject var friendViewModel: FriendsViewModel
-//    @ObservedObject var userViewModel: HomeViewModel
     @State var segmentedChoice = 0
     @State var nameFriend = ""
-//    @State var shouldShowCanselButton: Bool = true
-//    @FocusState var isFocus: Bool
-//    
-//    @State var isEditing = false
     
     private let keyboardPublisher = Publishers.Merge(
         NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
@@ -26,11 +21,9 @@ struct FriendsView: View {
         NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)
             .map { notification in false }
     ).eraseToAnyPublisher()
-    
     var body: some View {
         
         NavigationStack {
-//            SearchBarView(text: $nameFriend, isEditing: $isEditing)
             ZStack {
                 VStack {
                     Picker("", selection: $segmentedChoice) {
@@ -42,7 +35,6 @@ struct FriendsView: View {
                             .tag(2)
                     }
                     .padding([.leading, .trailing], 45)
-//                    .pickerStyle(SegmentedPickerStyle())
                     .pickerStyle(.segmented)
                    
                     
@@ -65,32 +57,8 @@ struct FriendsView: View {
                 }
             }
             .navigationTitle("Друзья")
-//            .toolbar(isEditing ? .hidden : .visible, for: .navigationBar).animation(.linear(duration: 0.25))
-//            .navigationBarHidden(isEditing).animation(.linear(duration: 0.25))
         }
         .searchable(text: $nameFriend, placement: .navigationBarDrawer(displayMode: .always), prompt: "Поиск друга")
-        
-       
-//        .textInputAutocapitalization(.none)
-        
-        
-//        .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local)
-//            .onEnded({ value in
-//                if value.translation.width < 0 {
-//                    if segmentedChoice == 0 {
-//                        segmentedChoice = 0
-//                    } else if segmentedChoice == 1 {
-//                        segmentedChoice = 0
-//                    } else if segmentedChoice == 2 {
-//                        segmentedChoice = 1
-//                    }
-//                }
-//                
-//                if value.translation.width > 0 {
-//                    // right
-//                }
-//            })
-//        )
     }
 }
 
@@ -107,7 +75,6 @@ extension FriendsView {
                 if friendViewModel.myFriends.isEmpty && nameFriend.isEmpty {
 
                     VStack {
-//                        Spacer()
                         Text("Здесь будут Ваши подписки")
                             .foregroundStyle(.blue)
                             .font(.title2.bold().italic())

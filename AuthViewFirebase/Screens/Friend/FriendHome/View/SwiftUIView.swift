@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+/*
 struct SwiftUIView: View {
     
     @State private var url: URL? = nil
@@ -73,3 +73,4 @@ struct SwiftUIView: View {
 //#Preview {
 //    SwiftUIView()
 //}
+*/

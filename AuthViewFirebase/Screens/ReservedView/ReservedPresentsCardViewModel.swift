@@ -7,11 +7,11 @@
 
 import SwiftUI
 
+@MainActor
 final class ReservedPresentsCardViewModel: ObservableObject {
     
     @Published var presents: [PresentModel] = []
     @Published var presentsForSell: [PresentModel] = []
-//    @Published var image = UIImage(named: "person")!
     
     
     func getFriend(friendId: String) async throws -> DBUser {

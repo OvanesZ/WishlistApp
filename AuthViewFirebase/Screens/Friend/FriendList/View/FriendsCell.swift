@@ -12,7 +12,6 @@ struct FriendsCell: View {
     
     let friend: DBUser
     @State private var url: URL? = nil
-    @StateObject private var viewModel: SettingsViewModel = SettingsViewModel()
     @ObservedObject private var friendsViewModel: FriendsViewModel = FriendsViewModel()
     
     init(friend: DBUser) {
@@ -24,35 +23,14 @@ struct FriendsCell: View {
         
         HStack {
             
-//            KFImage(url)
-//                .resizable()
-//                .scaledToFill()
-//                .frame(width: 60, height: 60)
-//                .clipShape(Circle())
-            
-            
-            AsyncImage(
-                url: url,
-                transaction: Transaction(animation: .linear)
-            ) { phase in
-                switch phase {
-                case .empty:
-                    ProgressView()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 60, height: 60)
-                        .clipShape(Circle())
-                case .success(let image):
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 60, height: 60)
-                        .clipShape(Circle())
-//                                    .transition(.scale(scale: 0.1, anchor: .center))
-                case .failure:
-                    Image(systemName: "wifi.slash")
-                @unknown default:
-                    EmptyView()
-                }
+            AsyncImage(url: url) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 60, height: 60)
+                    .clipShape(Circle())
+            } placeholder: {
+                ProgressView()
             }
             
             
@@ -82,12 +60,9 @@ struct FriendsCell: View {
             
         }
         .task {
-            self.url = try? await viewModel.getUrlImageFriendAsync(id: friend.userId)
-            try? await viewModel.loadFriendDBUserPersonalData(id: friend.userId)
+            self.url = try? await friendsViewModel.getUrlImageFriendAsync(id: friend.userId)
+//            try? await viewModel.loadFriendDBUserPersonalData(id: friend.userId)
         }
-//        .onAppear {
-//            friendsViewModel.getFromCache(userIdForNameImage: friend.userId)
-//        }
         
     }
     

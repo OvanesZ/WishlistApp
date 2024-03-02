@@ -18,7 +18,7 @@ struct CreateNameView: View {
     @State private var showImagePickerLibrary = false
     @State private var showImagePickerCamera = false
     @Binding var showSignInView: Bool
-    @StateObject var viewModel: SettingsViewModel = SettingsViewModel()
+    @StateObject private var viewModel: SettingsViewModel = SettingsViewModel()
     
     var body: some View {
         
@@ -112,13 +112,13 @@ struct CreateNameView: View {
                 Button {
                     
                     Task {
-                        let userPersonalData = PersonalDataDBUser(userId: viewModel.currentUser?.uid ?? "", friendsId: viewModel.dbUserPersonalData?.friendsId ?? [""], mySubscribers: viewModel.dbUserPersonalData?.mySubscribers ?? [""], requestFriend: viewModel.dbUserPersonalData?.requestFriend ?? [""])
+                        let userPersonalData = PersonalDataDBUser(userId: AuthService.shared.currentUser?.uid ?? "", friendsId: viewModel.dbUserPersonalData?.friendsId ?? [""], mySubscribers: viewModel.dbUserPersonalData?.mySubscribers ?? [""], requestFriend: viewModel.dbUserPersonalData?.requestFriend ?? [""])
                         
                         try await UserManager.shared.createNewPersonalDataUser(user: userPersonalData)
                     }
-                    viewModel.uploadImageAsync(userID: viewModel.currentUser?.uid ?? "")
+                    viewModel.uploadImageAsync(userID: AuthService.shared.currentUser?.uid ?? "")
                     UserDefaults.standard.setValue(false, forKey: "NewUser")
-                    UserDefaults.standard.setValue(false, forKey: viewModel.currentUser?.uid ?? "")
+                    UserDefaults.standard.setValue(false, forKey: AuthService.shared.currentUser?.uid ?? "")
                     viewModel.updateUserName(userName: userName, userSerName: userSername)
                     viewModel.updateDateBirth(dateBirth: dateBirth)
                     isPresentRoot = true

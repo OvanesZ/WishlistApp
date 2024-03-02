@@ -17,10 +17,10 @@ final class FriendsViewModel: ObservableObject {
     @Published var allFriendsUser: [DBUser] = []
     @Published var myFriendsID: [String] = [" "]
     @Published var isLoading = false
-    @Published var uiImage = UIImage(named: "person")
+//    @Published var uiImage = UIImage(named: "person")
+    @Published var uiImage: UIImage? = nil
     @Published var cahedImage: UIImage? = nil
     @Published var isLoadImage = false
-    
     
     var myRequestID: [String] = [" "]
     var mySubscribersID: [String] = [" "]
@@ -33,7 +33,6 @@ final class FriendsViewModel: ObservableObject {
             try? await getRequest()
         }
     }
-    
 
     // MARK: - НЕ УДАЛЯТЬ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     
@@ -140,7 +139,9 @@ final class FriendsViewModel: ObservableObject {
         cahedImage = manager.get(name: userIdForNameImage)
     }
     
-    
+    func getUrlImageFriendAsync(id: String) async throws -> URL {
+        try await StorageService.shared.downloadURLUserImageAsync(id: id)
+    }
     
     
     

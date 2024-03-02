@@ -10,7 +10,6 @@ import Kingfisher
 
 struct HeaderFriendCell: View {
     
-    @StateObject private var viewModelSettings: SettingsViewModel = SettingsViewModel()
     @ObservedObject var viewModel: FriendHomeViewModel
     @State private var isLoadImage = false
     @State private var url: URL? = nil
@@ -42,9 +41,9 @@ struct HeaderFriendCell: View {
                         .onTapGesture {
                             isZommed.toggle()
                         }
-                        .fullScreenCover(isPresented: $isZommed, content: {
-                            SwiftUIView(viewModelSettings: viewModelSettings, viewModel: viewModel)
-                        })
+//                        .fullScreenCover(isPresented: $isZommed, content: {
+//                            SwiftUIView(viewModelSettings: viewModelSettings, viewModel: viewModel)
+//                        })
                 case .failure:
                     Image(systemName: "wifi.slash")
                 @unknown default:
@@ -69,7 +68,7 @@ struct HeaderFriendCell: View {
             }
         }
         .task {
-            self.url = try? await viewModelSettings.getUrlImageFriendAsync(id: viewModel.friend.userId)
+            self.url = try? await viewModel.getUrlImageFriendAsync(id: viewModel.friend.userId)
         }
         .padding(.leading)
     }
