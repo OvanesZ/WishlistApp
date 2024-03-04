@@ -37,6 +37,7 @@ class StorageService {
         guard let returnedPath = returnedMetaData.path, let returnedName = returnedMetaData.name else {
             throw URLError(.badServerResponse)
         }
+        print("Размер аватарки = \(returnedMetaData.size)")
         return (returnedPath, returnedName)
     }
     

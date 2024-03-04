@@ -21,6 +21,8 @@ struct FriendsView: View {
         NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)
             .map { notification in false }
     ).eraseToAnyPublisher()
+    
+    
     var body: some View {
         
         NavigationStack {

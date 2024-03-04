@@ -24,11 +24,11 @@ struct FriendPresentView: View {
     
     // MARK: - init()
     
-    init(currentPresent: PresentModel, presentModelViewModel: PresentModelViewModel, friendViewModel: FriendHomeViewModel) {
-        self.currentPresent = currentPresent
-        self.presentModelViewModel = presentModelViewModel
-        self.friendViewModel = friendViewModel
-    }
+//    init(currentPresent: PresentModel, presentModelViewModel: PresentModelViewModel, friendViewModel: FriendHomeViewModel) {
+//        self.currentPresent = currentPresent
+//        self.presentModelViewModel = presentModelViewModel
+//        self.friendViewModel = friendViewModel
+//    }
     
  
     

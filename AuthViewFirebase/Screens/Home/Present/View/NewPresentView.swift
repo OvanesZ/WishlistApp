@@ -35,18 +35,14 @@ struct NewPresentView: View {
                             Image(uiImage: viewModel.uiImage)
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
-//                                .overlay(alignment: .bottomTrailing) {
-//                                    Image(systemName: "plus.square")
-//                                        .padding([.trailing, .bottom], 20)
-//                                        .font(.largeTitle.bold())
-//                                        .foregroundStyle(.blue)
-//                                        .ignoresSafeArea()
-//                                }
+                            
                         }
                         .opacity(50)
-                        .frame(width: 350, height: 350)
+//                        .frame(width: 350, height: 350)
+                        .frame(height: 350)
+                        .frame(maxWidth: .infinity, maxHeight: 350)
+
                         .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
-//                        .shadow(color: .gray, radius: 10)
                         .onTapGesture {
                             isImageAlert.toggle()
                         }

@@ -17,15 +17,13 @@ final class FriendsViewModel: ObservableObject {
     @Published var allFriendsUser: [DBUser] = []
     @Published var myFriendsID: [String] = [" "]
     @Published var isLoading = false
-//    @Published var uiImage = UIImage(named: "person")
     @Published var uiImage: UIImage? = nil
-    @Published var cahedImage: UIImage? = nil
     @Published var isLoadImage = false
     
-    var myRequestID: [String] = [" "]
-    var mySubscribersID: [String] = [" "]
+    private var myRequestID: [String] = [" "]
+    private var mySubscribersID: [String] = [" "]
     
-    let manager = CacheManager.instanse
+    //let manager = CacheManager.instanse
  
     init() {
         Task {
@@ -123,7 +121,7 @@ final class FriendsViewModel: ObservableObject {
         }
     }
     
-    
+    /*
     // MARK: - Работа с кэш
     
     func saveToCache(userIdForNameImage: String) {
@@ -138,11 +136,12 @@ final class FriendsViewModel: ObservableObject {
     func getFromCache(userIdForNameImage: String) {
         cahedImage = manager.get(name: userIdForNameImage)
     }
+     */
     
     func getUrlImageFriendAsync(id: String) async throws -> URL {
         try await StorageService.shared.downloadURLUserImageAsync(id: id)
     }
-    
+   
     
     
 }

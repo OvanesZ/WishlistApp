@@ -13,7 +13,6 @@ struct ReservedPresentsCardCell: View {
     let present: PresentModel
     private let nameTextUrl: String = "[Ссылка на подарок]"
     
-    @State private var image = UIImage(named: "person")!
     @State private var url: URL? = nil
     @State private var urlFriendImage: URL? = nil
     @State private var flippedCard: Bool = true

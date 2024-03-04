@@ -15,7 +15,7 @@ struct FriendPresentCellView: View {
     @State var isShowPresentCell = false
     @State private var isLoadingImage = false
     @GestureState private var isLongPressed = false
-    @StateObject var viewModel = PresentModelViewModel(present: PresentModel(name: "", urlText: "", presentFromUserID: "", ownerId: ""))
+    @StateObject private var viewModel = PresentModelViewModel(present: PresentModel(name: "", urlText: "", presentFromUserID: "", ownerId: ""))
     @Environment(\.colorScheme) var colorScheme
     @State private var isCellPressed = false
     
@@ -38,14 +38,6 @@ struct FriendPresentCellView: View {
                     }
                     .overlay {
                         Button(action: {isCellPressed = true}, label: {
-//                            AsyncImage(url: viewModel.url) { image in
-//                                image.image?.resizable()
-//                            }
-//                                
-//                                .aspectRatio(contentMode: .fill)
-//                                .frame(width: 124, height: 124)
-//                                .clipShape(RoundedRectangle(cornerRadius: 27, style: .continuous))
-                            
                             
                             AsyncImage(
                                 url: viewModel.url,
@@ -64,11 +56,12 @@ struct FriendPresentCellView: View {
                                         .frame(width: 124, height: 124)
                                         .clipShape(RoundedRectangle(cornerRadius: 27, style: .continuous))
                                 case .failure:
-                                    Image(systemName: "wifi.slash")
+                                    ProgressView()
                                 @unknown default:
                                     EmptyView()
                                 }
                             }
+                            
                             
 //                            KFImage(viewModel.url)
 //                                .resizable()

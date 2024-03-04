@@ -23,15 +23,24 @@ struct FriendsCell: View {
         
         HStack {
             
-            AsyncImage(url: url) { image in
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 60, height: 60)
-                    .clipShape(Circle())
-            } placeholder: {
-                ProgressView()
-            }
+//            AsyncImage(url: url) { image in
+//                image
+//                    .resizable()
+//                    .aspectRatio(contentMode: .fill)
+//                    .frame(width: 60, height: 60)
+//                    .clipShape(Circle())
+//            } placeholder: {
+//                ProgressView()
+//            }
+            
+            KFImage(url)
+                .placeholder {
+                    ProgressView()
+                }
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 60, height: 60)
+                .clipShape(Circle())
             
             
             

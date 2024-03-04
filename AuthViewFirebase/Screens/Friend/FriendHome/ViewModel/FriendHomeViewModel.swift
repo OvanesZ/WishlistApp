@@ -13,18 +13,16 @@ import FirebaseFirestore
 class FriendHomeViewModel: ObservableObject {
     
     let friend: DBUser
-//    @Published var wishlist: [PresentModel] = []
+    
     @Published var wishlist: [PresentModel]? = nil
     @Published var isFriendForRequestArr = false
     @Published var isFriendForFriendstArr = false
     @Published var isIamFriend = false
-    @Published var uiImage = UIImage(named: "person")
     @Published var isStopListener = false
     
     init(friend: DBUser) {
         self.friend = friend
         isFriendOrNo()
-//        fetchWishlistFriend()
     }
     
    
