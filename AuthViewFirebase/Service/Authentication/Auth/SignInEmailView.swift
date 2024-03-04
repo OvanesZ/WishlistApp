@@ -24,52 +24,68 @@ struct SignInEmailView: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        
         VStack {
             
+            HStack {
+                Button {
+                    dismiss()
+                } label: {
+                    HStack {
+                        Image(systemName: "chevron.backward")
+                        Text("Назад")
+                    }
+                    .font(.title3)
+                    .foregroundStyle(.white)
+                }
+                Spacer()
+            }
+           
+            
+            Spacer()
             
             Text("WISHLIST")
                 .font(Font.custom("Gloock-Regular", size: 48))
                 .foregroundColor(.white)
                 .blur(radius: CGFloat(blur))
-            
+                
             
             
             Image("logo_wishlist")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .blur(radius: CGFloat(blur))
-            
-            TextField("", text: $viewModel.email, prompt: Text("Почта").foregroundColor(.gray))
-                .padding()
-                .background(Color.white)
-                .cornerRadius(10)
-                .textContentType(.emailAddress)
-                .keyboardType(.emailAddress)
-                .foregroundStyle(.black)
-                .focused($focusedField, equals: .login)
-                .submitLabel(.next)
-            
-                
-            
-            SecureField("", text: $viewModel.password, prompt: Text("Пароль").foregroundColor(.gray))
-                .padding()
-                .background(Color.white)
-                .cornerRadius(10)
-                .textContentType(.password)
-                .foregroundStyle(.black)
-                .focused($focusedField, equals: .password)
-                .submitLabel(.next)
-
-            if isAuth {
-                SecureField("", text: $viewModel.confirmPassword, prompt: Text("Повторите пароль").foregroundColor(.gray))
+            VStack {
+                TextField("", text: $viewModel.email, prompt: Text("Почта").foregroundColor(.gray))
                     .padding()
                     .background(Color.white)
                     .cornerRadius(10)
-                    .textContentType(.newPassword)
+                    .textContentType(.emailAddress)
+                    .keyboardType(.emailAddress)
                     .foregroundStyle(.black)
-                    .focused($focusedField, equals: .confirmPassword)
-                    .submitLabel(.join)
+                    .focused($focusedField, equals: .login)
+                    .submitLabel(.next)
+                
+                
+                
+                SecureField("", text: $viewModel.password, prompt: Text("Пароль").foregroundColor(.gray))
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(10)
+                    .textContentType(.password)
+                    .foregroundStyle(.black)
+                    .focused($focusedField, equals: .password)
+                    .submitLabel(.next)
+                
+                if isAuth {
+                    SecureField("", text: $viewModel.confirmPassword, prompt: Text("Повторите пароль").foregroundColor(.gray))
+                        .padding()
+                        .background(Color.white)
+                        .cornerRadius(10)
+                        .textContentType(.newPassword)
+                        .foregroundStyle(.black)
+                        .focused($focusedField, equals: .confirmPassword)
+                        .submitLabel(.join)
+                }
             }
             
             // Действие на авторизацию и регистрацию в одной кнопке. При желании можно сделать две разные кнопки.
@@ -147,7 +163,7 @@ struct SignInEmailView: View {
                 .padding()
             } else {
                 Button(action: {
-                   
+                    
                     withAnimation(.easeInOut(duration: 0.6)) {
                         self.blur = 3
                         isAuth.toggle()
@@ -164,6 +180,8 @@ struct SignInEmailView: View {
             
             
         }
+
+        
         .padding()
         .background {
             Image("bg_wishlist")
@@ -176,47 +194,6 @@ struct SignInEmailView: View {
                 
             }
         }
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Button {
-                    dismiss()
-                } label: {
-                    HStack {
-                        Image(systemName: "chevron.backward")
-                            
-                        
-                        Text("Назад")
-                    }
-                    .foregroundStyle(.white)
-                }
-            }
-            
-            ToolbarItem(placement: .keyboard) {
-                Button {
-                    switch focusedField {
-                    case .login:
-                        focusedField = .password
-                    case .password:
-                        focusedField = .confirmPassword
-                    default:
-                        print("Создается аккаунт")
-                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                    }
-                } label: {
-                    if focusedField == .login {
-                        Text("Далее")
-                    } else if focusedField == .password {
-                        Text("Далее")
-                    } else {
-                        Text("Готово")
-
-                    }
-                    
-                }
-
-            }
-        }
         .onSubmit {
                   switch focusedField {
                   case .login:
@@ -227,6 +204,46 @@ struct SignInEmailView: View {
                       print("Создается аккаунт")
                   }
               }
+//                .toolbar {
+//                    ToolbarItem(placement: .topBarLeading) {
+//                        Button {
+//                            dismiss()
+//                        } label: {
+//                            HStack {
+//                                Image(systemName: "chevron.backward")
+//        
+//        
+//                                Text("Назад")
+//                                    .foregroundStyle(.white)
+//                            }
+//        
+//                        }
+//                    }
+//        
+//                    ToolbarItem(placement: .keyboard) {
+//                        Button {
+//                            switch focusedField {
+//                            case .login:
+//                                focusedField = .password
+//                            case .password:
+//                                focusedField = .confirmPassword
+//                            default:
+//                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+//                            }
+//                        } label: {
+//                            if focusedField == .login {
+//                                Text("Далее")
+//                            } else if focusedField == .password {
+//                                Text("Далее")
+//                            } else {
+//                                Text("Готово")
+//        
+//                            }
+//        
+//                        }
+//        
+//                    }
+//                }
     }
 }
 
@@ -235,8 +252,3 @@ struct SignInEmailView_Previews: PreviewProvider {
         SignInEmailView(showSignInView: .constant(false))
     }
 }
-
-
-
-
-

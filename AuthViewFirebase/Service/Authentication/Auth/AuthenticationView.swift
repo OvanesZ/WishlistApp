@@ -16,7 +16,7 @@ struct AuthenticationView: View {
     @Binding var showSignInView: Bool
     @State private var size = 0.8
     @State private var opacity = 0.5
-    
+    @State private var isShowSignInEmailView = false
     
     
     var body: some View {
@@ -58,9 +58,8 @@ struct AuthenticationView: View {
                     
                 }
                 
-                
-                NavigationLink {
-                    SignInEmailView(showSignInView: $showSignInView)
+                Button {
+                    isShowSignInEmailView.toggle()
                 } label: {
                     Text("Войти/Зарегистрироваться через email")
                         .font(.headline)
@@ -70,7 +69,12 @@ struct AuthenticationView: View {
                         .background(Color.orange)
                         .cornerRadius(10)
                 }
-                
+                .fullScreenCover(isPresented: $isShowSignInEmailView) {
+                    SignInEmailView(showSignInView: $showSignInView)
+                }
+//                .sheet(isPresented: $isShowSignInEmailView) {
+//                    SignInEmailView(showSignInView: $showSignInView)
+//                }
                 
                 
                 GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .light, style: .wide, state: .normal)) {
