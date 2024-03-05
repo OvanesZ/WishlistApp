@@ -15,11 +15,21 @@ struct ReservedPresentsCardView: View {
 //    ]
     var body: some View {
         
+        
+        
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
-                ForEach(viewModel.presents) { present in
-                    ReservedPresentsCardCell(present: present, viewModel: viewModel)
-                        .padding(6)
+                if viewModel.presents.isEmpty {
+                    Text("Вы еще не выбрали подарки друзьям.")
+                        .font(.callout.italic())
+                        .foregroundStyle(.blue)
+                        .lineLimit(2)
+                        .padding(.top, 25)
+                } else {
+                    ForEach(viewModel.presents) { present in
+                        ReservedPresentsCardCell(present: present, viewModel: viewModel)
+                            .padding(6)
+                    }
                 }
             }
             
