@@ -138,7 +138,7 @@ struct FriendHomeView: View {
                     pinnedViews: [.sectionFooters]
                 ) {
                     Section() {
-                        ForEach(viewModel.wishlist ?? [PresentModel(id: "", name: "", urlText: "", presentFromUserID: "", isReserved: false, presentDescription: "", ownerId: "")]) { present in
+                        ForEach(viewModel.wishlist ?? [PresentModel(id: "", name: "", urlText: "", presentFromUserID: "", isReserved: false, presentDescription: "", ownerId: "", whoReserved: "")]) { present in
                             FriendPresentCellView(present: present, friend: viewModel.friend)
                         }
                     }

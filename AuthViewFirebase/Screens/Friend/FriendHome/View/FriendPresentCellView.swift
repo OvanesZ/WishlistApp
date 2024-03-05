@@ -15,7 +15,7 @@ struct FriendPresentCellView: View {
     @State var isShowPresentCell = false
     @State private var isLoadingImage = false
     @GestureState private var isLongPressed = false
-    @StateObject private var viewModel = PresentModelViewModel(present: PresentModel(name: "", urlText: "", presentFromUserID: "", ownerId: ""))
+    @StateObject private var viewModel = PresentModelViewModel(present: PresentModel(name: "", urlText: "", presentFromUserID: "", ownerId: "", whoReserved: ""))
     @Environment(\.colorScheme) var colorScheme
     @State private var isCellPressed = false
     

@@ -90,7 +90,7 @@ struct HomeView: View {
 //                .padding(.top, 420)
                 .padding(.bottom, 50)
                 .sheet(isPresented: $isShowingNewPresentView) {
-                    NewPresentView(viewModel: PresentModelViewModel(present: PresentModel(id: "", name: "", urlText: "", presentFromUserID: "", ownerId: "")))
+                    NewPresentView(viewModel: PresentModelViewModel(present: PresentModel(id: "", name: "", urlText: "", presentFromUserID: "", ownerId: "", whoReserved: "")))
                 }
                 .sheet(isPresented: $isShowReservedPresentsCard) {
                     ReservedPresentsCardView()

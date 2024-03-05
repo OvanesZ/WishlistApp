@@ -36,6 +36,7 @@ struct PresentModel: Codable, Identifiable, Hashable {
     var isReserved = false
     var presentDescription = ""
     var ownerId: String
+    var whoReserved: String
     
     var representation: [String: Any] {
         var repres = [String: Any]()
@@ -46,6 +47,7 @@ struct PresentModel: Codable, Identifiable, Hashable {
         repres["isReserved"] = self.isReserved
         repres["presentDescription"] = self.presentDescription
         repres["ownerId"] = self.ownerId
+        repres["whoReserved"] = self.whoReserved
         
         return repres
     }

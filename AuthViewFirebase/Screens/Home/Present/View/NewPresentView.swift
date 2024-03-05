@@ -128,7 +128,7 @@ struct NewPresentView: View {
                     Spacer()
                     
                     Button(action: {
-                        let newPresent = PresentModel(name: presentName, urlText: presentUrlForMarket, presentFromUserID: "", presentDescription: presentDescription, ownerId: viewModel.currentUser?.uid ?? "")
+                        let newPresent = PresentModel(name: presentName, urlText: presentUrlForMarket, presentFromUserID: "", presentDescription: presentDescription, ownerId: viewModel.currentUser?.uid ?? "", whoReserved: "")
                         viewModel.setPresent(newPresent: newPresent)
                         dismiss()
                     }) {

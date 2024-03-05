@@ -134,24 +134,26 @@ struct FriendPresentView: View {
                 // MARK: -- Кнопка выбрать подарок
                 
                 if presentModelViewModel.isHiddenReservButton {
-//                    Spacer()
-//                        .padding(.bottom, 45)
                     
-                    Button(action: {
-                        presentModelViewModel.unReservingPresentForUserID(currentPresent, friendViewModel.friend.userId)
-                        
-                        Task {
-                            try await presentModelViewModel.deletePresentFriendPresentList(present: currentPresent)
+                    if currentPresent.whoReserved == AuthService.shared.currentUser?.uid {
+                        Button(action: {
+                            presentModelViewModel.unReservingPresentForUserID(currentPresent, friendViewModel.friend.userId)
+                            
+                            Task {
+                                try await presentModelViewModel.deletePresentFriendPresentList(present: currentPresent)
+                            }
+                        }) {
+                            Text("Отменить выбор")
+                                .padding(.init(top: 8, leading: 15, bottom: 8, trailing: 15))
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .background(Color.blue)
+                                .cornerRadius(16)
                         }
-                    }) {
-                        Text("Отменить выбор")
-                            .padding(.init(top: 8, leading: 15, bottom: 8, trailing: 15))
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .background(Color.blue)
-                            .cornerRadius(16)
+                        .padding(.bottom, 15)
                     }
-                    .padding(.bottom, 15)
+                    
+                    
                     
                     
                 } else {
