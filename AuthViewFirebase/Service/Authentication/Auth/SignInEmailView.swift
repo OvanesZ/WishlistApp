@@ -88,14 +88,20 @@ struct SignInEmailView: View {
                 }
             }
             
-            // Действие на авторизацию и регистрацию в одной кнопке. При желании можно сделать две разные кнопки.
             
             if isAuth {
                 Button {
                     Task {
                         do {
-                            UserDefaults.standard.setValue(true, forKey: "NewUser")
+//                            UserDefaults.standard.setValue(true, forKey: "NewUser")
                             try await viewModel.signUp()
+                            
+                            let user = try? AuthenticationManager.shared.getAuthenticatedUser()
+
+                            UserDefaults.standard.setValue(true, forKey: user?.uid ?? "NewUser")
+
+                            
+                            
                             showSignInView = viewModel.isBindingShow
                             return
                         } catch {

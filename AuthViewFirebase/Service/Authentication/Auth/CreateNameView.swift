@@ -117,8 +117,8 @@ struct CreateNameView: View {
                         try await UserManager.shared.createNewPersonalDataUser(user: userPersonalData)
                     }
                     viewModel.uploadImageAsync(userID: AuthService.shared.currentUser?.uid ?? "")
-                    UserDefaults.standard.setValue(false, forKey: "NewUser")
-                    UserDefaults.standard.setValue(false, forKey: AuthService.shared.currentUser?.uid ?? "")
+//                    UserDefaults.standard.setValue(false, forKey: "NewUser")
+                    UserDefaults.standard.setValue(false, forKey: AuthService.shared.currentUser?.uid ?? "NewUser")
                     viewModel.updateUserName(userName: userName, userSerName: userSername)
                     viewModel.updateDateBirth(dateBirth: dateBirth)
                     isPresentRoot = true

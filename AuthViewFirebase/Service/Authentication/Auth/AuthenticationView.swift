@@ -94,9 +94,6 @@ struct AuthenticationView: View {
                 Button(action: {
                     Task {
                         do {
-                            
-                           
-                            
                             UserDefaults.standard.setValue(true, forKey: "NewUser")
                             try await viewModel.signInApple()
                             showSignInView = false

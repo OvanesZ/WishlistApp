@@ -25,8 +25,8 @@ struct RootView: View {
 //                    MainTabBar(showSignInView: $showSignInView)
 //                }
                 let user = try? AuthenticationManager.shared.getAuthenticatedUser()
-                
-                if UserDefaults.standard.bool(forKey: user?.uid ?? "") == true || UserDefaults.standard.bool(forKey: "NewUser") == true {
+//                if UserDefaults.standard.bool(forKey: user?.uid ?? "") == true || UserDefaults.standard.bool(forKey: "NewUser") == true
+                if UserDefaults.standard.bool(forKey: user?.uid ?? "NewUser") {
                     CreateNameView(showSignInView: $showSignInView)
                 } else {
                     MainTabBar(showSignInView: $showSignInView)
