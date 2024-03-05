@@ -107,12 +107,32 @@ class PresentModelViewModel: ObservableObject {
         }
     }
     
+    //MARK: -- Отмена резерва подарка без информации о друге
+    func unReservingPresentForUserID(_ present: PresentModel, _ friendID: String) {
+        let docRef = Firestore.firestore().collection("users").document(friendID).collection("wishlist").document(present.id)
+        
+        docRef.updateData([
+            "isReserved": false
+        ]) { error in
+            if let error = error {
+                print("Ошибка при обновлении документа \(error)")
+            } else {
+                print("Документ обновлен успешно")
+            }
+        }
+    }
+    
+    // MARK: - При отмене резерва подарка удаляю его из коллекции presentsForFriend
+    
+    func deletePresentFriendPresentList(present: PresentModel) async throws {
+        try await DatabaseService.shared.deletePresentFriendPresentList(present: present)
+    }
+    
     // MARK: -- В момент резерва подарка создаю подколлекцию с информацией о id подарка и друга
     
     func setFriendPresentList(present: PresentModel) async throws {
         try await DatabaseService.shared.setFriendPresentList(present: present)
     }
-    
     
     // MARK: -- Удаляю подарок из коллекции "Wishlist"
     

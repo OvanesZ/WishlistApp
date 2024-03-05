@@ -260,6 +260,12 @@ class DatabaseService {
         try Firestore.firestore().collection("users").document(currentId).collection("presentsForFriend").document(present.id).setData(from: present)
     }
     
+    // MARK: - При отмене резерва подарка удаляю его из коллекции presentsForFriend
+    
+    func deletePresentFriendPresentList(present: PresentModel) async throws {
+        try await Firestore.firestore().collection("users").document(currentId).collection("presentsForFriend").document(present.id).delete()
+    }
+    
     func getPresentsFromPresentsForFriend() async throws -> QuerySnapshot {
         try await Firestore.firestore().collection("users").document(currentId).collection("presentsForFriend").getDocuments()
     }
