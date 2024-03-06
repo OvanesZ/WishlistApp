@@ -6,8 +6,7 @@
 //
 
 import SwiftUI
-import CachedAsyncImage
-
+import Kingfisher
 
 struct PresentCellView: View {
     
@@ -33,15 +32,24 @@ struct PresentCellView: View {
                 .frame(width: 130, height: 130)
                 .overlay {
                     
-                    AsyncImage(url: viewModel.url) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 124, height: 124)
-                            .clipShape(RoundedRectangle(cornerRadius: 27, style: .continuous))
-                    } placeholder: {
-                        ProgressView()
-                    }
+//                    AsyncImage(url: viewModel.url) { image in
+//                        image
+//                            .resizable()
+//                            .aspectRatio(contentMode: .fill)
+//                            .frame(width: 124, height: 124)
+//                            .clipShape(RoundedRectangle(cornerRadius: 27, style: .continuous))
+//                    } placeholder: {
+//                        ProgressView()
+//                    }
+                    
+                    KFImage(viewModel.url)
+                        .placeholder {
+                            ProgressView()
+                        }
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 124, height: 124)
+                        .clipShape(RoundedRectangle(cornerRadius: 27, style: .continuous))
                     
                 }
             

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct PresentModalView: View {
     
@@ -31,24 +32,34 @@ struct PresentModalView: View {
             VStack {
                 RoundedRectangle(cornerRadius: 30, style: .continuous)
                     .overlay {
-                        AsyncImage(
-                            url: presentModelViewModel.url,
-                            transaction: Transaction(animation: .linear)
-                        ) { phase in
-                            switch phase {
-                            case .empty:
-//                                ProgressView()
-                                SkeletonView()
-                            case .success(let image):
-                                image
-                                    .resizable()
-                                    .scaledToFill()
-                            case .failure:
-                                Image(systemName: "wifi.slash")
-                            @unknown default:
-                                EmptyView()
+//                        AsyncImage(
+//                            url: presentModelViewModel.url,
+//                            transaction: Transaction(animation: .linear)
+//                        ) { phase in
+//                            switch phase {
+//                            case .empty:
+////                                ProgressView()
+//                                SkeletonView()
+//                            case .success(let image):
+//                                image
+//                                    .resizable()
+//                                    .scaledToFill()
+//                            case .failure:
+//                                Image(systemName: "wifi.slash")
+//                            @unknown default:
+//                                EmptyView()
+//                            }
+//                        }
+                        
+                        KFImage(presentModelViewModel.url)
+                            .placeholder {
+                                ProgressView()
                             }
-                        }
+                            .resizable()
+                            .scaledToFill()
+                        
+                        
+                        
                     }
                     .opacity(50)
                     .frame(width: 350, height: 350)

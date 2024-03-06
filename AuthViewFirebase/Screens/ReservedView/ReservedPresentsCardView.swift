@@ -57,20 +57,6 @@ struct ReservedPresentsCardView: View {
             }
         }
         
-//        List {
-//            ForEach(viewModel.presents) { present in
-//                ReservedPresentsCardCell(present: present, viewModel: viewModel)
-//            }
-//        }
-//        .listStyle(.plain)
-//        .listRowSeparator(.hidden)
-//        .listSectionSeparator(.hidden)
-//        .task {
-//            try? await viewModel.getDict()
-//            try? await viewModel.test()
-//            try? await viewModel.setFriends()
-//        }
-        
         
     }
 }
