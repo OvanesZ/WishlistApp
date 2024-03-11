@@ -35,7 +35,6 @@ struct NewPresentView: View {
                             Image(uiImage: viewModel.uiImage)
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
-                            
                         }
                         .opacity(50)
 //                        .frame(width: 350, height: 350)

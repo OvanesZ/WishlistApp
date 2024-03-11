@@ -18,7 +18,7 @@ struct ReservedPresentsCardView: View {
         
         
         ScrollView(.vertical, showsIndicators: false) {
-            VStack {
+            LazyVStack {
                 if viewModel.presents.isEmpty {
                     Text("Вы еще не выбрали подарки друзьям.")
                         .font(.callout.italic())
@@ -56,6 +56,7 @@ struct ReservedPresentsCardView: View {
                 viewModel.presentsForSell = []
             }
         }
+//        .scrollIndicators(.hidden)
         
         
     }
