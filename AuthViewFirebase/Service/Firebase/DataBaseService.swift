@@ -282,7 +282,22 @@ class DatabaseService {
     // MARK: - end func for ReservedPresentsCardViewModel
     
     
-    
+    //MARK: -- Отмена резерва подарка без информации о друге
+    func unReservingPresentForUserID(_ present: PresentModel, _ friendID: String) {
+      
+        let docRef = Firestore.firestore().collection("users").document(friendID).collection("wishlist").document(present.id)
+        
+        docRef.updateData([
+            "isReserved": false,
+            "whoReserved": ""
+        ]) { error in
+            if let error = error {
+                print("Ошибка при обновлении документа \(error)")
+            } else {
+                print("Документ обновлен успешно")
+            }
+        }
+    }
     
     
     

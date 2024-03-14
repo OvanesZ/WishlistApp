@@ -148,6 +148,9 @@ struct CreateNameView: View {
                     .resizable()
                     .edgesIgnoringSafeArea(.all)
                     .aspectRatio(contentMode: .fill)
+                    .onTapGesture {
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    }
             }
             
             
@@ -158,10 +161,7 @@ struct CreateNameView: View {
         .sheet(isPresented: $showImagePickerCamera) {
             ImagePicker(sourceType: .camera, selectedImage: $viewModel.image)
         }
-        // сброс клавиатуры
-//        .onTapGesture {
-//            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-//        }
+
         
     }
 }

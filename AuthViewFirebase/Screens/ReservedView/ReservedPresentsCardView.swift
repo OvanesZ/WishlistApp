@@ -10,15 +10,13 @@ import SwiftUI
 struct ReservedPresentsCardView: View {
     
     @StateObject private var viewModel: ReservedPresentsCardViewModel = ReservedPresentsCardViewModel()
-//    private var columns: [GridItem] = [
-//        GridItem(.fixed(150), spacing: 20)
-//    ]
+    
     var body: some View {
         
         
         
-        ScrollView(.vertical, showsIndicators: false) {
-            LazyVStack {
+//        ScrollView(.vertical, showsIndicators: false) {
+            List {
                 if viewModel.presents.isEmpty {
                     Text("Вы еще не выбрали подарки друзьям.")
                         .font(.callout.italic())
@@ -28,23 +26,39 @@ struct ReservedPresentsCardView: View {
                 } else {
                     ForEach(viewModel.presents) { present in
                         ReservedPresentsCardCell(present: present, viewModel: viewModel)
-                            .padding(6)
+                            .padding(-6)
+                            .padding([.horizontal], -6)
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color(.tertiarySystemFill))
+                            .swipeActions(edge: .trailing) {
+                                Button {
+                                    viewModel.unReservingPresentForUserID(present: present)
+                                    Task {
+                                        try await viewModel.deletePresentFriendPresentList(present: present)
+                                        try await viewModel.getPresentsFromPresentsForFriend()
+                                        try await viewModel.getPresents()
+                                    }
+                                } label: {
+                                    Image(systemName: "trash")
+                                }
+                                .tint(.red)
+                            }
+                            .swipeActions(edge: .trailing) {
+                                Button {
+                                    Task {
+                                        try await viewModel.deletePresentFriendPresentList(present: present)
+                                        try await viewModel.getPresentsFromPresentsForFriend()
+                                        try await viewModel.getPresents()
+                                    }
+                                } label: {
+                                    Label("Выполнено", systemImage: "checkmark.circle")
+                                }
+                                .tint(.green)
+                            }
                     }
                 }
             }
-            
-//            LazyVGrid(
-//                columns: columns,
-//                alignment: .center, // позволяет нам выровнять содержимое сетки с помощью перечисления HorizontalAlignment для LazyVGrid и VerticalAlignment для LazyHGrid. Работает так же, как stack alignment
-//                spacing: 15, // расстояние между каждой строкой внутри
-//                pinnedViews: [.sectionFooters]
-//            ) {
-//                Section() {
-//                    ForEach(viewModel.presents) { present in
-//                        ReservedPresentsCardCell(present: present, viewModel: viewModel)
-//                    }
-//                }
-//            }
+            .listStyle(.inset)
             
             
             .task {
@@ -55,8 +69,7 @@ struct ReservedPresentsCardView: View {
                 viewModel.presents = []
                 viewModel.presentsForSell = []
             }
-        }
-//        .scrollIndicators(.hidden)
+//        }
         
         
     }
@@ -65,3 +78,5 @@ struct ReservedPresentsCardView: View {
 //#Preview {
 //    ReservedPresentsCardView()
 //}
+
+

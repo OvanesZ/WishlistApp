@@ -48,7 +48,11 @@ struct FriendsCell: View {
                 HStack {
                     Text(friend.userName ?? "")
                         .font(.system(.headline, design: .rounded))
+                        
                     
+                    Text(friend.userSerName ?? "")
+                        .font(.system(.headline, design: .rounded))
+                        .padding(.leading, -4)
                     Spacer()
                 }
                 

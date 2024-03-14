@@ -102,14 +102,29 @@ extension FriendsView {
                     }
                 }
                 
-                
-                ForEach(friendViewModel.myFriends) { friend in
-                    NavigationLink {
-                        FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
-                    } label: {
-                        FriendsCell(friend: friend)
+                if !nameFriend.isEmpty {
+                    ForEach(friendViewModel.myFriends.filter {
+                        if let userName = $0.userName, let userSerName = $0.userSerName {
+                            return self.nameFriend.isEmpty ? true : userName.contains(nameFriend) || userSerName.contains(nameFriend)
+                        }
+                        return self.nameFriend.isEmpty
+                    }) { friend in
+                        NavigationLink {
+                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
+                        } label: {
+                            FriendsCell(friend: friend)
+                        }
+                    }
+                } else {
+                    ForEach(friendViewModel.myFriends) { friend in
+                        NavigationLink {
+                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
+                        } label: {
+                            FriendsCell(friend: friend)
+                        }
                     }
                 }
+                
                 
                 if !nameFriend.isEmpty {
                     
@@ -130,8 +145,8 @@ extension FriendsView {
                     .padding(.top, 35)
                     
                     ForEach(friendViewModel.allUsers.filter {
-                        if let userName = $0.userName {
-                            return self.nameFriend.isEmpty ? true : userName.contains(nameFriend)
+                        if let userName = $0.userName, let userSerName = $0.userSerName {
+                            return self.nameFriend.isEmpty ? true : userName.contains(nameFriend) || userSerName.contains(nameFriend)
                         }
                         return self.nameFriend.isEmpty
                     }) { friend in
@@ -166,7 +181,10 @@ extension FriendsView {
         }
         
         
+        
     }
+    
+  
 }
 
 
@@ -204,12 +222,27 @@ extension FriendsView {
                     }
                 }
                 
-                ForEach(friendViewModel.mySubscribers) { friend in
-                    
-                    NavigationLink {
-                        FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
-                    } label: {
-                        FriendsCell(friend: friend)
+                
+                if !nameFriend.isEmpty {
+                    ForEach(friendViewModel.mySubscribers.filter {
+                        if let userName = $0.userName, let userSerName = $0.userSerName {
+                            return self.nameFriend.isEmpty ? true : userName.contains(nameFriend) || userSerName.contains(nameFriend)
+                        }
+                        return self.nameFriend.isEmpty
+                    }) { friend in
+                        NavigationLink {
+                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
+                        } label: {
+                            FriendsCell(friend: friend)
+                        }
+                    }
+                } else {
+                    ForEach(friendViewModel.mySubscribers) { friend in
+                        NavigationLink {
+                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
+                        } label: {
+                            FriendsCell(friend: friend)
+                        }
                     }
                 }
                 
@@ -231,8 +264,8 @@ extension FriendsView {
                     .padding(.top, 35)
                     
                     ForEach(friendViewModel.allUsers.filter {
-                        if let userName = $0.userName {
-                            return self.nameFriend.isEmpty ? true : userName.contains(nameFriend)
+                        if let userName = $0.userName, let userSerName = $0.userSerName {
+                            return self.nameFriend.isEmpty ? true : userName.contains(nameFriend) || userSerName.contains(nameFriend)
                         }
                         return self.nameFriend.isEmpty
                     }) { friend in

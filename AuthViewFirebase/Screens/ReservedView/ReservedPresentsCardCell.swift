@@ -58,7 +58,7 @@ struct ReservedPresentsCardCell: View {
             }
             .overlay(alignment: .topTrailing) {
                 Button {
-                    withAnimation {
+                    withAnimation(.easeIn(duration: 0.3)){
                         flippedCard.toggle()
                     }
                 } label: {
@@ -73,13 +73,13 @@ struct ReservedPresentsCardCell: View {
                         .padding()
                 }
             }
+            
          
             VStack {
 
                 HStack {
                     Text(flippedCard ? (friend.userName ?? "") + " " + (friend.userSerName ?? "") : "Описание")
                         .font(.title3.bold())
-                    
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading)
@@ -116,9 +116,7 @@ struct ReservedPresentsCardCell: View {
         }
         .background(Color(.tertiarySystemFill))
         .clipShape(RoundedRectangle(cornerRadius: 26))
-//        .onDisappear {
-//            ImageCache.default.clearCache()
-//        }
+
      
         
       
@@ -127,6 +125,4 @@ struct ReservedPresentsCardCell: View {
     
 }
 
-//#Preview {
-//    ReservedPresentsCardCell()
-//}
+

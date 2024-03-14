@@ -41,6 +41,17 @@ final class ReservedPresentsCardViewModel: ObservableObject {
     }
     
     
+    //MARK: -- Отмена резерва подарка без информации о друге
+    func unReservingPresentForUserID(present: PresentModel) {
+        DatabaseService.shared.unReservingPresentForUserID(present, present.ownerId)
+    }
+    
+    // MARK: - При отмене резерва подарка удаляю его из коллекции presentsForFriend
+    
+    func deletePresentFriendPresentList(present: PresentModel) async throws {
+        try await DatabaseService.shared.deletePresentFriendPresentList(present: present)
+    }
+    
 }
 
 
