@@ -116,7 +116,8 @@ struct FriendHomeView: View {
         .task {
 //            try? await viewModelSettings.loadFriendDBUserPersonalData(id: viewModel.friend.userId)
         }
-        .navigationTitle(viewModel.friend.userName ?? "")
+//        .navigationTitle(viewModel.friend.userName ?? "")
+        .navigationTitle(title())
         .onAppear {
             viewModel.isStopListener = false
             viewModel.fetchWishlistFriend()
@@ -193,5 +194,10 @@ struct FriendHomeView: View {
         
         
         
+    }
+    
+    func title() -> String {
+        var title: String = "\(viewModel.friend.userName ?? "") \(viewModel.friend.userSerName ?? "")"
+        return title
     }
 }
