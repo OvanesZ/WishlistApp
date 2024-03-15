@@ -113,10 +113,6 @@ struct FriendHomeView: View {
             }
         }
         .padding(.bottom, -6)
-        .task {
-//            try? await viewModelSettings.loadFriendDBUserPersonalData(id: viewModel.friend.userId)
-        }
-//        .navigationTitle(viewModel.friend.userName ?? "")
         .navigationTitle(title())
         .onAppear {
             viewModel.isStopListener = false
