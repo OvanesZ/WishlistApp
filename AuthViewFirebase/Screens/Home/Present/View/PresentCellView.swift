@@ -32,16 +32,6 @@ struct PresentCellView: View {
                 .frame(width: 130, height: 130)
                 .overlay {
                     
-//                    AsyncImage(url: viewModel.url) { image in
-//                        image
-//                            .resizable()
-//                            .aspectRatio(contentMode: .fill)
-//                            .frame(width: 124, height: 124)
-//                            .clipShape(RoundedRectangle(cornerRadius: 27, style: .continuous))
-//                    } placeholder: {
-//                        ProgressView()
-//                    }
-                    
                     KFImage(viewModel.url)
                         .placeholder {
                             ProgressView()
@@ -59,24 +49,13 @@ struct PresentCellView: View {
                 .foregroundStyle(colorScheme == .dark ? .white : .black)
         }
         .padding(.top, 4)
-        .onAppear {
-            StorageService.shared.downloadURLPresentImage(id: present.id) { result in
-                switch result {
-                case .success(let url):
-                    if let url = url {
-                        self.viewModel.url = url
-                    }
-                case .failure(let error):
-                    print(error.localizedDescription)
-                }
-            }
+        .task {
+            try? await self.viewModel.url = viewModel.getUrlPresentImage(presentId: present.id)
         }
-        
-        
-        
-        
-        
-        
     }
     
 }
+
+
+
+

@@ -15,6 +15,8 @@
 			</array>
 		</dict>
 	</array>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
 	<key>GIDClientID</key>
 	<string>1009542248421-hgi4u8qfnj4lmn591uro10djf960e6kv.apps.googleusercontent.com</string>
 	<key>UIAppFonts</key>

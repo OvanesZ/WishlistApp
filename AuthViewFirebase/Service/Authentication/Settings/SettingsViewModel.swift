@@ -69,7 +69,8 @@ final class SettingsViewModel: ObservableObject {
     }
     
     func uploadImageAsync(userID: String) {
-        guard let imageData = image.jpegData(compressionQuality: 0.25) else { return }
+        let image = resizeImage(image: image, targetSize: CGSizeMake(472.0, 709.0))
+        guard let imageData = image.jpegData(compressionQuality: 1.0) else { return }
         Task {
             try await StorageService.shared.uploadAsync(id: userID, data: imageData)
         }
@@ -135,56 +136,11 @@ final class SettingsViewModel: ObservableObject {
         try await AuthenticationManager.shared.updateEmail(email: password)
     }
     
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        ImageLoader.shared.resizeImage(image: image, targetSize: targetSize)
+   }
+    
 }
 
 
 
-//struct ResizedImage: View {
-//    @State private var uiImage: UIImage?
-//    
-//    let imageUrlString = "gs://your-firebase-bucket/image.jpg"
-//    
-//    func loadImage() {
-//        guard let storageReference = Storage.storage().reference(forURL: imageUrlString) else { return }
-//        
-//        // Устанавливаем желаемые параметры для загружаемого изображения
-//        let requestOptions = ImageRequestOptions(size: CGSize(width: 100, height: 100), scale: 2.0, resizeMode: .stretch)
-//        
-//        // Загружаем изображение с установленными параметрами
-//        ImageLoader.loadImage(from: storageReference, options: requestOptions) { image in
-//            self.uiImage = image
-//        }
-//    }
-//    
-//    var body: some View {
-//        if let uiImage = self.uiImage {
-//            Image(uiImage: uiImage)
-//                .resizable()
-//                .aspectRatio(contentMode: .fit)
-//        } else {
-//            Text("Загрузка изображения...")
-//                .onAppear(perform: loadImage)
-//        }
-//    }
-//}
-//
-//struct ImageRequestOptions {
-//    let size: CGSize
-//    let scale: CGFloat
-//    let resizeMode: Image.ResizingMode
-//}
-//
-//struct ImageLoader {
-//    static func loadImage(from reference: StorageReference, options: ImageRequestOptions, completion: @escaping (UIImage?) -> Void) {
-//        // Загрузка изображения с использованием установленных параметров из Firebase Storage
-//        reference.getData(maxSize: 5 * 1024 * 1024) { data, error in // Максимальный размер для загруженного изображения (5 MB)
-//            if let data = data, let uiImage = UIImage(data: data) {
-//                // Обработка и изменение размера изображения согласно переданным параметрам
-//                // В данном примере просто передаем полученное изображение
-//                completion(uiImage)
-//            } else {
-//                completion(nil)
-//            }
-//        }
-//    }
-//}

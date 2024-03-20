@@ -31,7 +31,9 @@ class PresentModelViewModel: ObservableObject {
     
     
     func setPresent(newPresent: PresentModel) {
-        guard let imageData = uiImage.jpegData(compressionQuality: 0.25) else { return }
+        let image = resizeImage(image: uiImage, targetSize: CGSizeMake(472.0, 709.0))
+        print("Разрешение загруженного изображения = \(image.size)")
+        guard let imageData = image.jpegData(compressionQuality: 1.0) else { return }
         
         DatabaseService.shared.setPresent(present: newPresent, image: imageData) { result in
             switch result {
@@ -43,42 +45,13 @@ class PresentModelViewModel: ObservableObject {
         }
     }
     
-    // Новый асинхронный запрос для создания подарка. Пока не использую
-    
     func setPresentInFirestore(newPresent: DBPresent) async throws {
         try await PresentManager.shared.createNewPresent(userId: currentUser!.uid, present: newPresent)
     }
     
-    
-    func getPresentImage() {
-        StorageService.shared.downloadPresentImage(id: present.id) { result in
-            switch result {
-            case .success(let data):
-                if let img = UIImage(data: data) {
-                    self.uiImage = img
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
+    func getUrlPresentImage(presentId: String) async throws -> URL {
+        try await StorageService.shared.downloadURLPresentImageAsync(id: presentId)
     }
-    
-    func getUrlPresentImage(presentId: String) {
-        self.isLoadUrl = true
-        StorageService.shared.downloadURLPresentImage(id: presentId) { result in
-            switch result {
-            case .success(let url):
-                self.isLoadUrl = false
-                if let url = url {
-                    self.url = url
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    
     
     func deletePresentImage() {
         StorageService.shared.deletePresentImage(id: present.id) { result in
@@ -154,7 +127,13 @@ class PresentModelViewModel: ObservableObject {
         }
     }
     
-    
-    
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        ImageLoader.shared.resizeImage(image: image, targetSize: targetSize)
+   }
     
 }
+
+
+
+
+

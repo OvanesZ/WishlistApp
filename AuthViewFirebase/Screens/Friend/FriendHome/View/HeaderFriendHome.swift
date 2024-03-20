@@ -13,7 +13,6 @@ struct HeaderFriendCell: View {
     @ObservedObject var viewModel: FriendHomeViewModel
     @State private var isLoadImage = false
     @State private var url: URL? = nil
-    @State private var isZommed = false
     
     
     var body: some View {
@@ -37,13 +36,6 @@ struct HeaderFriendCell: View {
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 120, height: 120)
                         .clipShape(Circle())
-//                                    .transition(.scale(scale: 0.1, anchor: .center))
-                        .onTapGesture {
-                            isZommed.toggle()
-                        }
-//                        .fullScreenCover(isPresented: $isZommed, content: {
-//                            SwiftUIView(viewModelSettings: viewModelSettings, viewModel: viewModel)
-//                        })
                 case .failure:
                     Image(systemName: "wifi.slash")
                 @unknown default:

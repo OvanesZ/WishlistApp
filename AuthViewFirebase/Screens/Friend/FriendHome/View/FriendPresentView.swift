@@ -33,23 +33,17 @@ struct FriendPresentView: View {
                 RoundedRectangle(cornerRadius: 30, style: .continuous)
                     .overlay {
                         
-//                        KFImage(url)
-//                            .resizable()
-//                            .aspectRatio(contentMode: .fill)
-                        
                         AsyncImage(
                             url: url,
                             transaction: Transaction(animation: .linear)
                         ) { phase in
                             switch phase {
                             case .empty:
-//                                ProgressView()
-                                SkeletonView()
+                                ProgressView()
                             case .success(let image):
                                 image
                                     .resizable()
                                     .scaledToFill()
-//                                    .transition(.scale(scale: 0.1, anchor: .center))
                             case .failure:
                                 Image(systemName: "wifi.slash")
                             @unknown default:

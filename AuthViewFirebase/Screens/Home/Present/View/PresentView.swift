@@ -32,24 +32,6 @@ struct PresentModalView: View {
             VStack {
                 RoundedRectangle(cornerRadius: 30, style: .continuous)
                     .overlay {
-//                        AsyncImage(
-//                            url: presentModelViewModel.url,
-//                            transaction: Transaction(animation: .linear)
-//                        ) { phase in
-//                            switch phase {
-//                            case .empty:
-////                                ProgressView()
-//                                SkeletonView()
-//                            case .success(let image):
-//                                image
-//                                    .resizable()
-//                                    .scaledToFill()
-//                            case .failure:
-//                                Image(systemName: "wifi.slash")
-//                            @unknown default:
-//                                EmptyView()
-//                            }
-//                        }
                         
                         KFImage(presentModelViewModel.url)
                             .placeholder {
@@ -57,9 +39,6 @@ struct PresentModalView: View {
                             }
                             .resizable()
                             .scaledToFill()
-                        
-                        
-                        
                     }
                     .opacity(50)
                     .frame(width: 350, height: 350)
@@ -148,19 +127,8 @@ struct PresentModalView: View {
                 .padding(.bottom, 15)
             }
         }
-        .onFirstAppear {
-            isLoadImage = true
-            StorageService.shared.downloadURLPresentImage(id: presentModelViewModel.present.id) { result in
-                switch result {
-                case .success(let url):
-                    isLoadImage = false
-                    if let url = url {
-                        self.presentModelViewModel.url = url
-                    }
-                case .failure(let error):
-                    print(error.localizedDescription)
-                }
-            }
+        .task {
+            try? await self.presentModelViewModel.url = presentModelViewModel.getUrlPresentImage(presentId: currentPresent.id)
         }
         .navigationTitle(presentModelViewModel.present.name)
 //        .redacted(reason: .placeholder)

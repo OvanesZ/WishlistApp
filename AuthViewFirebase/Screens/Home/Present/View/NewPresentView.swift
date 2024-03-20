@@ -37,7 +37,6 @@ struct NewPresentView: View {
                                 .aspectRatio(contentMode: .fill)
                         }
                         .opacity(50)
-//                        .frame(width: 350, height: 350)
                         .frame(height: 350)
                         .frame(maxWidth: .infinity, maxHeight: 350)
 

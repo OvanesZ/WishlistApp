@@ -105,21 +105,21 @@ final class FriendsViewModel: ObservableObject {
         }
     }
     
-    func getImage(friendID: String) {
-        self.isLoadImage = true
-        
-        StorageService.shared.downloadUserImage(id: friendID) { result in
-            switch result {
-            case .success(let data):
-                self.isLoadImage = false
-                if let img = UIImage(data: data) {
-                    self.uiImage = img
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
+//    func getImage(friendID: String) {
+//        self.isLoadImage = true
+//        
+//        StorageService.shared.downloadUserImage(id: friendID) { result in
+//            switch result {
+//            case .success(let data):
+//                self.isLoadImage = false
+//                if let img = UIImage(data: data) {
+//                    self.uiImage = img
+//                }
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//        }
+//    }
     
     /*
     // MARK: - Работа с кэш
