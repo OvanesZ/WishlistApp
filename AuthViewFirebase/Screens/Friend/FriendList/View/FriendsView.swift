@@ -133,14 +133,14 @@ extension FriendsView {
                             .font(.subheadline.italic())
                             .padding()
                             
-                        Image(systemName: "network")
-                            .foregroundStyle(.blue)
-                            .font(.title2.bold())
-                            .overlay {
-                                SkeletonClearView()
-                                    .clipShape(Circle())
-                                    .frame(width: 70, height: 70, alignment: .center)
-                            }
+//                        Image(systemName: "network")
+//                            .foregroundStyle(.blue)
+//                            .font(.title2.bold())
+//                            .overlay {
+//                                SkeletonClearView()
+//                                    .clipShape(Circle())
+//                                    .frame(width: 70, height: 70, alignment: .center)
+//                            }
                     }
                     .padding(.top, 35)
                     
@@ -252,14 +252,14 @@ extension FriendsView {
                             .font(.subheadline.italic())
                             .padding()
                             
-                        Image(systemName: "network")
-                            .foregroundStyle(.blue)
-                            .font(.title2.bold())
-                            .overlay {
-                                SkeletonClearView()
-                                    .clipShape(Circle())
-                                    .frame(width: 70, height: 70, alignment: .center)
-                            }
+//                        Image(systemName: "network")
+//                            .foregroundStyle(.blue)
+//                            .font(.title2.bold())
+//                            .overlay {
+//                                SkeletonClearView()
+//                                    .clipShape(Circle())
+//                                    .frame(width: 70, height: 70, alignment: .center)
+//                            }
                     }
                     .padding(.top, 35)
                     

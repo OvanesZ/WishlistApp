@@ -26,5 +26,11 @@
 		<string>GochiHand-Regular.ttf</string>
 		<string>Gloock-Regular.ttf</string>
 	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>processing</string>
+		<string>remote-notification</string>
+	</array>
 </dict>
 </plist>
