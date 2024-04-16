@@ -132,7 +132,7 @@ import UserNotifications
     
     
 class AppDelegate: NSObject, UIApplicationDelegate {
-    
+    let gcmMessageIDKey = "gcm.message_id"
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         
         FirebaseApp.configure()
@@ -162,8 +162,27 @@ extension AppDelegate: MessagingDelegate {
         if let token = fcmToken {
             print("Token = \(token)")
         }
+        setBadge(count: 0)
     }
     
+    
+    // Функция для установки количества бейджей на иконке. Можно вызывать откуда угодно. В данный момент всегда обнуляю.
+    func setBadge(count: Int) {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.badge]) { granted, error in
+            if let error = error {
+                print("Error requesting \(error.localizedDescription)")
+                return
+            }
+            
+            if granted {
+                DispatchQueue.main.async {
+                    UNUserNotificationCenter.current().setBadgeCount(count, withCompletionHandler: nil)
+                }
+            } else {
+                print("Badge auth denied")
+            }
+        }
+    }
     
     
 }

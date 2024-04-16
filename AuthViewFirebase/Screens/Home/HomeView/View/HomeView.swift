@@ -74,7 +74,12 @@ struct HomeView: View {
                     Spacer()
                     
                     Button {
-                        isShowingNewPresentView = true
+                        if viewModel.wishlist.count >= 3 {
+                            // TODO show screen for pay full version
+                            print("show pay screen")
+                        } else {
+                            isShowingNewPresentView = true
+                        }
                     } label: {
                         Image(systemName: "plus.circle.fill").foregroundColor(.blue)
                             .overlay {
