@@ -15,6 +15,7 @@ struct HomeView: View {
     @State private var isShowReservedPresentsCard = false
 
     @State private var isShowingNewPresentView = false
+    @State private var isShowPayScreen = false
     @StateObject var viewModel: HomeViewModel = HomeViewModel()
     
     
@@ -76,6 +77,7 @@ struct HomeView: View {
                     Button {
                         if viewModel.wishlist.count >= 3 {
                             // TODO show screen for pay full version
+                            isShowPayScreen = true
                             print("show pay screen")
                         } else {
                             isShowingNewPresentView = true
@@ -87,6 +89,13 @@ struct HomeView: View {
                                     .clipShape(Circle())
                                     .frame(width: 70, height: 70, alignment: .center)
                             }
+                    }
+                }
+                .confirmationDialog("Чтобы добавить больше пожеланий в список оформите полную версию приложения.", isPresented: $isShowPayScreen, titleVisibility: .visible) {
+                    Button {
+                        // TODO Открыть экран с эквайрингом
+                    } label: {
+                        Text("Оплатить")
                     }
                 }
                 .font(.system(size: 70))
