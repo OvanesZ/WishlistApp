@@ -72,7 +72,7 @@ class PayModel {
         
         let paymentFlow: PaymentFlow = .full(paymentOptions: paymentOptions)
         
-        let config: MainFormUIConfiguration = .init(orderDescription: "Оплата за доступ к полной версии приложения")
+        let config: MainFormUIConfiguration = .init(orderDescription: "Оплата за полную версию.")
         
         do {
             let sdk = try AcquiringUISDK(

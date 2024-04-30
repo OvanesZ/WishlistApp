@@ -2,12 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>tinkoffbank</string>
-		<string>bank100000000111</string>
-		<string>bank100000000007</string>
-	</array>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
@@ -29,6 +23,12 @@
 	<false/>
 	<key>GIDClientID</key>
 	<string>1009542248421-hgi4u8qfnj4lmn591uro10djf960e6kv.apps.googleusercontent.com</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>tinkoffbank</string>
+		<string>bank100000000111</string>
+		<string>bank100000000007</string>
+	</array>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
