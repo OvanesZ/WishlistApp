@@ -21,6 +21,11 @@
 		4E4687F12AF6E6E70032D5B7 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4687F02AF6E6E70032D5B7 /* Utilities.swift */; };
 		4E744FAC2B6464B5005587A5 /* CreateNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E744FAB2B6464B5005587A5 /* CreateNameView.swift */; };
 		4E744FAF2B71F9F4005587A5 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 4E744FAE2B71F9F4005587A5 /* CachedAsyncImage */; };
+		4E7F8B972BE18423008DFB3B /* PayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7F8B962BE18423008DFB3B /* PayModel.swift */; };
+		4E7F8B992BE184B4008DFB3B /* TinkoffASDKUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4E7F8B982BE184B4008DFB3B /* TinkoffASDKUI */; };
+		4E7F8B9B2BE184BE008DFB3B /* TinkoffASDKCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4E7F8B9A2BE184BE008DFB3B /* TinkoffASDKCore */; };
+		4E7F8B9D2BE195DC008DFB3B /* PaymentViewControllerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7F8B9C2BE195DC008DFB3B /* PaymentViewControllerRepresentable.swift */; };
+		4E7F8B9F2BE19632008DFB3B /* PayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7F8B9E2BE19632008DFB3B /* PayViewController.swift */; };
 		4E8358772B5188A700A71A25 /* FriendPresentCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8358762B5188A700A71A25 /* FriendPresentCellView.swift */; };
 		4E9FC3562B8A3F1F00DB9215 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC3552B8A3F1F00DB9215 /* SwiftUIView.swift */; };
 		4E9FC3952BA50A6A00DB9215 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E9FC3942BA50A6A00DB9215 /* GoogleService-Info.plist */; };
@@ -111,6 +116,9 @@
 		4E4687F02AF6E6E70032D5B7 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		4E744FAA2B6373E5005587A5 /* Wishlist.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Wishlist.entitlements; sourceTree = "<group>"; };
 		4E744FAB2B6464B5005587A5 /* CreateNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNameView.swift; sourceTree = "<group>"; };
+		4E7F8B962BE18423008DFB3B /* PayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayModel.swift; sourceTree = "<group>"; };
+		4E7F8B9C2BE195DC008DFB3B /* PaymentViewControllerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewControllerRepresentable.swift; sourceTree = "<group>"; };
+		4E7F8B9E2BE19632008DFB3B /* PayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayViewController.swift; sourceTree = "<group>"; };
 		4E8358762B5188A700A71A25 /* FriendPresentCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendPresentCellView.swift; sourceTree = "<group>"; };
 		4E9FC3552B8A3F1F00DB9215 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		4E9FC3942BA50A6A00DB9215 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -180,6 +188,8 @@
 				4E4687EF2AF6E09B0032D5B7 /* GoogleSignInSwift in Frameworks */,
 				4ED38A012A925D9B007E30D1 /* FirebaseStorage in Frameworks */,
 				4EEF21C42A9CFC5E001B736F /* FirebaseFirestoreSwift in Frameworks */,
+				4E7F8B9B2BE184BE008DFB3B /* TinkoffASDKCore in Frameworks */,
+				4E7F8B992BE184B4008DFB3B /* TinkoffASDKUI in Frameworks */,
 				4EEF21CF2A9D05AD001B736F /* Kingfisher in Frameworks */,
 				4E4687ED2AF6E09B0032D5B7 /* GoogleSignIn in Frameworks */,
 			);
@@ -414,6 +424,9 @@
 			children = (
 				4ED38A062A9268C5007E30D1 /* UserModel.swift */,
 				4EEF21BF2A9CFA8C001B736F /* PresentModel.swift */,
+				4E7F8B962BE18423008DFB3B /* PayModel.swift */,
+				4E7F8B9C2BE195DC008DFB3B /* PaymentViewControllerRepresentable.swift */,
+				4E7F8B9E2BE19632008DFB3B /* PayViewController.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -606,6 +619,8 @@
 				4E4687EE2AF6E09B0032D5B7 /* GoogleSignInSwift */,
 				4E744FAE2B71F9F4005587A5 /* CachedAsyncImage */,
 				4E9FC3962BA50C4800DB9215 /* FirebaseMessaging */,
+				4E7F8B982BE184B4008DFB3B /* TinkoffASDKUI */,
+				4E7F8B9A2BE184BE008DFB3B /* TinkoffASDKCore */,
 			);
 			productName = AuthViewFirebase;
 			productReference = 4ED389C42A91574E007E30D1 /* Wishlist.app */;
@@ -684,6 +699,7 @@
 				4EEF21CD2A9D05AD001B736F /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				4E4687EB2AF6E09B0032D5B7 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				4E744FAD2B71F9F4005587A5 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
+				4E7F8B952BDEE8FD008DFB3B /* XCRemoteSwiftPackageReference "tinkoff-asdk-ios" */,
 			);
 			productRefGroup = 4ED389C52A91574E007E30D1 /* Products */;
 			projectDirPath = "";
@@ -748,6 +764,7 @@
 				4EEF21F32AA3FF6A001B736F /* FriendHomeViewModel.swift in Sources */,
 				4ED21A402B091077001D016B /* SignInEmailView.swift in Sources */,
 				4ED2F4412B18E09700EE7004 /* SignInEmailViewModel.swift in Sources */,
+				4E7F8B972BE18423008DFB3B /* PayModel.swift in Sources */,
 				4EC880772B849B02005E7835 /* ReservedPresentsCardViewModel.swift in Sources */,
 				4EEF21E52A9E8AA7001B736F /* FriendHomeView.swift in Sources */,
 				4ED389F42A924D2C007E30D1 /* HomeView.swift in Sources */,
@@ -765,12 +782,14 @@
 				4ED21A3E2B091046001D016B /* SignInAppleHelper.swift in Sources */,
 				4EEF21C82A9CFF97001B736F /* HomeViewModel.swift in Sources */,
 				4E19CDA12AE30F59008AB36B /* SplashScreenView.swift in Sources */,
+				4E7F8B9D2BE195DC008DFB3B /* PaymentViewControllerRepresentable.swift in Sources */,
 				4E8358772B5188A700A71A25 /* FriendPresentCellView.swift in Sources */,
 				4E19CD9F2AE1CF7F008AB36B /* FirstAppear.swift in Sources */,
 				4EEF21FC2AA514E8001B736F /* FriendPresentView.swift in Sources */,
 				4EEF21E72A9E8ACC001B736F /* FriendsCell.swift in Sources */,
 				4ED38A072A9268C5007E30D1 /* UserModel.swift in Sources */,
 				4E9FC3992BAB7D6E00DB9215 /* ImageLoader.swift in Sources */,
+				4E7F8B9F2BE19632008DFB3B /* PayViewController.swift in Sources */,
 				4ED21A482B0A1963001D016B /* SettingView.swift in Sources */,
 				4ED38A092A9269CC007E30D1 /* DataBaseService.swift in Sources */,
 				4ED21A3C2B09101C001D016B /* AuthenticationManager.swift in Sources */,
@@ -1134,6 +1153,14 @@
 				minimumVersion = 2.1.1;
 			};
 		};
+		4E7F8B952BDEE8FD008DFB3B /* XCRemoteSwiftPackageReference "tinkoff-asdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://opensource.tinkoff.ru/tinkoff-mobile-tech/tinkoff-asdk-ios";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		4ED389FB2A925D9B007E30D1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -1167,6 +1194,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E744FAD2B71F9F4005587A5 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
 			productName = CachedAsyncImage;
+		};
+		4E7F8B982BE184B4008DFB3B /* TinkoffASDKUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E7F8B952BDEE8FD008DFB3B /* XCRemoteSwiftPackageReference "tinkoff-asdk-ios" */;
+			productName = TinkoffASDKUI;
+		};
+		4E7F8B9A2BE184BE008DFB3B /* TinkoffASDKCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E7F8B952BDEE8FD008DFB3B /* XCRemoteSwiftPackageReference "tinkoff-asdk-ios" */;
+			productName = TinkoffASDKCore;
 		};
 		4E9FC3962BA50C4800DB9215 /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;

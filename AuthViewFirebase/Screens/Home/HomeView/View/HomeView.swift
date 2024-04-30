@@ -13,6 +13,8 @@ struct HomeView: View {
     
     @State private var isShowReservedPresents = false
     @State private var isShowReservedPresentsCard = false
+    @State private var isShowPaymentViewController = false
+    
 
     @State private var isShowingNewPresentView = false
     @State private var isShowPayScreen = false
@@ -93,7 +95,7 @@ struct HomeView: View {
                 }
                 .confirmationDialog("Чтобы добавить больше пожеланий в список оформите полную версию приложения.", isPresented: $isShowPayScreen, titleVisibility: .visible) {
                     Button {
-                        // TODO Открыть экран с эквайрингом
+                        isShowPaymentViewController = true
                     } label: {
                         Text("Оплатить")
                     }
@@ -108,6 +110,9 @@ struct HomeView: View {
                 }
                 .sheet(isPresented: $isShowReservedPresentsCard) {
                     ReservedPresentsCardView()
+                }
+                .sheet(isPresented: $isShowPaymentViewController) {
+                    PaymentViewControllerRepresentable()
                 }
                 .navigationTitle("Мои пожелания")
                 .toolbar {

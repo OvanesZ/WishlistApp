@@ -143,6 +143,15 @@
         "revision" : "467a3d17479887943ab917a379e62bbaff60ac8a",
         "version" : "2.1.1"
       }
+    },
+    {
+      "identity" : "tinkoff-asdk-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://opensource.tinkoff.ru/tinkoff-mobile-tech/tinkoff-asdk-ios",
+      "state" : {
+        "branch" : "master",
+        "revision" : "7e6b2e3e383f4fd46d8c67f96d58b4ec6d371d72"
+      }
     }
   ],
   "version" : 2
