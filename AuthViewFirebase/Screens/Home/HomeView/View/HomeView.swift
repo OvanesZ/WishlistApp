@@ -101,7 +101,7 @@ struct HomeView: View {
                     Button {
                         isShowPaymentViewController = true
                     } label: {
-                        Text("Оплатить")
+                        Text("Перейти к оплате (299 руб.)")
                     }
                 }
                 .font(.system(size: 70))

@@ -43,7 +43,7 @@ class PayViewController: UIViewController {
     lazy var button: UIButton = {
         let button = UIButton()
         button.setTitle("Оплатить", for: .normal)
-        button.backgroundColor = .yellow
+        button.backgroundColor = UIColor(named: "payButton")
         button.setTitleColor(.black, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.heightAnchor.constraint(equalToConstant: 54).isActive = true
