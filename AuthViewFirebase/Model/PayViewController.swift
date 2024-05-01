@@ -9,11 +9,42 @@ import UIKit
 
 class PayViewController: UIViewController {
     
+    private var backgroundImageView = UIImageView(frame: UIScreen.main.bounds)
+    
+    func addComponents() {
+        backgroundImageView.image = UIImage(named: "bg_wishlist")
+        backgroundImageView.contentMode = .scaleAspectFill
+        self.view.insertSubview(backgroundImageView, at: 0)
+    }
+    
+    
+    lazy var titleTextName: UILabel = {
+        let text = UILabel()
+        text.text = "Вишлист - список пожеланий"
+        text.textColor = .white
+        text.font = UIFont.boldSystemFont(ofSize: 25)
+        text.textAlignment = .left
+        text.translatesAutoresizingMaskIntoConstraints = false
+        
+        return text
+    }()
+    
+    lazy var titleTextFullVersion: UILabel = {
+        let text = UILabel()
+        text.text = "Полная версия"
+        text.textColor = .white
+        text.font = UIFont.boldSystemFont(ofSize: 20)
+        text.textAlignment = .center
+        text.translatesAutoresizingMaskIntoConstraints = false
+        
+        return text
+    }()
+    
     lazy var button: UIButton = {
         let button = UIButton()
         button.setTitle("Оплатить", for: .normal)
-        button.backgroundColor = .gray
-        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .yellow
+        button.setTitleColor(.black, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.heightAnchor.constraint(equalToConstant: 54).isActive = true
         button.layer.cornerRadius = 16
@@ -22,83 +53,63 @@ class PayViewController: UIViewController {
         return button
     }()
     
-    lazy var textLabel: UILabel = {
-        let title = UILabel()
-        title.text = "Вишлист - список пожеланий"
-        title.textColor = .black
-        title.font = UIFont.systemFont(ofSize: 20)
-        title.numberOfLines = 5
-        title.translatesAutoresizingMaskIntoConstraints = false
-        title.heightAnchor.constraint(equalToConstant: 54).isActive = true
+    lazy var titleTextDescription: UILabel = {
+        let text = UILabel()
+        text.text = "🎁 Добавляйте неограниченное количество подарков в Ваш список!"
+        text.textColor = .white
+        text.font = UIFont.systemFont(ofSize: 20)
+        text.numberOfLines = 0
+        text.lineBreakMode = .byWordWrapping
+        text.textAlignment = .center
+        text.translatesAutoresizingMaskIntoConstraints = false
         
-        return title
+        return text
     }()
     
-    lazy var textLabel1: UILabel = {
-        let title = UILabel(frame: CGRect(x: 25, y: 125, width: 350, height: 50))
-        title.text = "Преимущества полной версии:"
-        title.textColor = .black
-        title.font = UIFont.systemFont(ofSize: 20)
-        title.numberOfLines = 5
-        title.translatesAutoresizingMaskIntoConstraints = false
-        title.heightAnchor.constraint(equalToConstant: 54).isActive = true
+    lazy var titleTextDescriptionTwo: UILabel = {
+        let text = UILabel()
+        text.text = "🔒 Бронируйте подарки друзьям и радуйте их! 🎉"
+        text.textColor = .white
+        text.font = UIFont.systemFont(ofSize: 20)
+        text.numberOfLines = 0
+        text.lineBreakMode = .byWordWrapping
+        text.textAlignment = .center
+        text.translatesAutoresizingMaskIntoConstraints = false
         
-        return title
+        return text
     }()
     
-    lazy var textLabel2: UILabel = {
-        let title = UILabel(frame: CGRect(x: 25, y: 175, width: 350, height: 50))
-        title.text = "Добавляйте бесконечное количество пожеланий в свой список"
-        title.textColor = .black
-        title.font = UIFont.systemFont(ofSize: 20)
-        title.numberOfLines = 5
-        title.translatesAutoresizingMaskIntoConstraints = false
-//        title.heightAnchor.constraint(equalToConstant: 54).isActive = true
-        
-        return title
-    }()
     
-    lazy var textLabel3: UILabel = {
-        let title = UILabel(frame: CGRect(x: 25, y: 225, width: 350, height: 50))
-        title.text = "Бронируйте неограниченное количество подарков друзьям"
-        title.textColor = .black
-        title.font = UIFont.systemFont(ofSize: 20)
-        title.numberOfLines = 5
-        title.translatesAutoresizingMaskIntoConstraints = false
-//        title.heightAnchor.constraint(equalToConstant: 54).isActive = true
-        
-        return title
-    }()
     
     override func viewDidLoad() {
         
+        addComponents()
+        
         view.addSubview(button)
-        view.addSubview(textLabel)
-        view.addSubview(textLabel1)
-        view.addSubview(textLabel2)
-        view.addSubview(textLabel3)
+        view.addSubview(titleTextName)
+        view.addSubview(titleTextFullVersion)
+        view.addSubview(titleTextDescription)
+        view.addSubview(titleTextDescriptionTwo)
         
         NSLayoutConstraint.activate([
             button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
             button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
             button.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
             
-            textLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
-            textLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
-            textLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 45),
+            titleTextName.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15),
+            titleTextName.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
+            titleTextName.topAnchor.constraint(equalTo: view.topAnchor, constant: 15),
             
-            textLabel1.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
-            textLabel1.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
-            textLabel1.topAnchor.constraint(equalTo: view.topAnchor, constant: 45),
+            titleTextFullVersion.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            titleTextFullVersion.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
             
-            textLabel2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
-            textLabel2.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
-            textLabel2.topAnchor.constraint(equalTo: view.topAnchor, constant: 45),
+            titleTextDescription.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15),
+            titleTextDescription.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
+            titleTextDescription.topAnchor.constraint(equalTo: view.topAnchor, constant: 145),
             
-            textLabel3.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
-            textLabel3.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
-            textLabel3.topAnchor.constraint(equalTo: view.topAnchor, constant: 45)
-        
+            titleTextDescriptionTwo.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15),
+            titleTextDescriptionTwo.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
+            titleTextDescriptionTwo.topAnchor.constraint(equalTo: view.topAnchor, constant: 225),
         ])
         
     }
@@ -108,11 +119,11 @@ class PayViewController: UIViewController {
             switch res {
             case .succeeded:
                 print("Оплата прошла успешно")
+                UserManager.shared.updatePremiumStatus(userId: AuthService.shared.currentUser?.uid ?? "")
             case .failed:
                 print("Возникла ошибка при оплате")
             case .cancelled:
                 print("Отмена оплаты")
-                UserManager.shared.updatePremiumStatus(userId: AuthService.shared.currentUser?.uid ?? "")
             }
         }
     }

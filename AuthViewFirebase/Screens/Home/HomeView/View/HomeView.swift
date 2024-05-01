@@ -84,7 +84,6 @@ struct HomeView: View {
                                 isShowingNewPresentView = true
                             } else {
                                 isShowPayScreen = true
-                                print("show pay screen")
                             }
                         } else {
                             isShowingNewPresentView = true
@@ -118,6 +117,7 @@ struct HomeView: View {
                 }
                 .sheet(isPresented: $isShowPaymentViewController) {
                     PaymentViewControllerRepresentable()
+                        .presentationDetents([.medium, .large])
                 }
                 .navigationTitle("Мои пожелания")
                 .toolbar {
