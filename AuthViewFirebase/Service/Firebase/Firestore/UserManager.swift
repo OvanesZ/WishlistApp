@@ -17,9 +17,8 @@ struct DBUser: Codable, Identifiable {
     let email: String?
     let photoUrl: String?
     let dateCreated: Date?
-    let isPremium: Bool?
+    var isPremium: Bool?
     var dateBirth: Date?
-//    var requestFriend: [String] = [""]
     let phoneNumber: String?
     var displayName: String?
     var userName: String?
@@ -47,7 +46,6 @@ struct DBUser: Codable, Identifiable {
         self.photoUrl = auth.photoUrl
         self.dateCreated = Date()
         self.isPremium = false
-//        self.requestFriend = [""]
         self.phoneNumber = auth.phoneNumber
         self.displayName = auth.displayName
     }
@@ -61,7 +59,6 @@ struct DBUser: Codable, Identifiable {
         case dateCreated = "date_created"
         case isPremium = "user_isPremium"
         case dateBirth = "date_birth"
-//        case requestFriend = "request_friend"
         case phoneNumber = "phone_number"
         case displayName = "display_name"
         case userName = "user_name"
@@ -133,33 +130,12 @@ final class UserManager {
         try await userCollection.document(userId).collection("personalData").document(userId).getDocument(as: PersonalDataDBUser.self)
     }
     
-//    func updateDisplayName(userId: String, displayName: String) async throws {
-//        let data: [String:Any] = [
-//            DBUser.CodingKeys.displayName.rawValue : displayName
-//        ]
-//        try await userDocument(userId: userId).updateData(data)
-//    }
-    
-//    func updateDateBirth(userId: String, date: Date) async throws {
-//        let data: [String:Any] = [
-//            DBUser.CodingKeys.dateBirth.rawValue : date
-//        ]
-//        try await userDocument(userId: userId).updateData(data)
-//    }
-    
     func updateDateBirth(userId: String, date: Date) {
         let data: [String:Any] = [
             DBUser.CodingKeys.dateBirth.rawValue : date
         ]
         userDocument(userId: userId).setData(data, merge: true)
     }
-    
-//    func updateUrlImage(userId: String, url: String) async throws {
-//        let data: [String:Any] = [
-//            PersonalDataDBUser.CodingKeys.photoUrl.rawValue : url
-//        ]
-//        try await userCollection.document(userId).collection("personalData").document(userId).updateData(data)
-//    }
     
     func updateUserName(userId: String, userName: String, userSerName: String) {
         let data: [String:Any] = [
@@ -168,6 +144,15 @@ final class UserManager {
         ]
         userDocument(userId: userId).setData(data, merge: true)
     }
+    
+    func updatePremiumStatus(userId: String) {
+        let data: [String:Any] = [
+            DBUser.CodingKeys.isPremium.rawValue : true
+        ]
+        userDocument(userId: userId).setData(data, merge: true)
+    }
+    
+    
  
     
     

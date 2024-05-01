@@ -112,6 +112,7 @@ class PayViewController: UIViewController {
                 print("Возникла ошибка при оплате")
             case .cancelled:
                 print("Отмена оплаты")
+                UserManager.shared.updatePremiumStatus(userId: AuthService.shared.currentUser?.uid ?? "")
             }
         }
     }

@@ -79,8 +79,13 @@ struct HomeView: View {
                     Button {
                         if viewModel.wishlist.count >= 3 {
                             // TODO show screen for pay full version
-                            isShowPayScreen = true
-                            print("show pay screen")
+                            guard let isPremium = viewModel.dbUser?.isPremium else { return }
+                            if isPremium {
+                                isShowingNewPresentView = true
+                            } else {
+                                isShowPayScreen = true
+                                print("show pay screen")
+                            }
                         } else {
                             isShowingNewPresentView = true
                         }
