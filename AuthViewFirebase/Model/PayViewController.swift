@@ -22,8 +22,8 @@ class PayViewController: UIViewController {
         let text = UILabel()
         text.text = "Вишлист - список пожеланий"
         text.textColor = .white
-        text.font = UIFont.boldSystemFont(ofSize: 25)
-        text.textAlignment = .left
+        text.font = UIFont.boldSystemFont(ofSize: 22)
+        text.textAlignment = .center
         text.translatesAutoresizingMaskIntoConstraints = false
         
         return text
