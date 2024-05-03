@@ -31,9 +31,11 @@ class PayViewController: UIViewController {
     
     lazy var titleTextFullVersion: UILabel = {
         let text = UILabel()
-        text.text = "Полная версия"
+        text.text = "Неограниченный доступ ко всем функциям"
+        text.numberOfLines = 0
         text.textColor = .white
         text.font = UIFont.boldSystemFont(ofSize: 20)
+        text.lineBreakMode = .byWordWrapping
         text.textAlignment = .center
         text.translatesAutoresizingMaskIntoConstraints = false
         
@@ -100,7 +102,9 @@ class PayViewController: UIViewController {
             titleTextName.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
             titleTextName.topAnchor.constraint(equalTo: view.topAnchor, constant: 15),
             
-            titleTextFullVersion.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            titleTextFullVersion.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            titleTextFullVersion.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
+            titleTextFullVersion.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
             titleTextFullVersion.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
             
             titleTextDescription.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15),

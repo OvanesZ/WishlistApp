@@ -79,12 +79,30 @@ struct NewPresentView: View {
                     Spacer()
                 }
                 
+//                HStack {
+//                    TextField("Название подарка", text: $presentName)
+//                        .padding(.leading, 15)
+//                        .padding(.trailing, 15)
+//                        .padding(.bottom, 15)
+//                        .textFieldStyle(.plain)
+//                        .textInputAutocapitalization(.never)
+//                    
+//                    Button(role: .cancel) {
+//                        
+//                    } label: {
+//                        Image(systemName: "pencil")
+//                            .font(.title.bold())
+//                            .foregroundStyle(.blue)
+//                            .padding(.trailing, 8)
+//                    }
+//                }
                 TextField("Название подарка", text: $presentName)
                     .padding(.leading, 15)
                     .padding(.trailing, 15)
                     .padding(.bottom, 15)
                     .textFieldStyle(.plain)
                     .textInputAutocapitalization(.never)
+                
                 
                 Divider()
                 

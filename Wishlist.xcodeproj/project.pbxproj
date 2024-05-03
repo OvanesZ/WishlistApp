@@ -26,6 +26,7 @@
 		4E7F8B9B2BE184BE008DFB3B /* TinkoffASDKCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4E7F8B9A2BE184BE008DFB3B /* TinkoffASDKCore */; };
 		4E7F8B9D2BE195DC008DFB3B /* PaymentViewControllerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7F8B9C2BE195DC008DFB3B /* PaymentViewControllerRepresentable.swift */; };
 		4E7F8B9F2BE19632008DFB3B /* PayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7F8B9E2BE19632008DFB3B /* PayViewController.swift */; };
+		4E7F8BA22BE4CBE9008DFB3B /* TextFieldClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7F8BA12BE4CBE9008DFB3B /* TextFieldClearButton.swift */; };
 		4E8358772B5188A700A71A25 /* FriendPresentCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8358762B5188A700A71A25 /* FriendPresentCellView.swift */; };
 		4E9FC3562B8A3F1F00DB9215 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC3552B8A3F1F00DB9215 /* SwiftUIView.swift */; };
 		4E9FC3952BA50A6A00DB9215 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E9FC3942BA50A6A00DB9215 /* GoogleService-Info.plist */; };
@@ -119,6 +120,7 @@
 		4E7F8B962BE18423008DFB3B /* PayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayModel.swift; sourceTree = "<group>"; };
 		4E7F8B9C2BE195DC008DFB3B /* PaymentViewControllerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewControllerRepresentable.swift; sourceTree = "<group>"; };
 		4E7F8B9E2BE19632008DFB3B /* PayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayViewController.swift; sourceTree = "<group>"; };
+		4E7F8BA12BE4CBE9008DFB3B /* TextFieldClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldClearButton.swift; sourceTree = "<group>"; };
 		4E8358762B5188A700A71A25 /* FriendPresentCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendPresentCellView.swift; sourceTree = "<group>"; };
 		4E9FC3552B8A3F1F00DB9215 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		4E9FC3942BA50A6A00DB9215 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -255,6 +257,15 @@
 			path = Skeleton;
 			sourceTree = "<group>";
 		};
+		4E7F8BA02BE4CBC5008DFB3B /* ViewModifier */ = {
+			isa = PBXGroup;
+			children = (
+				4EEF21DC2A9E5B41001B736F /* CyrcleShadow.swift */,
+				4E7F8BA12BE4CBE9008DFB3B /* TextFieldClearButton.swift */,
+			);
+			path = ViewModifier;
+			sourceTree = "<group>";
+		};
 		4EC880712B849A3C005E7835 /* ReservedView */ = {
 			isa = PBXGroup;
 			children = (
@@ -375,7 +386,7 @@
 				4ED389CD2A91574F007E30D1 /* Preview Content */,
 				4ED38A0C2A9269F4007E30D1 /* Screens */,
 				4ED38A0A2A9269D7007E30D1 /* Service */,
-				4EEF21DC2A9E5B41001B736F /* CyrcleShadow.swift */,
+				4E7F8BA02BE4CBC5008DFB3B /* ViewModifier */,
 			);
 			path = AuthViewFirebase;
 			sourceTree = "<group>";
@@ -766,6 +777,7 @@
 				4ED21A402B091077001D016B /* SignInEmailView.swift in Sources */,
 				4ED2F4412B18E09700EE7004 /* SignInEmailViewModel.swift in Sources */,
 				4E7F8B972BE18423008DFB3B /* PayModel.swift in Sources */,
+				4E7F8BA22BE4CBE9008DFB3B /* TextFieldClearButton.swift in Sources */,
 				4EC880772B849B02005E7835 /* ReservedPresentsCardViewModel.swift in Sources */,
 				4EEF21E52A9E8AA7001B736F /* FriendHomeView.swift in Sources */,
 				4ED389F42A924D2C007E30D1 /* HomeView.swift in Sources */,

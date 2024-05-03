@@ -18,6 +18,7 @@ struct PresentModalView: View {
     @ObservedObject var presentModelViewModel: PresentModelViewModel
     @Environment(\.dismiss) var dismiss
     @State private var isLoadImage = false
+    @State private var isEdit = false
     
     // MARK: - init()
     
@@ -44,6 +45,31 @@ struct PresentModalView: View {
                     .frame(width: 350, height: 350)
                     .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
 //                    .shadow(color: .gray, radius: 10)
+                
+                
+                if isEdit {
+                    VStack {
+                        HStack {
+                            Text("Название подарка")
+                                .frame(maxWidth: .infinity, alignment: .leading)            
+                                .font(.title2)
+                                .bold()
+                                .foregroundColor(.gray)
+                                .padding(.leading, 15)
+                                .padding(.top, 25)
+                            
+                        }
+                   
+                        
+                        TextField("Название подарка", text: $presentModelViewModel.present.name)
+                            .padding(.leading, 15)
+                            .padding(.trailing, 15)
+                            .textFieldStyle(.roundedBorder)
+                            .textInputAutocapitalization(.never)
+                    }
+                    
+                }
+                
                 HStack {
                     Text("Описание")
                         .font(.title2)
@@ -53,45 +79,51 @@ struct PresentModalView: View {
                         .padding(.top, 25)
                     Spacer()
                 }
+                
                 // https://fonts-online.ru/fonts/volja/download Скачать новые шрифты
                 HStack {
-                    Text(presentModelViewModel.present.presentDescription)
-//                        .frame(minHeight: 25, idealHeight: 25, maxHeight: 50)
-                       
-                        .multilineTextAlignment(.leading)
-                        .padding(.leading, 15)
-                        .padding(.trailing, 5)
-                        .padding(.top, 5)
-//                        .font(.custom("SF-Pro-Display-Regular", fixedSize: 14))
-                        .font(.system(.callout, design: .rounded))
-                        .font(.title)
-                        .lineLimit(nil)
+                    if isEdit {
+                        TextField("Описание подарка", text: $presentModelViewModel.present.presentDescription)
+                            .padding(.leading, 15)
+                            .padding(.trailing, 15)
+                            .textFieldStyle(.roundedBorder)
+                            .textInputAutocapitalization(.never)
+                    } else {
+                        Text(presentModelViewModel.present.presentDescription)
+//                            .fixedSize(horizontal: false, vertical: true)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+//                            .multilineTextAlignment(.leading)
+                            .padding(.leading, 15)
+                            .padding(.trailing, 7)
+                            .padding(.top, 5)
+                            .font(.system(.callout, design: .rounded))
+                            .font(.title)
+                            .lineLimit(nil)
                         
-//                    Spacer()
+//                        Spacer()
+                    }
                 }
                 
-                
-                Divider()
-                    .padding()
-                
-                HStack {
+                if !isEdit {
+                    Divider()
+                        .padding()
+                    
                     Text(.init(nameTextUrl+"(\(presentModelViewModel.present.urlText))"))
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .underline()
                         .padding(.leading, 15)
+                    
+                    Divider()
+                        .padding()
                     Spacer()
-                }
-                
-                Divider()
-                    .padding()
-                Spacer()
-                
-                
-                // MARK: -- Статус подарка
-                
-                VStack {
-                    HStack {
+                    
+                    // MARK: -- Статус подарка
+                    
+                    
+                    VStack {
                         if presentModelViewModel.isHiddenReservButton {
                             Text("Подарок зарезервирован")
+                                .frame(maxWidth: .infinity, alignment: .leading)
                                 .font(.title2)
                                 .bold()
                                 .foregroundStyle(.red)
@@ -100,18 +132,41 @@ struct PresentModalView: View {
                             
                         } else {
                             Text("Подарок свободен")
+                                .frame(maxWidth: .infinity, alignment: .leading)
                                 .font(.title2)
                                 .bold()
                                 .foregroundColor(.gray)
                                 .opacity(15)
                                 .padding(.leading, 15)
                         }
-                        Spacer()
                     }
+                    
+                    Divider()
+                        .padding()
+                    
+                } else {
+                    Text("Ссылка на подарок")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(.title2)
+                        .bold()
+                        .foregroundColor(.gray)
+                        .padding(.leading, 15)
+                        .padding(.top, 25)
+                    
+                    TextField("Ссылка на подарок", text: $presentModelViewModel.present.urlText)
+                        .padding(.leading, 15)
+                        .padding(.trailing, 15)
+                        .textFieldStyle(.roundedBorder)
+                        .textInputAutocapitalization(.never)
                 }
+              
                 
-                Divider()
-                    .padding()
+                
+                
+                    
+                
+                
+                
                 
                 // MARK: -- Кнопки удалить
                 
@@ -125,12 +180,27 @@ struct PresentModalView: View {
                         .foregroundColor(.red)
                 }
                 .padding(.bottom, 15)
+                .padding(.top, isEdit ? 15 : 0)
             }
         }
         .task {
             try? await self.presentModelViewModel.url = presentModelViewModel.getUrlPresentImage(presentId: currentPresent.id)
         }
-        .navigationTitle(presentModelViewModel.present.name)
+        .navigationTitle(isEdit ? "" : presentModelViewModel.present.name)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        isEdit.toggle()
+                    }
+                } label: {
+                    Text("Редактировать")
+                        .foregroundStyle(.blue)
+                }
+
+                
+            }
+        }
 //        .redacted(reason: .placeholder)
     }
 }

@@ -13,7 +13,7 @@ import FirebaseStorage
 
 class PresentModelViewModel: ObservableObject {
     
-    let present: PresentModel
+    var present: PresentModel
     
     @Published var uiImage = UIImage(named: "logo_wishlist")!
     @Published var isHiddenReservButton: Bool
