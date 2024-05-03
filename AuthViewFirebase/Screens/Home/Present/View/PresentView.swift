@@ -19,6 +19,10 @@ struct PresentModalView: View {
     @Environment(\.dismiss) var dismiss
     @State private var isLoadImage = false
     @State private var isEdit = false
+    @State private var isImageAlert = false
+    @State private var showImagePickerLibrary = false
+    @State private var showImagePickerCamera = false
+
     
     // MARK: - init()
     
@@ -31,20 +35,66 @@ struct PresentModalView: View {
         
         ScrollView {
             VStack {
-                RoundedRectangle(cornerRadius: 30, style: .continuous)
-                    .overlay {
-                        
-                        KFImage(presentModelViewModel.url)
-                            .placeholder {
-                                ProgressView()
+                
+                if isEdit {
+                    HStack {
+                        Spacer()
+                        RoundedRectangle(cornerRadius: 30, style: .continuous)
+                            .overlay {
+                                Image(uiImage: presentModelViewModel.uiImage)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .overlay(alignment: .bottomTrailing) {
+                                        Image(systemName: "pencil")
+                                    }
                             }
-                            .resizable()
-                            .scaledToFill()
+                            .opacity(50)
+//                            .frame(height: 350)
+//                            .frame(maxWidth: .infinity, maxHeight: 350)
+                            .frame(width: 350, height: 350)
+                            .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
+                            .onTapGesture {
+                                isImageAlert.toggle()
+                            }
+                            .confirmationDialog("Откуда взять фотографию?", isPresented: $isImageAlert) {
+                                Button {
+                                    showImagePickerLibrary.toggle()
+                                    
+                                } label: {
+                                    Text("Галерея")
+                                }
+                                
+                                Button {
+                                    showImagePickerCamera.toggle()
+                                    
+                                } label: {
+                                    Text("Камера")
+                                }
+                            }
+                        Spacer()
                     }
-                    .opacity(50)
-                    .frame(width: 350, height: 350)
-                    .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
-//                    .shadow(color: .gray, radius: 10)
+                    .padding(.top, 25)
+                    .sheet(isPresented: $showImagePickerLibrary) {
+                        ImagePicker(sourceType: .photoLibrary, selectedImage: $presentModelViewModel.uiImage)
+                    }
+                    .sheet(isPresented: $showImagePickerCamera) {
+                        ImagePicker(sourceType: .camera, selectedImage: $presentModelViewModel.uiImage)
+                    }
+                } else {
+                    RoundedRectangle(cornerRadius: 30, style: .continuous)
+                        .overlay {
+                            KFImage(presentModelViewModel.url)
+                                .placeholder {
+                                    ProgressView()
+                                }
+                                .resizable()
+                                .scaledToFill()
+                        }
+                        .opacity(50)
+                        .frame(width: 350, height: 350)
+                        .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
+                }
+               
                 
                 
                 if isEdit {
@@ -70,15 +120,13 @@ struct PresentModalView: View {
                     
                 }
                 
-                HStack {
-                    Text("Описание")
-                        .font(.title2)
-                        .bold()
-                        .foregroundColor(.gray)
-                        .padding(.leading, 15)
-                        .padding(.top, 25)
-                    Spacer()
-                }
+                Text("Описание")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .font(.title2)
+                    .bold()
+                    .foregroundColor(.gray)
+                    .padding(.leading, 15)
+                    .padding(.top, 25)
                 
                 // https://fonts-online.ru/fonts/volja/download Скачать новые шрифты
                 HStack {
@@ -90,17 +138,13 @@ struct PresentModalView: View {
                             .textInputAutocapitalization(.never)
                     } else {
                         Text(presentModelViewModel.present.presentDescription)
-//                            .fixedSize(horizontal: false, vertical: true)
                             .frame(maxWidth: .infinity, alignment: .leading)
-//                            .multilineTextAlignment(.leading)
                             .padding(.leading, 15)
                             .padding(.trailing, 7)
                             .padding(.top, 5)
                             .font(.system(.callout, design: .rounded))
                             .font(.title)
                             .lineLimit(nil)
-                        
-//                        Spacer()
                     }
                 }
                 
@@ -164,38 +208,58 @@ struct PresentModalView: View {
                 
                 
                     
+                // MARK: -- Кнопки
                 
-                
-                
-                
-                // MARK: -- Кнопки удалить
-                
-                Button(action: {
-                    presentModelViewModel.removingPresentFromWishlist(currentPresent.id)
-                    presentModelViewModel.deletePresentImage()
-                    dismiss()
-                }) {
-                    Image(systemName: "trash")
-                        .font(.title)
-                        .foregroundColor(.red)
+                if isEdit {
+                    Button {
+                        // TODO
+                    } label: {
+                        Text("Сохранить")
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .padding([.top, .bottom], 8)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.0859509632, green: 0.7268390059, blue: 0.4526766539, alpha: 1)), Color(#colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1))]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .padding(15)
+                } else {
+                    Button(action: {
+                        presentModelViewModel.removingPresentFromWishlist(currentPresent.id)
+                        presentModelViewModel.deletePresentImage()
+                        dismiss()
+                    }) {
+                        Image(systemName: "trash")
+                            .font(.title)
+                            .foregroundColor(.red)
+                    }
+                    .padding(.bottom, 15)
+                    .padding(.top, isEdit ? 15 : 0)
                 }
-                .padding(.bottom, 15)
-                .padding(.top, isEdit ? 15 : 0)
+                
+                
+                
+               
+                
+                
+             
+                
+               
+                
+                
             }
         }
         .task {
             try? await self.presentModelViewModel.url = presentModelViewModel.getUrlPresentImage(presentId: currentPresent.id)
         }
-        .navigationTitle(isEdit ? "" : presentModelViewModel.present.name)
+        .navigationTitle(isEdit ? "Внесите изменения" : presentModelViewModel.present.name)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
-                    withAnimation(.easeInOut(duration: 0.2)) {
+                    withAnimation(.easeInOut(duration: 0.05)) {
                         isEdit.toggle()
                     }
                 } label: {
-                    Text("Редактировать")
-                        .foregroundStyle(.blue)
+                    Text(isEdit ? "Отменить" : "Редактировать")
+                        .foregroundStyle(isEdit ? .red : .blue)
                 }
 
                 
