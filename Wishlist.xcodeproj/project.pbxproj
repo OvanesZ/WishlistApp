@@ -248,6 +248,63 @@
 			path = SplashScreen;
 			sourceTree = "<group>";
 		};
+		4E3352522BE57BD9006E066E /* Email */ = {
+			isa = PBXGroup;
+			children = (
+				4ED21A3F2B091077001D016B /* SignInEmailView.swift */,
+				4ED2F4402B18E09700EE7004 /* SignInEmailViewModel.swift */,
+			);
+			path = Email;
+			sourceTree = "<group>";
+		};
+		4E3352532BE57BF5006E066E /* Google */ = {
+			isa = PBXGroup;
+			children = (
+				4ED21A392B090FF1001D016B /* SignInGoogleHelper.swift */,
+			);
+			path = Google;
+			sourceTree = "<group>";
+		};
+		4E3352542BE57C13006E066E /* Apple */ = {
+			isa = PBXGroup;
+			children = (
+				4ED21A3D2B091046001D016B /* SignInAppleHelper.swift */,
+			);
+			path = Apple;
+			sourceTree = "<group>";
+		};
+		4E3352552BE57C34006E066E /* AuthenticationManager */ = {
+			isa = PBXGroup;
+			children = (
+				4ED21A3B2B09101C001D016B /* AuthenticationManager.swift */,
+			);
+			path = AuthenticationManager;
+			sourceTree = "<group>";
+		};
+		4E3352562BE57C96006E066E /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				4EEF22032AB65515001B736F /* StorageService.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		4E3352572BE57CA4006E066E /* DataBase */ = {
+			isa = PBXGroup;
+			children = (
+				4ED38A082A9269CC007E30D1 /* DataBaseService.swift */,
+			);
+			path = DataBase;
+			sourceTree = "<group>";
+		};
+		4E3352582BE57CE8006E066E /* Auth_unused */ = {
+			isa = PBXGroup;
+			children = (
+				4ED38A022A926008007E30D1 /* AuthService.swift */,
+			);
+			path = Auth_unused;
+			sourceTree = "<group>";
+		};
 		4E41CB122B5B0A55000BD2B6 /* Skeleton */ = {
 			isa = PBXGroup;
 			children = (
@@ -281,10 +338,10 @@
 			isa = PBXGroup;
 			children = (
 				4ED2F43D2B18DFB200EE7004 /* Auth */,
-				4ED21A392B090FF1001D016B /* SignInGoogleHelper.swift */,
-				4ED21A3B2B09101C001D016B /* AuthenticationManager.swift */,
-				4ED21A3D2B091046001D016B /* SignInAppleHelper.swift */,
-				4E045B7D2B22047800DD2DD9 /* Settings */,
+				4E3352552BE57C34006E066E /* AuthenticationManager */,
+				4E3352522BE57BD9006E066E /* Email */,
+				4E3352542BE57C13006E066E /* Apple */,
+				4E3352532BE57BF5006E066E /* Google */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -293,9 +350,9 @@
 			isa = PBXGroup;
 			children = (
 				4ED2F43A2B17094B00EE7004 /* Firestore */,
-				4ED38A022A926008007E30D1 /* AuthService.swift */,
-				4EEF22032AB65515001B736F /* StorageService.swift */,
-				4ED38A082A9269CC007E30D1 /* DataBaseService.swift */,
+				4E3352582BE57CE8006E066E /* Auth_unused */,
+				4E3352562BE57C96006E066E /* Storage */,
+				4E3352572BE57CA4006E066E /* DataBase */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -340,8 +397,6 @@
 				4ED21A372B090FB5001D016B /* AuthenticationView.swift */,
 				4E744FAB2B6464B5005587A5 /* CreateNameView.swift */,
 				4ED2F43E2B18DFCF00EE7004 /* AuthenticationViewModel.swift */,
-				4ED21A3F2B091077001D016B /* SignInEmailView.swift */,
-				4ED2F4402B18E09700EE7004 /* SignInEmailViewModel.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -451,6 +506,7 @@
 				4EEF21DB2A9D0C09001B736F /* Friend */,
 				4EEF21C92A9D04F2001B736F /* TabBar */,
 				4E19CDA22AE30F64008AB36B /* SplashScreen */,
+				4E045B7D2B22047800DD2DD9 /* Settings */,
 			);
 			path = Screens;
 			sourceTree = "<group>";

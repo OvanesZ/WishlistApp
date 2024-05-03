@@ -17,6 +17,7 @@ struct PresentModalView: View {
     
     @ObservedObject var presentModelViewModel: PresentModelViewModel
     @Environment(\.dismiss) var dismiss
+    @Environment(\.colorScheme) var colorScheme
     @State private var isLoadImage = false
     @State private var isEdit = false
     @State private var isImageAlert = false
@@ -112,9 +113,11 @@ struct PresentModalView: View {
                    
                         
                         TextField("Название подарка", text: $presentModelViewModel.present.name)
+                            .textFieldStyle(PlainTextFieldStyle())
+                            .padding(8)
+                            .background(RoundedRectangle(cornerRadius: 15).fill(Color(.tertiarySystemFill)))
                             .padding(.leading, 15)
                             .padding(.trailing, 15)
-                            .textFieldStyle(.roundedBorder)
                             .textInputAutocapitalization(.never)
                     }
                     
@@ -132,9 +135,11 @@ struct PresentModalView: View {
                 HStack {
                     if isEdit {
                         TextField("Описание подарка", text: $presentModelViewModel.present.presentDescription)
+                            .textFieldStyle(PlainTextFieldStyle())
+                            .padding(8)
+                            .background(RoundedRectangle(cornerRadius: 15).fill(Color(.tertiarySystemFill)))
                             .padding(.leading, 15)
                             .padding(.trailing, 15)
-                            .textFieldStyle(.roundedBorder)
                             .textInputAutocapitalization(.never)
                     } else {
                         Text(presentModelViewModel.present.presentDescription)
@@ -198,9 +203,11 @@ struct PresentModalView: View {
                         .padding(.top, 25)
                     
                     TextField("Ссылка на подарок", text: $presentModelViewModel.present.urlText)
+                        .textFieldStyle(PlainTextFieldStyle())
+                        .padding(8)
+                        .background(RoundedRectangle(cornerRadius: 15).fill(Color(.tertiarySystemFill)))
                         .padding(.leading, 15)
                         .padding(.trailing, 15)
-                        .textFieldStyle(.roundedBorder)
                         .textInputAutocapitalization(.never)
                 }
               
@@ -217,9 +224,10 @@ struct PresentModalView: View {
                         Text("Сохранить")
                             .frame(maxWidth: .infinity, alignment: .center)
                             .padding([.top, .bottom], 8)
+                            .foregroundStyle(colorScheme == .dark ? .black : .blue)
                     }
                     .buttonStyle(.borderedProminent)
-                    .tint(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.0859509632, green: 0.7268390059, blue: 0.4526766539, alpha: 1)), Color(#colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1))]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .tint(Color("saveButton"))
                     .padding(15)
                 } else {
                     Button(action: {
@@ -234,17 +242,6 @@ struct PresentModalView: View {
                     .padding(.bottom, 15)
                     .padding(.top, isEdit ? 15 : 0)
                 }
-                
-                
-                
-               
-                
-                
-             
-                
-               
-                
-                
             }
         }
         .task {

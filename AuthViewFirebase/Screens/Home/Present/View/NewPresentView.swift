@@ -21,6 +21,7 @@ struct NewPresentView: View {
     
     @ObservedObject var viewModel: PresentModelViewModel
     @Environment(\.dismiss) var dismiss
+    @Environment(\.colorScheme) var colorScheme
     
    
     
@@ -149,13 +150,18 @@ struct NewPresentView: View {
                         dismiss()
                     }) {
                         Text("Создать")
+                            .frame(maxWidth: .infinity, alignment: .center)
                             .padding(.init(top: 8, leading: 15, bottom: 8, trailing: 15))
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .background(Color.blue)
-                            .cornerRadius(16)
+//                            .font(.headline)
+                            .foregroundStyle(colorScheme == .dark ? .black : .blue)
+//                            .background(Color.blue)
+                            
                     }
                     .padding(.top, 20)
+                    .buttonStyle(.borderedProminent)
+                    .tint(Color("saveButton"))
+                    
+                    .padding([.leading, .trailing], 15)
                 }
             }
         }
