@@ -33,18 +33,29 @@ struct NewPresentView: View {
                     
                     RoundedRectangle(cornerRadius: 30, style: .continuous)
                         .overlay {
-                            Image(uiImage: viewModel.uiImage)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
+                            Button {
+                                isImageAlert.toggle()
+                            } label: {
+                                Image(uiImage: viewModel.uiImage)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .overlay(alignment: .center) {
+                                        Image(systemName: "camera")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 100, height: 100)
+                                            .foregroundStyle(.blue)
+                                            .opacity(0.3)
+                                    }
+                            }
+                            .frame(height: 350)
+                            .frame(maxWidth: .infinity, maxHeight: 350)
                         }
                         .opacity(50)
                         .frame(height: 350)
                         .frame(maxWidth: .infinity, maxHeight: 350)
 
                         .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
-                        .onTapGesture {
-                            isImageAlert.toggle()
-                        }
                         .confirmationDialog("Откуда взять фотографию?", isPresented: $isImageAlert) {
                             Button {
                                 showImagePickerLibrary.toggle()
