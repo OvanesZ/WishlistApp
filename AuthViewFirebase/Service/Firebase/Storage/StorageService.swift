@@ -62,6 +62,10 @@ class StorageService {
         try await userImageRef.child(id).data(maxSize: 2 * 1024 * 1024)
     }
     
+    func downloadPresentImageAsync(id: String) async throws -> Data {
+        try await presentImageRef.child(id).data(maxSize: 2 * 1024 * 1024)
+    }
+    
     func downloadUserImage(id: String, completion: @escaping (Result<Data, Error>) -> ()) {
         userImageRef.child(id).getData(maxSize: 2 * 1024 * 1024) { data, error in
             guard let data = data else {

@@ -27,12 +27,24 @@ class PresentModelViewModel: ObservableObject {
     
     let currentUser = Auth.auth().currentUser
     
+    
+    
+    func getImageAsync() async throws {
+        Task {
+            let data = try await StorageService.shared.downloadPresentImageAsync(id: present.id)
+            if let img = UIImage(data: data) {
+                self.uiImage = img
+            }
+        }
+    }
+    
+    
     //MARK: -- Добавляю новый подарок в коллекцию "Wishlist"
     
     
     func setPresent(newPresent: PresentModel) {
         let image = resizeImage(image: uiImage, targetSize: CGSizeMake(472.0, 709.0))
-        print("Разрешение загруженного изображения = \(image.size)")
+//        print("Разрешение загруженного изображения = \(image.size)")
         guard let imageData = image.jpegData(compressionQuality: 1.0) else { return }
         
         DatabaseService.shared.setPresent(present: newPresent, image: imageData) { result in

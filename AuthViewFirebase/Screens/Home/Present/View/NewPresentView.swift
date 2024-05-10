@@ -160,8 +160,7 @@ struct NewPresentView: View {
                     .padding(.top, 20)
                     .buttonStyle(.borderedProminent)
                     .tint(Color("saveButton"))
-                    
-                    .padding([.leading, .trailing], 15)
+                    .padding(15)
                 }
             }
         }

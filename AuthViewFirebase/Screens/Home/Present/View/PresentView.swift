@@ -45,9 +45,6 @@ struct PresentModalView: View {
                                 Image(uiImage: presentModelViewModel.uiImage)
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
-                                    .overlay(alignment: .bottomTrailing) {
-                                        Image(systemName: "pencil")
-                                    }
                             }
                             .opacity(50)
 //                            .frame(height: 350)
@@ -220,6 +217,14 @@ struct PresentModalView: View {
                 if isEdit {
                     Button {
                         // TODO
+                        
+                        let editPresent = PresentModel(id: presentModelViewModel.present.id, name: presentModelViewModel.present.name, urlText: presentModelViewModel.present.urlText, presentFromUserID: presentModelViewModel.present.presentFromUserID, isReserved: presentModelViewModel.present.isReserved, presentDescription: presentModelViewModel.present.presentDescription, ownerId: presentModelViewModel.present.ownerId, whoReserved: presentModelViewModel.present.whoReserved)
+                        
+                        presentModelViewModel.setPresent(newPresent: editPresent)
+                        
+                        dismiss()
+                        
+                        
                     } label: {
                         Text("Сохранить")
                             .frame(maxWidth: .infinity, alignment: .center)
@@ -246,6 +251,8 @@ struct PresentModalView: View {
         }
         .task {
             try? await self.presentModelViewModel.url = presentModelViewModel.getUrlPresentImage(presentId: currentPresent.id)
+            
+            try? await presentModelViewModel.getImageAsync()
         }
         .navigationTitle(isEdit ? "Внесите изменения" : presentModelViewModel.present.name)
         .toolbar {

@@ -93,7 +93,7 @@ class DatabaseService {
             switch result {
             case .success(let sizeInfo):
                 print(sizeInfo)
-                self.usersRef.document(AuthService.shared.currentUser!.uid).collection("wishlist").document(present.id).setData(present.representation) { error in
+                self.usersRef.document(AuthService.shared.currentUser!.uid).collection("wishlist").document(present.id).setData(present.representation, merge: true) { error in
                     if let error = error {
                         completion(.failure(error))
                     } else {
