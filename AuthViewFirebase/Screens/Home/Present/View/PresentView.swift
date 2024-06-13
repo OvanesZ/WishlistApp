@@ -48,14 +48,25 @@ struct PresentModalView: View {
                                     Image(uiImage: presentModelViewModel.uiImage)
                                         .resizable()
                                         .aspectRatio(contentMode: .fill)
-                                        .overlay(alignment: .center) {
-                                            Image(systemName: "camera")
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fill)
-                                                .frame(width: 100, height: 100)
-                                                .foregroundStyle(.blue)
-                                                .opacity(0.3)
-                                        }
+                                    // change
+//                                        .overlay(alignment: .bottomTrailing) {
+//                                            Circle()
+//                                                .fill()
+//                                                .frame(width: 70, height: 70)
+//                                                .foregroundStyle(.red)
+//                                                .offset(x: 15, y: 15)
+//                                                .overlay(alignment: .center) {
+//                                                    Image(systemName: "camera")
+//                                                        .resizable()
+//                                                        .aspectRatio(contentMode: .fill)
+//                                                        .frame(width: 35, height: 35)
+//                                                        .foregroundStyle(.black)
+//                                                        .opacity(0.3)
+//                                                        .offset(x: 15, y: 15)
+////                                                        .padding([.trailing, .bottom], 15)
+//                                                }
+//                                            
+//                                        }
                                 }
                                 .frame(width: 350, height: 350)
                             }
@@ -78,6 +89,25 @@ struct PresentModalView: View {
                                 }
                             }
                         Spacer()
+                    }
+                    .overlay(alignment: .bottomTrailing) {
+                        ZStack {
+                            Circle()
+                                .fill()
+                                .frame(width: 60, height: 60)
+                                .foregroundStyle(Color("payButton"))
+                            //                            .offset(x: 3, y: 3)
+                                .overlay(alignment: .center) {
+                                    Image(systemName: "camera")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 30, height: 30)
+                                        .foregroundStyle(.white)
+                                    //                                    .offset(x: 3, y: 3)
+                                }
+                        }
+                        .padding(.trailing, 10)
+                        .padding(.bottom, -10)
                     }
                     .padding(.top, 25)
                     .sheet(isPresented: $showImagePickerLibrary) {
@@ -231,7 +261,6 @@ struct PresentModalView: View {
                         presentModelViewModel.setPresent(newPresent: editPresent)
                         
                         dismiss()
-                        
                         
                     } label: {
                         Text("Сохранить")

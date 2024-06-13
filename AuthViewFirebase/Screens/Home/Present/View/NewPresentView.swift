@@ -163,9 +163,7 @@ struct NewPresentView: View {
                         Text("Создать")
                             .frame(maxWidth: .infinity, alignment: .center)
                             .padding(.init(top: 8, leading: 15, bottom: 8, trailing: 15))
-//                            .font(.headline)
                             .foregroundStyle(colorScheme == .dark ? .black : .blue)
-//                            .background(Color.blue)
                             
                     }
                     .padding(.top, 20)
