@@ -39,6 +39,8 @@ final class AuthenticationManager {
     static let shared = AuthenticationManager()
     private init() { }
     
+//    var isAlert = false
+    
     
     func getAuthenticatedUser() throws -> AuthDataResultModel {
         guard let user = Auth.auth().currentUser else {
@@ -69,6 +71,20 @@ final class AuthenticationManager {
     func signOut() throws {
         try Auth.auth().signOut()
     }
+    
+    func deletingAccaunt() {
+        if let user = Auth.auth().currentUser {
+            user.delete { error in
+                if let error = error {
+                    print(error.localizedDescription)
+//                    self.isAlert = true
+                } else {
+                    print("accaunt was deleted")
+                }
+            }
+        }
+    }
+    
 }
 
 

@@ -15,6 +15,7 @@ struct SettingView: View {
     @State private var isQuitAlertPresented = false
     @State private var userName: String = ""
     @State private var showSettingsPersonalData = false
+    @State private var isDeleteAccaunt = false
     
     var body: some View {
         
@@ -48,6 +49,28 @@ struct SettingView: View {
                         
                     }
                     
+                    
+                    Section {
+                        Button(action: { isDeleteAccaunt = true }, label: {
+                            HStack {
+                                Spacer()
+                                Text("Удалить аккаунт")
+                                    .foregroundStyle(.red)
+                                Spacer()
+                            }
+                            
+                        })
+                        .confirmationDialog("Вы точно хотите удалить аккаунт?", isPresented: $isDeleteAccaunt, titleVisibility: .visible) {
+                            Button(role: .destructive) {
+                                
+                                viewModel.deletingAccaunt()
+                                //// TODO при удалении аккаунта нужно еще удалять документ из базы данных
+                                
+                            } label: {
+                                Text("Да")
+                            }
+                        }
+                    }
                     
                 }
                 
@@ -143,7 +166,12 @@ extension SettingView {
                         .font(.system(.callout, design: .rounded))
                 }
                 
-            } 
+            }
+            
+//            Button(action: {}, label: {
+//                Text("Удалить аккаунт")
+//                    .foregroundStyle(.red)
+//            })
                 
         }
     }

@@ -48,25 +48,6 @@ struct PresentModalView: View {
                                     Image(uiImage: presentModelViewModel.uiImage)
                                         .resizable()
                                         .aspectRatio(contentMode: .fill)
-                                    // change
-//                                        .overlay(alignment: .bottomTrailing) {
-//                                            Circle()
-//                                                .fill()
-//                                                .frame(width: 70, height: 70)
-//                                                .foregroundStyle(.red)
-//                                                .offset(x: 15, y: 15)
-//                                                .overlay(alignment: .center) {
-//                                                    Image(systemName: "camera")
-//                                                        .resizable()
-//                                                        .aspectRatio(contentMode: .fill)
-//                                                        .frame(width: 35, height: 35)
-//                                                        .foregroundStyle(.black)
-//                                                        .opacity(0.3)
-//                                                        .offset(x: 15, y: 15)
-////                                                        .padding([.trailing, .bottom], 15)
-//                                                }
-//                                            
-//                                        }
                                 }
                                 .frame(width: 350, height: 350)
                             }

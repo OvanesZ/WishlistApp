@@ -140,6 +140,10 @@ final class SettingsViewModel: ObservableObject {
         ImageLoader.shared.resizeImage(image: image, targetSize: targetSize)
    }
     
+    func deletingAccaunt() {
+        AuthenticationManager.shared.deletingAccaunt()
+    }
+    
 }
 
 

@@ -39,14 +39,15 @@ struct NewPresentView: View {
                                 Image(uiImage: viewModel.uiImage)
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
-                                    .overlay(alignment: .center) {
-                                        Image(systemName: "camera")
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fill)
-                                            .frame(width: 100, height: 100)
-                                            .foregroundStyle(.blue)
-                                            .opacity(0.3)
-                                    }
+                                // correct
+//                                    .overlay(alignment: .center) {
+//                                        Image(systemName: "camera")
+//                                            .resizable()
+//                                            .aspectRatio(contentMode: .fill)
+//                                            .frame(width: 100, height: 100)
+//                                            .foregroundStyle(.blue)
+//                                            .opacity(0.3)
+//                                    }
                             }
                             .frame(height: 350)
                             .frame(maxWidth: .infinity, maxHeight: 350)
@@ -54,7 +55,6 @@ struct NewPresentView: View {
                         .opacity(50)
                         .frame(height: 350)
                         .frame(maxWidth: .infinity, maxHeight: 350)
-
                         .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
                         .confirmationDialog("Откуда взять фотографию?", isPresented: $isImageAlert) {
                             Button {
@@ -72,6 +72,23 @@ struct NewPresentView: View {
                             }
                         }
                     Spacer()
+                }
+                .overlay(alignment: .bottomTrailing) {
+                    ZStack {
+                        Circle()
+                            .fill()
+                            .frame(width: 60, height: 60)
+                            .foregroundStyle(Color("payButton"))
+                            .overlay(alignment: .center) {
+                                Image(systemName: "camera")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 30, height: 30)
+                                    .foregroundStyle(.white) 
+                            }
+                    }
+                    .padding(.trailing, 10)
+                    .padding(.bottom, -10)
                 }
                 .padding(.top, 25)
                 .sheet(isPresented: $showImagePickerLibrary) {
