@@ -126,7 +126,7 @@ struct FriendHomeView: View {
         Divider()
             
         
-        if viewModel.isFriendForFriendstArr && viewModel.isIamFriend {
+        if viewModel.isFriendForFriendstArr && viewModel.isIamFriend || viewModel.friend.userId == AuthService.shared.currentUser?.uid {
             ScrollView {
                 LazyVGrid (
                     columns: columns,
@@ -179,9 +179,6 @@ struct FriendHomeView: View {
                 
                 Spacer()
             }
-                
-            
-            
         }
             
         
