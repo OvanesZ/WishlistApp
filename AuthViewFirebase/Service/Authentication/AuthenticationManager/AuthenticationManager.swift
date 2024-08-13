@@ -80,6 +80,10 @@ final class AuthenticationManager {
 //                    self.isAlert = true
                 } else {
                     print("accaunt was deleted")
+                    Task {
+                        try await UserManager.shared.deleteAccountInFirestore(userId: user.uid)
+                        print("Документ пользователя удален из коллекции Users")
+                    }
                 }
             }
         }

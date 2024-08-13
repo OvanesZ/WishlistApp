@@ -154,6 +154,9 @@ final class UserManager {
     
     
  
+    func deleteAccountInFirestore(userId: String) async throws {
+        try await userCollection.document(userId).delete()
+    }
     
     
 }
