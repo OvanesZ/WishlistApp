@@ -16,6 +16,8 @@ struct SettingView: View {
     @State private var userName: String = ""
     @State private var showSettingsPersonalData = false
     @State private var isDeleteAccaunt = false
+    @State private var isShowLiginView = false
+    @State private var isShowSignInView = false
     
     var body: some View {
         
@@ -60,15 +62,19 @@ struct SettingView: View {
                             }
                             
                         })
+                        .fullScreenCover(isPresented: $isShowLiginView, content: {
+                            AuthenticationView(showSignInView: $isShowSignInView)
+                        })
                         .confirmationDialog("Вы точно хотите удалить аккаунт?", isPresented: $isDeleteAccaunt, titleVisibility: .visible) {
                             Button(role: .destructive) {
                                 
                                 viewModel.deletingAccaunt()
-                                //// TODO при удалении аккаунта нужно еще удалять документ из базы данных
+                                isShowLiginView = true
                                 
                             } label: {
                                 Text("Да")
                             }
+                            
                         }
                     }
                     
