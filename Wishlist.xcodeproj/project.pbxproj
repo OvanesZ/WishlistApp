@@ -1041,6 +1041,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Wishlist-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Вишлист";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Разрешите доступ к камере";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Разрешите доступ к галерее";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -1074,6 +1075,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Wishlist-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Вишлист";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Разрешите доступ к камере";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Разрешите доступ к галерее";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

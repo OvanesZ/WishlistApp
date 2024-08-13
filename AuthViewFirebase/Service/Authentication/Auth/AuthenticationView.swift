@@ -114,7 +114,7 @@ struct AuthenticationView: View {
                 Spacer()
                 
                 ZStack(alignment: .center) {
-                    Text("Нажимая на кнопку, вы принимаете \(Text("[пользовательское соглашение](https://ya.ru)").underline()) и даете согласие на обработку ваших персональных данных на условиях \(Text("[политики конфиденциальности](https://wishlistapp.tb.ru/privacypolicy)").underline()).")
+                    Text("Нажимая на кнопку, вы принимаете \(Text("[пользовательское соглашение](https://wishlistapps.tb.ru/useragreement)").underline()) и даете согласие на обработку ваших персональных данных на условиях \(Text("[политики конфиденциальности](https://wishlistapp.tb.ru/privacypolicy)").underline()).")
                         .tint(.black)
                         .font(.caption)
 //                        .frame(width: .infinity, alignment: .leading)
