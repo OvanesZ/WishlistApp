@@ -63,10 +63,11 @@ struct AuthenticationView: View {
                 } label: {
                     Text("Войти/Зарегистрироваться через email")
                         .font(.headline)
-                        .foregroundColor(.white)
+                        .foregroundColor(.black)
                         .frame(height: 55)
                         .frame(maxWidth: .infinity)
-                        .background(Color.orange)
+//                        .background(Color.orange)
+                        .background(Color("testColor"))
                         .cornerRadius(10)
                 }
                 .fullScreenCover(isPresented: $isShowSignInEmailView) {

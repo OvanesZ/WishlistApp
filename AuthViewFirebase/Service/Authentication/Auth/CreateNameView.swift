@@ -99,17 +99,7 @@ struct CreateNameView: View {
                         }
                         .datePickerStyle(.automatic)
                         .environment(\.locale, Locale.init(identifier: "ru_RU"))
-                        
-                        
-                        
                     }
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                     
                     Button {
                         
@@ -127,10 +117,11 @@ struct CreateNameView: View {
                     } label: {
                         Text("Далее")
                             .font(.headline)
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
                             .frame(height: 55)
                             .frame(maxWidth: .infinity)
-                            .background(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1)), Color(#colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1))]), startPoint: .topLeading, endPoint: .bottomTrailing))
+//                            .background(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1)), Color(#colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1))]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                            .background(Color("testColor"))
                             .cornerRadius(10)
                     }
                     .disabled(userName.isEmpty && userSername.isEmpty)
