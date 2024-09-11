@@ -27,16 +27,36 @@ class PresentModelViewModel: ObservableObject {
     
     let currentUser = Auth.auth().currentUser
     
+    // Получаю данные изображения в фоновом потоке
+    func getImageDataAsync() async throws -> Data {
+        return try await StorageService.shared.downloadPresentImageAsync(id: present.id)
+    }
     
-    
-    func getImageAsync() async throws {
+    // Затем вызываю getImageDataAsync() из главного потока и обновляю uiImage уже в основном потоке
+    func getImageAsync() {
         Task {
-            let data = try await StorageService.shared.downloadPresentImageAsync(id: present.id)
-            if let img = UIImage(data: data) {
-                self.uiImage = img
+            do {
+                let data = try await getImageDataAsync()
+                await MainActor.run {
+                    if let img = UIImage(data: data) {
+                        self.uiImage = img
+                    }
+                }
+            } catch {
+                print("Error fetching image: \(error)")
             }
         }
     }
+    
+    
+//    func getImageAsync() async throws {
+//        Task {
+//            let data = try await StorageService.shared.downloadPresentImageAsync(id: present.id)
+//            if let img = UIImage(data: data) {
+//                self.uiImage = img
+//            }
+//        }
+//    }
     
     
     //MARK: -- Добавляю новый подарок в коллекцию "Wishlist"

@@ -5,7 +5,8 @@
 //  Created by Ованес Захарян on 28.08.2023.
 //
 
-import Combine
+//import Combine
+import SwiftUI
 import FirebaseAuth
 import FirebaseFirestoreSwift
 import FirebaseFirestore
@@ -18,31 +19,42 @@ final class HomeViewModel: ObservableObject {
     var currentUser = Auth.auth().currentUser
     @Published var isStopListener = false
     @Published private(set) var dbUser: DBUser? = nil
-    private var isStopListen = false
+    
+    private var listener: ListenerRegistration?
+    
     
     init() {
-        listenerDBUser()
+        setupListener()
     }
     
     deinit {
-        isStopListen = true
+        stopListener()
     }
     
-    func listenerDBUser() {
-        let listener = Firestore.firestore().collection("users").document(currentUser?.uid ?? "").addSnapshotListener { docSnupshot, error in
-            guard let document = docSnupshot else {
-                print (error?.localizedDescription ?? "")
+    
+    func setupListener() {
+        
+        guard let uid = currentUser?.uid, !uid.isEmpty else {
+            print("нет допустимого UID пользователя")
+            return
+        }
+        
+        listener = Firestore.firestore().collection("users").document(uid).addSnapshotListener { docSnapshot, error in
+            guard let document = docSnapshot else {
+                print(error?.localizedDescription ?? "")
                 return
             }
+            
             let source = document.metadata.hasPendingWrites ? "Local" : "Server"
             print("\(source) data: \(document.data() ?? [:])")
             let data = try? document.data(as: DBUser.self)
             self.dbUser = data
         }
-        if isStopListen {
-            listener.remove()
-        }
-        
+    }
+    
+    func stopListener() {
+        listener?.remove()
+        listener = nil
     }
 
     // MARK: -- Прослушиватель обновлений коллекции Wishlist. (пишет все данные в переменную wishlist)
