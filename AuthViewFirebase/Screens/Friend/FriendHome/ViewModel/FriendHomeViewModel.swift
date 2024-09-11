@@ -19,13 +19,47 @@ class FriendHomeViewModel: ObservableObject {
     @Published var isFriendForFriendstArr = false
     @Published var isIamFriend = false
     @Published var isStopListener = false
+    @Published private(set) var dbUser: DBUser? = nil
+    private var listener: ListenerRegistration?
     
     init(friend: DBUser) {
         self.friend = friend
         isFriendOrNo()
+        setupListener()
     }
     
-   
+    deinit {
+        stopListener()
+    }
+    
+    
+    // Получаю данные юзера с базы для определения премиум статуса
+    
+    func setupListener() {
+        
+        
+        guard let uid = AuthService.shared.currentUser?.uid, !uid.isEmpty else {
+            print("нет допустимого UID пользователя")
+            return
+        }
+        
+        listener = Firestore.firestore().collection("users").document(uid).addSnapshotListener { docSnapshot, error in
+            guard let document = docSnapshot else {
+                print(error?.localizedDescription ?? "")
+                return
+            }
+            
+            let source = document.metadata.hasPendingWrites ? "Local" : "Server"
+            print("\(source) data: \(document.data() ?? [:])")
+            let data = try? document.data(as: DBUser.self)
+            self.dbUser = data
+        }
+    }
+    
+    func stopListener() {
+        listener?.remove()
+        listener = nil
+    }
    
     
     // MARK: - Процедура подписки на пользователя

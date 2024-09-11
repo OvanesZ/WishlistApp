@@ -19,6 +19,8 @@ struct FriendPresentView: View {
     @ObservedObject var presentModelViewModel: PresentModelViewModel
     @ObservedObject var friendViewModel: FriendHomeViewModel
     
+    @State private var isShowPayScreen = false
+    @State private var isShowPaymentViewController = false
     @State private var url: URL?
     
  
@@ -127,10 +129,13 @@ struct FriendPresentView: View {
                 
                 // MARK: -- Кнопка выбрать подарок
                 
+                
+                
                 if presentModelViewModel.isHiddenReservButton {
                     
                     if currentPresent.whoReserved == AuthService.shared.currentUser?.uid {
                         Button(action: {
+                            
                             presentModelViewModel.unReservingPresentForUserID(currentPresent, friendViewModel.friend.userId)
                             
                             Task {
@@ -152,11 +157,25 @@ struct FriendPresentView: View {
                     
                 } else {
                     Button(action: {
-                        presentModelViewModel.reservingPresentForUserID(currentPresent, friendViewModel.friend.userId)
                         
-                        Task {
-                            try await presentModelViewModel.setFriendPresentList(present: currentPresent)
+                        
+                        guard let userIsPremium = friendViewModel.dbUser?.isPremium else { return }
+                        
+                        if userIsPremium {
+                            
+                            presentModelViewModel.reservingPresentForUserID(currentPresent, friendViewModel.friend.userId)
+                            
+                            Task {
+                                try await presentModelViewModel.setFriendPresentList(present: currentPresent)
+                            }
+                            
+                        } else {
+                            
+                            self.isShowPayScreen = true
+                            print("not premium")
+                            
                         }
+                        
                     }) {
                         Text("Выбрать подарок")
                             .padding(.init(top: 8, leading: 15, bottom: 8, trailing: 15))
@@ -168,7 +187,19 @@ struct FriendPresentView: View {
                     .padding(.bottom, 15)
                 }
                 
+                
             }
+        }
+        .confirmationDialog("Чтобы забронировать подарок оформите полную версию приложения.", isPresented: $isShowPayScreen, titleVisibility: .visible) {
+            Button {
+                isShowPaymentViewController = true
+            } label: {
+                Text("Перейти к оплате (299 руб.)")
+            }
+        }
+        .sheet(isPresented: $isShowPaymentViewController) {
+            PaymentViewControllerRepresentable()
+                .presentationDetents([.medium, .large])
         }
         .task {
             self.url = try? await friendViewModel.getUrlAsync(id: presentModelViewModel.present.id)
