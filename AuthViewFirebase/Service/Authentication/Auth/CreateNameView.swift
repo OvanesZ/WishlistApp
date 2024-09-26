@@ -36,12 +36,24 @@ struct CreateNameView: View {
                     }
                     
                     HStack {
-                        Text("Укажите, пожалуйста, Ваше имя, фамилию и дату рождения и выберете аватарку")
-                            .font(.system(.subheadline, design: .default))
-                            .padding()
-                            .foregroundColor(.white)
                         
-                        Spacer()
+                        if viewModel.authProviders.contains(.apple) {
+                            Text("Укажите, пожалуйста, Вашу дату рождения и выберете аватарку")
+                                .font(.system(.subheadline, design: .default))
+                                .padding()
+                                .foregroundColor(.white)
+                            
+                            Spacer()
+                        } else {
+                            Text("Укажите, пожалуйста, Ваше имя, фамилию и дату рождения и выберете аватарку")
+                                .font(.system(.subheadline, design: .default))
+                                .padding()
+                                .foregroundColor(.white)
+                            
+                            Spacer()
+                        }
+                        
+                       
                     }
                     .padding(.top, -25)
                     
@@ -79,18 +91,24 @@ struct CreateNameView: View {
                                 }
                             }
                         
-                        TextField("", text: $userName, prompt: Text("Имя").foregroundColor(.gray))
-                            .padding()
-                            .background(Color.white)
-                            .cornerRadius(10)
-                            .foregroundStyle(.black)
-                        
-                        TextField("", text: $userSername, prompt: Text("Фамилия").foregroundColor(.gray))
-                            .padding()
-                            .background(Color.white)
-                            .cornerRadius(10)
-                            .foregroundStyle(.black)
-                        
+                        if viewModel.authProviders.contains(.apple) {
+                            
+                            
+                            
+                        } else {
+                            TextField("", text: $userName, prompt: Text("Имя").foregroundColor(.gray))
+                                .padding()
+                                .background(Color.white)
+                                .cornerRadius(10)
+                                .foregroundStyle(.black)
+                            
+                            TextField("", text: $userSername, prompt: Text("Фамилия").foregroundColor(.gray))
+                                .padding()
+                                .background(Color.white)
+                                .cornerRadius(10)
+                                .foregroundStyle(.black)
+                        }
+                                                
                         DatePicker(selection: $dateBirth, displayedComponents: [.date]) {
                             Text("Дата рождения")
                                 .foregroundStyle(.white)
@@ -101,32 +119,42 @@ struct CreateNameView: View {
                         .environment(\.locale, Locale.init(identifier: "ru_RU"))
                     }
                     
-                    Button {
-                        
-                        Task {
-                            let userPersonalData = PersonalDataDBUser(userId: AuthService.shared.currentUser?.uid ?? "", friendsId: viewModel.dbUserPersonalData?.friendsId ?? [""], mySubscribers: viewModel.dbUserPersonalData?.mySubscribers ?? [""], requestFriend: viewModel.dbUserPersonalData?.requestFriend ?? [""])
-                            
-                            try await UserManager.shared.createNewPersonalDataUser(user: userPersonalData)
-                        }
-                        viewModel.uploadImageAsync(userID: AuthService.shared.currentUser?.uid ?? "")
-                        UserDefaults.standard.setValue(false, forKey: AuthService.shared.currentUser?.uid ?? "NewUser")
-                        viewModel.updateUserName(userName: userName, userSerName: userSername)
-                        viewModel.updateDateBirth(dateBirth: dateBirth)
-                        isPresentRoot = true
-                        showSignInView = false
-                    } label: {
-                        Text("Далее")
-                            .font(.headline)
-                            .foregroundColor(.black)
-                            .frame(height: 55)
-                            .frame(maxWidth: .infinity)
-//                            .background(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1)), Color(#colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1))]), startPoint: .topLeading, endPoint: .bottomTrailing))
-                            .background(Color("testColor"))
-                            .cornerRadius(10)
-                    }
-                    .disabled(userName.isEmpty && userSername.isEmpty)
-                    .padding(.top, 35)
                     
+                    VStack {
+                        
+                        if viewModel.authProviders.contains(.apple) {
+                            Spacer()
+                                .padding(.bottom, 160)
+                        } else {
+                            
+                        }
+                       
+                        
+                        Button {
+                            
+                            Task {
+                                let userPersonalData = PersonalDataDBUser(userId: AuthService.shared.currentUser?.uid ?? "", friendsId: viewModel.dbUserPersonalData?.friendsId ?? [""], mySubscribers: viewModel.dbUserPersonalData?.mySubscribers ?? [""], requestFriend: viewModel.dbUserPersonalData?.requestFriend ?? [""])
+                                
+                                try await UserManager.shared.createNewPersonalDataUser(user: userPersonalData)
+                            }
+                            viewModel.uploadImageAsync(userID: AuthService.shared.currentUser?.uid ?? "")
+                            UserDefaults.standard.setValue(false, forKey: AuthService.shared.currentUser?.uid ?? "NewUser")
+                            viewModel.updateUserName(userName: userName, userSerName: userSername)
+                            viewModel.updateDateBirth(dateBirth: dateBirth)
+                            isPresentRoot = true
+                            showSignInView = false
+                        } label: {
+                            Text("Далее")
+                                .font(.headline)
+                                .foregroundColor(.black)
+                                .frame(height: 55)
+                                .frame(maxWidth: .infinity)
+                                .background(Color("testColor"))
+                                .cornerRadius(10)
+                        }
+                        .disabled(userName.isEmpty && userSername.isEmpty)
+                        .padding(.top, 35)
+                    }
                     
                 }
             }
@@ -151,6 +179,9 @@ struct CreateNameView: View {
         })
         .sheet(isPresented: $showImagePickerCamera) {
             ImagePicker(sourceType: .camera, selectedImage: $viewModel.image)
+        }
+        .onAppear {
+            viewModel.loadAuthProviders()
         }
 
         
