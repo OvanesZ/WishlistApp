@@ -115,6 +115,20 @@ extension FriendsView {
                             FriendsCell(friend: friend)
                         }
                     }
+                    
+                    ForEach(friendViewModel.myFriends.filter {
+                        if let userName = $0.displayName {
+                            return self.nameFriend.isEmpty ? true : userName.contains(nameFriend)
+                        }
+                        return self.nameFriend.isEmpty
+                    }) { friend in
+                        NavigationLink {
+                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
+                        } label: {
+                            FriendsCell(friend: friend)
+                        }
+                    }
+                    
                 } else {
                     ForEach(friendViewModel.myFriends) { friend in
                         NavigationLink {
@@ -156,6 +170,20 @@ extension FriendsView {
                             FriendsCell(friend: friend)
                         }
                     }
+                    
+                    ForEach(friendViewModel.allUsers.filter {
+                        if let userName = $0.displayName {
+                            return self.nameFriend.isEmpty ? true : userName.contains(nameFriend)
+                        }
+                        return self.nameFriend.isEmpty
+                    }) { friend in
+                        NavigationLink {
+                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
+                        } label: {
+                            FriendsCell(friend: friend)
+                        }
+                    }
+                    
                 }
             }
             .scrollDismissesKeyboard(.immediately)
@@ -236,6 +264,20 @@ extension FriendsView {
                             FriendsCell(friend: friend)
                         }
                     }
+                    
+                    ForEach(friendViewModel.mySubscribers.filter {
+                        if let userName = $0.displayName {
+                            return self.nameFriend.isEmpty ? true : userName.contains(nameFriend)
+                        }
+                        return self.nameFriend.isEmpty
+                    }) { friend in
+                        NavigationLink {
+                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
+                        } label: {
+                            FriendsCell(friend: friend)
+                        }
+                    }
+                    
                 } else {
                     ForEach(friendViewModel.mySubscribers) { friend in
                         NavigationLink {
@@ -275,6 +317,20 @@ extension FriendsView {
                             FriendsCell(friend: friend)
                         }
                     }
+                    
+                    ForEach(friendViewModel.allUsers.filter {
+                        if let userName = $0.displayName {
+                            return self.nameFriend.isEmpty ? true : userName.contains(nameFriend)
+                        }
+                        return self.nameFriend.isEmpty
+                    }) { friend in
+                        NavigationLink {
+                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
+                        } label: {
+                            FriendsCell(friend: friend)
+                        }
+                    }
+                    
                 }
             }
             .listStyle(.inset)

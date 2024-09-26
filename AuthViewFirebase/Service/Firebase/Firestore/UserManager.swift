@@ -140,7 +140,8 @@ final class UserManager {
     func updateUserName(userId: String, userName: String, userSerName: String) {
         let data: [String:Any] = [
             DBUser.CodingKeys.userName.rawValue : userName,
-            DBUser.CodingKeys.userSerName.rawValue : userSerName
+            DBUser.CodingKeys.userSerName.rawValue : userSerName,
+            DBUser.CodingKeys.displayName.rawValue : ""
         ]
         userDocument(userId: userId).setData(data, merge: true)
     }

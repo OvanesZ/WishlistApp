@@ -190,7 +190,16 @@ struct FriendHomeView: View {
     }
     
     func title() -> String {
-        var title: String = "\(viewModel.friend.userName ?? "") \(viewModel.friend.userSerName ?? "")"
+        
+        var title: String = ""
+        
+        if viewModel.friend.userName == nil && viewModel.friend.userSerName == nil {
+            title = "\(viewModel.friend.displayName ?? "")"
+        } else {
+            title = "\(viewModel.friend.userName ?? "") \(viewModel.friend.userSerName ?? "")"
+        }
+        
         return title
     }
+    
 }

@@ -46,7 +46,7 @@ struct FriendsCell: View {
             
             VStack {
                 HStack {
-                    Text(friend.userName ?? "")
+                    Text(friend.userName ?? friend.displayName ?? "")
                         .font(.system(.headline, design: .rounded))
                         
                     
