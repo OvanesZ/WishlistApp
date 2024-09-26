@@ -125,35 +125,59 @@ struct CreateNameView: View {
                         if viewModel.authProviders.contains(.apple) {
                             Spacer()
                                 .padding(.bottom, 160)
-                        } else {
                             
+                            Button {
+                                
+                                Task {
+                                    let userPersonalData = PersonalDataDBUser(userId: AuthService.shared.currentUser?.uid ?? "", friendsId: viewModel.dbUserPersonalData?.friendsId ?? [""], mySubscribers: viewModel.dbUserPersonalData?.mySubscribers ?? [""], requestFriend: viewModel.dbUserPersonalData?.requestFriend ?? [""])
+                                    
+                                    try await UserManager.shared.createNewPersonalDataUser(user: userPersonalData)
+                                }
+                                viewModel.uploadImageAsync(userID: AuthService.shared.currentUser?.uid ?? "")
+                                UserDefaults.standard.setValue(false, forKey: AuthService.shared.currentUser?.uid ?? "NewUser")
+                                viewModel.updateUserName(userName: userName, userSerName: userSername)
+                                viewModel.updateDateBirth(dateBirth: dateBirth)
+                                isPresentRoot = true
+                                showSignInView = false
+                            } label: {
+                                Text("Далее")
+                                    .font(.headline)
+                                    .foregroundColor(.black)
+                                    .frame(height: 55)
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color("testColor"))
+                                    .cornerRadius(10)
+                            }
+                            .padding(.top, 35)
+                        } else {
+                            Button {
+                                
+                                Task {
+                                    let userPersonalData = PersonalDataDBUser(userId: AuthService.shared.currentUser?.uid ?? "", friendsId: viewModel.dbUserPersonalData?.friendsId ?? [""], mySubscribers: viewModel.dbUserPersonalData?.mySubscribers ?? [""], requestFriend: viewModel.dbUserPersonalData?.requestFriend ?? [""])
+                                    
+                                    try await UserManager.shared.createNewPersonalDataUser(user: userPersonalData)
+                                }
+                                viewModel.uploadImageAsync(userID: AuthService.shared.currentUser?.uid ?? "")
+                                UserDefaults.standard.setValue(false, forKey: AuthService.shared.currentUser?.uid ?? "NewUser")
+                                viewModel.updateUserName(userName: userName, userSerName: userSername)
+                                viewModel.updateDateBirth(dateBirth: dateBirth)
+                                isPresentRoot = true
+                                showSignInView = false
+                            } label: {
+                                Text("Далее")
+                                    .font(.headline)
+                                    .foregroundColor(.black)
+                                    .frame(height: 55)
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color("testColor"))
+                                    .cornerRadius(10)
+                            }
+                            .disabled(userName.isEmpty && userSername.isEmpty)
+                            .padding(.top, 35)
                         }
                        
                         
-                        Button {
-                            
-                            Task {
-                                let userPersonalData = PersonalDataDBUser(userId: AuthService.shared.currentUser?.uid ?? "", friendsId: viewModel.dbUserPersonalData?.friendsId ?? [""], mySubscribers: viewModel.dbUserPersonalData?.mySubscribers ?? [""], requestFriend: viewModel.dbUserPersonalData?.requestFriend ?? [""])
-                                
-                                try await UserManager.shared.createNewPersonalDataUser(user: userPersonalData)
-                            }
-                            viewModel.uploadImageAsync(userID: AuthService.shared.currentUser?.uid ?? "")
-                            UserDefaults.standard.setValue(false, forKey: AuthService.shared.currentUser?.uid ?? "NewUser")
-                            viewModel.updateUserName(userName: userName, userSerName: userSername)
-                            viewModel.updateDateBirth(dateBirth: dateBirth)
-                            isPresentRoot = true
-                            showSignInView = false
-                        } label: {
-                            Text("Далее")
-                                .font(.headline)
-                                .foregroundColor(.black)
-                                .frame(height: 55)
-                                .frame(maxWidth: .infinity)
-                                .background(Color("testColor"))
-                                .cornerRadius(10)
-                        }
-                        .disabled(userName.isEmpty && userSername.isEmpty)
-                        .padding(.top, 35)
+                        
                     }
                     
                 }

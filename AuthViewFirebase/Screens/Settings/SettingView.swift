@@ -160,8 +160,16 @@ extension SettingView {
         Section {
             if let user = viewModel.dbUser {
                 
-                Text((user.userName ?? "") + " " + (user.userSerName ?? ""))
-                    .font(.system(.headline, design: .rounded))
+                if user.userName == nil && user.userSerName == nil {
+                    Text(user.displayName ?? "")
+                        .font(.system(.headline, design: .rounded))
+                } else {
+                    Text((user.userName ?? "") + " " + (user.userSerName ?? ""))
+                        .font(.system(.headline, design: .rounded))
+                }
+                
+//                Text((user.userName ?? "") + " " + (user.userSerName ?? ""))
+//                    .font(.system(.headline, design: .rounded))
                     
                 
                 Text(user.email ?? "")
@@ -190,8 +198,13 @@ extension SettingView {
         Section {
             if let user = viewModel.dbUser {
                 
-                Text((user.userName ?? "") + " " + (user.userSerName ?? ""))
-                    .font(.system(.headline, design: .rounded))
+                if user.userName == nil && user.userSerName == nil {
+                    Text(user.displayName ?? "")
+                        .font(.system(.headline, design: .rounded))
+                } else {
+                    Text((user.userName ?? "") + " " + (user.userSerName ?? ""))
+                        .font(.system(.headline, design: .rounded))
+                }
                 
                 Text(user.email ?? "")
                     .font(.system(.callout, design: .rounded))
@@ -213,8 +226,13 @@ extension SettingView {
         Section {
             if let user = viewModel.dbUser {
                 
-                Text((user.userName ?? "") + " " + (user.userSerName ?? ""))
-                    .font(.system(.headline, design: .rounded))
+                if user.userName == nil && user.userSerName == nil {
+                    Text(user.displayName ?? "")
+                        .font(.system(.headline, design: .rounded))
+                } else {
+                    Text((user.userName ?? "") + " " + (user.userSerName ?? ""))
+                        .font(.system(.headline, design: .rounded))
+                }
                 
                 Text(user.email ?? "")
                     .font(.system(.callout, design: .rounded))
