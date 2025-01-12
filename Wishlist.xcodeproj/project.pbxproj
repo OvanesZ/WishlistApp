@@ -1042,8 +1042,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Wishlist-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Вишлист";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Разрешите доступ к камере";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Разрешите доступ к галерее";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Чтобы Вы могли делать моментальные снимки и устанавливать их в ячейку с пожеланием";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Чтобы Вы могли загружать изображения и устанавливать их в ячейку с пожеланием";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1053,7 +1053,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "ru.o-zakharyan.AuthViewFirebase";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1076,8 +1076,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Wishlist-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Вишлист";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Разрешите доступ к камере";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Разрешите доступ к галерее";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Чтобы Вы могли делать моментальные снимки и устанавливать их в ячейку с пожеланием";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Чтобы Вы могли загружать изображения и устанавливать их в ячейку с пожеланием";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1087,7 +1087,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "ru.o-zakharyan.AuthViewFirebase";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
