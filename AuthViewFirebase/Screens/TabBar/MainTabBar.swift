@@ -18,7 +18,7 @@ struct MainTabBar: View {
         
         
         TabView {
-            HomeView()
+            HomeViewNew()
                 .tabItem {
                     VStack {
                         Image(systemName: "rectangle.3.group")

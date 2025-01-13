@@ -30,7 +30,9 @@ struct HomeView: View {
     var body: some View {
         
         NavigationStack {
+            
             ZStack {
+                
                 
                 
                 // MARK: -- LazyVGrid
