@@ -13,7 +13,9 @@ struct HomeViewNew: View {
     @State private var showingCalendar = false
     @State private var currentMonth: Date = Date()
     @State private var isShowReservedPresentsCard = false
+    @State private var isShowNewListView = false
     @State private var isPresents = false
+    @StateObject var viewModel: HomeViewModel = HomeViewModel()
     
     var body: some View {
         
@@ -23,6 +25,8 @@ struct HomeViewNew: View {
             ZStack {
                 HStack {
                     Button(action: {
+                        
+                        isShowNewListView.toggle()
                         
                     }, label: {
                         
@@ -104,80 +108,98 @@ struct HomeViewNew: View {
                     .padding()
                 }
                 
-               
+                
             }
-            .padding(.top)
+            .padding(.top, 110)
             .padding(.bottom)
             ////////// Прокручивание через LazyHGrid
             
-            ScrollView(.horizontal) {
-                LazyHGrid(rows: [GridItem(.fixed(250))], spacing: 10) {
-                    ForEach(items, id: \.self) { item in
-                        Button(action: {
-                            isPresents.toggle()
-                        }, label: {
-                            
-                            VStack {
-                                Spacer()
-                                
-                                Text("День рождения")
-                                    .font(.title3.bold())
-                                    .foregroundStyle(.white)
-                                
-                                HStack {
-                                    Text("12.06.1991")
-                                        .font(.caption.bold())
-                                        .foregroundStyle(.white)
-                                        .padding(.bottom, 10)
-                                        .padding(.leading)
-                                    
+            
+         
+                ScrollView(.horizontal) {
+                    LazyHGrid(rows: [GridItem(.fixed(250))], spacing: 10) {
+                        
+                        
+                            NavigationLink {
+                                ListView()
+                            } label: {
+                                VStack {
                                     Spacer()
+                                    
+                                    Text("Общий список")
+                                        .font(.title3.bold())
+                                        .foregroundStyle(.white)
+                                    
+                                    HStack {
+                                        Text("12.06.1991")
+                                            .font(.caption.bold())
+                                            .foregroundStyle(.white)
+                                            .padding(.bottom, 10)
+                                            .padding(.leading)
+                                        
+                                        Spacer()
+                                    }
+                                    
                                 }
-                                
+                                .frame(width: 170, height: 220)
+                                .background(
+                                    
+                                    RoundedRectangle(cornerRadius: 28)
+                                        .frame(width: 170, height: 220)
+                                        .overlay(
+                                            Image("logo_wishlist")
+                                                .resizable()
+                                                .frame(width: 170, height: 220)
+                                                .scaledToFill()
+                                                .cornerRadius(28)
+                                                .colorMultiply(.gray)
+                                        )
+                                    
+                                )
                             }
-                            .frame(width: 170, height: 220)
-                            .background(
-                                
-                                RoundedRectangle(cornerRadius: 28)
-                                    .frame(width: 170, height: 220)
-                                    .overlay(
-                                        Image("logo_wishlist")
-                                            .resizable()
-                                            .frame(width: 170, height: 220)
-                                            .scaledToFill()
-                                            .cornerRadius(28)
-                                            .colorMultiply(.gray)
-                                    )
-                                
-                            )
-                        })
+
+                        
+                        ForEach(viewModel.lists) { list in
+                            NavigationLink {
+                                // TODO Переход к списку подарков
+                            } label: {
+                                ListCellView(list: list)
+                            }
+                        }
                     }
-                }
-                .padding()
-            }
-            .scrollIndicators(.hidden)
-            .padding(.bottom, 300)
-            .background(
-                Image("bglogo_wishlist")
-                    .resizable()
-                    .scaledToFit()
-                    .opacity(0.4)
-                    .aspectRatio(contentMode: .fill)
                     .padding()
-            )
-        }
-        .sheet(isPresented: $showingCalendar, content: {
-            CalendarView(currentMonth: $currentMonth)
-                .presentationDetents([.medium])
-        })
-        .sheet(isPresented: $isShowReservedPresentsCard) {
-            ReservedPresentsCardView()
-        }
-        .sheet(isPresented: $isPresents, content: {
-            HomeView()
-        })
-          
-      
+                }
+                .scrollIndicators(.hidden)
+                .navigationTitle("Главная")
+                .padding(.bottom, 300)
+                .background(
+                    Image("bglogo_wishlist")
+                        .resizable()
+                        .scaledToFit()
+                        .opacity(0.4)
+                        .aspectRatio(contentMode: .fill)
+                        .padding()
+                )
+            }
+            .sheet(isPresented: $showingCalendar, content: {
+                CalendarView(currentMonth: $currentMonth)
+                    .presentationDetents([.medium])
+            })
+            .sheet(isPresented: $isShowReservedPresentsCard) {
+                ReservedPresentsCardView()
+            }
+            .sheet(isPresented: $isPresents, content: {
+                HomeView()
+            })
+            .sheet(isPresented: $isShowNewListView, content: {
+                NewListView()
+                    .presentationDetents([.medium])
+            })
+            
+            
+            
+        
+        
         
         
         

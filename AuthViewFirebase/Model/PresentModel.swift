@@ -54,3 +54,20 @@ struct PresentModel: Codable, Identifiable, Hashable {
     
  
 }
+
+
+struct ListModel: Codable, Identifiable, Hashable {
+    
+    var id: String = UUID().uuidString
+    var name: String
+    
+    var representation: [String: Any] {
+        var repres = [String: Any]()
+        repres["id"] = self.id
+        repres["name"] = self.name
+        
+        return repres
+    }
+    
+ 
+}

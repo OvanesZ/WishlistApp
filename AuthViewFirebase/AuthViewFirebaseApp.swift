@@ -198,6 +198,7 @@ struct AuthViewFirebaseApp: App {
         WindowGroup {
             
             SplashScreenView()
+                .preferredColorScheme(.light) // Всегда светлая тема
             
         }
     }

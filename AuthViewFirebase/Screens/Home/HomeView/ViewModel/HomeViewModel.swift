@@ -13,7 +13,11 @@ import FirebaseFirestore
 import FirebaseStorage
 
 final class HomeViewModel: ObservableObject {
-    
+    @Published var lists: [ListModel] = [
+    ListModel(id: "1", name: "День рождения"),
+    ListModel(id: "2", name: "Новый Год"),
+    ListModel(id: "3", name: "8 марта")
+    ]
     
     @Published var wishlist: [PresentModel] = [] // будет содержать все подарки пользователя
     var currentUser = Auth.auth().currentUser

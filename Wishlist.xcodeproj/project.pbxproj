@@ -18,6 +18,10 @@
 		4E33525B2C6B5196006E066E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4E3352592C6B5196006E066E /* PrivacyInfo.xcprivacy */; };
 		4E3772582D358C4400A5B120 /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3772572D358C4400A5B120 /* ButtonCell.swift */; };
 		4E37725A2D35957500A5B120 /* HomeViewNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3772592D35957500A5B120 /* HomeViewNew.swift */; };
+		4E37725C2D3B003E00A5B120 /* ListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37725B2D3B003E00A5B120 /* ListCellView.swift */; };
+		4E37725E2D3B031500A5B120 /* ListPresentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37725D2D3B031500A5B120 /* ListPresentView.swift */; };
+		4E3772602D3B073C00A5B120 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37725F2D3B073C00A5B120 /* ListView.swift */; };
+		4E3772622D3B111900A5B120 /* NewListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3772612D3B111900A5B120 /* NewListView.swift */; };
 		4E41CB112B5AFB96000BD2B6 /* SkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E41CB102B5AFB96000BD2B6 /* SkeletonView.swift */; };
 		4E41CB142B5B0A88000BD2B6 /* SkeletonClearView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E41CB132B5B0A88000BD2B6 /* SkeletonClearView.swift */; };
 		4E4687ED2AF6E09B0032D5B7 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 4E4687EC2AF6E09B0032D5B7 /* GoogleSignIn */; };
@@ -119,6 +123,10 @@
 		4E3352592C6B5196006E066E /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		4E3772572D358C4400A5B120 /* ButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
 		4E3772592D35957500A5B120 /* HomeViewNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewNew.swift; sourceTree = "<group>"; };
+		4E37725B2D3B003E00A5B120 /* ListCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCellView.swift; sourceTree = "<group>"; };
+		4E37725D2D3B031500A5B120 /* ListPresentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPresentView.swift; sourceTree = "<group>"; };
+		4E37725F2D3B073C00A5B120 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		4E3772612D3B111900A5B120 /* NewListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewListView.swift; sourceTree = "<group>"; };
 		4E41CB102B5AFB96000BD2B6 /* SkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonView.swift; sourceTree = "<group>"; };
 		4E41CB132B5B0A88000BD2B6 /* SkeletonClearView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonClearView.swift; sourceTree = "<group>"; };
 		4E4687F02AF6E6E70032D5B7 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
@@ -557,8 +565,10 @@
 			isa = PBXGroup;
 			children = (
 				4ED389F32A924D2C007E30D1 /* HomeView.swift */,
+				4E37725F2D3B073C00A5B120 /* ListView.swift */,
 				4E3772592D35957500A5B120 /* HomeViewNew.swift */,
 				4E3772572D358C4400A5B120 /* ButtonCell.swift */,
+				4E3772612D3B111900A5B120 /* NewListView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -586,6 +596,8 @@
 				4EEF21CB2A9D0580001B736F /* PresentView.swift */,
 				4EEF21DE2A9E704C001B736F /* NewPresentView.swift */,
 				4EEF21C52A9CFC90001B736F /* PresentCellView.swift */,
+				4E37725B2D3B003E00A5B120 /* ListCellView.swift */,
+				4E37725D2D3B031500A5B120 /* ListPresentView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -859,6 +871,7 @@
 				4EC880752B849AB8005E7835 /* ReservedPresentsCardFriendDataCell.swift in Sources */,
 				4EEF22042AB65515001B736F /* StorageService.swift in Sources */,
 				4ED389C82A91574E007E30D1 /* AuthViewFirebaseApp.swift in Sources */,
+				4E3772622D3B111900A5B120 /* NewListView.swift in Sources */,
 				4EEF21C02A9CFA8C001B736F /* PresentModel.swift in Sources */,
 				4ED21A3E2B091046001D016B /* SignInAppleHelper.swift in Sources */,
 				4EEF21C82A9CFF97001B736F /* HomeViewModel.swift in Sources */,
@@ -866,6 +879,7 @@
 				4E19CDA12AE30F59008AB36B /* SplashScreenView.swift in Sources */,
 				4E7F8B9D2BE195DC008DFB3B /* PaymentViewControllerRepresentable.swift in Sources */,
 				4E8358772B5188A700A71A25 /* FriendPresentCellView.swift in Sources */,
+				4E3772602D3B073C00A5B120 /* ListView.swift in Sources */,
 				4E19CD9F2AE1CF7F008AB36B /* FirstAppear.swift in Sources */,
 				4E3772582D358C4400A5B120 /* ButtonCell.swift in Sources */,
 				4EEF21FC2AA514E8001B736F /* FriendPresentView.swift in Sources */,
@@ -874,7 +888,9 @@
 				4E9FC3992BAB7D6E00DB9215 /* ImageLoader.swift in Sources */,
 				4E7F8B9F2BE19632008DFB3B /* PayViewController.swift in Sources */,
 				4ED21A482B0A1963001D016B /* SettingView.swift in Sources */,
+				4E37725C2D3B003E00A5B120 /* ListCellView.swift in Sources */,
 				4ED38A092A9269CC007E30D1 /* DataBaseService.swift in Sources */,
+				4E37725E2D3B031500A5B120 /* ListPresentView.swift in Sources */,
 				4ED21A3C2B09101C001D016B /* AuthenticationManager.swift in Sources */,
 				4E744FAC2B6464B5005587A5 /* CreateNameView.swift in Sources */,
 				4EC880702B849A33005E7835 /* ReservedPresentsCardCell.swift in Sources */,
@@ -1055,6 +1071,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1089,6 +1106,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -78,4 +78,36 @@ final class PresentManager {
     func getPresent(presentId: String) async throws -> DBPresent {
         try await presentDocument(presentId: presentId).getDocument(as: DBPresent.self)
     }
+    
+//    func createNewList(userId: String, list: DBList) async throws {
+//        try Firestore.firestore().collection("users").document(userId).collection("list").document(list.listId).setData(from: list, merge: false)
+//    }
 }
+
+
+//struct DBList: Codable {
+//    var listId: String = UUID().uuidString
+//    let name: String?
+//    
+//    init(listId: String, name: String?) {
+//        self.listId = UUID().uuidString
+//        self.name = name
+//    }
+//    
+//    enum CodingKeys: String, CodingKey {
+//        case listId = "list_id"
+//        case name = "name"
+//    }
+//    
+//    init(from decoder: Decoder) throws {
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//        self.listId = try container.decode(String.self, forKey: .listId)
+//        self.name = try container.decodeIfPresent(String.self, forKey: .name)
+//    }
+//    
+//    func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(self.listId, forKey: .listId)
+//        try container.encodeIfPresent(self.name, forKey: .name)
+//    }
+//}
