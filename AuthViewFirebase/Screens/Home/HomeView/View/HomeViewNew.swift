@@ -169,6 +169,14 @@ struct HomeViewNew: View {
                     }
                     .padding()
                 }
+                .onAppear {
+                    viewModel.isStopListener = false
+                    viewModel.fetchList()
+                }
+                .onDisappear {
+                    viewModel.isStopListener = true
+                    viewModel.fetchList()
+                }
                 .scrollIndicators(.hidden)
                 .navigationTitle("Главная")
                 .padding(.bottom, 300)

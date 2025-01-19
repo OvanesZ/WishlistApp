@@ -6,18 +6,26 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ListCellView: View {
     
     let list: ListModel
+    @StateObject var viewModel = HomeViewModel()
     
     var body: some View {
         VStack {
             Spacer()
             
-            Text(list.name)
-                .font(.title3.bold())
-                .foregroundStyle(.white)
+            HStack {
+                Text(list.name)
+                    .font(.title3.bold())
+                    .foregroundStyle(.white)
+                    .padding(.leading, 8)
+                
+                Spacer()
+            }
+            
             
             HStack {
                 Text("12.06.1991")
@@ -36,7 +44,11 @@ struct ListCellView: View {
             RoundedRectangle(cornerRadius: 28)
                 .frame(width: 170, height: 220)
                 .overlay(
-                    Image("list_image")
+//                    Image("list_image")
+                    KFImage(viewModel.url)
+                        .placeholder {
+                            ProgressView()
+                        }
                         .resizable()
                         .frame(width: 170, height: 220)
                         .scaledToFill()
@@ -45,6 +57,9 @@ struct ListCellView: View {
                 )
             
         )
+        .task {
+            try? await self.viewModel.url = viewModel.getUrlListImage(listId: list.id)
+        }
         
         
     }

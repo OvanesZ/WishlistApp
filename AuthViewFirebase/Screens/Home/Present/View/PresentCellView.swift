@@ -91,7 +91,6 @@ struct PresentCellView: View {
                             
                             Spacer()
                         }
-                        
                     )
             )
         .task {

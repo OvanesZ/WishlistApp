@@ -148,6 +148,10 @@ class StorageService {
         try await presentImageRef.child(id).downloadURL()
     }
     
+    func downloadURLListImageAsync(id: String) async throws -> URL {
+        try await listImageRef.child(id).downloadURL()
+    }
+    
     func downloadURLPresentImage(id: String, completion: @escaping (Result<URL?, Error>) -> ()) {
         presentImageRef.child(id).downloadURL { url, error in
             guard url != nil else {

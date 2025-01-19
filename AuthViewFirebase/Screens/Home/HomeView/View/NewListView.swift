@@ -15,6 +15,7 @@ struct NewListView: View {
     @State private var showImagePickerLibrary = false
     @State private var showImagePickerCamera = false
     @ObservedObject var viewModel: HomeViewModel
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         GeometryReader(content: { geometry in
@@ -72,7 +73,7 @@ struct NewListView: View {
                         
                         let newList = ListModel(name: nameList)
                         viewModel.setList(newList: newList)
-                        
+                        dismiss()
                     }) {
                         Text("Создать")
                             .frame(maxWidth: .infinity, alignment: .center)

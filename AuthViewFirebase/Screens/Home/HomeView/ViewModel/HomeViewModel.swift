@@ -16,11 +16,9 @@ import FirebaseStorage
 final class HomeViewModel: ObservableObject {
     
     @Published var uiImage = UIImage(named: "list_image")!
-    @Published var lists: [ListModel] = [
-    ListModel(id: "1", name: "День рождения"),
-    ListModel(id: "2", name: "Новый Год"),
-    ListModel(id: "3", name: "8 марта")
-    ]
+    @Published var url: URL?
+    
+    @Published var lists: [ListModel] = [] // будет содержать все списки пользователя
     
     @Published var wishlist: [PresentModel] = [] // будет содержать все подарки пользователя
     var currentUser = Auth.auth().currentUser
@@ -92,6 +90,9 @@ final class HomeViewModel: ObservableObject {
     }
     
     
+  
+    
+    
     
     
     // MARK: -- Удаляю подарок из коллекции "Wishlist"
@@ -107,6 +108,10 @@ final class HomeViewModel: ObservableObject {
             }
         }
     }
+    
+    
+    // MARK: ---------------------- Работа со списками ----------------------
+    
     
     
     //MARK: -- Добавляю новый список в коллекцию "List"
@@ -131,6 +136,38 @@ final class HomeViewModel: ObservableObject {
     func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
         ImageLoader.shared.resizeImage(image: image, targetSize: targetSize)
    }
+    
+    
+    // MARK: -- Прослушиватель обновлений коллекции list. (пишет все данные в переменную list)
+    
+    func fetchList() {
+        
+        if let user = AuthService.shared.currentUser {
+            let docRef = Firestore.firestore().collection("users").document(user.uid).collection("list")
+           
+            let listener = docRef.addSnapshotListener { (snapshot, error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                }
+                self.lists = snapshot?.documents.compactMap {
+                    try? $0.data(as: ListModel.self)
+                } ?? []
+            }
+            if isStopListener {
+                listener.remove()
+                lists = []
+            }
+            
+        } else {
+            return
+        }
+    }
+    
+    func getUrlListImage(listId: String) async throws -> URL {
+        try await StorageService.shared.downloadURLListImageAsync(id: listId)
+    }
+    
     
     
 }
