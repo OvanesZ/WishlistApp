@@ -1,17 +1,20 @@
 //
-//  FirstView.swift
-//  AuthViewFirebase
+//  UserListView.swift
+//  Wishlist
 //
-//  Created by Ованес Захарян on 20.08.2023.
+//  Created by Ованес Захарян on 20.01.2025.
 //
 
 import SwiftUI
-import FirebaseAuth
 
-struct HomeView: View {
+struct UserListView: View {
     
+    let list: ListModel
     
-    @State private var isShowReservedPresents = false
+    init(list: ListModel) {
+        self.list = list
+    }
+    
     @State private var isShowReservedPresentsCard = false
     @State private var isShowPaymentViewController = false
     
@@ -28,7 +31,6 @@ struct HomeView: View {
     
     
     var body: some View {
-        
         NavigationStack {
             
             ZStack {
@@ -47,7 +49,8 @@ struct HomeView: View {
                         Section() {
                             ForEach(viewModel.wishlist) { present in
                                 NavigationLink {
-                                    PresentModalView(currentPresent: present, presentModelViewModel: PresentModelViewModel(present: present), currentList: nil)
+                                    PresentModalView(currentPresent: present, presentModelViewModel: PresentModelViewModel(present: present), currentList: list)
+                                    
                                 } label: {
                                     PresentCellView(present: present)
                                 }
@@ -58,11 +61,11 @@ struct HomeView: View {
                 }
                 .onAppear {
                     viewModel.isStopListener = false
-                    viewModel.fetchWishlist()
+                    viewModel.fetchOtherWishlist(list: list)
                 }
                 .onDisappear {
                     viewModel.isStopListener = true
-                    viewModel.fetchWishlist()
+                    viewModel.fetchOtherWishlist(list: list)
                 }
                 .background(
                     Image("bglogo_wishlist")
@@ -109,45 +112,20 @@ struct HomeView: View {
                 .font(.system(size: 70))
                 .opacity(0.95)
                 .padding(.leading, 250)
-//                .padding(.top, 420)
                 .padding(.bottom, 50)
                 .sheet(isPresented: $isShowingNewPresentView) {
-                    NewPresentView(viewModel: PresentModelViewModel(present: PresentModel(id: "", name: "", urlText: "", presentFromUserID: "", ownerId: "", whoReserved: "")))
-                }
-                .sheet(isPresented: $isShowReservedPresentsCard) {
-                    ReservedPresentsCardView()
+                    NewOtherPresentView(list: list, viewModel: HomeViewModel())
                 }
                 .sheet(isPresented: $isShowPaymentViewController) {
                     PaymentViewControllerRepresentable()
                         .presentationDetents([.medium, .large])
                 }
-                .navigationTitle("Мои пожелания")
-                .toolbar {
-                    
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button(action: {
-                            isShowReservedPresentsCard = true
-                        }, label: {
-                            HStack {
-                                Image(systemName: "gift.fill")
-                                
-                                Text("друзьям")
-                            }
-                            .foregroundStyle(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1)), Color(#colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1))]), startPoint: .topLeading, endPoint: .bottomTrailing))
-                            .padding(4)
-                            .padding([.leading, .trailing], 4)
-                            .overlay {
-                                Capsule()
-                                    .stroke(lineWidth: 2)
-                                    .foregroundStyle(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1)), Color(#colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1))]), startPoint: .topLeading, endPoint: .bottomTrailing))
-                            }
-                            
-                        })
-                    }
-                    
-                    
-                }
+                .navigationTitle(list.name)
             }
         }
     }
 }
+
+//#Preview {
+//    UserListView()
+//}

@@ -21,6 +21,7 @@ final class HomeViewModel: ObservableObject {
     @Published var lists: [ListModel] = [] // будет содержать все списки пользователя
     
     @Published var wishlist: [PresentModel] = [] // будет содержать все подарки пользователя
+    
     var currentUser = Auth.auth().currentUser
     @Published var isStopListener = false
     @Published private(set) var dbUser: DBUser? = nil
@@ -89,6 +90,30 @@ final class HomeViewModel: ObservableObject {
         
     }
     
+    func fetchOtherWishlist(list: ListModel) {
+        
+        if let user = AuthService.shared.currentUser {
+            let docRef = Firestore.firestore().collection("users").document(user.uid).collection("list").document(list.id).collection("otherWishlist")
+           
+            let listener = docRef.addSnapshotListener { (snapshot, error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                }
+                self.wishlist = snapshot?.documents.compactMap {
+                    try? $0.data(as: PresentModel.self)
+                } ?? []
+            }
+            if isStopListener {
+                listener.remove()
+                wishlist = []
+            }
+            
+        } else {
+            return
+        }
+        
+    }
     
   
     
@@ -119,7 +144,6 @@ final class HomeViewModel: ObservableObject {
     
     func setList(newList: ListModel) {
         let image = resizeImage(image: uiImage, targetSize: CGSizeMake(472.0, 709.0))
-//        print("Разрешение загруженного изображения = \(image.size)")
         guard let imageData = image.jpegData(compressionQuality: 1.0) else { return }
         
         DatabaseService.shared.setList(list: newList, image: imageData) { result in
@@ -167,6 +191,26 @@ final class HomeViewModel: ObservableObject {
     func getUrlListImage(listId: String) async throws -> URL {
         try await StorageService.shared.downloadURLListImageAsync(id: listId)
     }
+    
+    
+    
+    //MARK: -- Добавляю новый подарок в коллекцию "otherWishlist"
+    
+    
+    func setPresentOtherWishlist(list: ListModel, newPresent: PresentModel) {
+        let image = resizeImage(image: uiImage, targetSize: CGSizeMake(472.0, 709.0))
+        guard let imageData = image.jpegData(compressionQuality: 1.0) else { return }
+        
+        DatabaseService.shared.setOtherWishlist(list: list, present: newPresent, image: imageData) { result in
+            switch result {
+            case .success(let list):
+                print(list.name)
+            case .failure(let error):
+                print("Ошибка при отправке данных на сервер \(error.localizedDescription)")
+            }
+        }
+    }
+    
     
     
     

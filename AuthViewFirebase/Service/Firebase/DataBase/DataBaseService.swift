@@ -125,6 +125,24 @@ class DatabaseService {
         }
     }
     
+    func setOtherWishlist(list: ListModel, present: PresentModel, image: Data, completion: @escaping (Result <PresentModel, Error>) -> ()) {
+        StorageService.shared.uploadPresentImage(id: present.id, image: image) { result in
+            switch result {
+            case .success(let sizeInfo):
+                print(sizeInfo)
+                self.usersRef.document(AuthService.shared.currentUser!.uid).collection("list").document(list.id).collection("otherWishlist").document(present.id).setData(present.representation, merge: true) { error in
+                    if let error = error {
+                        completion(.failure(error))
+                    } else {
+                        completion(.success(present))
+                    }
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
     
     
     

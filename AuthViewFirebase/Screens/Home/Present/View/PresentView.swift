@@ -13,6 +13,8 @@ struct PresentModalView: View {
     // MARK: - properties
     
     let currentPresent: PresentModel
+    let currentList: ListModel?
+    
     let nameTextUrl: String = "[Ссылка на подарок]"
     
     @ObservedObject var presentModelViewModel: PresentModelViewModel
@@ -27,9 +29,10 @@ struct PresentModalView: View {
     
     // MARK: - init()
     
-    init(currentPresent: PresentModel, presentModelViewModel: PresentModelViewModel) {
+    init(currentPresent: PresentModel, presentModelViewModel: PresentModelViewModel, currentList: ListModel?) {
         self.currentPresent = currentPresent
         self.presentModelViewModel = presentModelViewModel
+        self.currentList = currentList
     }
     
     var body: some View {
@@ -255,6 +258,7 @@ struct PresentModalView: View {
                 } else {
                     Button(action: {
                         presentModelViewModel.removingPresentFromWishlist(currentPresent.id)
+                        presentModelViewModel.removingPresentFromOtherWishlist(present: currentPresent, list: currentList ?? ListModel(id: "123", name: ""))
                         presentModelViewModel.deletePresentImage()
                         dismiss()
                     }) {

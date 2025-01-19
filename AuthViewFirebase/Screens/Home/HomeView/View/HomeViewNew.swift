@@ -162,6 +162,8 @@ struct HomeViewNew: View {
                         ForEach(viewModel.lists) { list in
                             NavigationLink {
                                 // TODO Переход к списку подарков
+                                UserListView(list: list)
+                                
                             } label: {
                                 ListCellView(list: list)
                             }

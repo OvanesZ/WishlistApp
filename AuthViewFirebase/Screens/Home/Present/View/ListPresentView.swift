@@ -31,7 +31,7 @@ struct ListPresentView: View {
                 Section() {
                     ForEach(viewModel.wishlist) { present in
                         NavigationLink {
-                            PresentModalView(currentPresent: present, presentModelViewModel: PresentModelViewModel(present: present))
+                            PresentModalView(currentPresent: present, presentModelViewModel: PresentModelViewModel(present: present), currentList: nil)
                         } label: {
                             PresentCellView(present: present)
                         }

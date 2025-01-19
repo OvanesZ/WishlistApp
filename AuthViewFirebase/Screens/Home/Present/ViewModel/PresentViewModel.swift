@@ -159,6 +159,20 @@ class PresentModelViewModel: ObservableObject {
         }
     }
     
+    func removingPresentFromOtherWishlist(present: PresentModel, list: ListModel) {
+        guard let user = currentUser else { return }
+        
+        let docRef = Firestore.firestore().collection("users").document(user.uid).collection("list").document(list.id).collection("otherWishlist").document(present.id)
+        
+        docRef.delete() { error in
+            if let error = error {
+                print(error)
+            } else {
+                print("Подарок удален успешно")
+            }
+        }
+    }
+    
     func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
         ImageLoader.shared.resizeImage(image: image, targetSize: targetSize)
    }
