@@ -192,7 +192,7 @@ struct HomeViewNew: View {
                 HomeView()
             })
             .sheet(isPresented: $isShowNewListView, content: {
-                NewListView()
+                NewListView(viewModel: viewModel)
                     .presentationDetents([.medium])
             })
             

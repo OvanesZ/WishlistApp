@@ -107,6 +107,25 @@ class DatabaseService {
     }
     
     
+    func setList(list: ListModel, image: Data, completion: @escaping (Result <ListModel, Error>) -> ()) {
+        StorageService.shared.uploadListImage(id: list.id, image: image) { result in
+            switch result {
+            case .success(let sizeInfo):
+                print(sizeInfo)
+                self.usersRef.document(AuthService.shared.currentUser!.uid).collection("list").document(list.id).setData(list.representation, merge: true) { error in
+                    if let error = error {
+                        completion(.failure(error))
+                    } else {
+                        completion(.success(list))
+                    }
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    
     
     
     

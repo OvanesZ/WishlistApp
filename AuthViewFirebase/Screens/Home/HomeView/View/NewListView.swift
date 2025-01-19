@@ -14,8 +14,7 @@ struct NewListView: View {
     @State private var isAvatarlertPresented = false
     @State private var showImagePickerLibrary = false
     @State private var showImagePickerCamera = false
-    @State private var testImage: UIImage = UIImage(named: "list_image")!
-    
+    @ObservedObject var viewModel: HomeViewModel
     
     var body: some View {
         GeometryReader(content: { geometry in
@@ -45,7 +44,7 @@ struct NewListView: View {
                         RoundedRectangle(cornerRadius: 12)
                             .frame(width: 75, height: 100)
                             .overlay(
-                                Image(uiImage: testImage)
+                                Image(uiImage: viewModel.uiImage)
                                     .resizable()
                                     .frame(width: 75, height: 100)
                                     .scaledToFill()
@@ -71,6 +70,9 @@ struct NewListView: View {
                     
                     Button(action: {
                         
+                        let newList = ListModel(name: nameList)
+                        viewModel.setList(newList: newList)
+                        
                     }) {
                         Text("Создать")
                             .frame(maxWidth: .infinity, alignment: .center)
@@ -90,10 +92,10 @@ struct NewListView: View {
         })
         .background(Color("fillColor"))
         .sheet(isPresented: $showImagePickerLibrary) {
-            ImagePicker(sourceType: .photoLibrary, selectedImage: $testImage)
+            ImagePicker(sourceType: .photoLibrary, selectedImage: $viewModel.uiImage)
         }
         .sheet(isPresented: $showImagePickerCamera) {
-            ImagePicker(sourceType: .camera, selectedImage: $testImage)
+            ImagePicker(sourceType: .camera, selectedImage: $viewModel.uiImage)
         }
         
         
@@ -101,6 +103,6 @@ struct NewListView: View {
     }
 }
 
-#Preview {
-    NewListView()
-}
+//#Preview {
+//    NewListView()
+//}

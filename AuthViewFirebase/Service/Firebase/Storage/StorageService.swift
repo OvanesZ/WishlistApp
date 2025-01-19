@@ -25,6 +25,10 @@ class StorageService {
         storage.child("presentImage")
     }
     
+    private var listImageRef: StorageReference {
+        storage.child("listImage")
+    }
+    
     // MARK: - func
     
     
@@ -100,6 +104,23 @@ class StorageService {
         metadata.contentType = "image/jpg"
         
         presentImageRef.child(id).putData(image, metadata: metadata) { metadata, error in
+            
+            guard let metadata = metadata else {
+                if let error = error {
+                    completion(.failure(error))
+                }
+                return
+            }
+            completion(.success("Размер полученного изображения \(metadata.size)"))
+        }
+    }
+    
+    func uploadListImage(id: String, image: Data, completion: @escaping (Result<String, Error>) -> ()) {
+        
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpg"
+        
+        listImageRef.child(id).putData(image, metadata: metadata) { metadata, error in
             
             guard let metadata = metadata else {
                 if let error = error {
