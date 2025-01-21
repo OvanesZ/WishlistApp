@@ -17,6 +17,7 @@ struct UserListView: View {
     
     @State private var isShowReservedPresentsCard = false
     @State private var isShowPaymentViewController = false
+    @State private var isDeletList = false
     
 
     @State private var isShowingNewPresentView = false
@@ -137,6 +138,25 @@ struct UserListView: View {
                         .presentationDetents([.medium, .large])
                 }
                 .navigationTitle(list.name)
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            isDeletList.toggle()
+                        } label: {
+                            Text("Удалить список")
+                                .font(.callout)
+                                .foregroundStyle(.red)
+                        }
+                        .confirmationDialog("Удалить список?", isPresented: $isDeletList, titleVisibility: .visible) {
+                            Button(role: .destructive) {
+                                
+                            } label: {
+                                Text("Да")
+                            }
+                        }
+
+                    }
+                }
             }
         }
     }
