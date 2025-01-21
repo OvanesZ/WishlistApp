@@ -258,7 +258,7 @@ struct PresentModalView: View {
                 } else {
                     Button(action: {
                         presentModelViewModel.removingPresentFromWishlist(currentPresent.id)
-                        presentModelViewModel.removingPresentFromOtherWishlist(present: currentPresent, list: currentList ?? ListModel(id: "123", name: ""))
+                        presentModelViewModel.removingPresentFromOtherWishlist(present: currentPresent, list: currentList ?? ListModel(id: "123", name: "", date: Date()))
                         presentModelViewModel.deletePresentImage()
                         dismiss()
                     }) {

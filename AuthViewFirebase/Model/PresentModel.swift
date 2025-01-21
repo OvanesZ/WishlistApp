@@ -9,23 +9,6 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-//struct PresentModel: Codable, Identifiable {
-//
-//    @DocumentID var id: String?
-//    var name: String? = ""
-//    var havePhoto: Bool = false
-//    var urlText = ""
-//
-//    var presentFromUser: UserModel = UserModel(id: "", email: "", displayName: "", phoneNumber: 0, address: "", dateOfBirth: Date())
-//
-//    var isReserved = false
-//
-//    var presentImageURLText = ""
-//    var presentImage: URL? { URL(string: "\(presentImageURLText)")}
-//    var presentDescription = ""
-//
-//
-//}
 
 struct PresentModel: Codable, Identifiable, Hashable {
     
@@ -60,11 +43,13 @@ struct ListModel: Codable, Identifiable, Hashable {
     
     var id: String = UUID().uuidString
     var name: String
+    var date: Date
     
     var representation: [String: Any] {
         var repres = [String: Any]()
         repres["id"] = self.id
         repres["name"] = self.name
+        repres["date"] = Timestamp(date: date)
         
         return repres
     }

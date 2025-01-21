@@ -51,6 +51,24 @@ struct NewListView: View {
                                     .scaledToFill()
                                     .cornerRadius(12)
                                     .colorMultiply(.gray)
+                                    .overlay(alignment: .topTrailing) {
+                                        ZStack {
+                                            Circle()
+                                                .fill()
+                                                .frame(width: 20, height: 20)
+                                                .foregroundStyle(Color("payButton"))
+                                                .overlay(alignment: .center) {
+                                                    Image(systemName: "camera")
+                                                        .resizable()
+                                                        .aspectRatio(contentMode: .fill)
+                                                        .frame(width: 10, height: 10)
+                                                        .foregroundStyle(.white)
+                                                }
+                                        }
+                                        .offset(x: 10, y: -5)
+//                                        .padding(.trailing, 10)
+//                                        .padding(.bottom, -10)
+                                    }
                             )
                     }
                     .confirmationDialog("Откуда взять фотографию?", isPresented: $isAvatarlertPresented) {
@@ -71,7 +89,7 @@ struct NewListView: View {
                     
                     Button(action: {
                         
-                        let newList = ListModel(name: nameList)
+                        let newList = ListModel(name: nameList, date: dateList)
                         viewModel.setList(newList: newList)
                         dismiss()
                     }) {
