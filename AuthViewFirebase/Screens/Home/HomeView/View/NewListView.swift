@@ -29,7 +29,7 @@ struct NewListView: View {
                     TextField("Название списка", text: $nameList)
                         .padding()
                         .textFieldStyle(.roundedBorder)
-                        .textInputAutocapitalization(.never)
+                        .textInputAutocapitalization(.words)
                     
                     DatePicker(selection: $dateList, displayedComponents: [.date]) {
                         Text("Дата")
@@ -66,8 +66,6 @@ struct NewListView: View {
                                                 }
                                         }
                                         .offset(x: 10, y: -5)
-//                                        .padding(.trailing, 10)
-//                                        .padding(.bottom, -10)
                                     }
                             )
                     }

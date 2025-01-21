@@ -87,12 +87,33 @@ struct ListView: View {
                             isShowingNewPresentView = true
                         }
                     } label: {
-                        Image(systemName: "plus.circle.fill").foregroundColor(.blue)
-                            .overlay {
-                                SkeletonClearView()
-                                    .clipShape(Circle())
-                                    .frame(width: 70, height: 70, alignment: .center)
-                            }
+//                        Image(systemName: "plus.circle.fill").foregroundColor(.blue)
+//                            .overlay {
+//                                SkeletonClearView()
+//                                    .clipShape(Circle())
+//                                    .frame(width: 70, height: 70, alignment: .center)
+//                            }
+                        
+                        VStack {
+                            Image(systemName: "plus")
+                                .foregroundStyle(Color("textColor"))
+                                .shadow(color: .gray, radius: 2, y: 6)
+                                .font(.title)
+                                .bold()
+                        }
+                        .overlay {
+                            SkeletonClearView()
+                                .frame(width: 110, height: 110, alignment: .center)
+                                .clipShape(RoundedRectangle(cornerRadius: 28))
+                        }
+                        .frame(width: 110, height: 110)
+                        .background(
+                        RoundedRectangle(cornerRadius: 28, style: .continuous)
+                            .fill(Color("fillColor"))
+                            .frame(width: 110, height: 110)
+                            .shadow(color: .gray, radius: 6, y: 6)
+                        )
+                        
                     }
                 }
                 .confirmationDialog("Чтобы добавить больше пожеланий в список оформите полную версию приложения.", isPresented: $isShowPayScreen, titleVisibility: .visible) {
