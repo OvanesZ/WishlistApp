@@ -147,7 +147,7 @@ struct HomeViewNew: View {
                                     RoundedRectangle(cornerRadius: 28)
                                         .frame(width: 170, height: 220)
                                         .overlay(
-                                            Image("logo_wishlist")
+                                            Image("presentList")
                                                 .resizable()
                                                 .frame(width: 170, height: 220)
                                                 .scaledToFill()
