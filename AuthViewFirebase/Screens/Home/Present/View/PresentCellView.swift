@@ -37,10 +37,12 @@ struct PresentCellView: View {
                     
                     Spacer()
                 }
+                .padding(.bottom, -12)
+                
                 
                     
                 HStack {
-                    Text("$450")
+                    Text("")
                         .font(.caption.bold())
                         .foregroundStyle(.black)
                         .padding(.leading, 8)
@@ -54,6 +56,7 @@ struct PresentCellView: View {
                         .font(.system(size: 10))
                         .foregroundStyle(.gray)
                         .padding(.leading, 8)
+                        .lineLimit(1)
 
                     
                     

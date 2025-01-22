@@ -100,7 +100,7 @@ struct MainTabBar: View {
                   .tag(Tab.profile)
           }
           CustomBottomTabBarView(currentTab: $selectedTab)
-              .padding(.bottom)
+              .padding(.bottom, 2)
       }
   }
 }
