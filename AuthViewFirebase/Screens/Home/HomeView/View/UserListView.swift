@@ -23,6 +23,7 @@ struct UserListView: View {
     @State private var isShowingNewPresentView = false
     @State private var isShowPayScreen = false
     @StateObject var viewModel: HomeViewModel = HomeViewModel()
+    @Environment(\.dismiss) var dismiss
     
     
     private var columns: [GridItem] = [
@@ -149,7 +150,9 @@ struct UserListView: View {
                         }
                         .confirmationDialog("Удалить список?", isPresented: $isDeletList, titleVisibility: .visible) {
                             Button(role: .destructive) {
-                                
+                                viewModel.removingList(list: list)
+                                viewModel.deletePresentImage()
+                                dismiss()
                             } label: {
                                 Text("Да")
                             }

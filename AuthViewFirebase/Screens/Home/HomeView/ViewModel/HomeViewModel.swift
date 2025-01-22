@@ -212,6 +212,44 @@ final class HomeViewModel: ObservableObject {
     }
     
     
+    // MARK: -- Удаление списка
+    
+    func removingList(list: ListModel) {
+        guard let user = currentUser else { return }
+        
+        let docRef = Firestore.firestore().collection("users").document(user.uid).collection("list").document(list.id)
+        
+        docRef.delete() { error in
+            if let error = error {
+                print(error)
+            } else {
+                print("Лист удален успешно")
+            }
+        }
+    }
+    
+    // MARK: -- Удаление всех фотографий подарков из удаляемого списка
+    
+    func deletePresentImage() {
+        
+        var listArrayAllPresenID: [String] = []
+        
+        listArrayAllPresenID = wishlist.map { $0.id }
+//        print("Вот список всех подарков: ------------------------- \(wishlist)")
+//        print("Вот список всех id: -------------------------- \(listArrayAllPresenID)")
+        
+        for id in listArrayAllPresenID {
+            StorageService.shared.deletePresentImage(id: id) { result in
+                switch result {
+                case .success(_):
+                    print("Изображение подарка удалено из хранилища!")
+                case .failure(_):
+                    print("Возникла ошибка при удалении изображения из хранилища")
+                }
+            }
+        }
+        
+    }
     
     
 }
