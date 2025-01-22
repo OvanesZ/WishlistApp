@@ -150,6 +150,7 @@ struct UserListView: View {
                         }
                         .confirmationDialog("Удалить список?", isPresented: $isDeletList, titleVisibility: .visible) {
                             Button(role: .destructive) {
+                                viewModel.removingListImage(list: list)
                                 viewModel.removingList(list: list)
                                 viewModel.deletePresentImage()
                                 dismiss()

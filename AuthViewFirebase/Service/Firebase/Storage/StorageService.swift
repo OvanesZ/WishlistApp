@@ -174,6 +174,16 @@ class StorageService {
         }
     }
     
+    func deleteListImage(id: String, completion: @escaping (Result<Data, Error>) -> ()) {
+        listImageRef.child(id).delete { error in
+            if error != nil {
+                print("Ошибка при удалении изображения листа!")
+            } else {
+                print("Изображение листа \(id) удалено успешно!")
+            }
+        }
+    }
+    
     
     
 }

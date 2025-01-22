@@ -223,7 +223,7 @@ final class HomeViewModel: ObservableObject {
             if let error = error {
                 print(error)
             } else {
-                print("Лист удален успешно")
+                print("Лист \(list.name) удален успешно")
             }
         }
     }
@@ -248,8 +248,17 @@ final class HomeViewModel: ObservableObject {
                 }
             }
         }
-        
     }
     
+    func removingListImage(list: ListModel) {
+        StorageService.shared.deleteListImage(id: list.id) { result in
+            switch result {
+            case .success(_):
+                print("Изображение листа \(list.id) удалено из хранилища!")
+            case .failure(_):
+                print("Возникла ошибка при удалении изображения из хранилища")
+            }
+        }
+    }
     
 }
