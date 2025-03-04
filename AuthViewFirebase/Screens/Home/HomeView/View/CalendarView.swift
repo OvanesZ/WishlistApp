@@ -19,7 +19,7 @@ struct CalendarView: View {
         
         NavigationView {
             VStack {
-                Text("Календарь \(monthName(for: currentDate)) \(year(for: currentDate))")
+                Text("\(monthName(for: currentDate)) \(year(for: currentDate))")
                     .font(.title)
                     .padding()
                 
@@ -30,7 +30,14 @@ struct CalendarView: View {
                             currentDate = previousMonth
                         }
                     } label: {
-                        Image(systemName: "minus")
+                        HStack {
+                            Image(systemName: "chevron.left")
+                                .foregroundStyle(Color("textColor"))
+                                .font(.title.bold())
+                                .padding()
+                            
+                            Spacer()
+                        }
                     }
                     
                     Button {
@@ -38,7 +45,15 @@ struct CalendarView: View {
                             currentDate = nextMonth
                         }
                     } label: {
-                        Image(systemName: "plus")
+                        HStack {
+                            Spacer()
+                            
+                            Image(systemName: "chevron.right")
+                                .foregroundStyle(Color("textColor"))
+                                .font(.title.bold())
+                                .padding()
+                        }
+                        
                     }
                 }
                 
@@ -69,20 +84,6 @@ struct CalendarView: View {
                     ForEach(getDaysInMonth(), id: \.self) { day in
                         Button(action: {
                             // Ваш код при нажатии на дату
-                            
-                            // Пример использования
-//                            let url = URL(string: "https://www.ozon.ru/product/innovatsionnyy-aerogril-demiand-sanders-max-s-tehnologiey-prigotovleniya-na-paru-i-goryachim-1636124881/?at=46tRxYm6VFMDGy4ntE4v3KEc49wpAGCQo7932H0N95Pq&avtc=1&avte=2&avts=1739473427")!
-//                            let presentFromUserID = "user123"
-//                            let ownerId = "owner456"
-//                            
-//                            PresentManager.shared.parseOzonProductData(from: url, presentFromUserID: presentFromUserID, ownerId: ownerId) { result in
-//                                switch result {
-//                                case .success(let present):
-//                                    print("Подарок успешно создан: \(present)")
-//                                case .failure(let error):
-//                                    print("Ошибка при парсинге: \(error.localizedDescription)")
-//                                }
-//                            }
 
                             
                         }) {
@@ -188,10 +189,17 @@ struct CalendarView: View {
         return Array(monthRange)
     }
     
+//    private func monthName(for date: Date) -> String {
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "MMMM"
+//        return formatter.string(from: date)
+//    }
+    
     private func monthName(for date: Date) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM"
-        return formatter.string(from: date)
+        formatter.locale = Locale(identifier: "ru_RU")
+        formatter.dateFormat = "LLLL" // Используем LLLL для standalone формата
+        return formatter.string(from: date).capitalized
     }
     
     private func year(for date: Date) -> String {

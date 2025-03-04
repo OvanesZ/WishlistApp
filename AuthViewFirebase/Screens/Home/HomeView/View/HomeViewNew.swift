@@ -210,7 +210,7 @@ struct HomeViewNew: View {
             .sheet(isPresented: $showingCalendar, content: {
                 CalendarView()
 //                    .presentationDetents(viewModel.isShowFullCalendarView ? [.large] : [.medium])
-                    .presentationDetents([.fraction(0.75)])
+                    .presentationDetents([.fraction(0.5)])
             })
             .sheet(isPresented: $isShowReservedPresentsCard) {
                 ReservedPresentsCardView()
