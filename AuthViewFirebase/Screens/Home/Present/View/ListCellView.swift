@@ -51,10 +51,11 @@ struct ListCellView: View {
                 .frame(width: 170, height: 220)
                 .overlay(
                     KFImage(viewModel.url)
+                        .resizable()
                         .placeholder {
                             ProgressView()
                         }
-                        .resizable()
+                        
                         .frame(width: 170, height: 220)
                         .scaledToFill()
                         .cornerRadius(28)

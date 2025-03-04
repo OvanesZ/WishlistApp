@@ -16,6 +16,8 @@ struct HomeViewNew: View {
     @State private var isShowReservedPresentsCard = false
     @State private var isShowNewListView = false
     @State private var isPresents = false
+    @State private var isShowPayScreen = false
+    @State private var isShowPaymentViewController = false
     @StateObject var viewModel: HomeViewModel = HomeViewModel()
     
     var body: some View {
@@ -27,7 +29,19 @@ struct HomeViewNew: View {
                 HStack {
                     Button(action: {
                         
-                        isShowNewListView.toggle()
+                        //viewModel.lists
+                        
+                        if viewModel.lists.count >= 1 {
+                            // TODO show screen for pay full version
+                            guard let isPremium = viewModel.dbUser?.isPremium else { return }
+                            if isPremium {
+                                isShowNewListView.toggle()
+                            } else {
+                                isShowPayScreen = true
+                            }
+                        } else {
+                            isShowNewListView.toggle()
+                        }
                         
                     }, label: {
                         
@@ -53,6 +67,17 @@ struct HomeViewNew: View {
                         )
                     })
                     .padding()
+                    .confirmationDialog("Чтобы добавить больше пожеланий в список оформите полную версию приложения.", isPresented: $isShowPayScreen, titleVisibility: .visible) {
+                        Button {
+                            isShowPaymentViewController = true
+                        } label: {
+                            Text("Перейти к оплате (299 руб.)")
+                        }
+                    }
+                    .sheet(isPresented: $isShowPaymentViewController) {
+                        PaymentViewControllerRepresentable()
+                            .presentationDetents([.medium, .large])
+                    }
                     
                     Button(action: {
                         showingCalendar.toggle()
@@ -133,16 +158,6 @@ struct HomeViewNew: View {
                                         .padding(.bottom, 28)
                                         .padding(.trailing)
                                     
-//                                    HStack {
-//                                        Text("12.06.1991")
-//                                            .font(.caption.bold())
-//                                            .foregroundStyle(.white)
-//                                            .padding(.bottom, 10)
-//                                            .padding(.leading)
-//                                        
-//                                        Spacer()
-//                                    }
-                                    
                                 }
                                 .frame(width: 170, height: 220)
                                 .background(
@@ -164,9 +179,7 @@ struct HomeViewNew: View {
                         
                         ForEach(viewModel.lists) { list in
                             NavigationLink {
-                                // TODO Переход к списку подарков
                                 UserListView(list: list)
-                                
                             } label: {
                                 ListCellView(list: list)
                             }
@@ -196,8 +209,8 @@ struct HomeViewNew: View {
             }
             .sheet(isPresented: $showingCalendar, content: {
                 CalendarView()
-//                CalendarView(currentMonth: $currentMonth)
-                    .presentationDetents([.medium])
+//                    .presentationDetents(viewModel.isShowFullCalendarView ? [.large] : [.medium])
+                    .presentationDetents([.fraction(0.75)])
             })
             .sheet(isPresented: $isShowReservedPresentsCard) {
                 ReservedPresentsCardView()
@@ -229,217 +242,3 @@ struct HomeViewNew: View {
 
 
 
-
-//struct CalendarView: View {
-//    @Binding var currentMonth: Date
-//    
-//    private var days: [String] {
-//        let calendar = Calendar.current
-//        let range = calendar.range(of: .day, in: .month, for: currentMonth)!
-//        let daysArray = range.map { String($0) }
-//        return daysArray
-//    }
-//    
-//    var body: some View {
-//        LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 7)) {
-//            ForEach(days, id: \.self) { day in
-//                Text(day)
-//                    .frame(width: 40, height: 40)
-//                    .background(Color.gray.opacity(0.3))
-//                    .cornerRadius(5)
-//                    .padding(2)
-//            }
-//        }
-//        .padding()
-//    }
-//}
-
-
-
-
-//struct CalendarView: View {
-//    @State private var currentDate = Date()
-//    private var days = Calendar.current.range(of: .day, in: .month, for: Date())!
-//    
-//    var body: some View {
-//        VStack {
-//            Text("Календарь \(monthName(for: currentDate)) \(year(for: currentDate))")
-//                .font(.title)
-//                .padding()
-//
-//            let daysInWeek = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"]
-//            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 7)) {
-//                ForEach(daysInWeek, id: \.self) { day in
-//                    Text(day)
-//                        .fontWeight(.light)
-//                }
-//
-//                ForEach(getDaysInMonth(), id: \.self) { day in
-//                    Button(action: {
-//                        // Ваш код при нажатии на дату
-//                        print("Выбрана дата: \(day)")
-//                    }) {
-//                        Text("\(day)")
-//                            .frame(maxWidth: .infinity)
-//                            .padding()
-//                            .background(Color.blue.opacity(0.2))
-//                            .cornerRadius(10)
-//                            .lineLimit(1)
-//                    }
-//                    .padding(4)
-//                }
-//            }
-//        }
-//    }
-//
-//    private func getDaysInMonth() -> [Int] {
-//        let monthRange = Calendar.current.range(of: .day, in: .month, for: currentDate)!
-//        return Array(monthRange)
-//    }
-//
-//    private func monthName(for date: Date) -> String {
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "MMMM"
-//        return formatter.string(from: date)
-//    }
-//    
-//    private func year(for date: Date) -> String {
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "YYYY"
-//        return formatter.string(from: date)
-//    }
-//}
-//
-//struct CalendarView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CalendarView()
-//    }
-//}
-
-struct CalendarView: View {
-    @State private var currentDate = Date()
-    private var days = Calendar.current.range(of: .day, in: .month, for: Date())!
-    
-    var body: some View {
-        
-        NavigationView {
-            VStack {
-                Text("Календарь \(monthName(for: currentDate)) \(year(for: currentDate))")
-                    .font(.title)
-                    .padding()
-                
-                HStack {
-                    Button {
-                        // Переход на предыдущий месяц
-                        if let previousMonth = Calendar.current.date(byAdding: .month, value: -1, to: currentDate) {
-                            currentDate = previousMonth
-                        }
-                    } label: {
-                        Image(systemName: "minus")
-                    }
-                    
-                    Button {
-                        if let nextMonth = Calendar.current.date(byAdding: .month, value: 1, to: Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: currentDate))!) {
-                                currentDate = nextMonth
-                            }
-                    } label: {
-                        Image(systemName: "plus")
-                    }
-                }
-                
-                
-                
-
-
-                let daysInWeek = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"]
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 7)) {
-                    ForEach(daysInWeek, id: \.self) { day in
-                        Text(day)
-                            .fontWeight(.bold)
-                    }
-
-                    // Получаем первый день месяца и его день недели
-                    let firstDayOfMonth = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: currentDate))!
-                    let startingWeekday = Calendar.current.component(.weekday, from: firstDayOfMonth)
-                    
-                    // Корректируем день недели, чтобы неделя начиналась с понедельника
-                    let adjustedStartingWeekday = (startingWeekday + 5) % 7 // Пн = 1, Вс = 7
-                    
-                    
-
-                    // Добавляем пустые ячейки для дней до первого дня месяца
-                    ForEach(0..<adjustedStartingWeekday, id: \.self) { _ in
-                        Text("") // Пустая ячейка
-                            .frame(maxWidth: .infinity)
-                    }
-
-                    ForEach(getDaysInMonth(), id: \.self) { day in
-                        Button(action: {
-                            // Ваш код при нажатии на дату
-                            print("Выбрана дата: \(day)")
-                            
-                        }) {
-                            var nowDate = Date()
-                            let currentDay = Calendar.current.component(.day, from: nowDate)
-                            if day == currentDay && monthName(for: currentDate) == monthName(for: nowDate) {
-                                Text("\(day)")
-                                    .font(.system(size: 24))
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.top, 6)
-                                    .padding(.bottom, 6)
-                                    .background(Color("fillColor"))
-                                    .cornerRadius(10)
-                                    .lineLimit(1)
-                                    .tint(Color("textColor"))
-                            } else {
-                                Text("\(day)")
-                                    .font(.system(size: 12))
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.top, 6)
-                                    .padding(.bottom, 6)
-                                    .background(Color("fillColor"))
-                                    .cornerRadius(10)
-                                    .lineLimit(1)
-                                    .tint(Color("textColor"))
-                            }
-//                            Text("\(day)")
-//                                .font(.system(size: 12))
-//                                .frame(maxWidth: .infinity)
-//                                .padding(.top, 6)
-//                                .padding(.bottom, 6)
-//                                .background(Color("fillColor"))
-//                                .cornerRadius(10)
-//                                .lineLimit(1)
-//                                .tint(Color("textColor"))
-                        }
-                        .padding(2)
-                    }
-                }
-            }
-        }
-        
-    }
-
-    private func getDaysInMonth() -> [Int] {
-        let monthRange = Calendar.current.range(of: .day, in: .month, for: currentDate)!
-        return Array(monthRange)
-    }
-    
-    private func monthName(for date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM"
-        return formatter.string(from: date)
-    }
-    
-    private func year(for date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "YYYY"
-        return formatter.string(from: date)
-    }
-}
-
-struct CalendarView_Previews: PreviewProvider {
-    static var previews: some View {
-        CalendarView()
-    }
-}

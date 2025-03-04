@@ -24,6 +24,8 @@
 		4E3772622D3B111900A5B120 /* NewListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3772612D3B111900A5B120 /* NewListView.swift */; };
 		4E3772642D3DA76000A5B120 /* UserListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3772632D3DA76000A5B120 /* UserListView.swift */; };
 		4E3772662D3DAB5F00A5B120 /* NewOtherPresentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3772652D3DAB5F00A5B120 /* NewOtherPresentView.swift */; };
+		4E37726D2D428E8E00A5B120 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37726C2D428E8E00A5B120 /* CalendarView.swift */; };
+		4E37726F2D43826200A5B120 /* CalendarViewNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37726E2D43826200A5B120 /* CalendarViewNew.swift */; };
 		4E41CB112B5AFB96000BD2B6 /* SkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E41CB102B5AFB96000BD2B6 /* SkeletonView.swift */; };
 		4E41CB142B5B0A88000BD2B6 /* SkeletonClearView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E41CB132B5B0A88000BD2B6 /* SkeletonClearView.swift */; };
 		4E4687ED2AF6E09B0032D5B7 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 4E4687EC2AF6E09B0032D5B7 /* GoogleSignIn */; };
@@ -32,8 +34,6 @@
 		4E744FAC2B6464B5005587A5 /* CreateNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E744FAB2B6464B5005587A5 /* CreateNameView.swift */; };
 		4E744FAF2B71F9F4005587A5 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 4E744FAE2B71F9F4005587A5 /* CachedAsyncImage */; };
 		4E7F8B972BE18423008DFB3B /* PayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7F8B962BE18423008DFB3B /* PayModel.swift */; };
-		4E7F8B992BE184B4008DFB3B /* TinkoffASDKUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4E7F8B982BE184B4008DFB3B /* TinkoffASDKUI */; };
-		4E7F8B9B2BE184BE008DFB3B /* TinkoffASDKCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4E7F8B9A2BE184BE008DFB3B /* TinkoffASDKCore */; };
 		4E7F8B9D2BE195DC008DFB3B /* PaymentViewControllerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7F8B9C2BE195DC008DFB3B /* PaymentViewControllerRepresentable.swift */; };
 		4E7F8B9F2BE19632008DFB3B /* PayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7F8B9E2BE19632008DFB3B /* PayViewController.swift */; };
 		4E7F8BA22BE4CBE9008DFB3B /* TextFieldClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7F8BA12BE4CBE9008DFB3B /* TextFieldClearButton.swift */; };
@@ -42,6 +42,8 @@
 		4E9FC3952BA50A6A00DB9215 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E9FC3942BA50A6A00DB9215 /* GoogleService-Info.plist */; };
 		4E9FC3972BA50C4800DB9215 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 4E9FC3962BA50C4800DB9215 /* FirebaseMessaging */; };
 		4E9FC3992BAB7D6E00DB9215 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC3982BAB7D6E00DB9215 /* ImageLoader.swift */; };
+		4EAA81EA2D5E73650015D5FE /* TinkoffASDKCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4EAA81E92D5E73650015D5FE /* TinkoffASDKCore */; };
+		4EAA81EC2D5E73650015D5FE /* TinkoffASDKUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4EAA81EB2D5E73650015D5FE /* TinkoffASDKUI */; };
 		4EC880702B849A33005E7835 /* ReservedPresentsCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC8806F2B849A33005E7835 /* ReservedPresentsCardCell.swift */; };
 		4EC880732B849A84005E7835 /* ReservedPresentsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC880722B849A84005E7835 /* ReservedPresentsCardView.swift */; };
 		4EC880752B849AB8005E7835 /* ReservedPresentsCardFriendDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC880742B849AB8005E7835 /* ReservedPresentsCardFriendDataCell.swift */; };
@@ -94,6 +96,7 @@
 		4EEF22062AB8D213001B736F /* GentiumBookPlus-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EEF22052AB8D213001B736F /* GentiumBookPlus-Bold.ttf */; };
 		4EEF22092AB8D34F001B736F /* Gloock-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EEF22082AB8D34F001B736F /* Gloock-Regular.ttf */; };
 		4EEF220B2AB8D424001B736F /* Volja.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EEF220A2AB8D424001B736F /* Volja.otf */; };
+		4EF0DF3C2D5E784700457D37 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 4EF0DF3B2D5E784700457D37 /* SwiftSoup */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,6 +134,8 @@
 		4E3772612D3B111900A5B120 /* NewListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewListView.swift; sourceTree = "<group>"; };
 		4E3772632D3DA76000A5B120 /* UserListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListView.swift; sourceTree = "<group>"; };
 		4E3772652D3DAB5F00A5B120 /* NewOtherPresentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOtherPresentView.swift; sourceTree = "<group>"; };
+		4E37726C2D428E8E00A5B120 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		4E37726E2D43826200A5B120 /* CalendarViewNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewNew.swift; sourceTree = "<group>"; };
 		4E41CB102B5AFB96000BD2B6 /* SkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonView.swift; sourceTree = "<group>"; };
 		4E41CB132B5B0A88000BD2B6 /* SkeletonClearView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonClearView.swift; sourceTree = "<group>"; };
 		4E4687F02AF6E6E70032D5B7 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
@@ -204,13 +209,14 @@
 			files = (
 				4E9FC3972BA50C4800DB9215 /* FirebaseMessaging in Frameworks */,
 				4ED389FD2A925D9B007E30D1 /* FirebaseAuth in Frameworks */,
+				4EAA81EA2D5E73650015D5FE /* TinkoffASDKCore in Frameworks */,
 				4E744FAF2B71F9F4005587A5 /* CachedAsyncImage in Frameworks */,
 				4ED389FF2A925D9B007E30D1 /* FirebaseFirestore in Frameworks */,
+				4EF0DF3C2D5E784700457D37 /* SwiftSoup in Frameworks */,
 				4E4687EF2AF6E09B0032D5B7 /* GoogleSignInSwift in Frameworks */,
 				4ED38A012A925D9B007E30D1 /* FirebaseStorage in Frameworks */,
 				4EEF21C42A9CFC5E001B736F /* FirebaseFirestoreSwift in Frameworks */,
-				4E7F8B9B2BE184BE008DFB3B /* TinkoffASDKCore in Frameworks */,
-				4E7F8B992BE184B4008DFB3B /* TinkoffASDKUI in Frameworks */,
+				4EAA81EC2D5E73650015D5FE /* TinkoffASDKUI in Frameworks */,
 				4EEF21CF2A9D05AD001B736F /* Kingfisher in Frameworks */,
 				4E4687ED2AF6E09B0032D5B7 /* GoogleSignIn in Frameworks */,
 			);
@@ -572,6 +578,8 @@
 				4E37725F2D3B073C00A5B120 /* ListView.swift */,
 				4E3772632D3DA76000A5B120 /* UserListView.swift */,
 				4E3772592D35957500A5B120 /* HomeViewNew.swift */,
+				4E37726C2D428E8E00A5B120 /* CalendarView.swift */,
+				4E37726E2D43826200A5B120 /* CalendarViewNew.swift */,
 				4E3772572D358C4400A5B120 /* ButtonCell.swift */,
 				4E3772612D3B111900A5B120 /* NewListView.swift */,
 			);
@@ -714,8 +722,9 @@
 				4E4687EE2AF6E09B0032D5B7 /* GoogleSignInSwift */,
 				4E744FAE2B71F9F4005587A5 /* CachedAsyncImage */,
 				4E9FC3962BA50C4800DB9215 /* FirebaseMessaging */,
-				4E7F8B982BE184B4008DFB3B /* TinkoffASDKUI */,
-				4E7F8B9A2BE184BE008DFB3B /* TinkoffASDKCore */,
+				4EAA81E92D5E73650015D5FE /* TinkoffASDKCore */,
+				4EAA81EB2D5E73650015D5FE /* TinkoffASDKUI */,
+				4EF0DF3B2D5E784700457D37 /* SwiftSoup */,
 			);
 			productName = AuthViewFirebase;
 			productReference = 4ED389C42A91574E007E30D1 /* Wishlist.app */;
@@ -795,7 +804,8 @@
 				4EEF21CD2A9D05AD001B736F /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				4E4687EB2AF6E09B0032D5B7 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				4E744FAD2B71F9F4005587A5 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
-				4E7F8B952BDEE8FD008DFB3B /* XCRemoteSwiftPackageReference "tinkoff-asdk-ios" */,
+				4EAA81E82D5E73650015D5FE /* XCRemoteSwiftPackageReference "asdk-ios" */,
+				4EF0DF3A2D5E784700457D37 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 			);
 			productRefGroup = 4ED389C52A91574E007E30D1 /* Products */;
 			projectDirPath = "";
@@ -891,7 +901,9 @@
 				4E19CD9F2AE1CF7F008AB36B /* FirstAppear.swift in Sources */,
 				4E3772582D358C4400A5B120 /* ButtonCell.swift in Sources */,
 				4EEF21FC2AA514E8001B736F /* FriendPresentView.swift in Sources */,
+				4E37726D2D428E8E00A5B120 /* CalendarView.swift in Sources */,
 				4EEF21E72A9E8ACC001B736F /* FriendsCell.swift in Sources */,
+				4E37726F2D43826200A5B120 /* CalendarViewNew.swift in Sources */,
 				4ED38A072A9268C5007E30D1 /* UserModel.swift in Sources */,
 				4E9FC3992BAB7D6E00DB9215 /* ImageLoader.swift in Sources */,
 				4E7F8B9F2BE19632008DFB3B /* PayViewController.swift in Sources */,
@@ -1264,9 +1276,9 @@
 				minimumVersion = 2.1.1;
 			};
 		};
-		4E7F8B952BDEE8FD008DFB3B /* XCRemoteSwiftPackageReference "tinkoff-asdk-ios" */ = {
+		4EAA81E82D5E73650015D5FE /* XCRemoteSwiftPackageReference "asdk-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://opensource.tinkoff.ru/tinkoff-mobile-tech/tinkoff-asdk-ios";
+			repositoryURL = "https://opensource.tbank.ru/mobile-tech/asdk-ios.git";
 			requirement = {
 				branch = master;
 				kind = branch;
@@ -1288,6 +1300,14 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		4EF0DF3A2D5E784700457D37 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
+			requirement = {
+				kind = exactVersion;
+				version = 2.6.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1306,20 +1326,20 @@
 			package = 4E744FAD2B71F9F4005587A5 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
 			productName = CachedAsyncImage;
 		};
-		4E7F8B982BE184B4008DFB3B /* TinkoffASDKUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4E7F8B952BDEE8FD008DFB3B /* XCRemoteSwiftPackageReference "tinkoff-asdk-ios" */;
-			productName = TinkoffASDKUI;
-		};
-		4E7F8B9A2BE184BE008DFB3B /* TinkoffASDKCore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4E7F8B952BDEE8FD008DFB3B /* XCRemoteSwiftPackageReference "tinkoff-asdk-ios" */;
-			productName = TinkoffASDKCore;
-		};
 		4E9FC3962BA50C4800DB9215 /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4ED389FB2A925D9B007E30D1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
+		};
+		4EAA81E92D5E73650015D5FE /* TinkoffASDKCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4EAA81E82D5E73650015D5FE /* XCRemoteSwiftPackageReference "asdk-ios" */;
+			productName = TinkoffASDKCore;
+		};
+		4EAA81EB2D5E73650015D5FE /* TinkoffASDKUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4EAA81E82D5E73650015D5FE /* XCRemoteSwiftPackageReference "asdk-ios" */;
+			productName = TinkoffASDKUI;
 		};
 		4ED389FC2A925D9B007E30D1 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1345,6 +1365,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4EEF21CD2A9D05AD001B736F /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		4EF0DF3B2D5E784700457D37 /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4EF0DF3A2D5E784700457D37 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

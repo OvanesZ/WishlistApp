@@ -74,7 +74,6 @@ struct PresentCellView: View {
                     
             }
             .frame(width: 160, height: 210)
-            
             .background(
                 RoundedRectangle(cornerRadius: 7)
                     .stroke(Color.gray, lineWidth: 0.5)
@@ -84,17 +83,18 @@ struct PresentCellView: View {
                     .overlay(
                         VStack {
                             KFImage(viewModel.url)
-                                .placeholder {
-                                    ProgressView()
-                                }
                                 .resizable()
+                                .aspectRatio(contentMode: .fill)
                                 .frame(width: 140, height: 140)
-                                .scaledToFill()
+                                .clipped()
+                            
                                 .padding()
                             
                             Spacer()
                         }
+                        
                     )
+                    .frame(width: 140, height: 140)
             )
         .task {
             try? await self.viewModel.url = viewModel.getUrlPresentImage(presentId: present.id)

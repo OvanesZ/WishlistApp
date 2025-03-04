@@ -1,4 +1,5 @@
 {
+  "originHash" : "26dc120a94774dd4c9a34fa16b49459cb3824c00f9caa170593d5cca9415a6dd",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -16,6 +17,15 @@
       "state" : {
         "revision" : "71cde449f13d453227e687458144bde372d30fc7",
         "version" : "1.6.2"
+      }
+    },
+    {
+      "identity" : "asdk-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://opensource.tbank.ru/mobile-tech/asdk-ios.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "70b26936a906fa5daeb985a2527630e58b9c386c"
       }
     },
     {
@@ -136,6 +146,15 @@
       }
     },
     {
+      "identity" : "swiftsoup",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/scinfu/SwiftSoup.git",
+      "state" : {
+        "revision" : "0e96a20ffd37a515c5c963952d4335c89bed50a6",
+        "version" : "2.6.0"
+      }
+    },
+    {
       "identity" : "swiftui-cached-async-image",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/lorenzofiamingo/swiftui-cached-async-image",
@@ -143,16 +162,7 @@
         "revision" : "467a3d17479887943ab917a379e62bbaff60ac8a",
         "version" : "2.1.1"
       }
-    },
-    {
-      "identity" : "tinkoff-asdk-ios",
-      "kind" : "remoteSourceControl",
-      "location" : "https://opensource.tinkoff.ru/tinkoff-mobile-tech/tinkoff-asdk-ios",
-      "state" : {
-        "branch" : "master",
-        "revision" : "7e6b2e3e383f4fd46d8c67f96d58b4ec6d371d72"
-      }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

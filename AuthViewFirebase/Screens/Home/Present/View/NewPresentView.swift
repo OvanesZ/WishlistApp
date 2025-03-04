@@ -39,15 +39,6 @@ struct NewPresentView: View {
                                 Image(uiImage: viewModel.uiImage)
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
-                                // correct
-//                                    .overlay(alignment: .center) {
-//                                        Image(systemName: "camera")
-//                                            .resizable()
-//                                            .aspectRatio(contentMode: .fill)
-//                                            .frame(width: 100, height: 100)
-//                                            .foregroundStyle(.blue)
-//                                            .opacity(0.3)
-//                                    }
                             }
                             .frame(height: 350)
                             .frame(maxWidth: .infinity, maxHeight: 350)

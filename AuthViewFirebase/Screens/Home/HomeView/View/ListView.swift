@@ -87,13 +87,6 @@ struct ListView: View {
                             isShowingNewPresentView = true
                         }
                     } label: {
-//                        Image(systemName: "plus.circle.fill").foregroundColor(.blue)
-//                            .overlay {
-//                                SkeletonClearView()
-//                                    .clipShape(Circle())
-//                                    .frame(width: 70, height: 70, alignment: .center)
-//                            }
-                        
                         VStack {
                             Image(systemName: "plus")
                                 .foregroundStyle(Color("textColor"))

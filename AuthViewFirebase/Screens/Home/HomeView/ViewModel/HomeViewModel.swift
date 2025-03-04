@@ -14,6 +14,10 @@ import FirebaseFirestore
 import FirebaseStorage
 
 final class HomeViewModel: ObservableObject {
+    @Published var myFriends: [DBUser] = []
+    @Published var myFriendsID: [String] = [" "]
+    @Published var isLoading = false
+
     
     @Published var uiImage = UIImage(named: "list_image")!
     @Published var url: URL?
@@ -37,6 +41,39 @@ final class HomeViewModel: ObservableObject {
         stopListener()
     }
     
+    // MARK: -- Получаю список друзей для календаря
+    
+    func getUrlUserImage(userId: String) async throws -> URL {
+        try await StorageService.shared.downloadURLUserImageAsync(id: userId)
+    }
+    
+    func getMyFriendsID() async throws {
+        self.isLoading = true
+        let document = try await DatabaseService.shared.getMyDocument()
+        
+        guard let data = document.data() else { return }
+        
+        guard let id = data["friends_id"] as? [String] else { return }
+        
+        DispatchQueue.main.async {
+            self.myFriendsID = id
+        }
+        
+    }
+    
+    func getSubscriptions() async throws {
+        
+        let friends = try await DatabaseService.shared.getFriends(myFriendsID: myFriendsID).documents.compactMap {
+            try? $0.data(as: DBUser.self)
+        }
+        
+        DispatchQueue.main.async {
+            self.myFriends = friends
+            self.isLoading = false
+        }
+    }
+    
+    // MARK: -- --------------------------------------------------------------------------------------------------------
     
     func setupListener() {
         
