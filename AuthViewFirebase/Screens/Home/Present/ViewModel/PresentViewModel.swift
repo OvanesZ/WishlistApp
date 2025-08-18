@@ -7,7 +7,7 @@
 
 import UIKit
 import FirebaseAuth
-import FirebaseFirestoreSwift
+//import FirebaseFirestoreSwift
 import FirebaseFirestore
 import FirebaseStorage
 

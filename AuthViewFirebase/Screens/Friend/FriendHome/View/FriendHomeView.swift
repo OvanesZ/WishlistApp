@@ -136,7 +136,11 @@ struct FriendHomeView: View {
                 ) {
                     Section() {
                         ForEach(viewModel.wishlist ?? [PresentModel(id: "", name: "", urlText: "", presentFromUserID: "", isReserved: false, presentDescription: "", ownerId: "", whoReserved: "")]) { present in
+                            
                             FriendPresentCellView(present: present, friend: viewModel.friend)
+                            
+                           
+                            
                         }
                     }
                 }
