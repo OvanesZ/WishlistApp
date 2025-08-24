@@ -68,8 +68,6 @@ struct FriendsView: View {
 extension FriendsView {
     
     private var subscriptions: some View {
-        
-        NavigationStack {
             
             if friendViewModel.isLoading {
                 ProgressView()
@@ -89,7 +87,7 @@ extension FriendsView {
                 }
             }
             
-            List {
+        return List {
                 if !nameFriend.isEmpty {
                     if friendViewModel.myFriends.isEmpty {
                         Text("У Вас пока нет подписок")
@@ -110,7 +108,8 @@ extension FriendsView {
                         return self.nameFriend.isEmpty
                     }) { friend in
                         NavigationLink {
-                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
+//                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
+                            FriendHomeViewNew(viewModel: FriendHomeViewModel(friend: friend))
                         } label: {
                             FriendsCell(friend: friend)
                         }
@@ -123,7 +122,8 @@ extension FriendsView {
                         return self.nameFriend.isEmpty
                     }) { friend in
                         NavigationLink {
-                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
+//                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
+                            FriendHomeViewNew(viewModel: FriendHomeViewModel(friend: friend))
                         } label: {
                             FriendsCell(friend: friend)
                         }
@@ -132,7 +132,8 @@ extension FriendsView {
                 } else {
                     ForEach(friendViewModel.myFriends) { friend in
                         NavigationLink {
-                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
+//                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
+                            FriendHomeViewNew(viewModel: FriendHomeViewModel(friend: friend))
                         } label: {
                             FriendsCell(friend: friend)
                         }
@@ -165,7 +166,8 @@ extension FriendsView {
                         return self.nameFriend.isEmpty
                     }) { friend in
                         NavigationLink {
-                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
+//                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
+                            FriendHomeViewNew(viewModel: FriendHomeViewModel(friend: friend))
                         } label: {
                             FriendsCell(friend: friend)
                         }
@@ -178,7 +180,8 @@ extension FriendsView {
                         return self.nameFriend.isEmpty
                     }) { friend in
                         NavigationLink {
-                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
+//                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
+                            FriendHomeViewNew(viewModel: FriendHomeViewModel(friend: friend))
                         } label: {
                             FriendsCell(friend: friend)
                         }
@@ -196,7 +199,7 @@ extension FriendsView {
                 try? await friendViewModel.getRequest()
             }
             .listStyle(.inset)
-        }
+        
         .refreshable {
             Task {
                 try? await friendViewModel.getMyFriendsID()
@@ -220,7 +223,6 @@ extension FriendsView {
     
     private var subscribers: some View {
         
-        NavigationStack {
             
             if friendViewModel.mySubscribers.isEmpty && nameFriend.isEmpty {
                 
@@ -236,7 +238,7 @@ extension FriendsView {
                 }
             }
             
-            List {
+        return List {
                 
                 if !nameFriend.isEmpty {
                     if friendViewModel.mySubscribers.isEmpty {
@@ -259,7 +261,8 @@ extension FriendsView {
                         return self.nameFriend.isEmpty
                     }) { friend in
                         NavigationLink {
-                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
+//                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
+                            FriendHomeViewNew(viewModel: FriendHomeViewModel(friend: friend))
                         } label: {
                             FriendsCell(friend: friend)
                         }
@@ -272,7 +275,8 @@ extension FriendsView {
                         return self.nameFriend.isEmpty
                     }) { friend in
                         NavigationLink {
-                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
+//                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
+                            FriendHomeViewNew(viewModel: FriendHomeViewModel(friend: friend))
                         } label: {
                             FriendsCell(friend: friend)
                         }
@@ -281,7 +285,8 @@ extension FriendsView {
                 } else {
                     ForEach(friendViewModel.mySubscribers) { friend in
                         NavigationLink {
-                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
+//                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
+                            FriendHomeViewNew(viewModel: FriendHomeViewModel(friend: friend))
                         } label: {
                             FriendsCell(friend: friend)
                         }
@@ -312,7 +317,8 @@ extension FriendsView {
                         return self.nameFriend.isEmpty
                     }) { friend in
                         NavigationLink {
-                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
+//                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
+                            FriendHomeViewNew(viewModel: FriendHomeViewModel(friend: friend))
                         } label: {
                             FriendsCell(friend: friend)
                         }
@@ -325,7 +331,8 @@ extension FriendsView {
                         return self.nameFriend.isEmpty
                     }) { friend in
                         NavigationLink {
-                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
+//                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
+                            FriendHomeViewNew(viewModel: FriendHomeViewModel(friend: friend))
                         } label: {
                             FriendsCell(friend: friend)
                         }
@@ -342,7 +349,7 @@ extension FriendsView {
                 try? await friendViewModel.getMyRequestID()
                 try? await friendViewModel.getRequest()
             }
-        }
+        
         .refreshable {
             Task {
                 try? await friendViewModel.getMySubscribersID()
@@ -362,7 +369,8 @@ extension FriendsView {
             ForEach(friendViewModel.myRequest) { friend in
                 
                 NavigationLink {
-                    FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
+//                    FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
+                    FriendHomeViewNew(viewModel: FriendHomeViewModel(friend: friend))
                 } label: {
                     FriendsCell(friend: friend)
                 }

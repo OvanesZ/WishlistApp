@@ -116,11 +116,11 @@ struct FriendHomeView: View {
         .navigationTitle(title())
         .onAppear {
             viewModel.isStopListener = false
-            viewModel.fetchWishlistFriend()
+//            viewModel.fetchWishlistFriend()
         }
         .onDisappear {
             viewModel.isStopListener = true
-            viewModel.fetchWishlistFriend()
+//            viewModel.fetchWishlistFriend()
         }
         
         Divider()
@@ -184,13 +184,6 @@ struct FriendHomeView: View {
                 Spacer()
             }
         }
-            
-        
-        
-        
-        
-        
-        
     }
     
     func title() -> String {
