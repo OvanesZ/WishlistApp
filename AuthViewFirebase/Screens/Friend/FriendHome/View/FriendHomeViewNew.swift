@@ -14,7 +14,7 @@ struct FriendHomeViewNew: View {
     @State private var isButtonPressedUnsubscribe = false
     @Environment(\.dismiss) var dismiss
     @State private var isGoPresent = false
-    @State private var path = NavigationPath()
+//    @State private var path = NavigationPath()
     
     var columns: [GridItem] = [
         GridItem(.fixed(150), spacing: 20),
@@ -23,7 +23,7 @@ struct FriendHomeViewNew: View {
     
     
     var body: some View {
-        NavigationStack(path: $path) {
+//        NavigationStack(path: $path) {
             VStack {
                 
                 HeaderFriendCell(viewModel: viewModel)
@@ -124,81 +124,51 @@ struct FriendHomeViewNew: View {
             /// Нижняя часть экрана друзей
             
             if viewModel.isFriendForFriendstArr && viewModel.isIamFriend || viewModel.friend.userId == AuthService.shared.currentUser?.uid {
-                ScrollView {
-                    
-                                        Button {
-                                            path.append("friendList")
-                                        } label: {
-                                            VStack {
-                                                Spacer()
-                    
-                                                Text("Общий список")
-                                                    .font(.title3.bold())
-                                                    .foregroundStyle(.white)
-                                                    .padding(.bottom, 28)
-                                                    .padding(.trailing)
-                    
-                                            }
+                
+                ScrollView(.horizontal) {
+                    LazyHGrid(rows: [GridItem(.fixed(250))], spacing: 10) {
+                        Button {
+                            isGoPresent.toggle()
+                        } label: {
+                            VStack {
+                                Spacer()
+                                
+                                Text("Общий список")
+                                    .font(.title3.bold())
+                                    .foregroundStyle(.white)
+                                    .padding(.bottom, 28)
+                                    .padding(.trailing)
+                                
+                            }
+                            .frame(width: 170, height: 220)
+                            .background(
+                                
+                                RoundedRectangle(cornerRadius: 28)
+                                    .frame(width: 170, height: 220)
+                                    .overlay(
+                                        Image("presentList")
+                                            .resizable()
                                             .frame(width: 170, height: 220)
-                                            .background(
-                    
-                                                RoundedRectangle(cornerRadius: 28)
-                                                    .frame(width: 170, height: 220)
-                                                    .overlay(
-                                                        Image("presentList")
-                                                            .resizable()
-                                                            .frame(width: 170, height: 220)
-                                                            .scaledToFill()
-                                                            .cornerRadius(28)
-                                                            .colorMultiply(.gray)
-                                                    )
-                    
-                                            )
-                                        }
-//                                        .fullScreenCover(isPresented: $isGoPresent) {
-//                                            FriendListView(viewModel: viewModel)
-//                                        }
-                                        .navigationDestination(for: String.self) { value in
-                                                       if value == "friendList" {
-                                                           FriendListView(friend: viewModel.friend)
-                                                       }
-                                                   }
-                    
-                    
-//                    NavigationLink {
-//                        FriendListView(friend: viewModel.friend)
-//                    } label: {
-//                        VStack {
-//                            Spacer()
-//
-//                            Text("Общий список")
-//                                .font(.title3.bold())
-//                                .foregroundStyle(.white)
-//                                .padding(.bottom, 28)
-//                                .padding(.trailing)
-//
-//                        }
-//                        .frame(width: 170, height: 220)
-//                        .background(
-//
-//                            RoundedRectangle(cornerRadius: 28)
-//                                .frame(width: 170, height: 220)
-//                                .overlay(
-//                                    Image("presentList")
-//                                        .resizable()
-//                                        .frame(width: 170, height: 220)
-//                                        .scaledToFill()
-//                                        .cornerRadius(28)
-//                                        .colorMultiply(.gray)
-//                                )
-//
-//                        )
-//                    }
-                    
-                    
-                    
+                                            .scaledToFill()
+                                            .cornerRadius(28)
+                                            .colorMultiply(.gray)
+                                    )
+                                
+                            )
+                        }
+                        .fullScreenCover(isPresented: $isGoPresent) {
+                            NavigationStack {
+                                FriendListView(friend: viewModel.friend)
+                            }
+                            .presentationDetents([.large])
+                            .interactiveDismissDisabled(false)
+                        }
+                        
+                    }
+                    .padding(.leading, 8)
                 }
-                .padding(.top, -8)
+                
+                Spacer()
             } else {
                 
                 if viewModel.isFriendForFriendstArr {
@@ -239,7 +209,7 @@ struct FriendHomeViewNew: View {
                 
             }
             
-        } // NavStackPath
+//        } // NavStackPath
     } // body
     
     func title() -> String {

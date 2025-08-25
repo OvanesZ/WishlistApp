@@ -11,6 +11,7 @@ struct FriendListView: View {
     
     let friend: DBUser
     @StateObject private var viewModel: FriendHomeViewModel
+    @Environment(\.dismiss) var dismiss
     
 
     var columns: [GridItem] = [
@@ -25,44 +26,55 @@ struct FriendListView: View {
             )
         }
     
-    
-    
-    
     var body: some View {
-            ZStack {
-                    LazyVGrid (
-                        columns: columns,
-                        alignment: .center,
-                        spacing: 15,
-                        pinnedViews: [.sectionFooters]
-                    ) {
-                        Section() {
-                            //                            ForEach(viewModel.wishlist ?? [PresentModel(id: "", name: "", urlText: "", presentFromUserID: "", isReserved: false, presentDescription: "", ownerId: "", whoReserved: "")]) { present in
-                            //                                FriendPresentCellView(present: present, friend: viewModel.friend)
-                            //                            }
-                            
-                            ForEach(viewModel.wishlist ?? []) { present in
-                                NavigationLink {
-                                    PresentModalView(currentPresent: present, presentModelViewModel: PresentModelViewModel(present: present), currentList: nil)
-                                } label: {
-                                    PresentCellView(present: present)
-                                }
+        ZStack {
+            ScrollView {
+                LazyVGrid (
+                    columns: columns,
+                    alignment: .center,
+                    spacing: 15,
+                    pinnedViews: [.sectionFooters]
+                ) {
+                    Section() {
+                        
+                        ForEach(viewModel.wishlist ?? []) { present in
+                            NavigationLink {
+                                FriendPresentView(currentPresent: present, presentModelViewModel: PresentModelViewModel(present: present), friendViewModel: viewModel)
+//                                PresentModalView(currentPresent: present, presentModelViewModel: PresentModelViewModel(present: present), currentList: nil)
+                            } label: {
+                                FriendPresentCellView(present: present, friend: self.friend)
+//                                PresentCellView(present: present)
                             }
-                            
                         }
+                        
                     }
+                }
                 .padding(.top, -8)
                 
                 
                 Spacer()
             }
-        
-//        Text("Загрузка...")
-//                    .onAppear {
-//                        print("🟢 FriendListView: onAppear")
-//                    }
-        
-        
+            .navigationTitle("Общий список")
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    //                    Button("Назад") {
+                    //                        dismiss()
+                    //                    }
+                    Button {
+                        dismiss()
+                    } label: {
+                        HStack {
+                            Image(systemName: "chevron.backward")
+                                .bold()
+                            Text("Назад")
+                        }
+                    }
+                    
+                }
+            }
+            
+            
+        }
         }
 }
 

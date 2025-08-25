@@ -14,6 +14,7 @@ struct FriendsView: View {
     @ObservedObject var friendViewModel: FriendsViewModel
     @State var segmentedChoice = 0
     @State var nameFriend = ""
+//    @State private var path = NavigationPath()
     
     private let keyboardPublisher = Publishers.Merge(
         NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
