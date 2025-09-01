@@ -68,7 +68,8 @@ struct MainTabBar: View {
 //    }
     
     @State private var selectedTab: Tab = Tab.bookmark
-    @StateObject private var friendsViewModel: FriendsViewModel = FriendsViewModel()
+//    @StateObject private var friendsViewModel: FriendsViewModel = FriendsViewModel()
+    @StateObject private var friendsViewModel: FriendHomeViewModel = FriendHomeViewModel()
     @Binding var showSignInView: Bool
     
   var body: some View {

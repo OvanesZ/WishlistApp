@@ -183,7 +183,7 @@ struct FriendPresentCellView: View {
             )
         }
         .sheet(isPresented: $isCellPressed) {
-            FriendPresentView(currentPresent: present, presentModelViewModel: PresentModelViewModel(present: present), friendViewModel: FriendHomeViewModel(friend: friend))
+            FriendPresentView(friend: friend, presentModelViewModel: PresentModelViewModel(present: present), friendViewModel: FriendHomeViewModel(), currentPresent: present)
         }
         
         

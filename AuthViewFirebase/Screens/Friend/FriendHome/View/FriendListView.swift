@@ -10,21 +10,22 @@ import SwiftUI
 struct FriendListView: View {
     
     let friend: DBUser
-    @StateObject private var viewModel: FriendHomeViewModel
+    @ObservedObject var viewModel: FriendHomeViewModel
     @Environment(\.dismiss) var dismiss
     
-
+    
     var columns: [GridItem] = [
         GridItem(.fixed(150), spacing: 20),
         GridItem(.fixed(150), spacing: 20)
     ]
     
-    init(friend: DBUser) {
-            self.friend = friend
-            self._viewModel = StateObject(
-                wrappedValue: FriendHomeViewModel(friend: friend)
-            )
-        }
+    init(friend: DBUser, viewModel: FriendHomeViewModel) {
+        self.friend = friend
+//        self._viewModel = ObservedObject(
+//            wrappedValue: FriendHomeViewModel()
+//        )
+        self.viewModel = viewModel
+    }
     
     var body: some View {
         ZStack {
@@ -37,29 +38,23 @@ struct FriendListView: View {
                 ) {
                     Section() {
                         
-                        ForEach(viewModel.wishlist ?? []) { present in
+                        ForEach(viewModel.wishlist) { present in
                             NavigationLink {
-                                FriendPresentView(currentPresent: present, presentModelViewModel: PresentModelViewModel(present: present), friendViewModel: viewModel)
-//                                PresentModalView(currentPresent: present, presentModelViewModel: PresentModelViewModel(present: present), currentList: nil)
+                                FriendPresentView(friend: friend, presentModelViewModel: PresentModelViewModel(present: present), friendViewModel: FriendHomeViewModel(), currentPresent: present)
+                                //                                PresentModalView(currentPresent: present, presentModelViewModel: PresentModelViewModel(present: present), currentList: nil)
                             } label: {
                                 FriendPresentCellView(present: present, friend: self.friend)
-//                                PresentCellView(present: present)
+                                //                                PresentCellView(present: present)
                             }
                         }
-                        
                     }
                 }
                 .padding(.top, -8)
-                
-                
                 Spacer()
             }
             .navigationTitle("Общий список")
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    //                    Button("Назад") {
-                    //                        dismiss()
-                    //                    }
                     Button {
                         dismiss()
                     } label: {
@@ -69,13 +64,14 @@ struct FriendListView: View {
                             Text("Назад")
                         }
                     }
-                    
                 }
             }
-            
-            
         }
+        .onAppear {
+            viewModel.setupWishlistListener(userID: friend.userId)
         }
+    }
+    
 }
 
 #Preview {

@@ -12,7 +12,8 @@ struct FriendsCell: View {
     
     let friend: DBUser
     @State private var url: URL? = nil
-    @ObservedObject private var friendsViewModel: FriendsViewModel = FriendsViewModel()
+//    @ObservedObject private var friendsViewModel: FriendsViewModel = FriendsViewModel()
+    @ObservedObject var friendsViewModel: FriendHomeViewModel = FriendHomeViewModel()
     
     init(friend: DBUser) {
         self.friend = friend

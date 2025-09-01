@@ -34,11 +34,7 @@ struct UserListView: View {
     
     var body: some View {
         NavigationStack {
-            
             ZStack {
-                
-                
-                
                 // MARK: -- LazyVGrid
                 
                 ScrollView {

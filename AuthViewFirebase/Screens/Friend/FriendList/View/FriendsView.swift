@@ -11,7 +11,8 @@ import Combine
 
 struct FriendsView: View {
     
-    @ObservedObject var friendViewModel: FriendsViewModel
+//    @StateObject var friendViewModel: FriendsViewModel
+    @ObservedObject var friendViewModel: FriendHomeViewModel
     @State var segmentedChoice = 0
     @State var nameFriend = ""
 //    @State private var path = NavigationPath()
@@ -110,7 +111,7 @@ extension FriendsView {
                     }) { friend in
                         NavigationLink {
 //                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
-                            FriendHomeViewNew(viewModel: FriendHomeViewModel(friend: friend))
+                            FriendHomeViewNew(friend: friend)
                         } label: {
                             FriendsCell(friend: friend)
                         }
@@ -124,7 +125,7 @@ extension FriendsView {
                     }) { friend in
                         NavigationLink {
 //                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
-                            FriendHomeViewNew(viewModel: FriendHomeViewModel(friend: friend))
+                            FriendHomeViewNew(friend: friend)
                         } label: {
                             FriendsCell(friend: friend)
                         }
@@ -134,7 +135,7 @@ extension FriendsView {
                     ForEach(friendViewModel.myFriends) { friend in
                         NavigationLink {
 //                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
-                            FriendHomeViewNew(viewModel: FriendHomeViewModel(friend: friend))
+                            FriendHomeViewNew(friend: friend)
                         } label: {
                             FriendsCell(friend: friend)
                         }
@@ -168,7 +169,7 @@ extension FriendsView {
                     }) { friend in
                         NavigationLink {
 //                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
-                            FriendHomeViewNew(viewModel: FriendHomeViewModel(friend: friend))
+                            FriendHomeViewNew(friend: friend)
                         } label: {
                             FriendsCell(friend: friend)
                         }
@@ -182,7 +183,7 @@ extension FriendsView {
                     }) { friend in
                         NavigationLink {
 //                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
-                            FriendHomeViewNew(viewModel: FriendHomeViewModel(friend: friend))
+                            FriendHomeViewNew(friend: friend)
                         } label: {
                             FriendsCell(friend: friend)
                         }
@@ -263,7 +264,7 @@ extension FriendsView {
                     }) { friend in
                         NavigationLink {
 //                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
-                            FriendHomeViewNew(viewModel: FriendHomeViewModel(friend: friend))
+                            FriendHomeViewNew(friend: friend)
                         } label: {
                             FriendsCell(friend: friend)
                         }
@@ -277,7 +278,7 @@ extension FriendsView {
                     }) { friend in
                         NavigationLink {
 //                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
-                            FriendHomeViewNew(viewModel: FriendHomeViewModel(friend: friend))
+                            FriendHomeViewNew(friend: friend)
                         } label: {
                             FriendsCell(friend: friend)
                         }
@@ -287,7 +288,7 @@ extension FriendsView {
                     ForEach(friendViewModel.mySubscribers) { friend in
                         NavigationLink {
 //                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
-                            FriendHomeViewNew(viewModel: FriendHomeViewModel(friend: friend))
+                            FriendHomeViewNew(friend: friend)
                         } label: {
                             FriendsCell(friend: friend)
                         }
@@ -319,7 +320,7 @@ extension FriendsView {
                     }) { friend in
                         NavigationLink {
 //                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
-                            FriendHomeViewNew(viewModel: FriendHomeViewModel(friend: friend))
+                            FriendHomeViewNew(friend: friend)
                         } label: {
                             FriendsCell(friend: friend)
                         }
@@ -333,7 +334,7 @@ extension FriendsView {
                     }) { friend in
                         NavigationLink {
 //                            FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
-                            FriendHomeViewNew(viewModel: FriendHomeViewModel(friend: friend))
+                            FriendHomeViewNew(friend: friend)
                         } label: {
                             FriendsCell(friend: friend)
                         }
@@ -371,7 +372,7 @@ extension FriendsView {
                 
                 NavigationLink {
 //                    FriendHomeView(viewModel: FriendHomeViewModel(friend: friend))
-                    FriendHomeViewNew(viewModel: FriendHomeViewModel(friend: friend))
+                    FriendHomeViewNew(friend: friend)
                 } label: {
                     FriendsCell(friend: friend)
                 }

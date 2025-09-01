@@ -11,6 +11,10 @@ import Kingfisher
 struct FriendPresentView: View {
     
 
+    let friend: DBUser
+    
+   
+    
     // MARK: - properties
     
     let currentPresent: PresentModel
@@ -23,6 +27,12 @@ struct FriendPresentView: View {
     @State private var isShowPaymentViewController = false
     @State private var url: URL?
     
+    init(friend: DBUser, presentModelViewModel: PresentModelViewModel, friendViewModel: FriendHomeViewModel, currentPresent: PresentModel) {
+        self.friend = friend
+        self.presentModelViewModel = presentModelViewModel
+        self.friendViewModel = friendViewModel
+        self.currentPresent = currentPresent
+    }
  
     
     var body: some View {
@@ -136,7 +146,7 @@ struct FriendPresentView: View {
                     if currentPresent.whoReserved == AuthService.shared.currentUser?.uid {
                         Button(action: {
                             
-                            presentModelViewModel.unReservingPresentForUserID(currentPresent, friendViewModel.friend.userId)
+                            presentModelViewModel.unReservingPresentForUserID(currentPresent, friend.userId)
                             
                             Task {
                                 try await presentModelViewModel.deletePresentFriendPresentList(present: currentPresent)
@@ -159,11 +169,11 @@ struct FriendPresentView: View {
                     Button(action: {
                         
                         
-                        guard let userIsPremium = friendViewModel.dbUser?.isPremium else { return }
+                        guard let userIsPremium = friend.isPremium else { return }
                         
                         if userIsPremium {
                             
-                            presentModelViewModel.reservingPresentForUserID(currentPresent, friendViewModel.friend.userId)
+                            presentModelViewModel.reservingPresentForUserID(currentPresent, friend.userId)
                             
                             Task {
                                 try await presentModelViewModel.setFriendPresentList(present: currentPresent)

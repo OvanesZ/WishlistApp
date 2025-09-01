@@ -152,6 +152,31 @@ final class HomeViewModel: ObservableObject {
         
     }
     
+    func fetchOtherWishlistFriend(list: ListModel, friend: DBUser) {
+        
+        if let user = AuthService.shared.currentUser {
+            let docRef = Firestore.firestore().collection("users").document(friend.userId).collection("list").document(list.id).collection("otherWishlist")
+           
+            let listener = docRef.addSnapshotListener { (snapshot, error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                }
+                self.wishlist = snapshot?.documents.compactMap {
+                    try? $0.data(as: PresentModel.self)
+                } ?? []
+            }
+            if isStopListener {
+                listener.remove()
+                wishlist = []
+            }
+            
+        } else {
+            return
+        }
+        
+    }
+    
   
     
     

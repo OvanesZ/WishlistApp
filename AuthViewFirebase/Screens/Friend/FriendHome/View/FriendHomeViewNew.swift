@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FriendHomeViewNew: View {
     
-    @ObservedObject var viewModel: FriendHomeViewModel
+    @StateObject var viewModel: FriendHomeViewModel = FriendHomeViewModel()
     @State private var isButtonPressed = false
     @State private var isButtonPressedUnsubscribe = false
     @Environment(\.dismiss) var dismiss
@@ -22,13 +22,22 @@ struct FriendHomeViewNew: View {
     ]
     
     
+    let friend: DBUser
+    
+    init(friend: DBUser) {
+        self.friend = friend
+    }
+    
+    
+    
+    
     var body: some View {
-//        NavigationStack(path: $path) {
+        NavigationStack {
             VStack {
                 
-                HeaderFriendCell(viewModel: viewModel)
+                HeaderFriendCell(friend: friend, viewModel: viewModel)
                 
-                if viewModel.friend.userId == AuthService.shared.currentUser?.uid {
+                if friend.userId == AuthService.shared.currentUser?.uid {
                     Text("Ваша страница")
                         .font(.callout.italic())
                 } else {
@@ -53,7 +62,7 @@ struct FriendHomeViewNew: View {
                                 Button(role: .destructive) {
                                     
                                     Task {
-                                        try await viewModel.deleteFriend(friendId: viewModel.friend.userId)
+                                        try await viewModel.deleteFriend(friendId: friend.userId)
                                         dismiss()
                                     }
                                     
@@ -78,7 +87,7 @@ struct FriendHomeViewNew: View {
                             } else {
                                 
                                 Task {
-                                    try await viewModel.stepOneForAddFriend(friendId: viewModel.friend.userId)
+                                    try await viewModel.stepOneForAddFriend(friendId: friend.userId)
                                 }
                             }
                         } label: {
@@ -94,7 +103,7 @@ struct FriendHomeViewNew: View {
                             Button {
                                 
                                 Task {
-                                    try await viewModel.stepTwoAnswerToRequestPositive(friendId: viewModel.friend.userId)
+                                    try await viewModel.stepTwoAnswerToRequestPositive(friendId: friend.userId)
                                 }
                                 
                             } label: {
@@ -104,7 +113,7 @@ struct FriendHomeViewNew: View {
                             Button {
                                 
                                 Task {
-                                    try await viewModel.stepTwoAnswerToRequestNegative(friendId: viewModel.friend.userId)
+                                    try await viewModel.stepTwoAnswerToRequestNegative(friendId: friend.userId)
                                 }
                             } label: {
                                 Text("Отклонить")
@@ -117,13 +126,14 @@ struct FriendHomeViewNew: View {
             .navigationTitle(title())
             .onAppear {
                 viewModel.isStopListener = false
+                viewModel.isFriendOrNo(friend: friend)
             }
             
             Divider()
             
             /// Нижняя часть экрана друзей
             
-            if viewModel.isFriendForFriendstArr && viewModel.isIamFriend || viewModel.friend.userId == AuthService.shared.currentUser?.uid {
+            if viewModel.isFriendForFriendstArr && viewModel.isIamFriend || friend.userId == AuthService.shared.currentUser?.uid {
                 
                 ScrollView(.horizontal) {
                     LazyHGrid(rows: [GridItem(.fixed(250))], spacing: 10) {
@@ -158,14 +168,26 @@ struct FriendHomeViewNew: View {
                         }
                         .fullScreenCover(isPresented: $isGoPresent) {
                             NavigationStack {
-                                FriendListView(friend: viewModel.friend)
+                                FriendListView(friend: friend, viewModel: viewModel)
                             }
                             .presentationDetents([.large])
                             .interactiveDismissDisabled(false)
                         }
                         
+                        
+                        ForEach(viewModel.lists) { list in
+                                NavigationLink {
+                                    FriendUserListView(list: list, friend: friend)
+                                } label: {
+                                    ListCellView(list: list)
+                                }
+                        }
                     }
                     .padding(.leading, 8)
+                }
+                .onAppear {
+                    viewModel.fetchList(friend: friend)
+                    viewModel.setupWishlistListener(userID: friend.userId)
                 }
                 
                 Spacer()
@@ -209,17 +231,17 @@ struct FriendHomeViewNew: View {
                 
             }
             
-//        } // NavStackPath
+        } // NavStackPath
     } // body
     
     func title() -> String {
         
         var title: String = ""
         
-        if viewModel.friend.userName == nil && viewModel.friend.userSerName == nil {
-            title = "\(viewModel.friend.displayName ?? "")"
+        if friend.userName == nil && friend.userSerName == nil {
+            title = "\(friend.displayName ?? "")"
         } else {
-            title = "\(viewModel.friend.userName ?? "") \(viewModel.friend.userSerName ?? "")"
+            title = "\(friend.userName ?? "") \(friend.userSerName ?? "")"
         }
         
         return title

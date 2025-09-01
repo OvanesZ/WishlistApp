@@ -11,9 +11,14 @@ import Kingfisher
 struct HeaderFriendCell: View {
     
     @ObservedObject var viewModel: FriendHomeViewModel
+    let friend: DBUser
     @State private var isLoadImage = false
     @State private var url: URL? = nil
     
+    init(friend: DBUser, viewModel: FriendHomeViewModel) {
+        self.friend = friend
+        self.viewModel = viewModel
+    }
     
     var body: some View {
         
@@ -50,7 +55,7 @@ struct HeaderFriendCell: View {
                     .frame(height: 25)
                     .padding(.horizontal, 20)
                 
-                if let date = viewModel.friend.dateBirth {
+                if let date = friend.dateBirth {
                     Text("\(date.formatted(.dateTime.day().month().year().locale(Locale(identifier: "ru_RU"))))")
                         .font(.headline)
                         .frame(maxWidth: .infinity)
@@ -60,7 +65,7 @@ struct HeaderFriendCell: View {
             }
         }
         .task {
-            self.url = try? await viewModel.getUrlImageFriendAsync(id: viewModel.friend.userId)
+            self.url = try? await viewModel.getUrlImageFriendAsync(id: friend.userId)
         }
         .padding(.leading)
     }
