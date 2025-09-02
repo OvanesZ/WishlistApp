@@ -6,82 +6,13 @@
 //
 
 import SwiftUI
-//
-//struct FriendUserListView: View {
-//    
-//    let list: ListModel
-//    let friend: DBUser
-//    
-//  
-//    @StateObject private var viewModel = FriendHomeViewModel()
-//    @Environment(\.dismiss) var dismiss
-//    
-//    public init(list: ListModel, friend: DBUser) {
-//        self.list = list
-//        self.friend = friend
-//    }
-//    
-//    
-//    private var columns: [GridItem] = [
-//        GridItem(.fixed(150), spacing: 20),
-//        GridItem(.fixed(150), spacing: 20)
-//    ]
-//    
-//    
-//    
-//    var body: some View {
-////        NavigationStack {
-////            ZStack {
-//                // MARK: -- LazyVGrid
-//                
-////                ScrollView {
-////                    LazyVGrid(
-////                        columns: columns,
-////                        alignment: .center, // позволяет нам выровнять содержимое сетки с помощью перечисления HorizontalAlignment для LazyVGrid и VerticalAlignment для LazyHGrid. Работает так же, как stack alignment
-////                        spacing: 15, // расстояние между каждой строкой внутри
-////                        pinnedViews: [.sectionFooters]
-////                    ) {
-////                        Section() {
-////                            ForEach(viewModel.wishlist) { present in
-////                                NavigationLink {
-////                                    PresentModalView(currentPresent: present, presentModelViewModel: PresentModelViewModel(present: present), currentList: list)
-////                                } label: {
-////                                    PresentCellView(present: present)
-////                                }
-////                            }
-////                        }
-////                    }
-////                }
-////                .onAppear {
-////                    viewModel.isStopListener = false
-////                    viewModel.fetchOtherWishlist(list: list, friend: friend)
-////                }
-////                .onDisappear {
-////                    viewModel.isStopListener = true
-////                    viewModel.fetchOtherWishlist(list: list, friend: friend)
-////                }
-////                .background(
-////                    Image("bglogo_wishlist")
-////                    .resizable()
-////                    .scaledToFit()
-////                    .opacity(0.4)
-////                    .aspectRatio(contentMode: .fill)
-////                    .padding()
-////                )
-////                .navigationTitle(list.name)
-////            }
-//                
-//                Text("HELLO")
-//                    .font(.largeTitle)
-//            
-////        }
-//    }
-//}
-
 
 struct FriendUserListView: View {
     let list: ListModel
     let friend: DBUser
+    @ObservedObject var viewModel: FriendHomeViewModel
+    @Environment(\.dismiss) var dismiss
+    
     
     var columns: [GridItem] {
         [
@@ -89,13 +20,11 @@ struct FriendUserListView: View {
             GridItem(.fixed(150), spacing: 20)
         ]
     }
-
-    @StateObject private var viewModel = FriendHomeViewModel()
     
-    init(list: ListModel, friend: DBUser) {
+    init(list: ListModel, friend: DBUser, viewModel: FriendHomeViewModel) {
         self.list = list
         self.friend = friend
-        _viewModel = StateObject(wrappedValue: FriendHomeViewModel())
+        self.viewModel = viewModel
     }
 
     var body: some View {
@@ -131,7 +60,6 @@ struct FriendUserListView: View {
                 .padding()
         )
         .navigationTitle(list.name)
-            // .onDisappear { viewModel.stopListener() }
     }
 }
 

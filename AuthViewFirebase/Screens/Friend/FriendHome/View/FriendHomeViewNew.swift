@@ -137,22 +137,56 @@ struct FriendHomeViewNew: View {
                 
                 ScrollView(.horizontal) {
                     LazyHGrid(rows: [GridItem(.fixed(250))], spacing: 10) {
-                        Button {
-                            isGoPresent.toggle()
+//                        Button {
+//                            isGoPresent.toggle()
+//                        } label: {
+//                            VStack {
+//                                Spacer()
+//                                
+//                                Text("Общий список")
+//                                    .font(.title3.bold())
+//                                    .foregroundStyle(.white)
+//                                    .padding(.bottom, 28)
+//                                    .padding(.trailing)
+//                                
+//                            }
+//                            .frame(width: 170, height: 220)
+//                            .background(
+//                                
+//                                RoundedRectangle(cornerRadius: 28)
+//                                    .frame(width: 170, height: 220)
+//                                    .overlay(
+//                                        Image("presentList")
+//                                            .resizable()
+//                                            .frame(width: 170, height: 220)
+//                                            .scaledToFill()
+//                                            .cornerRadius(28)
+//                                            .colorMultiply(.gray)
+//                                    )
+//                                
+//                            )
+//                        }
+//                        .fullScreenCover(isPresented: $isGoPresent) {
+//                            NavigationStack {
+//                                FriendListView(friend: friend, viewModel: viewModel)
+//                            }
+//                            .presentationDetents([.large])
+//                            .interactiveDismissDisabled(false)
+//                        }
+                        
+                        NavigationLink {
+                            FriendListView(friend: friend, viewModel: viewModel)
                         } label: {
                             VStack {
                                 Spacer()
-                                
                                 Text("Общий список")
                                     .font(.title3.bold())
                                     .foregroundStyle(.white)
                                     .padding(.bottom, 28)
                                     .padding(.trailing)
-                                
                             }
                             .frame(width: 170, height: 220)
                             .background(
-                                
                                 RoundedRectangle(cornerRadius: 28)
                                     .frame(width: 170, height: 220)
                                     .overlay(
@@ -163,21 +197,13 @@ struct FriendHomeViewNew: View {
                                             .cornerRadius(28)
                                             .colorMultiply(.gray)
                                     )
-                                
                             )
-                        }
-                        .fullScreenCover(isPresented: $isGoPresent) {
-                            NavigationStack {
-                                FriendListView(friend: friend, viewModel: viewModel)
-                            }
-                            .presentationDetents([.large])
-                            .interactiveDismissDisabled(false)
                         }
                         
                         
                         ForEach(viewModel.lists) { list in
                                 NavigationLink {
-                                    FriendUserListView(list: list, friend: friend)
+                                    FriendUserListView(list: list, friend: friend, viewModel: viewModel)
                                 } label: {
                                     ListCellView(list: list)
                                 }

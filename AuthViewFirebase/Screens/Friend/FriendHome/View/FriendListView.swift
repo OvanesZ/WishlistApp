@@ -14,21 +14,19 @@ struct FriendListView: View {
     @Environment(\.dismiss) var dismiss
     
     
-    var columns: [GridItem] = [
-        GridItem(.fixed(150), spacing: 20),
-        GridItem(.fixed(150), spacing: 20)
-    ]
+    var columns: [GridItem] {
+        [
+            GridItem(.fixed(150), spacing: 20),
+            GridItem(.fixed(150), spacing: 20)
+        ]
+    }
     
     init(friend: DBUser, viewModel: FriendHomeViewModel) {
         self.friend = friend
-//        self._viewModel = ObservedObject(
-//            wrappedValue: FriendHomeViewModel()
-//        )
         self.viewModel = viewModel
     }
     
     var body: some View {
-        ZStack {
             ScrollView {
                 LazyVGrid (
                     columns: columns,
@@ -41,37 +39,27 @@ struct FriendListView: View {
                         ForEach(viewModel.wishlist) { present in
                             NavigationLink {
                                 FriendPresentView(friend: friend, presentModelViewModel: PresentModelViewModel(present: present), friendViewModel: FriendHomeViewModel(), currentPresent: present)
-                                //                                PresentModalView(currentPresent: present, presentModelViewModel: PresentModelViewModel(present: present), currentList: nil)
                             } label: {
-                                FriendPresentCellView(present: present, friend: self.friend)
-                                //                                PresentCellView(present: present)
+                                FriendPresentCellView(present: present, friend: friend)
                             }
                         }
                     }
                 }
-                .padding(.top, -8)
-                Spacer()
             }
+            .onAppear {
+                viewModel.setupWishlistListener(userID: friend.userId)
+            }
+            .background(
+                Image("bglogo_wishlist")
+                    .resizable()
+                    .scaledToFit()
+                    .opacity(0.4)
+                    .aspectRatio(contentMode: .fill)
+                    .padding()
+            )
             .navigationTitle("Общий список")
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        HStack {
-                            Image(systemName: "chevron.backward")
-                                .bold()
-                            Text("Назад")
-                        }
-                    }
-                }
-            }
-        }
-        .onAppear {
-            viewModel.setupWishlistListener(userID: friend.userId)
-        }
+        
     }
-    
 }
 
 #Preview {
