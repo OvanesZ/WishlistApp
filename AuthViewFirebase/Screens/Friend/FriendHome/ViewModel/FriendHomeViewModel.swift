@@ -25,26 +25,7 @@ class FriendHomeViewModel: ObservableObject {
     private var mySubscribersID: [String] = [" "]
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     @Published var isOtherWishlistLoaded = false
-    
-    
-    
     
     
     @Published var wishlist: [PresentModel] = []

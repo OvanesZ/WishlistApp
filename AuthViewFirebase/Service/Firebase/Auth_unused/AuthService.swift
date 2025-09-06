@@ -18,4 +18,3 @@ class AuthService {
         return auth.currentUser
     }
 }
-

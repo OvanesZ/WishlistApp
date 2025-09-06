@@ -163,7 +163,7 @@ struct PresentViewOtherList: View {
                     }
                 } else {
                     Button(action: {
-                        guard let userIsPremium = friend.isPremium else { return }
+                        guard let userIsPremium = friendViewModel.dbUser?.isPremium else { return }
                         
                         if userIsPremium {
                             
