@@ -68,5 +68,9 @@
 	<array/>
 	<key>NSPrivacyTracking</key>
 	<false/>
+	<key>UIBackgroundModes</key>
+	<array/>
+	<key>Item 0</key>
+	<string>remote-notification</string>
 </dict>
 </plist>
