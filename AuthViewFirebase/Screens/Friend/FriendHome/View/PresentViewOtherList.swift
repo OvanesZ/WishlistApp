@@ -1,18 +1,18 @@
 //
-//  FriendPresentView.swift
-//  AuthViewFirebase
+//  FriendPresentViewOtherList.swift
+//  Wishlist
 //
-//  Created by Ованес Захарян on 03.09.2023.
+//  Created by Ованес Захарян on 02.09.2025.
 //
 
 import SwiftUI
 import Kingfisher
 
-struct FriendPresentView: View {
+struct PresentViewOtherList: View {
     
 
     let friend: DBUser
-//    let list: ListModel
+    let list: ListModel
     
    
     
@@ -28,11 +28,12 @@ struct FriendPresentView: View {
     @State private var isShowPaymentViewController = false
     @State private var url: URL?
     
-    init(friend: DBUser, presentModelViewModel: PresentModelViewModel, friendViewModel: FriendHomeViewModel, currentPresent: PresentModel) {
+    init(friend: DBUser, presentModelViewModel: PresentModelViewModel, friendViewModel: FriendHomeViewModel, currentPresent: PresentModel, list: ListModel) {
         self.friend = friend
         self.presentModelViewModel = presentModelViewModel
         self.friendViewModel = friendViewModel
         self.currentPresent = currentPresent
+        self.list = list
     }
  
     
@@ -145,7 +146,7 @@ struct FriendPresentView: View {
                     if currentPresent.whoReserved == AuthService.shared.currentUser?.uid {
                         Button(action: {
                             
-                            presentModelViewModel.unReservingPresentForUserID(currentPresent, friend.userId)
+                            presentModelViewModel.unReservingPresentForListFriend(present: currentPresent, friend: friend, list: list)
                             
                             Task {
                                 try await presentModelViewModel.deletePresentFriendPresentList(present: currentPresent)
@@ -166,8 +167,7 @@ struct FriendPresentView: View {
                         
                         if userIsPremium {
                             
-                            presentModelViewModel.reservingPresentForUserID(currentPresent, friend.userId)
-                            
+                            presentModelViewModel.reservingPresentForListFriend(present: currentPresent, friend: friend, list: list)
                             Task {
                                 try await presentModelViewModel.setFriendPresentList(present: currentPresent)
                             }
@@ -208,4 +208,3 @@ struct FriendPresentView: View {
         .navigationTitle(presentModelViewModel.present.name)
     }
 }
-

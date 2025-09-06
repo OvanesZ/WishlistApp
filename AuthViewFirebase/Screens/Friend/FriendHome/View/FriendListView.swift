@@ -10,6 +10,7 @@ import SwiftUI
 struct FriendListView: View {
     
     let friend: DBUser
+    
     @ObservedObject var viewModel: FriendHomeViewModel
     @Environment(\.dismiss) var dismiss
     
@@ -38,7 +39,10 @@ struct FriendListView: View {
                         
                         ForEach(viewModel.wishlist) { present in
                             NavigationLink {
-                                FriendPresentView(friend: friend, presentModelViewModel: PresentModelViewModel(present: present), friendViewModel: FriendHomeViewModel(), currentPresent: present)
+                                FriendPresentView(friend: friend,
+                                                  presentModelViewModel: PresentModelViewModel(present: present),
+                                                  friendViewModel: FriendHomeViewModel(),
+                                                  currentPresent: present)
                             } label: {
                                 FriendPresentCellView(present: present, friend: friend)
                             }

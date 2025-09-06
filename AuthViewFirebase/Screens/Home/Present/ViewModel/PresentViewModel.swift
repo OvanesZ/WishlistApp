@@ -114,6 +114,41 @@ class PresentModelViewModel: ObservableObject {
         }
     }
     
+    //MARK: -- Резерв подарка в листе
+    
+    func reservingPresentForListFriend(present: PresentModel, friend: DBUser, list: ListModel) {
+        guard let user = currentUser else { return }
+        let docRef = Firestore.firestore().collection("users").document(friend.userId).collection("list").document(list.id).collection("otherWishlist").document(present.id)
+        
+        docRef.updateData([
+            "isReserved": true,
+            "whoReserved": user.uid
+        ]) { error in
+            if let error = error {
+                print("Ошибка при обновлении документа \(error)")
+            } else {
+                print("Документ обновлен успешно")
+            }
+        }
+    }
+    
+    //MARK: -- Отмена резерва подарка в листе
+    func unReservingPresentForListFriend(present: PresentModel, friend: DBUser, list: ListModel) {
+      
+        let docRef = Firestore.firestore().collection("users").document(friend.userId).collection("list").document(list.id).collection("otherWishlist").document(present.id)
+        
+        docRef.updateData([
+            "isReserved": false,
+            "whoReserved": ""
+        ]) { error in
+            if let error = error {
+                print("Ошибка при обновлении документа \(error)")
+            } else {
+                print("Документ обновлен успешно")
+            }
+        }
+    }
+    
     //MARK: -- Отмена резерва подарка без информации о друге
     func unReservingPresentForUserID(_ present: PresentModel, _ friendID: String) {
       

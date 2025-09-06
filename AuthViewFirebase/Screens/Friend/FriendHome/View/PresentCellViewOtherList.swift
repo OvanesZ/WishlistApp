@@ -1,17 +1,19 @@
 //
-//  FriendPresentCellView.swift
+//  PresentCellViewOtherList.swift
 //  Wishlist
 //
-//  Created by Ованес Захарян on 12.01.2024.
+//  Created by Ованес Захарян on 06.09.2025.
 //
 
 import SwiftUI
 import Kingfisher
 
-struct FriendPresentCellView: View {
+struct PresentCellViewOtherList: View {
     
     let present: PresentModel
     let friend: DBUser
+    let list: ListModel
+    
     @State var isShowPresentCell = false
     @State private var isLoadingImage = false
     @GestureState private var isLongPressed = false
@@ -20,9 +22,10 @@ struct FriendPresentCellView: View {
     @State private var isCellPressed = false
     
     // MARK: - init()
-    init(present: PresentModel, friend: DBUser) {
+    init(present: PresentModel, friend: DBUser, list: ListModel) {
         self.present = present
         self.friend = friend
+        self.list = list
     }
     
     var body: some View {
@@ -103,7 +106,7 @@ struct FriendPresentCellView: View {
             )
         }
         .sheet(isPresented: $isCellPressed) {
-            FriendPresentView(friend: friend, presentModelViewModel: PresentModelViewModel(present: present), friendViewModel: FriendHomeViewModel(), currentPresent: present)
+            PresentViewOtherList(friend: friend, presentModelViewModel: PresentModelViewModel(present: present), friendViewModel: FriendHomeViewModel(), currentPresent: present, list: list)
         }
         
         

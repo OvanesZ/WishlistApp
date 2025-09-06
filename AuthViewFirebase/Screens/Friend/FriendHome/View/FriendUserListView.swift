@@ -39,9 +39,9 @@ struct FriendUserListView: View {
                 Section() {
                     ForEach(viewModel.wishlist) { present in
                         NavigationLink {
-                            FriendPresentView(friend: friend, presentModelViewModel: PresentModelViewModel(present: present), friendViewModel: FriendHomeViewModel(), currentPresent: present)
+                            PresentViewOtherList(friend: friend, presentModelViewModel: PresentModelViewModel(present: present), friendViewModel: viewModel, currentPresent: present, list: list)
                         } label: {
-                            FriendPresentCellView(present: present, friend: friend)
+                            PresentCellViewOtherList(present: present, friend: friend, list: list)
                         }
                     }
                 }

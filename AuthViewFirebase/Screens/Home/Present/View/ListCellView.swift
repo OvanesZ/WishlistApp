@@ -28,11 +28,6 @@ struct ListCellView: View {
             
             
             HStack {
-//                Text("12.06.1991")
-//                    .font(.caption.bold())
-//                    .foregroundStyle(.white)
-//                    .padding(.bottom, 10)
-//                    .padding(.leading)
                 
                 Text(list.date.formatted(.dateTime.day().month().year().locale(Locale(identifier: "ru_RU"))))
                     .font(.caption.bold())

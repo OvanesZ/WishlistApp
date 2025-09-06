@@ -10,6 +10,8 @@
 		4E045B7F2B22049200DD2DD9 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E045B7E2B22049200DD2DD9 /* SettingsViewModel.swift */; };
 		4E045B812B2204C500DD2DD9 /* SettingsPersonalDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E045B802B2204C500DD2DD9 /* SettingsPersonalDataView.swift */; };
 		4E0A5ADC2B3BE0F400C8C4DB /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A5ADB2B3BE0F400C8C4DB /* CacheManager.swift */; };
+		4E0B177E2E6789900067BF65 /* PresentViewOtherList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0B177D2E6789900067BF65 /* PresentViewOtherList.swift */; };
+		4E0B23B12E6C3D60003A5749 /* PresentCellViewOtherList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0B23B02E6C3D60003A5749 /* PresentCellViewOtherList.swift */; };
 		4E19CD9F2AE1CF7F008AB36B /* FirstAppear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E19CD9E2AE1CF7F008AB36B /* FirstAppear.swift */; };
 		4E19CDA12AE30F59008AB36B /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E19CDA02AE30F59008AB36B /* SplashScreenView.swift */; };
 		4E19CDA32AE3135F008AB36B /* GochiHand-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EEF220C2AB8D4C9001B736F /* GochiHand-Regular.ttf */; };
@@ -50,7 +52,6 @@
 		4E7F8B9F2BE19632008DFB3B /* PayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7F8B9E2BE19632008DFB3B /* PayViewController.swift */; };
 		4E7F8BA22BE4CBE9008DFB3B /* TextFieldClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7F8BA12BE4CBE9008DFB3B /* TextFieldClearButton.swift */; };
 		4E8358772B5188A700A71A25 /* FriendPresentCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8358762B5188A700A71A25 /* FriendPresentCellView.swift */; };
-		4E9FC3562B8A3F1F00DB9215 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC3552B8A3F1F00DB9215 /* SwiftUIView.swift */; };
 		4E9FC3952BA50A6A00DB9215 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E9FC3942BA50A6A00DB9215 /* GoogleService-Info.plist */; };
 		4E9FC3992BAB7D6E00DB9215 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC3982BAB7D6E00DB9215 /* ImageLoader.swift */; };
 		4EC880702B849A33005E7835 /* ReservedPresentsCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC8806F2B849A33005E7835 /* ReservedPresentsCardCell.swift */; };
@@ -124,6 +125,8 @@
 		4E045B802B2204C500DD2DD9 /* SettingsPersonalDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPersonalDataView.swift; sourceTree = "<group>"; };
 		4E0A5ADB2B3BE0F400C8C4DB /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		4E0A5AE02B46E61000C8C4DB /* NeutralFace.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NeutralFace.otf; sourceTree = "<group>"; };
+		4E0B177D2E6789900067BF65 /* PresentViewOtherList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentViewOtherList.swift; sourceTree = "<group>"; };
+		4E0B23B02E6C3D60003A5749 /* PresentCellViewOtherList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentCellViewOtherList.swift; sourceTree = "<group>"; };
 		4E19CD9E2AE1CF7F008AB36B /* FirstAppear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstAppear.swift; sourceTree = "<group>"; };
 		4E19CDA02AE30F59008AB36B /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		4E19CDA92AE31EB7008AB36B /* Wishlist-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Wishlist-Info.plist"; sourceTree = "<group>"; };
@@ -152,7 +155,6 @@
 		4E7F8B9E2BE19632008DFB3B /* PayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayViewController.swift; sourceTree = "<group>"; };
 		4E7F8BA12BE4CBE9008DFB3B /* TextFieldClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldClearButton.swift; sourceTree = "<group>"; };
 		4E8358762B5188A700A71A25 /* FriendPresentCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendPresentCellView.swift; sourceTree = "<group>"; };
-		4E9FC3552B8A3F1F00DB9215 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		4E9FC3942BA50A6A00DB9215 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4E9FC3982BAB7D6E00DB9215 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		4EC8806F2B849A33005E7835 /* ReservedPresentsCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservedPresentsCardCell.swift; sourceTree = "<group>"; };
@@ -691,9 +693,10 @@
 				4E252FC22E5B267200DC9784 /* FriendListView.swift */,
 				4E252FC42E5D0C9900DC9784 /* FriendUserListView.swift */,
 				4EEF21FB2AA514E8001B736F /* FriendPresentView.swift */,
+				4E0B177D2E6789900067BF65 /* PresentViewOtherList.swift */,
 				4E8358762B5188A700A71A25 /* FriendPresentCellView.swift */,
+				4E0B23B02E6C3D60003A5749 /* PresentCellViewOtherList.swift */,
 				4EEF21F42AA3FF96001B736F /* HeaderFriendHome.swift */,
-				4E9FC3552B8A3F1F00DB9215 /* SwiftUIView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -866,7 +869,7 @@
 			files = (
 				4EEF21F52AA3FF96001B736F /* HeaderFriendHome.swift in Sources */,
 				4E0A5ADC2B3BE0F400C8C4DB /* CacheManager.swift in Sources */,
-				4E9FC3562B8A3F1F00DB9215 /* SwiftUIView.swift in Sources */,
+				4E0B177E2E6789900067BF65 /* PresentViewOtherList.swift in Sources */,
 				4ED21A452B091589001D016B /* RootView.swift in Sources */,
 				4ED389F22A924B1F007E30D1 /* MainTabBar.swift in Sources */,
 				4ED2F43C2B17095A00EE7004 /* UserManager.swift in Sources */,
@@ -896,6 +899,7 @@
 				4E3772642D3DA76000A5B120 /* UserListView.swift in Sources */,
 				4E252FC32E5B267200DC9784 /* FriendListView.swift in Sources */,
 				4EC880752B849AB8005E7835 /* ReservedPresentsCardFriendDataCell.swift in Sources */,
+				4E0B23B12E6C3D60003A5749 /* PresentCellViewOtherList.swift in Sources */,
 				4EEF22042AB65515001B736F /* StorageService.swift in Sources */,
 				4ED389C82A91574E007E30D1 /* AuthViewFirebaseApp.swift in Sources */,
 				4E3772622D3B111900A5B120 /* NewListView.swift in Sources */,
